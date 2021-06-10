@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Formik, Form } from "formik";
-import { AuthFormInput } from "./AuthFormInput";
-import { useAuth } from "../context/AuthContext";
-import { useHistory } from "react-router";
-import { Routes } from "../enums/routes.enum";
+import { AuthFormInput } from "../AuthenticationFormInput/AuthFormInput";
 
 interface AuthenticationFormProps {
   onSubmit: (email: string, password: string) => void;
   buttonText: string;
 }
 
-export interface AuthValues {
+interface AuthValues {
   email: string;
   password: string;
 }
@@ -25,13 +22,6 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
   onSubmit,
   buttonText,
 }) => {
-  const { currentUser } = useAuth();
-  const history = useHistory();
-
-  useEffect(() => {
-    if (currentUser) history.push(Routes.Home);
-  }, [currentUser, history]);
-
   return (
     <Formik
       initialValues={initialValues}

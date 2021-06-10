@@ -1,47 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 
 import { auth } from "../firebase";
-import { Routes } from "../enums/routes.enum";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { AuthContextType } from "./AuthContext.types";
 
-interface AuthContextType {
-  currentUser: firebase.User | null;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<firebase.auth.UserCredential>;
-  signUp: (
-    email: string,
-    password: string
-  ) => Promise<firebase.auth.UserCredential>;
-  logout: () => void;
-  resetPassword: (email: string) => Promise<void>;
-  updateEmail: (email: string) => Promise<void> | undefined;
-  updatePassword: (password: string) => Promise<void> | undefined;
-}
-
-const AuthContext = React.createContext<AuthContextType>({} as AuthContextType);
-
-// custom hook
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("AuthContext must be used inside of AuthContext.Provider");
-  }
-  return context;
-};
+export const AuthContext = React.createContext<AuthContextType>(
+  {} as AuthContextType
+);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isFirstEntry, setIsFirstEntry] = useLocalStorage("firstEntry", true);
 
   const signUp = (email: string, password: string) =>
     auth.createUserWithEmailAndPassword(email, password);
 
-  const login = (email: string, password: string) => {
-    return auth.signInWithEmailAndPassword(email, password);
-  };
-
+  const login = (email: string, password: string) =>
+    auth.signInWithEmailAndPassword(email, password);
   const logout = () => auth.signOut();
 
   const resetPassword = (email: string) => auth.sendPasswordResetEmail(email);
@@ -52,13 +29,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     currentUser?.updatePassword(password);
 
   useEffect(() => {
+    currentUser && setIsFirstEntry(false);
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
 
       return unsubscribe;
     });
-  }, []);
+  }, [currentUser, setIsFirstEntry]);
 
   const value = {
     currentUser,
@@ -68,6 +46,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     resetPassword,
     updateEmail,
     updatePassword,
+    setIsFirstEntry,
+    isFirstEntry,
   };
 
   return (
