@@ -1,6 +1,7 @@
 export interface AuthenticationFormProps {
   onSubmit: (email: string, password: string) => void;
   buttonText: string;
+  title: string;
   isRegisterForm?: boolean;
 }
 
