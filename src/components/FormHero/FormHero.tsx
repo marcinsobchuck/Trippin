@@ -1,15 +1,15 @@
 import React from "react";
 
-import { StyledLogo, Triangle, Wrapper } from "./FormHero.styled";
+import { Wrapper, StyledLogo, Triangle, ImageWrapper } from "./FormHero.styled";
 import triangle from "../../assets/triangle.png";
 
 export const FormHero: React.FC = () => {
   return (
-    <>
-      <Wrapper>
+    <Wrapper>
+      <ImageWrapper>
         <Triangle src={triangle} />
-      </Wrapper>
+      </ImageWrapper>
       <StyledLogo />
-    </>
+    </Wrapper>
   );
 };

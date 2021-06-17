@@ -16,4 +16,7 @@ export interface AuthContextType {
   updatePassword: (password: string) => Promise<void> | undefined;
   setIsFirstEntry: React.Dispatch<React.SetStateAction<boolean>>;
   isFirstEntry: boolean;
+  isVisible: boolean;
+  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  handleToggleVisibility: () => void;
 }

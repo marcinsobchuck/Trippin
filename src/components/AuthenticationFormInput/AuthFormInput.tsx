@@ -21,7 +21,7 @@ export const AuthFormInput: React.FC<AuthFormInputProps> = ({
 
   return (
     <Wrapper className={className}>
-      <StyledLabel htmlFor="">{label}</StyledLabel>
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
       <StyledInput
         {...field}
         type={type}

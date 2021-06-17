@@ -5,4 +5,5 @@ export enum FontSize {
   Medium = "18px",
   Big = "24px",
   BigXL = "30px",
+  BigXXL = "54px",
 }

@@ -22,6 +22,9 @@ export const StyledInput = styled.input`
   ::placeholder {
     color: ${Colors.Silver};
   }
+  :focus {
+    border-bottom: 2px solid ${Colors.LightBlue};
+  }
 `;
 
 export const ErrorStyled = styled.span`
