@@ -17,6 +17,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-inlinesvg": "^2.3.0",
+    "react-loader-spinner": "^4.0.0",
+    "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spring": "^9.2.3",
@@ -50,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "@types/yup": "^0.29.11"

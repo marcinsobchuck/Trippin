@@ -34,8 +34,8 @@ export const StyledForm = styled(Form)`
   flex-direction: column;
   align-items: center;
   @media ${Breakpoint.Desktop} {
-    width: 100%;
-    max-width: 360px;
+    min-width: 400px;
+    min-height: 640px;
   }
 `;
 

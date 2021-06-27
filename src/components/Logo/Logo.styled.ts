@@ -2,20 +2,24 @@ import styled from "styled-components";
 import svg from "react-inlinesvg";
 import { Colors } from "../../enums/colors.enum";
 
-export const LogoWrapper = styled.div`
+interface StyledLogoProps {
+  color?: string;
+}
+
+export const LogoWrapper = styled.div<StyledLogoProps>`
   display: flex;
   align-items: center;
   position: relative;
   width: 100px;
+  fill: ${({ color }) => (color ? color : Colors.DarkerBlue)};
+  color: ${({ color }) => (color ? color : Colors.DarkerBlue)};
 `;
 
 export const LogoIcon = styled(svg)`
   height: auto;
   width: 36px;
-  fill: ${Colors.DarkerBlue};
 `;
 export const LogoText = styled.p`
-  color: ${Colors.DarkerBlue};
   font-family: "Merriweather Sans", sans-serif;
   font-weight: 500;
   font-size: 18px;

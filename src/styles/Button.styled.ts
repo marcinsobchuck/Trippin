@@ -36,12 +36,10 @@ const ButtonStyles = {
       transform-origin: left;
       transition: 0.2s ease-in-out;
     }
-    :hover::before,
-    :focus::before {
+    :hover::before {
       transform: scaleX(1);
     }
-    :hover,
-    :focus {
+    :hover {
       color: ${Colors.DarkerBlue};
     }
   `,
@@ -49,7 +47,7 @@ const ButtonStyles = {
     color: ${Colors.DarkerBlue};
     border: 2px solid ${Colors.DarkerBlue};
     border-radius: 30px;
-    padding: 3px 0;
+    padding: 6px 0px;
     font-size: ${FontSize.Small};
     background-color: transparent;
   `,

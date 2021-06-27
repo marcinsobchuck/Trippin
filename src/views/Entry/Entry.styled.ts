@@ -26,38 +26,32 @@ export const StyledLink = styled(Link)`
   text-align: center;
 `;
 
-export const MobileWrapper = styled.div`
-  @media ${Breakpoint.Desktop} {
-    display: none;
-  }
-`;
+export const MobileWrapper = styled.div``;
 
 export const DesktopWrapper = styled.div`
-  display: none;
-  @media ${Breakpoint.Desktop} {
-    display: flex;
-    height: 100vh;
-    position: relative;
-  }
+  display: flex;
+  position: relative;
+  height: 100vh;
 `;
 
 export const DesktopFormWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  width: 60%;
+  height: 100vh;
 `;
 
 export const SideAction = styled.div`
   position: relative;
   background-image: url(${sideBarPhoto});
+  background-attachment: fixed;
   background-size: cover;
-  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
+  width: 100%;
+  height: 100vh;
 
   ::after {
     content: "";
@@ -66,7 +60,6 @@ export const SideAction = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-
     background: linear-gradient(
       190deg,
       rgba(0, 0, 0, 0),
@@ -78,10 +71,14 @@ export const SideAction = styled.div`
 `;
 
 export const SideBox = styled.div`
-  width: 340px;
+  width: 100%;
+  padding: 0 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 400px;
+  overflow-y: hidden;
+  position: relative;
 `;
 
 export const Heading = styled.h2`
@@ -95,7 +92,9 @@ export const Description = styled.p`
   color: ${Colors.White};
   font-size: ${FontSize.Medium};
   font-weight: ${FontWeight.Light};
-  margin: 60px 0;
+  margin: 60px auto;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
 `;
 

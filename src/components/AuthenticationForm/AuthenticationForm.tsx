@@ -11,7 +11,6 @@ import {
   AuthValues,
 } from "./AuthenticationForm.types";
 import {
-  FormWrapper,
   StyledForm,
   Title,
   ActionText,
@@ -23,6 +22,8 @@ import {
 import { Button, RedirectButton } from "../../styles/Button.styled";
 import { useAuth } from "../../hooks/useAuth";
 import { Routes } from "../../enums/routes.enum";
+import Loader from "react-loader-spinner";
+import { Colors } from "../../enums/colors.enum";
 
 const initialValues: AuthValues = {
   email: "",
@@ -46,81 +47,96 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={({ email, password }, { resetForm }) => {
-        onSubmit(email, password).catch((error) => setError(error.message));
+      onSubmit={async ({ email, password }, { resetForm, setSubmitting }) => {
+        setSubmitting(true);
+        await onSubmit(email, password).catch((error) =>
+          setError(error.message)
+        );
+        setSubmitting(false);
         resetForm();
       }}
       validationSchema={validationSchema}
     >
-      <StyledForm>
-        <Title>{title}</Title>
-        <AuthFormInput
-          type="email"
-          name="email"
-          label="E-mail"
-          placeholder="Type your e-mail here"
-        />
-        <AuthFormInput
-          name="password"
-          label="Password"
-          placeholder="Type your password here"
-          type="password"
-        />
-        {error && <Error>{error}</Error>}
-        {isRegisterForm && (
+      {({ isSubmitting }) => (
+        <StyledForm>
+          <Title>{title}</Title>
           <AuthFormInput
-            name="passwordConfirmation"
-            label="Password confirmation"
-            placeholder="Password confirmation"
+            type="email"
+            name="email"
+            label="E-mail"
+            placeholder="Type your e-mail here"
+          />
+          <AuthFormInput
+            name="password"
+            label="Password"
+            placeholder="Type your password here"
             type="password"
           />
-        )}
-        <ButtonsWrapper>
-          <Button width={200} variant="primary" type="submit">
-            {buttonText}
-          </Button>
-          <span>or</span>
-          <RedirectButton
-            variant="secondary"
-            width={160}
-            to={Routes.Home}
-            onClick={continueAsGuest}
-          >
-            Continue as a guest
-          </RedirectButton>
-        </ButtonsWrapper>
-        {isRegisterForm ? (
-          <ActionText>
-            Already registered?
-            <StyledButton
-              type="button"
-              variant="tertiary"
-              onClick={handleToggleVisibility}
+          {error && <Error>{error}</Error>}
+          {isRegisterForm && (
+            <AuthFormInput
+              name="passwordConfirmation"
+              label="Password confirmation"
+              placeholder="Password confirmation"
+              type="password"
+            />
+          )}
+          <ButtonsWrapper>
+            <Button width={200} variant="primary" type="submit">
+              {isSubmitting ? (
+                <Loader
+                  type="TailSpin"
+                  color={Colors.White}
+                  width={16}
+                  height={16}
+                />
+              ) : (
+                buttonText
+              )}
+            </Button>
+            <span>or</span>
+            <RedirectButton
+              variant="secondary"
+              width={200}
+              to={Routes.Home}
+              onClick={continueAsGuest}
             >
-              Log in
-            </StyledButton>
-          </ActionText>
-        ) : (
-          <>
+              Continue as a guest
+            </RedirectButton>
+          </ButtonsWrapper>
+          {isRegisterForm ? (
             <ActionText>
-              Not registered yet?
+              Already registered?
               <StyledButton
                 type="button"
                 variant="tertiary"
                 onClick={handleToggleVisibility}
               >
-                Create an account
+                Log in
               </StyledButton>
             </ActionText>
-            <StyledRedirectButton
-              variant="tertiary"
-              to={Routes.ForgottenPassword}
-            >
-              Forgot password?
-            </StyledRedirectButton>
-          </>
-        )}
-      </StyledForm>
+          ) : (
+            <>
+              <ActionText>
+                Not registered yet?
+                <StyledButton
+                  type="button"
+                  variant="tertiary"
+                  onClick={handleToggleVisibility}
+                >
+                  Create an account
+                </StyledButton>
+              </ActionText>
+              <StyledRedirectButton
+                variant="tertiary"
+                to={Routes.ForgottenPassword}
+              >
+                Forgot password?
+              </StyledRedirectButton>
+            </>
+          )}
+        </StyledForm>
+      )}
     </Formik>
   );
 };
