@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
-
 import { auth } from "../firebase";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { AuthContextType } from "./AuthContext.types";
@@ -13,9 +12,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFirstEntry, setIsFirstEntry] = useLocalStorage("firstEntry", true);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-
-  const handleToggleVisibility = () => setIsVisible((prev) => !prev);
 
   const signUp = (email: string, password: string) =>
     auth.createUserWithEmailAndPassword(email, password);
@@ -36,9 +32,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
-
-      return unsubscribe;
     });
+    return unsubscribe;
   }, [currentUser, setIsFirstEntry]);
 
   const value = {
@@ -51,9 +46,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     updatePassword,
     setIsFirstEntry,
     isFirstEntry,
-    isVisible,
-    setIsVisible,
-    handleToggleVisibility,
   };
 
   return (

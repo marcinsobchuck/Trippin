@@ -10,6 +10,7 @@ import {
 import { FormHero } from "../../components/FormHero/FormHero";
 import { useHistory } from "react-router-dom";
 import {
+  ErrorMesage,
   Information,
   InputContainer,
   StyledAuthFormInput,
@@ -49,31 +50,38 @@ export const ForgottenPassword: React.FC = () => {
               resetForm();
             }}
           >
-            <StyledForm>
-              <Title>Reset password</Title>
-              <InputContainer>
-                <StyledAuthFormInput
-                  label="E-mail"
-                  name="email"
-                  placeholder="Type your e-mail here"
-                  type="email"
-                />
-                {succesMsg && <Information>{succesMsg}</Information>}
-                {error && <Information>{error}</Information>}
-              </InputContainer>
+            {({ dirty }) => (
+              <StyledForm>
+                <Title>Reset password</Title>
+                <InputContainer>
+                  <StyledAuthFormInput
+                    label="E-mail"
+                    name="email"
+                    placeholder="Type your e-mail here"
+                    type="email"
+                  />
+                  {succesMsg && <Information>{succesMsg}</Information>}
+                  {error && <ErrorMesage>{error}</ErrorMesage>}
+                </InputContainer>
 
-              <Button variant="primary" width={200} type="submit">
-                Reset password
-              </Button>
-              <StyledButton
-                variant="secondary"
-                width={160}
-                type="button"
-                onClick={handleGoBack}
-              >
-                Go back
-              </StyledButton>
-            </StyledForm>
+                <Button
+                  variant="primary"
+                  width={200}
+                  type="submit"
+                  disabled={!dirty}
+                >
+                  Reset password
+                </Button>
+                <StyledButton
+                  variant="secondary"
+                  width={160}
+                  type="button"
+                  onClick={handleGoBack}
+                >
+                  Go back
+                </StyledButton>
+              </StyledForm>
+            )}
           </Formik>
         </FormWrapper>
       </Wrapper>

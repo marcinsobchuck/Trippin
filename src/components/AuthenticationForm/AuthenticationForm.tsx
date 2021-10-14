@@ -36,14 +36,18 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
   buttonText,
   title,
   isRegisterForm,
+  handleToggleMobileAnimation,
 }) => {
+  const [error, setError] = useState<string>();
+
+  const { setIsFirstEntry } = useAuth();
+
+  const continueAsGuest = () => setIsFirstEntry(false);
+
   const validationSchema = isRegisterForm
     ? registerValidationSchema
     : loginValidationSchema;
-  const { setIsFirstEntry, handleToggleVisibility } = useAuth();
-  const [error, setError] = useState<string>();
 
-  const continueAsGuest = () => setIsFirstEntry(false);
   return (
     <Formik
       initialValues={initialValues}
@@ -110,7 +114,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
               <StyledButton
                 type="button"
                 variant="tertiary"
-                onClick={handleToggleVisibility}
+                onClick={handleToggleMobileAnimation}
               >
                 Log in
               </StyledButton>
@@ -122,7 +126,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
                 <StyledButton
                   type="button"
                   variant="tertiary"
-                  onClick={handleToggleVisibility}
+                  onClick={handleToggleMobileAnimation}
                 >
                   Create an account
                 </StyledButton>

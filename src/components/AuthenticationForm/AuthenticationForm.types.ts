@@ -8,6 +8,7 @@ export interface AuthenticationFormProps {
   buttonText: string;
   title: string;
   isRegisterForm?: boolean;
+  handleToggleMobileAnimation?: () => void;
 }
 
 export interface AuthValues {

@@ -10,7 +10,6 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
     font-family: 'Poppins', sans-serif;
     outline: none;
-    overflow-x: hidden;
 }
 
 button {

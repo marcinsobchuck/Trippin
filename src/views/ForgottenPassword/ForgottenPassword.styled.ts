@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { FontSize } from "../../enums/fontSize.enum";
 import { AuthFormInput } from "../../components/AuthenticationFormInput/AuthFormInput";
 import { Button } from "../../styles/Button.styled";
 import { Breakpoint } from "../../enums/breakpoint.enum";
+import { Colors } from "../../enums/colors.enum";
 
 export const Wrapper = styled.div`
   margin: 0 auto;
@@ -27,9 +27,14 @@ export const StyledAuthFormInput = styled(AuthFormInput)`
 `;
 
 export const Information = styled.p`
-  font-size: ${FontSize.Regular};
   text-align: center;
-  margin-top: 10px;
+  margin-top: 20px;
+  color: ${Colors.DarkBlue};
+`;
+export const ErrorMesage = styled.p`
+  text-align: center;
+  margin-top: 20px;
+  color: ${Colors.Red};
 `;
 
 export const StyledButton = styled(Button)`

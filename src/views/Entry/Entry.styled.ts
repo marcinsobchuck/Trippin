@@ -9,7 +9,7 @@ import sideBarPhoto from "../../assets/sidebarphoto.jpg";
 
 export const FormWrapper = styled.div`
   margin: 0 auto;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   padding: 0px 20px;
   max-width: 320px;
   overflow: hidden;
@@ -77,7 +77,7 @@ export const SideBox = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 400px;
-  overflow-y: hidden;
+  overflow: hidden;
   position: relative;
 `;
 
