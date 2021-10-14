@@ -59,7 +59,14 @@ const ButtonStyles = {
     text-align: center;
     background-color: transparent;
   `,
-  quaternary: css``,
+  quaternary: css`
+    font-size: ${FontSize.Big};
+    font-weight: ${FontWeight.SemiBold};
+    color: ${Colors.White};
+    background-color: ${Colors.LightBlue};
+    border-radius: 3px;
+    padding: 8px 24px;
+  `,
 };
 
 const getSharedStyles = (width?: number) => css`

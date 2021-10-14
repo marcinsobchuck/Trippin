@@ -6,5 +6,7 @@ export enum Colors {
   Silver = "#d4d4d4",
   Red = "#ff3333",
   White = "#ffffff",
+  WhiteOpacity = "#ffffff4D",
   Black = "#000000",
+  BlackOpacity = "#000000CC",
 }
