@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import formHero from "../../assets/formHero.jpg";
+import formHero from "src/assets/images/formHero.jpg";
 import { Breakpoint } from "../../enums/breakpoint.enum";
-
 import { Logo } from "../Logo/Logo";
 
 export const Wrapper = styled.div`

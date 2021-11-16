@@ -1,7 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { Footer } from "src/components/Footer/Footer";
 
-import { SearchDestinationSection } from "../../components/SearchDestinationSection/SearchDestinationSection";
+import { SearchDestinationSection } from "../../components/Search/components/SearchDestinationSection/SearchDestinationSection";
+import { Search } from "../../components/Search/Search";
 
 import { Routes } from "../../enums/routes.enum";
 import { useAuth } from "../../hooks/useAuth";
@@ -11,8 +13,10 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <SearchDestinationSection />
-
+      <Search>
+        <SearchDestinationSection />
+      </Search>
+      <Footer />
       {isFirstEntry && !currentUser && <Redirect to={Routes.Entry} />}
     </>
   );

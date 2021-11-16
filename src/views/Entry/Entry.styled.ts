@@ -5,7 +5,7 @@ import { Colors } from "../../enums/colors.enum";
 import { FontSize } from "../../enums/fontSize.enum";
 import { FontWeight } from "../../enums/fontWeight.enum";
 import { Button } from "../../styles/Button.styled";
-import sideBarPhoto from "../../assets/sidebarphoto.jpg";
+import sideBarPhoto from "src/assets/images/sidebarphoto.jpg";
 
 export const FormWrapper = styled.div`
   margin: 0 auto;

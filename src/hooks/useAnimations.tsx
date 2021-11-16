@@ -3,7 +3,7 @@ import { useSpring, useTransition } from "react-spring";
 
 export const useAnimations = () => {
   const [toggleMobileAnimation, setToggleMobileAnimation] =
-    useState<boolean>(false);
+    useState<boolean>(true);
   const [toggleDesktopAnimation, setToggleDesktopAnimation] =
     useState<boolean>(true);
 

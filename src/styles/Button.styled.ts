@@ -19,7 +19,7 @@ const ButtonStyles = {
     background-color: ${Colors.DarkerBlue};
     font-weight: ${FontWeight.Medium};
     color: ${Colors.White};
-    border: 2px solid transparent;
+    border: 2px solid ${Colors.DarkerBlue};
     z-index: 1;
     padding: 10px 20px;
 
@@ -34,7 +34,7 @@ const ButtonStyles = {
       z-index: -1;
       transform: scaleX(0);
       transform-origin: left;
-      transition: 0.2s ease-in-out;
+      transition: 0.2s;
     }
     :hover::before {
       transform: scaleX(1);
@@ -60,12 +60,18 @@ const ButtonStyles = {
     background-color: transparent;
   `,
   quaternary: css`
-    font-size: ${FontSize.Big};
+    font-size: ${FontSize.Medium};
     font-weight: ${FontWeight.SemiBold};
     color: ${Colors.White};
     background-color: ${Colors.LightBlue};
     border-radius: 3px;
     padding: 8px 24px;
+    :hover {
+      background-color: ${Colors.Blue};
+    }
+    :active {
+      background-color: ${Colors.DarkBlue};
+    }
   `,
 };
 

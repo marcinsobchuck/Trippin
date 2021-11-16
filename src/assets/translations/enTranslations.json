@@ -1,0 +1,38 @@
+{
+  "views": {
+    "entry": {},
+    "home": {
+      "places": {
+        "xd": "Angielskie XD"
+      },
+      "labels": {
+        "start": "Start",
+        "destination": "Destination",
+        "depart": "Depart",
+        "return": "Return"
+      },
+      "placeholders": {
+        "start": "Start",
+        "destination": "Destination",
+        "depart": "Depart date",
+        "return": "Return date"
+      },
+      "buttons": {
+        "search": "Search flights"
+      },
+      "recommended": {
+        "barcelona": "Barcelona",
+        "moscow": "Moscow",
+        "copenhagen": "Copenhagen",
+        "london": "London",
+        "los angeles": "Los Angeles",
+        "budapest": "Budapest",
+        "oslo": "Oslo",
+        "paris": "Paris",
+        "rome": "Rome",
+        "venice": "Venice",
+        "vienna": "Vienna"
+      }
+    }
+  }
+}

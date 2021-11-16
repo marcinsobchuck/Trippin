@@ -1,0 +1,38 @@
+{
+  "views": {
+    "entry": {},
+    "home": {
+      "places": {
+        "xd": "Polskie XD"
+      },
+      "labels": {
+        "start": "Start",
+        "destination": "Cel podróży",
+        "depart": "Wylot",
+        "return": "Powrót"
+      },
+      "placeholders": {
+        "start": "Start",
+        "destination": "Cel podróży",
+        "depart": "Wylot",
+        "return": "Powrót"
+      },
+      "buttons": {
+        "search": "Szukaj lotów"
+      },
+      "recommended": {
+        "barcelona": "Barcelona",
+        "moscow": "Moskwa",
+        "copenhagen": "Kopenhaga",
+        "london": "Londyn",
+        "los angeles": "Los Angeles",
+        "budapest": "Budapeszt",
+        "oslo": "Oslo",
+        "paris": "Paryż",
+        "rome": "Rzym",
+        "venice": "Wenecja",
+        "vienna": "Wiedeń"
+      }
+    }
+  }
+}

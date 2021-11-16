@@ -7,8 +7,8 @@ export interface AuthenticationFormProps {
   ) => Promise<firebase.auth.UserCredential>;
   buttonText: string;
   title: string;
-  isRegisterForm?: boolean;
   handleToggleMobileAnimation?: () => void;
+  isRegisterForm?: boolean;
 }
 
 export interface AuthValues {

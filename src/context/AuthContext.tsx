@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase/app";
 import { auth } from "../firebase";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { AuthContextType } from "./AuthContext.types";
+import { AuthContextType, RegionalSettingsTypes } from "./AuthContext.types";
+import usaFlag from "src/assets/images/usaFlag.png";
+import dollar from "src/assets/images/dollar.png";
 
 export const AuthContext = React.createContext<AuthContextType>(
   {} as AuthContextType
@@ -12,6 +14,19 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFirstEntry, setIsFirstEntry] = useLocalStorage("firstEntry", true);
+  const [regionalSettings, setRegionalSettings] =
+    useLocalStorage<RegionalSettingsTypes>("regionalSettings", {
+      language: {
+        language: "English",
+        languageCode: "en",
+        flag: usaFlag,
+      },
+      currency: {
+        currency: "U.S. Dollar",
+        currencyCode: "USD",
+        currencyIcon: dollar,
+      },
+    });
 
   const signUp = (email: string, password: string) =>
     auth.createUserWithEmailAndPassword(email, password);
@@ -33,6 +48,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setCurrentUser(user);
       setLoading(false);
     });
+
     return unsubscribe;
   }, [currentUser, setIsFirstEntry]);
 
@@ -46,6 +62,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     updatePassword,
     setIsFirstEntry,
     isFirstEntry,
+    regionalSettings,
+    setRegionalSettings,
   };
 
   return (
