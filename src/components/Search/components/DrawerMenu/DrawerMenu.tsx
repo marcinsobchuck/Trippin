@@ -69,7 +69,11 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
           </RegionalSettingsMenuItem>
           <LinksWrapper>
             {menuItems.map((item) => (
-              <MenuItem $isDisabled={!currentUser} to={item.route}>
+              <MenuItem
+                key={item.text}
+                $isDisabled={!currentUser}
+                to={item.route}
+              >
                 <ItemText>{item.text}</ItemText>
               </MenuItem>
             ))}

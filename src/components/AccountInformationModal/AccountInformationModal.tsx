@@ -32,7 +32,11 @@ export const AccountInformationModal: React.FC<{
         >
           <Wrapper>
             {menuItems.map((item) => (
-              <StyledText $isDisabled={!currentUser} to={item.route}>
+              <StyledText
+                key={item.text}
+                $isDisabled={!currentUser}
+                to={item.route}
+              >
                 {item.text}
               </StyledText>
             ))}

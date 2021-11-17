@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { Colors } from "../../enums/colors.enum";
-import { FontSize } from "../../enums/fontSize.enum";
-import { FontWeight } from "../../enums/fontWeight.enum";
+import { Colors } from "src/enums/colors.enum";
+import { FontSize } from "src/enums/fontSize.enum";
+import { FontWeight } from "src/enums/fontWeight.enum";
 import { Form } from "formik";
-import { Button, RedirectButton } from "../../styles/Button.styled";
-import { Breakpoint } from "../../enums/breakpoint.enum";
+import { Button, RedirectButton } from "src/styles/Button.styled";
+import { Breakpoint } from "src/enums/breakpoint.enum";
 
 export const Wrapper = styled.div`
   display: flex;

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Breakpoint } from "../../enums/breakpoint.enum";
-import { Colors } from "../../enums/colors.enum";
-import { FontSize } from "../../enums/fontSize.enum";
-import { FontWeight } from "../../enums/fontWeight.enum";
-import { Button } from "../../styles/Button.styled";
+import { Breakpoint } from "src/enums/breakpoint.enum";
+import { Colors } from "src/enums/colors.enum";
+import { FontWeight } from "src/enums/fontWeight.enum";
+import { Button } from "src/styles/Button.styled";
 import sideBarPhoto from "src/assets/images/sidebarphoto.jpg";
+import { FontSize } from "src/enums/fontSize.enum";
 
 export const FormWrapper = styled.div`
   margin: 0 auto;
