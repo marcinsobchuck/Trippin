@@ -44,6 +44,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     currentUser && setIsFirstEntry(false);
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);

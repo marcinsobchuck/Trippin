@@ -24,6 +24,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Routes } from "../../enums/routes.enum";
 import Loader from "react-loader-spinner";
 import { Colors } from "../../enums/colors.enum";
+import { useHistory } from "react-router-dom";
 
 const initialValues: AuthValues = {
   email: "",
@@ -48,6 +49,8 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
     ? registerValidationSchema
     : loginValidationSchema;
 
+  const history = useHistory();
+
   return (
     <Formik
       initialValues={initialValues}
@@ -58,6 +61,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
         );
         setSubmitting(false);
         resetForm();
+        history.push("/");
       }}
       validationSchema={validationSchema}
     >

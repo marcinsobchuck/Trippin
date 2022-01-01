@@ -1,6 +1,4 @@
 import { AuthenticationForm } from "../../components/AuthenticationForm/AuthenticationForm";
-import { Redirect } from "react-router-dom";
-import { Routes } from "../../enums/routes.enum";
 import { useAuth } from "../../hooks/useAuth";
 import {
   Description,
@@ -22,7 +20,7 @@ import { Logo } from "../../components/Logo/Logo";
 import { useAnimations } from "../../hooks/useAnimations";
 
 export const Entry: React.FC = () => {
-  const { signUp, login, currentUser } = useAuth();
+  const { signUp, login } = useAuth();
 
   const isDesktop = useMediaQuery({
     query: `${Breakpoint.Desktop}`,
@@ -166,7 +164,6 @@ export const Entry: React.FC = () => {
           </FormWrapper>
         </MobileWrapper>
       )}
-      {currentUser && <Redirect to={Routes.Home} />}
     </>
   );
 };
