@@ -1,19 +1,17 @@
-import { SearchActions } from "../searchActions.enum";
+import { SearchActions } from "../enums/searchActions.enum";
 
-export interface SearchState {
-  result: number;
-  test?: string;
+export type SearchState = {
+  place: string;
+  hasRecommendedPlaceChanged: boolean;
+};
+export interface SetPlaceAction {
+  type: SearchActions.SET_PLACE;
+  payload: string;
 }
 
-export interface IncrementAction {
-  type: SearchActions.Increment;
-  text: string;
-  payload: number;
+export interface SetHasRecommendedPlaceChangedAction {
+  type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED;
+  payload: boolean;
 }
 
-export interface DecrementAction {
-  type: SearchActions.Decrement;
-  payload: number;
-}
-
-export type SearchAction = IncrementAction | DecrementAction;
+export type SearchAction = SetPlaceAction | SetHasRecommendedPlaceChangedAction;

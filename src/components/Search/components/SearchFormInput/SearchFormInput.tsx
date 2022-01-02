@@ -30,6 +30,9 @@ import { Button } from "src/styles/Button.styled";
 import { useCodes } from "src/apiServices/hooks/useCodes";
 import { LocationsType } from "src/enums/locationsType.enum";
 import { Breakpoint } from "src/enums/breakpoint.enum";
+import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
+import { useSearchContext } from "../../hooks/useSearchContext";
+import { SearchActions } from "../../reducer/enums/searchActions.enum";
 
 export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   label,
@@ -41,7 +44,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   setHasCurrentRecommendedPlacesChanged,
   ...props
 }) => {
-  const [place, setPlace] = useState<string>("");
+  // const [place, setPlace] = useState<string>("");
   const [currentCodes, setCurrentCodes] = useState<string[]>([]);
 
   const [, , helpers] = useField(props);
@@ -50,10 +53,16 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     query: `${Breakpoint.TabletS}`,
   });
 
+  const [state, dispatch] = useSearchContext();
+
+  const { place } = state;
+
+  console.log(place);
+
   const { data: codes } = useCodes();
   const { data, refetch, isFetching } = useLocations({
     term: place,
-    limit: 6,
+    limit: isTabletS ? 6 : 10,
     location_types: ["airport", "city", "country"],
     sort: "name",
   });
@@ -147,7 +156,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     }
 
     if (inputValue && inputValue !== "anywhere") {
-      setPlace(inputValue);
+      dispatch({ type: SearchActions.SET_PLACE, payload: inputValue });
       setValue(selectedItem ? selectedItem.id : "");
     }
   };
@@ -187,6 +196,20 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     hasCurrentRecommendedPlacesChanged,
     setInputValue,
   ]);
+
+  useLockBodyScroll(!isTabletS && isOpen);
+
+  //  useEffect(() => {
+  //    if (id === "start") {
+  //      dispatch("changeStart", inputValue)
+  //    }
+  //    if (id === "destination") {
+  //     dispatch("changeDestination", inputValue)
+  //   }
+  //    }
+  //  }, [dispatch]);
+
+  //   console.log(inputValue);
 
   return (
     <InputWrapper isFullscreen={!isTabletS && isOpen} {...getComboboxProps()}>

@@ -1,10 +1,10 @@
 import React, { useReducer, useMemo } from "react";
 import { SearchContext } from "./context/search.context";
 import { SearchContextValue } from "./context/search.types";
-import { initialState, searchReducer } from "./reducer/search.reducer";
+import { initialState, reducer } from "./reducer/search.reducer";
 
 export const Search: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(searchReducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const value: SearchContextValue = useMemo(() => {
     return [state, dispatch];

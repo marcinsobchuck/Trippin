@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { ReactQueryProvider } from "./context/QueryClientProvider";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { I18nextProvider } from "react-i18next";
 import i18n from "src/i18n";
 
@@ -12,6 +13,7 @@ ReactDOM.render(
       <AuthProvider>
         <ReactQueryProvider>
           <App />
+          <ReactQueryDevtools />
         </ReactQueryProvider>
       </AuthProvider>
     </I18nextProvider>

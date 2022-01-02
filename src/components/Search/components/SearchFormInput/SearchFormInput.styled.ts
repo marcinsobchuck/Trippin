@@ -103,7 +103,7 @@ export const StyledInput = styled.input<SharedProps>`
 `;
 
 export const StyledList = styled.ul<SharedProps>`
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 11;
   top: 72px;
