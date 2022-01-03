@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { SearchFormInitialValues } from "./SearchForm.types";
 import { useSearchContext } from "../../hooks/useSearchContext";
 import { SearchActions } from "../../reducer/enums/searchActions.enum";
+import { SearchFormRadio } from "../SearchFormRadio/SearchFormRadio";
 
 export const SearchForm: React.FC = () => {
   const initialValues: SearchFormInitialValues = {
@@ -17,6 +18,7 @@ export const SearchForm: React.FC = () => {
       depart: "",
       return: "",
     },
+    flightType: "round",
   };
 
   const [state, dispatch] = useSearchContext();
@@ -44,11 +46,13 @@ export const SearchForm: React.FC = () => {
           console.log(
             `Start:${values.start}`,
             `Destynacja:${values.destination}`,
-            `Data: ${values.date.depart} ${values.date.return}`
+            `Data: ${values.date.depart} ${values.date.return}`,
+            `Typ lotu: ${values.flightType}`
           );
         }}
       >
         <StyledForm>
+          <SearchFormRadio name="flightType" />
           <InputsWrapper>
             <SearchFormInput
               label={t("views.home.labels.start")}

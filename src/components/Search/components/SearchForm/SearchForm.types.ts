@@ -5,4 +5,5 @@ export interface SearchFormInitialValues {
     depart: string;
     return: string;
   };
+  flightType: "round" | "oneway";
 }

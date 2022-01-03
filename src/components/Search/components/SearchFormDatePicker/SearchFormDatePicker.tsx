@@ -17,6 +17,7 @@ import { Breakpoint } from "../../../../enums/breakpoint.enum";
 import { useField } from "formik";
 import { SearchFormDatePickerProps } from "./SearchFormDatePicker.types";
 import { useTranslation } from "react-i18next";
+import { useSearchContext } from "../../hooks/useSearchContext";
 
 export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
   ...props
@@ -52,6 +53,8 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
 
   const { t } = useTranslation();
 
+  const [state] = useSearchContext();
+
   const renderCalendarInfo = () => {
     return (
       <InfoWrapper>
@@ -79,7 +82,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
           <DateRangePicker
             startDate={startDate}
             startDateId="depart-date"
-            endDate={endDate}
+            endDate={state.flightType === "oneway" ? null : endDate}
             endDateId="return-date"
             startDatePlaceholderText={t("views.home.placeholders.depart")}
             endDatePlaceholderText={t("views.home.placeholders.return")}
@@ -93,6 +96,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
             hideKeyboardShortcutsPanel
             firstDayOfWeek={1}
             readOnly
+            disabled={state.flightType === "oneway" && "endDate"}
           />
         </CompactDatePicker>
       ) : (

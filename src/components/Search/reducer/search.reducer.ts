@@ -6,6 +6,7 @@ export const initialState: SearchState = {
   place: "",
   currentRecommendedPlace: recommendedPlacesArray[5],
   hasRecommendedPlaceChanged: false,
+  flightType: "round",
 };
 
 export const reducer = (state: SearchState, action: SearchAction) => {
@@ -19,7 +20,11 @@ export const reducer = (state: SearchState, action: SearchAction) => {
       };
     case SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED:
       return { ...state, hasRecommendedPlaceChanged: action.payload };
-
+    case SearchActions.SET_FLIGHT_TYPE:
+      return {
+        ...state,
+        flightType: action.payload,
+      };
     default:
       return state;
   }

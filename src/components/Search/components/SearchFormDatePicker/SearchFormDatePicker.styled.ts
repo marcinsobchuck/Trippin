@@ -266,12 +266,20 @@ export const CompactDatePicker = styled.div`
     flex-grow: 1;
     padding: 8px 16px;
     border-radius: 3px;
+    cursor: pointer;
+
     ::placeholder {
       color: ${Colors.Silver};
     }
     @media ${Breakpoint.TabletS} {
       padding: 11px 16px;
     }
+  }
+
+  .DateInput__disabled,
+  .DateRangePickerInput__disabled,
+  .DateInput_input__disabled {
+    background-color: ${Colors.DeepDarkBlue};
   }
 
   .DateInput_fang {
@@ -283,7 +291,7 @@ export const CompactDatePicker = styled.div`
     color: ${Colors.Black};
     font-size: ${FontSize.Regular};
     font-weight: ${FontWeight.Regular};
-    cursor: pointer;
+
     ::placeholder {
       color: ${Colors.Silver};
     }

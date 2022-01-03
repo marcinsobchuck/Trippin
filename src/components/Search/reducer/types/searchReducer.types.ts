@@ -5,6 +5,7 @@ export type SearchState = {
   place: string;
   currentRecommendedPlace: RecommendedPlace;
   hasRecommendedPlaceChanged: boolean;
+  flightType: "round" | "oneway";
 };
 export interface SetPlaceAction {
   type: SearchActions.SET_PLACE;
@@ -21,7 +22,13 @@ export interface SetHasRecommendedPlaceChangedAction {
   payload: boolean;
 }
 
+export interface SetFlightType {
+  type: SearchActions.SET_FLIGHT_TYPE;
+  payload: "round" | "oneway";
+}
+
 export type SearchAction =
   | SetPlaceAction
   | SetCurrentRecommendedPlaceAction
-  | SetHasRecommendedPlaceChangedAction;
+  | SetHasRecommendedPlaceChangedAction
+  | SetFlightType;
