@@ -35,6 +35,8 @@ import burger from "src/assets/images/burger.svg";
 import { AccountInformationModal } from "src/components/AccountInformationModal/AccountInformationModal";
 import { DrawerMenu } from "../DrawerMenu/DrawerMenu";
 import { RecommendedPlace } from "src/shared/types";
+import { useSearchContext } from "../../hooks/useSearchContext";
+import { SearchActions } from "../../reducer/enums/searchActions.enum";
 
 export const SearchDestinationSection: React.FC = () => {
   const isTablet = useMediaQuery({
@@ -45,12 +47,6 @@ export const SearchDestinationSection: React.FC = () => {
     query: `${Breakpoint.TabletS}`,
   });
 
-  const [currentRecommendedPlace, setCurrentRecommendedPlace] =
-    useState<RecommendedPlace>(() => recommendedPlacesArray[5]);
-  const [
-    hasCurrentRecommendedPlacesChanged,
-    setHasCurrentRecommendedPlacesChanged,
-  ] = useState<boolean>(false);
   const [currentUrl, setCurrentUrl] = useState<any>(() =>
     isTablet ? landscapeBudapest : portraitBudapest
   );
@@ -71,17 +67,23 @@ export const SearchDestinationSection: React.FC = () => {
     config: { duration: 2000 },
   });
 
+  const [state, dispatch] = useSearchContext();
+
+  const { currentRecommendedPlace } = state;
+
   const handleClickOnPlace = (
     event: React.MouseEvent<HTMLLIElement>,
     place: RecommendedPlace
   ) => {
-    setCurrentRecommendedPlace({
-      id: place.id,
-      place: place.place,
-      place_key: place.place_key,
-      inputText: event.currentTarget.innerText,
+    dispatch({
+      type: SearchActions.SET_CURRENT_RECOMMENDED_PLACE,
+      payload: { ...place, inputText: event.currentTarget.innerText },
     });
-    setHasCurrentRecommendedPlacesChanged(true);
+
+    dispatch({
+      type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
+      payload: true,
+    });
   };
 
   useEffect(() => {
@@ -198,13 +200,7 @@ export const SearchDestinationSection: React.FC = () => {
           ))}
         </ListWrapper>
       </SidebarWrapper>
-      <SearchForm
-        currentRecommendedPlace={currentRecommendedPlace}
-        hasCurrentRecommendedPlacesChanged={hasCurrentRecommendedPlacesChanged}
-        setHasCurrentRecommendedPlacesChanged={
-          setHasCurrentRecommendedPlacesChanged
-        }
-      />
+      <SearchForm />
     </Wrapper>
   );
 };

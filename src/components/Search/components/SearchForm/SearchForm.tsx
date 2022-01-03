@@ -6,23 +6,10 @@ import { Button } from "../../../../styles/Button.styled";
 import { SearchFormDatePicker } from "../SearchFormDatePicker/SearchFormDatePicker";
 import { useTranslation } from "react-i18next";
 import { SearchFormInitialValues } from "./SearchForm.types";
+import { useSearchContext } from "../../hooks/useSearchContext";
+import { SearchActions } from "../../reducer/enums/searchActions.enum";
 
-export const SearchForm: React.FC<{
-  currentRecommendedPlace: {
-    id: string;
-    place_key?: string;
-    place: string;
-    inputText: string;
-  };
-  hasCurrentRecommendedPlacesChanged: boolean;
-  setHasCurrentRecommendedPlacesChanged: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
-}> = ({
-  currentRecommendedPlace,
-  hasCurrentRecommendedPlacesChanged,
-  setHasCurrentRecommendedPlacesChanged,
-}) => {
+export const SearchForm: React.FC = () => {
   const initialValues: SearchFormInitialValues = {
     start: "",
     destination: "",
@@ -32,70 +19,57 @@ export const SearchForm: React.FC<{
     },
   };
 
+  const [state, dispatch] = useSearchContext();
+
+  const { currentRecommendedPlace, hasRecommendedPlaceChanged } = state;
+
   const { t } = useTranslation();
 
   return (
     <Wrapper>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values) => {
           if (
             currentRecommendedPlace &&
-            hasCurrentRecommendedPlacesChanged &&
+            hasRecommendedPlaceChanged &&
             values.destination !== "anywhere"
           ) {
             values.destination = currentRecommendedPlace.id;
-            setHasCurrentRecommendedPlacesChanged(false);
+            dispatch({
+              type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
+              payload: false,
+            });
           }
           console.log(
             `Start:${values.start}`,
-            `Destynacja:${values.destination}`
+            `Destynacja:${values.destination}`,
+            `Data: ${values.date.depart} ${values.date.return}`
           );
-          resetForm();
         }}
       >
-        {({ values, setFieldValue }) => (
-          <StyledForm>
-            <InputsWrapper>
-              <SearchFormInput
-                label={t("views.home.labels.start")}
-                name="start"
-                placeholder={t("views.home.placeholders.start")}
-                type="text"
-              />
-              {/* <button
-                type="button"
-                onClick={() => {
-                  const newStart = values.destination;
-                  const newDestination = values.start;
+        <StyledForm>
+          <InputsWrapper>
+            <SearchFormInput
+              label={t("views.home.labels.start")}
+              name="start"
+              placeholder={t("views.home.placeholders.start")}
+              type="text"
+            />
+            <SearchFormInput
+              label={t("views.home.labels.destination")}
+              name="destination"
+              placeholder={t("views.home.placeholders.destination")}
+              type="text"
+              isDestination
+            />
+            <SearchFormDatePicker name="date" />
+          </InputsWrapper>
 
-                  setFieldValue("start", newStart);
-                  setFieldValue("destination", newDestination);
-                }}
-              >
-                xd
-              </button> */}
-              <SearchFormInput
-                label={t("views.home.labels.destination")}
-                name="destination"
-                placeholder={t("views.home.placeholders.destination")}
-                type="text"
-                currentRecommendedPlace={currentRecommendedPlace}
-                hasCurrentRecommendedPlacesChanged={
-                  hasCurrentRecommendedPlacesChanged
-                }
-                setHasCurrentRecommendedPlacesChanged={
-                  setHasCurrentRecommendedPlacesChanged
-                }
-              />
-              <SearchFormDatePicker name="date" />
-            </InputsWrapper>
-
-            <Button variant="quaternary" type="submit">
-              {t("views.home.buttons.search")}
-            </Button>
-          </StyledForm>
-        )}
+          <Button variant="quaternary" type="submit">
+            {t("views.home.buttons.search")}
+          </Button>
+        </StyledForm>
       </Formik>
     </Wrapper>
   );

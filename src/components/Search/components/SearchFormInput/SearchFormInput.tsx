@@ -39,12 +39,9 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   placeholder,
   className,
   type,
-  currentRecommendedPlace,
-  hasCurrentRecommendedPlacesChanged,
-  setHasCurrentRecommendedPlacesChanged,
+  isDestination,
   ...props
 }) => {
-  // const [place, setPlace] = useState<string>("");
   const [currentCodes, setCurrentCodes] = useState<string[]>([]);
 
   const [, , helpers] = useField(props);
@@ -55,9 +52,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
 
   const [state, dispatch] = useSearchContext();
 
-  const { place } = state;
-
-  console.log(place);
+  const { place, currentRecommendedPlace, hasRecommendedPlaceChanged } = state;
 
   const { data: codes } = useCodes();
   const { data, refetch, isFetching } = useLocations({
@@ -163,7 +158,10 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
 
   const handleOnSelect = (selectedItem: Location) => {
     if (inputValue && inputValue !== "anywhere") {
-      setHasCurrentRecommendedPlacesChanged?.(false);
+      dispatch({
+        type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
+        payload: false,
+      });
       setValue(selectedItem.id);
     }
   };
@@ -188,28 +186,17 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   }, [data?.data.locations, getCurrentCountryCodes]);
 
   useEffect(() => {
-    if (currentRecommendedPlace && hasCurrentRecommendedPlacesChanged) {
+    if (isDestination && hasRecommendedPlaceChanged) {
       setInputValue(currentRecommendedPlace.inputText);
     }
   }, [
     currentRecommendedPlace,
-    hasCurrentRecommendedPlacesChanged,
+    isDestination,
     setInputValue,
+    hasRecommendedPlaceChanged,
   ]);
 
   useLockBodyScroll(!isTabletS && isOpen);
-
-  //  useEffect(() => {
-  //    if (id === "start") {
-  //      dispatch("changeStart", inputValue)
-  //    }
-  //    if (id === "destination") {
-  //     dispatch("changeDestination", inputValue)
-  //   }
-  //    }
-  //  }, [dispatch]);
-
-  //   console.log(inputValue);
 
   return (
     <InputWrapper isFullscreen={!isTabletS && isOpen} {...getComboboxProps()}>
@@ -269,7 +256,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
               <StyledFlag src={getCountryFlag(index)} alt="country flag" />
             </StyledItem>
           ))}
-        {isOpen && inputValue !== "" && currentRecommendedPlace && (
+        {isOpen && inputValue !== "" && isDestination && (
           <AnywhereItem onClick={handleClickAnywhere}>
             <StyledGlobe src={globeIcon} />
             <div>
