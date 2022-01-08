@@ -104,7 +104,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
           <DateRangePicker
             startDate={startDate}
             startDateId="depart-date"
-            endDate={endDate}
+            endDate={state.flightType === "oneway" ? null : endDate}
             endDateId="return-date"
             startDatePlaceholderText={t("views.home.placeholders.depart")}
             endDatePlaceholderText={t("views.home.placeholders.return")}
@@ -121,6 +121,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
             firstDayOfWeek={1}
             initialVisibleMonth={() => moment()}
             readOnly
+            disabled={state.flightType === "oneway" && "endDate"}
           />
         </FullScreenDatePicker>
       )}

@@ -67,8 +67,7 @@ export const CloseIcon = styled(svg)`
 export const ModalTitle = styled.h2`
   color: ${Colors.DarkerBlue};
   font-weight: ${FontWeight.SemiBold};
-  margin-top: 36px;
-  margin-bottom: 18px;
+  margin-bottom: 42px;
 `;
 
 export const StyledButton = styled(Button)`

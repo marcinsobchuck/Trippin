@@ -79,6 +79,12 @@ export const FullScreenDatePicker = styled.div`
     }
   }
 
+  .DateInput__disabled,
+  .DateRangePickerInput__disabled,
+  .DateInput_input__disabled {
+    background-color: ${Colors.DeepDarkBlue};
+  }
+
   .DateRangePickerInput_arrow {
     display: flex;
     align-items: center;
@@ -273,6 +279,11 @@ export const CompactDatePicker = styled.div`
     }
     @media ${Breakpoint.TabletS} {
       padding: 11px 16px;
+    }
+
+    @media ${Breakpoint.DesktopXL} {
+      border-bottom-left-radius: 0px;
+      border-top-left-radius: 0px;
     }
   }
 

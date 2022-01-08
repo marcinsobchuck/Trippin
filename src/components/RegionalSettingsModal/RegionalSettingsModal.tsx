@@ -17,7 +17,7 @@ import { useModalAnimation } from "src/hooks/useModalAnimation";
 import { animated } from "react-spring";
 import { useOnClickOutside } from "src/hooks/useClickOutside";
 import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
-import { initialValuesTypes } from "./Select/RegionalSettingsModal.types";
+import { initialValuesTypes } from "./RegionalSettingsModal.types";
 
 export const RegionalSettingsModal: React.FC<{
   setShowRegionalSettingsModal: React.Dispatch<React.SetStateAction<boolean>>;

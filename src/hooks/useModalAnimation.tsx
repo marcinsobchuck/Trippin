@@ -15,6 +15,7 @@ export const useModalAnimation = (key: boolean) => {
     config: {
       duration: 200,
     },
+    delay: 100,
   });
 
   return transition;

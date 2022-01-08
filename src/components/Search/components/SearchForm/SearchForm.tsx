@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
-import { Wrapper, StyledForm, InputsWrapper } from "./SearchForm.styled";
+import {
+  Wrapper,
+  StyledForm,
+  InputsWrapper,
+  FlightSettings,
+  StyledIcon,
+  SettingsWrapper,
+  ItemWrapper,
+  ItemText,
+  PassengersWrapper,
+} from "./SearchForm.styled";
 import { SearchFormInput } from "../SearchFormInput/SearchFormInput";
 import { Button } from "../../../../styles/Button.styled";
 import { SearchFormDatePicker } from "../SearchFormDatePicker/SearchFormDatePicker";
@@ -9,6 +19,10 @@ import { SearchFormInitialValues } from "./SearchForm.types";
 import { useSearchContext } from "../../hooks/useSearchContext";
 import { SearchActions } from "../../reducer/enums/searchActions.enum";
 import { SearchFormRadio } from "../SearchFormRadio/SearchFormRadio";
+import adult from "src/assets/images/adult.svg";
+import child from "src/assets/images/child.svg";
+import infant from "src/assets/images/infant.svg";
+import { SearchFormFlightSettingsModal } from "../SearchFormFlightSettingsModal/SearchFormFlightSettingsModal";
 
 export const SearchForm: React.FC = () => {
   const initialValues: SearchFormInitialValues = {
@@ -21,9 +35,19 @@ export const SearchForm: React.FC = () => {
     flightType: "round",
   };
 
+  const [showFlightSettingsModal, setShowFlightSettingsModal] =
+    useState<boolean>(false);
+
   const [state, dispatch] = useSearchContext();
 
-  const { currentRecommendedPlace, hasRecommendedPlaceChanged } = state;
+  const {
+    currentRecommendedPlace,
+    hasRecommendedPlaceChanged,
+    adults,
+    children,
+    infants,
+    cabinClass,
+  } = state;
 
   const { t } = useTranslation();
 
@@ -52,7 +76,36 @@ export const SearchForm: React.FC = () => {
         }}
       >
         <StyledForm>
-          <SearchFormRadio name="flightType" />
+          <SettingsWrapper>
+            <SearchFormRadio name="flightType" />
+            <FlightSettings
+              onClick={() =>
+                setShowFlightSettingsModal((prevState) => !prevState)
+              }
+            >
+              <PassengersWrapper>
+                <ItemWrapper>
+                  <StyledIcon src={adult} />
+                  <ItemText>{adults}</ItemText>
+                </ItemWrapper>
+                <ItemWrapper>
+                  <StyledIcon src={child} />
+                  <ItemText>{children}</ItemText>
+                </ItemWrapper>
+                <ItemWrapper>
+                  <StyledIcon src={infant} />
+                  <ItemText>{infants}</ItemText>
+                </ItemWrapper>
+              </PassengersWrapper>
+              <ItemText>{cabinClass.text}</ItemText>
+            </FlightSettings>
+
+            <SearchFormFlightSettingsModal
+              setShowFlightSettingsModal={setShowFlightSettingsModal}
+              showFlightSettingsModal={showFlightSettingsModal}
+            />
+          </SettingsWrapper>
+
           <InputsWrapper>
             <SearchFormInput
               label={t("views.home.labels.start")}

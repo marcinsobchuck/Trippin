@@ -108,6 +108,9 @@ export const MenuItem = styled.button`
   :hover {
     background-color: ${Colors.WhiteOpacity};
   }
+  :active {
+    background-color: ${Colors.DeepDarkBlueOpacity};
+  }
 `;
 
 export const CurrencyIndicator = styled.p`

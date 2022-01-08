@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Form } from "formik";
 import { Colors } from "../../../../enums/colors.enum";
 import { Breakpoint } from "../../../../enums/breakpoint.enum";
+import svg from "react-inlinesvg";
+import { FontSize } from "src/enums/fontSize.enum";
 
 export const Wrapper = styled.div`
   background-color: ${Colors.BlackOpacity};
@@ -29,8 +31,61 @@ export const StyledForm = styled(Form)`
 export const InputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding-top: 24px;
   margin-bottom: 20px;
+  border-top: 1px solid ${Colors.WhiteOpacity};
+
   @media ${Breakpoint.DesktopXL} {
     flex-direction: row;
   }
+`;
+
+export const SettingsWrapper = styled.div`
+  position: relative;
+  margin-bottom: 16px;
+  width: fit-content;
+  display: flex;
+`;
+
+export const FlightSettings = styled.div`
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+  padding: 9px;
+  border-radius: 9px;
+  transition: 0.3s;
+  :hover {
+    background-color: ${Colors.WhiteOpacity};
+  }
+  :active {
+    background-color: transparent;
+  }
+`;
+
+export const PassengersWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+`;
+
+export const ItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+`;
+
+export const StyledIcon = styled(svg)`
+  width: 16px;
+  height: 16px;
+  fill: ${Colors.White};
+  margin-right: 6px;
+`;
+
+export const ItemText = styled.p`
+  color: ${Colors.White};
+  font-size: ${FontSize.Small};
+  text-align: center;
 `;

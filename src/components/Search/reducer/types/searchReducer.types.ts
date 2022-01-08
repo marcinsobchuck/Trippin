@@ -6,6 +6,13 @@ export type SearchState = {
   currentRecommendedPlace: RecommendedPlace;
   hasRecommendedPlaceChanged: boolean;
   flightType: "round" | "oneway";
+  adults: number;
+  children: number;
+  infants: number;
+  cabinClass: {
+    code: string;
+    text: "Economy" | "Economy premium" | "Business" | "First class";
+  }; // M (economy), W (economy premium), C (business), or F (first class)
 };
 export interface SetPlaceAction {
   type: SearchActions.SET_PLACE;
@@ -27,8 +34,42 @@ export interface SetFlightType {
   payload: "round" | "oneway";
 }
 
+export interface IncrementAdultsNumber {
+  type: SearchActions.INCREMENT_ADULTS_NUMBER;
+}
+export interface IncrementChildrenNumber {
+  type: SearchActions.INCREMENT_CHILDREN_NUMBER;
+}
+export interface IncrementInfantsNumber {
+  type: SearchActions.INCREMENT_INFANTS_NUMBER;
+}
+export interface DecrementAdultsNumber {
+  type: SearchActions.DECREMENT_ADULTS_NUMBER;
+}
+export interface DecrementChildrenNumber {
+  type: SearchActions.DECREMENT_CHILDREN_NUMBER;
+}
+export interface DecrementInfantsNumber {
+  type: SearchActions.DECREMENT_INFANTS_NUMBER;
+}
+
+export interface SetCabinClass {
+  type: SearchActions.SET_CABIN_CLASS;
+  payload: {
+    code: string;
+    text: "Economy" | "Economy premium" | "Business" | "First class";
+  };
+}
+
 export type SearchAction =
   | SetPlaceAction
   | SetCurrentRecommendedPlaceAction
   | SetHasRecommendedPlaceChangedAction
-  | SetFlightType;
+  | SetFlightType
+  | IncrementAdultsNumber
+  | IncrementChildrenNumber
+  | IncrementInfantsNumber
+  | DecrementAdultsNumber
+  | DecrementChildrenNumber
+  | DecrementInfantsNumber
+  | SetCabinClass;
