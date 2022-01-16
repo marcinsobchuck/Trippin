@@ -47,7 +47,7 @@ export const SearchDestinationSection: React.FC = () => {
     query: `${Breakpoint.TabletS}`,
   });
 
-  const [currentUrl, setCurrentUrl] = useState<any>(() =>
+  const [currentUrl, setCurrentUrl] = useState<string>(
     isTablet ? landscapeBudapest : portraitBudapest
   );
   const [initialised, setInitialised] = useState<boolean>(false);
@@ -93,11 +93,13 @@ export const SearchDestinationSection: React.FC = () => {
   useEffect(() => {
     if (isTablet) {
       setCurrentUrl(
-        RecommendedPlacesMap.get(currentRecommendedPlace.place)?.landscape
+        RecommendedPlacesMap.get(currentRecommendedPlace.place)?.landscape ||
+          landscapeBudapest
       );
     } else {
       setCurrentUrl(
-        RecommendedPlacesMap.get(currentRecommendedPlace.place)?.portrait
+        RecommendedPlacesMap.get(currentRecommendedPlace.place)?.portrait ||
+          portraitBudapest
       );
     }
   }, [currentRecommendedPlace, isTablet]);
@@ -167,19 +169,19 @@ export const SearchDestinationSection: React.FC = () => {
           </BurgerMenuIconWrapper>
 
           <Menu ref={menuRef}>
-            <MenuItem id="account" onClick={handleAccountInfoClick}>
+            <MenuItem id='account' onClick={handleAccountInfoClick}>
               <ArrowIcon src={arrow} />
               <AccountIcon src={user} />
             </MenuItem>
-            <MenuItem id="settings" onClick={handleRegionalSettingsClick}>
+            <MenuItem id='settings' onClick={handleRegionalSettingsClick}>
               <CurrencyIcon
                 src={regionalSettings.currency.currencyIcon}
-                alt="currency icon"
+                alt='currency icon'
               />
               <CurrencyIndicator>
                 {regionalSettings.currency.currencyCode}
               </CurrencyIndicator>
-              <LanguageFlag src={regionalSettings.language.flag} alt="flag" />
+              <LanguageFlag src={regionalSettings.language.flag} alt='flag' />
             </MenuItem>
             <AccountInformationModal
               showAccountInfoModal={showAccountInfoModal}

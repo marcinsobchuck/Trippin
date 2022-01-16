@@ -43,9 +43,7 @@ export const SearchForm: React.FC = () => {
   const {
     currentRecommendedPlace,
     hasRecommendedPlaceChanged,
-    adults,
-    children,
-    infants,
+    passengers: { adults, children, infants },
     cabinClass,
   } = state;
 
@@ -77,7 +75,7 @@ export const SearchForm: React.FC = () => {
       >
         <StyledForm>
           <SettingsWrapper>
-            <SearchFormRadio name="flightType" />
+            <SearchFormRadio name='flightType' />
             <FlightSettings
               onClick={() =>
                 setShowFlightSettingsModal((prevState) => !prevState)
@@ -109,21 +107,21 @@ export const SearchForm: React.FC = () => {
           <InputsWrapper>
             <SearchFormInput
               label={t("views.home.labels.start")}
-              name="start"
+              name='start'
               placeholder={t("views.home.placeholders.start")}
-              type="text"
+              type='text'
             />
             <SearchFormInput
               label={t("views.home.labels.destination")}
-              name="destination"
+              name='destination'
               placeholder={t("views.home.placeholders.destination")}
-              type="text"
+              type='text'
               isDestination
             />
-            <SearchFormDatePicker name="date" />
+            <SearchFormDatePicker name='date' />
           </InputsWrapper>
 
-          <Button variant="quaternary" type="submit">
+          <Button variant='quaternary' type='submit'>
             {t("views.home.buttons.search")}
           </Button>
         </StyledForm>

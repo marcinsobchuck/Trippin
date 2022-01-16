@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Breakpoint } from "src/enums/breakpoint.enum";
 import { useOnClickOutside } from "src/hooks/useClickOutside";
@@ -32,6 +32,45 @@ import {
   StyledRadioInput,
 } from "src/styles/RadioInput.styled";
 import { cabinClassArray } from "./config";
+import { CodeType, Passengers } from "../../reducer/types/searchReducer.types";
+
+type Operation = "INCREMENT" | "DECREMENT";
+
+interface SteppersDataType {
+  icon: string;
+  title: string;
+  underText: string;
+  type: keyof Passengers;
+  minValue: number;
+  maxValue: number;
+}
+
+const steppersData: SteppersDataType[] = [
+  {
+    icon: adult,
+    title: "Adults",
+    underText: "Over 11",
+    type: "adults",
+    minValue: 1,
+    maxValue: 9,
+  },
+  {
+    icon: child,
+    title: "Children",
+    underText: "2-11",
+    type: "children",
+    minValue: 0,
+    maxValue: 8,
+  },
+  {
+    icon: infant,
+    title: "Infants",
+    underText: "Under 2",
+    type: "infants",
+    minValue: 0,
+    maxValue: 1,
+  },
+];
 
 export const SearchFormFlightSettingsModal: React.FC<
   SearchFormFlightSettingsProps
@@ -43,9 +82,25 @@ export const SearchFormFlightSettingsModal: React.FC<
 
   const [state, dispatch] = useSearchContext();
 
-  const { adults, children, infants, cabinClass } = state;
+  const { passengers, cabinClass } = state;
 
   const handleCloseModal = () => setShowFlightSettingsModal(false);
+
+  const setPassengers = useCallback(
+    (passengerType: keyof Passengers, operation: Operation) => {
+      dispatch({
+        type: SearchActions.SET_PASSENGERS,
+        payload: {
+          ...passengers,
+          [passengerType]:
+            operation === "INCREMENT"
+              ? passengers[passengerType] + 1
+              : passengers[passengerType] - 1,
+        },
+      });
+    },
+    [dispatch, passengers]
+  );
 
   useOnClickOutside(ref, handleCloseModal);
   useLockBodyScroll(!isTabletS && showFlightSettingsModal);
@@ -68,96 +123,42 @@ export const SearchFormFlightSettingsModal: React.FC<
               <p>Passengers</p>
               <UnderText>(max. 9)</UnderText>
             </SectionTitle>
-
-            <Row>
-              <RowLeftSide>
-                <StyledIcon src={adult} />
-                <div>
-                  <StyledText>Adults</StyledText>
-                  <UnderText>Over 11</UnderText>
-                </div>
-              </RowLeftSide>
-              <Stepper
-                increment={() =>
-                  dispatch({
-                    type: SearchActions.INCREMENT_ADULTS_NUMBER,
-                  })
-                }
-                decrement={() =>
-                  dispatch({
-                    type: SearchActions.DECREMENT_ADULTS_NUMBER,
-                  })
-                }
-                value={adults}
-                minValue={1}
-                maxValue={9}
-              />
-            </Row>
-            <Row>
-              <RowLeftSide>
-                <StyledIcon src={child} />
-                <div>
-                  <StyledText>Children</StyledText>
-                  <UnderText>2-11</UnderText>
-                </div>
-              </RowLeftSide>
-              <Stepper
-                increment={() =>
-                  dispatch({
-                    type: SearchActions.INCREMENT_CHILDREN_NUMBER,
-                  })
-                }
-                decrement={() =>
-                  dispatch({
-                    type: SearchActions.DECREMENT_CHILDREN_NUMBER,
-                  })
-                }
-                value={children}
-                minValue={0}
-                maxValue={8}
-              />
-            </Row>
-            <Row>
-              <RowLeftSide>
-                <StyledIcon src={infant} />
-                <div>
-                  <StyledText>Infants</StyledText>
-                  <UnderText>Under 2</UnderText>
-                </div>
-              </RowLeftSide>
-              <Stepper
-                increment={() =>
-                  dispatch({
-                    type: SearchActions.INCREMENT_INFANTS_NUMBER,
-                  })
-                }
-                decrement={() =>
-                  dispatch({
-                    type: SearchActions.DECREMENT_INFANTS_NUMBER,
-                  })
-                }
-                value={infants}
-                minValue={0}
-                maxValue={1}
-              />
-            </Row>
+            {steppersData.map((stepper) => (
+              <Row>
+                <RowLeftSide>
+                  <StyledIcon src={stepper.icon} />
+                  <div>
+                    <StyledText>{stepper.title}</StyledText>
+                    <UnderText>{stepper.underText}</UnderText>
+                  </div>
+                </RowLeftSide>
+                <Stepper
+                  increment={() => setPassengers(stepper.type, "INCREMENT")}
+                  decrement={() => setPassengers(stepper.type, "DECREMENT")}
+                  passengers={passengers}
+                  value={passengers[stepper.type]}
+                  minValue={stepper.minValue}
+                  maxValue={stepper.maxValue}
+                />
+              </Row>
+            ))}
             <SectionTitle>
               <p>Cabin class</p>
             </SectionTitle>
 
-            <RadioWrapper role="group">
+            <RadioWrapper role='group'>
               {cabinClassArray.map((cabin, index) => (
                 <ReStyledRadioLabel key={index}>
                   <StyledRadioInput
-                    type="radio"
-                    name="cabin"
+                    type='radio'
+                    name='cabin'
                     value={cabin.value}
                     defaultChecked={cabinClass.code === cabin.value}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       dispatch({
                         type: SearchActions.SET_CABIN_CLASS,
                         payload: {
-                          code: e.currentTarget.value,
+                          code: e.currentTarget.value as CodeType,
                           text: cabin.text,
                         },
                       })

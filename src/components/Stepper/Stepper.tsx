@@ -8,7 +8,6 @@ import {
 import plus from "src/assets/images/plus.svg";
 import minus from "src/assets/images/minus.svg";
 import { StepperProps } from "./Stepper.types";
-import { useSearchContext } from "../Search/hooks/useSearchContext";
 
 export const Stepper: React.FC<StepperProps> = ({
   decrement,
@@ -16,11 +15,8 @@ export const Stepper: React.FC<StepperProps> = ({
   value,
   minValue,
   maxValue,
+  passengers: { adults, children, infants },
 }) => {
-  const [state] = useSearchContext();
-
-  const { adults, children, infants } = state;
-
   const detectDisabled = () => {
     if (adults + children + infants >= 9) {
       return true;
@@ -31,15 +27,15 @@ export const Stepper: React.FC<StepperProps> = ({
   return (
     <StepperWrapper>
       <StepperIconWrapper
-        type="button"
+        type='button'
         disabled={value <= minValue}
         onClick={decrement}
       >
         <StepperIcon src={minus} />
       </StepperIconWrapper>
-      <StyledStepperInput type="text" value={value} readOnly />
+      <StyledStepperInput type='text' value={value} readOnly />
       <StepperIconWrapper
-        type="button"
+        type='button'
         disabled={detectDisabled()}
         onClick={increment}
       >

@@ -89,11 +89,11 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
 
   const getCurrentCountryCodes = useCallback(() => {
     if (codes?.data && data?.data.locations) {
-      const currentCountriesArray = data?.data.locations.map((location) =>
-        getCountryName(location)
+      const currentCountriesArray = data?.data.locations.map(
+        (location) => getLocationParameters(location).name
       );
-      const countriesData = Object.entries(codes?.data);
-      const countries = Object.values(codes?.data);
+      const countriesData = Object.entries(codes.data);
+      const countries = Object.values(codes.data);
       const currentCodes: string[] = [];
       currentCountriesArray.forEach((el, index) => {
         if (!countries.includes(el)) {
@@ -109,31 +109,35 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     }
   }, [codes?.data, data?.data.locations]);
 
-  const getCountryName = (location: Location) => {
+  const getLocationParameters = (location: Location) => {
     switch (location.type) {
       case LocationsType.Airport:
         if (
           location.hasOwnProperty("country") &&
           location.hasOwnProperty("city")
         ) {
-          return location.country?.name;
+          return {
+            name: location.country?.name,
+            icon: airplaneIcon,
+          };
         }
-        return location.city?.country.name;
+        return { name: location.city?.country.name, icon: airplaneIcon };
       case LocationsType.City:
-        return location.country?.name;
+        return {
+          name: location.country?.name,
+          icon: cityIcon,
+        };
       case LocationsType.Country:
-        return location.name;
+        return {
+          name: location.name,
+          icon: countryIcon,
+        };
+      default:
+        return {
+          name: "",
+          icon: "",
+        };
     }
-  };
-
-  const getLocationIcon = (location: Location) => {
-    if (location.type === LocationsType.Airport) return airplaneIcon;
-
-    if (location.type === LocationsType.City) return cityIcon;
-
-    if (location.type === LocationsType.Country) return countryIcon;
-
-    return "";
   };
 
   const getCountryFlag = (index: number) => {
@@ -205,7 +209,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
           {label}
           {isFetching && isOpen && (
             <StyledLoader
-              type="ThreeDots"
+              type='ThreeDots'
               color={!isTabletS && isOpen ? Colors.DarkerBlue : Colors.White}
               width={16}
               height={16}
@@ -213,7 +217,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
           )}
         </StyledLabel>
         {!isTabletS && isOpen && (
-          <Button onClick={toggleMenu} variant="tertiary">
+          <Button onClick={toggleMenu} variant='tertiary'>
             Cancel
           </Button>
         )}
@@ -243,17 +247,17 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
                 },
               })}
             >
-              <StyledIcon src={getLocationIcon(location)} />
+              <StyledIcon src={getLocationParameters(location).icon} />
               <PlaceInfoWrapper>
                 <p>{location.name}</p>
                 {location.type !== LocationsType.Country && (
                   <StyledCountryName>
-                    {getCountryName(location)}
+                    {getLocationParameters(location).name}
                   </StyledCountryName>
                 )}
               </PlaceInfoWrapper>
 
-              <StyledFlag src={getCountryFlag(index)} alt="country flag" />
+              <StyledFlag src={getCountryFlag(index)} alt='country flag' />
             </StyledItem>
           ))}
         {isOpen && inputValue !== "" && isDestination && (

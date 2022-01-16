@@ -1,16 +1,21 @@
 import { RecommendedPlace } from "src/shared/types";
 import { SearchActions } from "../enums/searchActions.enum";
 
+export interface Passengers {
+  adults: number;
+  children: number;
+  infants: number;
+}
+export type CodeType = "M" | "W" | "C" | "F";
+
 export type SearchState = {
   place: string;
   currentRecommendedPlace: RecommendedPlace;
   hasRecommendedPlaceChanged: boolean;
   flightType: "round" | "oneway";
-  adults: number;
-  children: number;
-  infants: number;
+  passengers: Passengers;
   cabinClass: {
-    code: string;
+    code: CodeType;
     text: "Economy" | "Economy premium" | "Business" | "First class";
   }; // M (economy), W (economy premium), C (business), or F (first class)
 };
@@ -32,6 +37,11 @@ export interface SetHasRecommendedPlaceChangedAction {
 export interface SetFlightType {
   type: SearchActions.SET_FLIGHT_TYPE;
   payload: "round" | "oneway";
+}
+
+export interface SetPassengers {
+  type: SearchActions.SET_PASSENGERS;
+  payload: Passengers;
 }
 
 export interface IncrementAdultsNumber {
@@ -56,7 +66,7 @@ export interface DecrementInfantsNumber {
 export interface SetCabinClass {
   type: SearchActions.SET_CABIN_CLASS;
   payload: {
-    code: string;
+    code: CodeType;
     text: "Economy" | "Economy premium" | "Business" | "First class";
   };
 }
@@ -72,4 +82,5 @@ export type SearchAction =
   | DecrementAdultsNumber
   | DecrementChildrenNumber
   | DecrementInfantsNumber
-  | SetCabinClass;
+  | SetCabinClass
+  | SetPassengers;
