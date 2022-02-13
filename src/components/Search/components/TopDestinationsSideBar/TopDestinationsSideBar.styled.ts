@@ -2,14 +2,14 @@ import { Breakpoint } from "src/enums/breakpoint.enum";
 import styled from "styled-components";
 import { ImageWrapper } from "./TopDestinationsSideBarItem.styled";
 
-export const Wrapper = styled.div<{ height?: number }>`
+export const Wrapper = styled.div`
+  position: relative;
   display: none;
 
   @media ${Breakpoint.Desktop} {
     width: 33vw;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
-    height: ${({ height }) => (height ? `${height}px` : "fit-content")};
+    display: flex;
+    flex-direction: column;
 
     :hover ${ImageWrapper}:not(:hover) {
       filter: grayscale(100%);

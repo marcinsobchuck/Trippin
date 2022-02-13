@@ -51,7 +51,7 @@ export const PageSetter: React.FC<PageSetterProps> = ({
           id='1'
           to='search-results'
           smooth
-          isActive={page === 1}
+          $isActive={page === 1}
           onClick={() => setPage(1)}
         >
           1
@@ -63,7 +63,7 @@ export const PageSetter: React.FC<PageSetterProps> = ({
           key={number}
           to='search-results'
           smooth
-          isActive={page === number}
+          $isActive={page === number}
           onClick={() => setPage(number)}
         >
           {number}
@@ -75,7 +75,7 @@ export const PageSetter: React.FC<PageSetterProps> = ({
         <PageNumber
           to='search-results'
           smooth
-          isActive={maxPages === page}
+          $isActive={maxPages === page}
           onClick={() => setPage(maxPages)}
         >
           {maxPages}

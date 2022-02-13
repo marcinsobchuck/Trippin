@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-export const PageNumber = styled(Link)<{ isActive: boolean }>`
+export const PageNumber = styled(Link)<{ $isActive: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,8 +30,8 @@ export const PageNumber = styled(Link)<{ isActive: boolean }>`
     color: ${Colors.White};
   }
 
-  ${({ isActive }) =>
-    isActive &&
+  ${({ $isActive }) =>
+    $isActive &&
     css`
       color: ${Colors.White};
       background-color: ${Colors.DarkerBlue};

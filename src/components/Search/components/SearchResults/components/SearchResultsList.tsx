@@ -11,9 +11,7 @@ import { FlightDetailsModal } from "./FlightDetailsModal";
 import { PageSetter } from "./PageSetter";
 import { SearchActions } from "src/components/Search/reducer/enums/searchActions.enum";
 
-export const SearchResultsList: React.FC<{
-  listRef: MutableRefObject<HTMLDivElement | null>;
-}> = ({ listRef }) => {
+export const SearchResultsList: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [activeFlight, setActiveFlight] = useState<Flight>();
   const [showFlightDetailsModal, setShowFlightDetailsModal] =
@@ -65,7 +63,7 @@ export const SearchResultsList: React.FC<{
   return (
     <Wrapper>
       {" "}
-      <ListWrapper ref={listRef}>
+      <ListWrapper>
         {state.visibleItems.map((flight: Flight) => (
           <SearchResultsListItem
             key={flight.id}
