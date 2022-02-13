@@ -22,7 +22,7 @@ import {
 import { Button, RedirectButton } from "../../styles/Button.styled";
 import { useAuth } from "../../hooks/useAuth";
 import { Routes } from "../../enums/routes.enum";
-import Loader from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import { Colors } from "../../enums/colors.enum";
 import { useHistory } from "react-router-dom";
 
@@ -69,34 +69,36 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
         <StyledForm>
           <Title>{title}</Title>
           <AuthFormInput
-            type="email"
-            name="email"
-            label="E-mail"
-            placeholder="Type your e-mail here"
+            type='email'
+            name='email'
+            label='E-mail'
+            placeholder='Type your e-mail here'
           />
           <AuthFormInput
-            name="password"
-            label="Password"
-            placeholder="Type your password here"
-            type="password"
+            name='password'
+            label='Password'
+            placeholder='Type your password here'
+            type='password'
           />
           {error && <Error>{error}</Error>}
           {isRegisterForm && (
             <AuthFormInput
-              name="passwordConfirmation"
-              label="Password confirmation"
-              placeholder="Password confirmation"
-              type="password"
+              name='passwordConfirmation'
+              label='Password confirmation'
+              placeholder='Password confirmation'
+              type='password'
             />
           )}
           <ButtonsWrapper>
-            <Button width={200} variant="primary" type="submit">
+            <Button width={200} variant='primary' type='submit'>
               {isSubmitting ? (
-                <Loader
-                  type="TailSpin"
-                  color={Colors.White}
+                <TailSpin
+                  color={Colors.Gray}
                   width={16}
                   height={16}
+                  wrapperStyle={{
+                    justifyContent: "center",
+                  }}
                 />
               ) : (
                 buttonText
@@ -104,7 +106,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
             </Button>
             <span>or</span>
             <RedirectButton
-              variant="secondary"
+              variant='secondary'
               width={200}
               to={Routes.Home}
               onClick={continueAsGuest}
@@ -116,8 +118,8 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
             <ActionText>
               Already registered?
               <StyledButton
-                type="button"
-                variant="tertiary"
+                type='button'
+                variant='tertiary'
                 onClick={handleToggleMobileAnimation}
               >
                 Log in
@@ -128,15 +130,15 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
               <ActionText>
                 Not registered yet?
                 <StyledButton
-                  type="button"
-                  variant="tertiary"
+                  type='button'
+                  variant='tertiary'
                   onClick={handleToggleMobileAnimation}
                 >
                   Create an account
                 </StyledButton>
               </ActionText>
               <StyledRedirectButton
-                variant="tertiary"
+                variant='tertiary'
                 to={Routes.ForgottenPassword}
               >
                 Forgot password?

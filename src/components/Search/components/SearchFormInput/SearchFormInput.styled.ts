@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { Colors } from "../../../../enums/colors.enum";
-import Loader from "react-loader-spinner";
 import { FontSize } from "../../../../enums/fontSize.enum";
 import { FontWeight } from "../../../../enums/fontWeight.enum";
 import { Breakpoint } from "../../../../enums/breakpoint.enum";
@@ -118,13 +117,6 @@ export const StyledList = styled.ul<SharedProps>`
       border-radius: 0;
       box-shadow: none;
     `}
-`;
-
-export const StyledLoader = styled(Loader)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 6px;
 `;
 
 export const StyledItem = styled.li<SharedProps>`

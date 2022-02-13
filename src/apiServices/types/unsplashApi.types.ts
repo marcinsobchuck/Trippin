@@ -14,3 +14,9 @@ export interface Photo {
 export interface PhotosResponse {
   results: Photo[];
 }
+
+export interface PhotosParameters {
+  query: string;
+  per_page: number;
+  orientation: string;
+}

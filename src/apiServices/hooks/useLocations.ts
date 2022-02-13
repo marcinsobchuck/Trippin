@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import { getLocations } from "../locationsApi";
-import { LocationsParameters } from "../types/locationsApi.types";
+import { getLocations } from "../kiwiApi";
+import { LocationsParameters } from "../types/kiwiApi.types";
 
 export const useLocations = (parameters: LocationsParameters) => {
   const fetchLocations = useQuery("locations", () => getLocations(parameters), {

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { PhotosResponse } from "./types/unsplashApi.types";
+import { PhotosParameters, PhotosResponse } from "./types/unsplashApi.types";
 
 export const unsplashApi = axios.create({
   baseURL: "https://api.unsplash.com/",
@@ -9,19 +9,9 @@ export const unsplashApi = axios.create({
   },
 });
 
-export const getCollection = () => {
-  return unsplashApi.get("/collections/wWFxrA6mSus/photos");
-};
-
 export const getPhotos = (
-  query: string,
-  per_page: number,
-  orientation: string
+  parameters: PhotosParameters
 ): Promise<AxiosResponse<PhotosResponse>> =>
   unsplashApi.get("/search/photos", {
-    params: {
-      query,
-      per_page,
-      orientation,
-    },
+    params: parameters,
   });

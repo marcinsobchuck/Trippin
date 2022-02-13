@@ -22,7 +22,7 @@ export const ModalOverlay = styled.div<ModalOverlayProps>`
   width: 100vw;
   height: 100vh;
   background-color: ${Colors.DeepDarkBlueOpacity};
-  z-index: 3;
+  z-index: 9999;
   transition: background-color 0.15s ease-in-out 0s;
 `;
 

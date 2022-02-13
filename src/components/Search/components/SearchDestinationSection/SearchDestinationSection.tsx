@@ -76,13 +76,12 @@ export const SearchDestinationSection: React.FC = () => {
     place: RecommendedPlace
   ) => {
     dispatch({
-      type: SearchActions.SET_CURRENT_RECOMMENDED_PLACE,
-      payload: { ...place, inputText: event.currentTarget.innerText },
-    });
-
-    dispatch({
       type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
       payload: true,
+    });
+    dispatch({
+      type: SearchActions.SET_CURRENT_RECOMMENDED_PLACE,
+      payload: { ...place, inputText: event.currentTarget.innerText },
     });
   };
 
@@ -155,11 +154,6 @@ export const SearchDestinationSection: React.FC = () => {
         setShowRegionalSettingsModal={setShowRegionalSettingsModal}
       />
 
-      <RegionalSettingsModal
-        setShowRegionalSettingsModal={setShowRegionalSettingsModal}
-        showRegionalSettingsModal={showRegionalSettingsModal}
-      />
-
       <SidebarWrapper>
         <SidebarNavbar>
           <StyledLogo color={Colors.White} />
@@ -183,6 +177,7 @@ export const SearchDestinationSection: React.FC = () => {
               </CurrencyIndicator>
               <LanguageFlag src={regionalSettings.language.flag} alt='flag' />
             </MenuItem>
+
             <AccountInformationModal
               showAccountInfoModal={showAccountInfoModal}
             />
@@ -203,6 +198,10 @@ export const SearchDestinationSection: React.FC = () => {
         </ListWrapper>
       </SidebarWrapper>
       <SearchForm />
+      <RegionalSettingsModal
+        setShowRegionalSettingsModal={setShowRegionalSettingsModal}
+        showRegionalSettingsModal={showRegionalSettingsModal}
+      />
     </Wrapper>
   );
 };

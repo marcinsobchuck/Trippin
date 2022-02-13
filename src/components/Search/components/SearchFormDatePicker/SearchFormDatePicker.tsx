@@ -14,10 +14,9 @@ import {
 } from "./SearchFormDatePicker.styled";
 import { useMediaQuery } from "react-responsive";
 import { Breakpoint } from "../../../../enums/breakpoint.enum";
-import { useField } from "formik";
+import { useField, useFormikContext } from "formik";
 import { SearchFormDatePickerProps } from "./SearchFormDatePicker.types";
 import { useTranslation } from "react-i18next";
-import { useSearchContext } from "../../hooks/useSearchContext";
 
 export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
   ...props
@@ -29,8 +28,11 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
   >(null);
 
   const [, , helpers] = useField(props);
-
   const { setValue } = helpers;
+
+  const {
+    values: { flightType },
+  } = useFormikContext();
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
@@ -46,20 +48,18 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
     setStartDate(selectedStartDate);
     setEndDate(selectedEndDate);
     setValue({
-      depart: selectedStartDate?.format("YYYY-MM-DD"),
-      return: selectedEndDate?.format("YYYY-MM-DD"),
+      depart: selectedStartDate?.format("DD/MM/YYYY"),
+      return: selectedEndDate?.format("DD/MM/YYYY"),
     });
   };
 
   const { t } = useTranslation();
 
-  const [state] = useSearchContext();
-
   const renderCalendarInfo = () => {
     return (
       <InfoWrapper>
         <InfoText>Pick a date</InfoText>
-        <Button onClick={() => setFocusedInput(null)} variant="tertiary">
+        <Button onClick={() => setFocusedInput(null)} variant='tertiary'>
           Cancel
         </Button>
       </InfoWrapper>
@@ -69,10 +69,10 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
   return (
     <Wrapper>
       <StyledLabelsWrapper>
-        <StyledLabel htmlFor="depart-date">
+        <StyledLabel htmlFor='depart-date'>
           {t("views.home.labels.depart")}
         </StyledLabel>
-        <StyledLabel htmlFor="return-date">
+        <StyledLabel htmlFor='return-date'>
           {t("views.home.labels.return")}
         </StyledLabel>
       </StyledLabelsWrapper>
@@ -81,9 +81,9 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
         <CompactDatePicker>
           <DateRangePicker
             startDate={startDate}
-            startDateId="depart-date"
-            endDate={state.flightType === "oneway" ? null : endDate}
-            endDateId="return-date"
+            startDateId='depart-date'
+            endDate={flightType === "oneway" ? null : endDate}
+            endDateId='return-date'
             startDatePlaceholderText={t("views.home.placeholders.depart")}
             endDatePlaceholderText={t("views.home.placeholders.return")}
             onDatesChange={({ startDate, endDate }) => {
@@ -91,21 +91,21 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
             }}
             focusedInput={focusedInput}
             onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
-            orientation="horizontal"
+            orientation='horizontal'
             numberOfMonths={isDesktop ? 2 : 1}
             hideKeyboardShortcutsPanel
             firstDayOfWeek={1}
             readOnly
-            disabled={state.flightType === "oneway" && "endDate"}
+            disabled={flightType === "oneway" && "endDate"}
           />
         </CompactDatePicker>
       ) : (
         <FullScreenDatePicker>
           <DateRangePicker
             startDate={startDate}
-            startDateId="depart-date"
-            endDate={state.flightType === "oneway" ? null : endDate}
-            endDateId="return-date"
+            startDateId='depart-date'
+            endDate={flightType === "oneway" ? null : endDate}
+            endDateId='return-date'
             startDatePlaceholderText={t("views.home.placeholders.depart")}
             endDatePlaceholderText={t("views.home.placeholders.return")}
             onDatesChange={({ startDate, endDate }) => {
@@ -113,15 +113,15 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
             }}
             focusedInput={focusedInput}
             onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
-            orientation="vertical"
+            orientation='vertical'
             numberOfMonths={13}
             hideKeyboardShortcutsPanel
-            calendarInfoPosition="top"
+            calendarInfoPosition='top'
             renderCalendarInfo={renderCalendarInfo}
             firstDayOfWeek={1}
             initialVisibleMonth={() => moment()}
             readOnly
-            disabled={state.flightType === "oneway" && "endDate"}
+            disabled={flightType === "oneway" && "endDate"}
           />
         </FullScreenDatePicker>
       )}

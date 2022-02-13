@@ -60,12 +60,12 @@ const ButtonStyles = {
     background-color: transparent;
   `,
   quaternary: css`
-    font-size: ${FontSize.Medium};
+    font-size: ${FontSize.Regular};
     font-weight: ${FontWeight.SemiBold};
     color: ${Colors.White};
     background-color: ${Colors.LightBlue};
     border-radius: 3px;
-    padding: 8px 24px;
+    padding: 8px 18px;
     :hover {
       background-color: ${Colors.Blue};
     }

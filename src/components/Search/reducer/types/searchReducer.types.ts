@@ -8,8 +8,14 @@ export interface Passengers {
 }
 export type CodeType = "M" | "W" | "C" | "F";
 
+export interface SearchFormData {
+  start: string;
+  destination: string;
+  depart: string;
+  return?: string;
+}
+
 export type SearchState = {
-  place: string;
   currentRecommendedPlace: RecommendedPlace;
   hasRecommendedPlaceChanged: boolean;
   flightType: "round" | "oneway";
@@ -18,11 +24,14 @@ export type SearchState = {
     code: CodeType;
     text: "Economy" | "Economy premium" | "Business" | "First class";
   }; // M (economy), W (economy premium), C (business), or F (first class)
+  searchFormData: SearchFormData;
+  limit: number;
+  isLoading: boolean;
+  isError: boolean;
+  showResults: boolean;
+  searchResults: any;
+  visibleItems: any;
 };
-export interface SetPlaceAction {
-  type: SearchActions.SET_PLACE;
-  payload: string;
-}
 
 export interface SetCurrentRecommendedPlaceAction {
   type: SearchActions.SET_CURRENT_RECOMMENDED_PLACE;
@@ -44,25 +53,6 @@ export interface SetPassengers {
   payload: Passengers;
 }
 
-export interface IncrementAdultsNumber {
-  type: SearchActions.INCREMENT_ADULTS_NUMBER;
-}
-export interface IncrementChildrenNumber {
-  type: SearchActions.INCREMENT_CHILDREN_NUMBER;
-}
-export interface IncrementInfantsNumber {
-  type: SearchActions.INCREMENT_INFANTS_NUMBER;
-}
-export interface DecrementAdultsNumber {
-  type: SearchActions.DECREMENT_ADULTS_NUMBER;
-}
-export interface DecrementChildrenNumber {
-  type: SearchActions.DECREMENT_CHILDREN_NUMBER;
-}
-export interface DecrementInfantsNumber {
-  type: SearchActions.DECREMENT_INFANTS_NUMBER;
-}
-
 export interface SetCabinClass {
   type: SearchActions.SET_CABIN_CLASS;
   payload: {
@@ -71,16 +61,51 @@ export interface SetCabinClass {
   };
 }
 
+export interface SetSearchFormData {
+  type: SearchActions.SET_SEARCH_FORM_DATA;
+  payload: SearchFormData;
+}
+
+export interface SetLimit {
+  type: SearchActions.SET_LIMIT;
+  payload: number;
+}
+
+export interface SetIsLoading {
+  type: SearchActions.SET_IS_LOADING;
+  payload: boolean;
+}
+
+export interface SetShowResults {
+  type: SearchActions.SET_SHOW_RESULTS;
+  payload: boolean;
+}
+
+export interface SetSearchResults {
+  type: SearchActions.SET_SEARCH_RESULTS;
+  payload: any;
+}
+
+export interface SetIsError {
+  type: SearchActions.SET_IS_ERROR;
+  payload: boolean;
+}
+
+export interface SetVisibleItems {
+  type: SearchActions.SET_VISIBLE_ITEMS;
+  payload: any;
+}
+
 export type SearchAction =
-  | SetPlaceAction
   | SetCurrentRecommendedPlaceAction
   | SetHasRecommendedPlaceChangedAction
   | SetFlightType
-  | IncrementAdultsNumber
-  | IncrementChildrenNumber
-  | IncrementInfantsNumber
-  | DecrementAdultsNumber
-  | DecrementChildrenNumber
-  | DecrementInfantsNumber
   | SetCabinClass
-  | SetPassengers;
+  | SetPassengers
+  | SetSearchFormData
+  | SetLimit
+  | SetIsLoading
+  | SetShowResults
+  | SetSearchResults
+  | SetIsError
+  | SetVisibleItems;

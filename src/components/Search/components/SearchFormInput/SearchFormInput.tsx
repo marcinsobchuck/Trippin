@@ -3,7 +3,7 @@ import { useCombobox } from "downshift";
 import { useField } from "formik";
 import { SearchFormInputProps } from "./SearchFormInput.types";
 import { useLocations } from "src/apiServices/hooks/useLocations";
-import { Location } from "src/apiServices/types/locationsApi.types";
+import { Location } from "src/apiServices/types/kiwiApi.types";
 import {
   AnywhereItem,
   InputWrapper,
@@ -17,8 +17,9 @@ import {
   StyledLabel,
   StyledLabelWrapper,
   StyledList,
-  StyledLoader,
 } from "./SearchFormInput.styled";
+import { ThreeDots } from "react-loader-spinner";
+
 import cityIcon from "src/assets/images/city.svg";
 import countryIcon from "src/assets/images/country.svg";
 import airplaneIcon from "src/assets/images/airplane.svg";
@@ -43,6 +44,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   ...props
 }) => {
   const [currentCodes, setCurrentCodes] = useState<string[]>([]);
+  const [place, setPlace] = useState<string>("");
 
   const [, , helpers] = useField(props);
 
@@ -52,7 +54,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
 
   const [state, dispatch] = useSearchContext();
 
-  const { place, currentRecommendedPlace, hasRecommendedPlaceChanged } = state;
+  const { currentRecommendedPlace, hasRecommendedPlaceChanged } = state;
 
   const { data: codes } = useCodes();
   const { data, refetch, isFetching } = useLocations({
@@ -73,6 +75,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     highlightedIndex,
     inputValue,
     setInputValue,
+    selectedItem,
   } = useCombobox({
     items: data?.data.locations ? data?.data.locations : [],
     onInputValueChange: ({ inputValue, selectedItem }) => {
@@ -155,22 +158,26 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     }
 
     if (inputValue && inputValue !== "anywhere") {
-      dispatch({ type: SearchActions.SET_PLACE, payload: inputValue });
+      setPlace(inputValue);
       setValue(selectedItem ? selectedItem.id : "");
     }
   };
 
   const handleOnSelect = (selectedItem: Location) => {
-    if (inputValue && inputValue !== "anywhere") {
+    if (inputValue && inputValue !== "anywhere" && isDestination) {
       dispatch({
         type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
         payload: false,
       });
-      setValue(selectedItem.id);
     }
+    setValue(selectedItem.id);
   };
 
   const handleClickAnywhere = () => {
+    dispatch({
+      type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
+      payload: false,
+    });
     setInputValue("anywhere");
     setValue("anywhere");
     toggleMenu();
@@ -200,6 +207,15 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     hasRecommendedPlaceChanged,
   ]);
 
+  useEffect(() => {
+    if (isDestination && inputValue === "") {
+      dispatch({
+        type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
+        payload: false,
+      });
+    }
+  }, [dispatch, inputValue, isDestination]);
+
   useLockBodyScroll(!isTabletS && isOpen);
 
   return (
@@ -208,11 +224,15 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
         <StyledLabel {...getLabelProps()} isFullscreen={!isTabletS && isOpen}>
           {label}
           {isFetching && isOpen && (
-            <StyledLoader
-              type='ThreeDots'
+            <ThreeDots
               color={!isTabletS && isOpen ? Colors.DarkerBlue : Colors.White}
               width={16}
               height={16}
+              wrapperStyle={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "6px",
+              }}
             />
           )}
         </StyledLabel>
@@ -223,7 +243,16 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
         )}
       </StyledLabelWrapper>
       <StyledInput
-        {...getInputProps()}
+        {...getInputProps({
+          onBlur: () => {
+            if (!selectedItem) setValue("");
+          },
+          onChange: (e: any) => {
+            if (e.target.value === "") {
+              setValue("");
+            }
+          },
+        })}
         isFullscreen={!isTabletS && isOpen}
         placeholder={placeholder}
       />

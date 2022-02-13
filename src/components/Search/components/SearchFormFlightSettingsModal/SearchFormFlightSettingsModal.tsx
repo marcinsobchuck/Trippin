@@ -124,7 +124,7 @@ export const SearchFormFlightSettingsModal: React.FC<
               <UnderText>(max. 9)</UnderText>
             </SectionTitle>
             {steppersData.map((stepper) => (
-              <Row>
+              <Row key={stepper.icon}>
                 <RowLeftSide>
                   <StyledIcon src={stepper.icon} />
                   <div>
@@ -148,7 +148,7 @@ export const SearchFormFlightSettingsModal: React.FC<
 
             <RadioWrapper role='group'>
               {cabinClassArray.map((cabin, index) => (
-                <ReStyledRadioLabel key={index}>
+                <ReStyledRadioLabel key={cabin.value}>
                   <StyledRadioInput
                     type='radio'
                     name='cabin'
