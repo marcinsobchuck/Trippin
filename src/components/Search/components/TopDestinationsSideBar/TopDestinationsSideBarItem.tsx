@@ -11,6 +11,8 @@ import {
 import { Rings } from "react-loader-spinner";
 import { Colors } from "src/enums/colors.enum";
 import { Tag } from "src/apiServices/types/kiwiApi.types";
+import { useSearchContext } from "../../hooks/useSearchContext";
+import { SearchActions } from "../../reducer/enums/searchActions.enum";
 interface TopDestinationsSideBarItemProps {
   destinationName: string;
   continent: string;
@@ -32,6 +34,20 @@ export const TopDestinationsSideBarItem: React.FC<
 
   const noResults = data?.data.results.length === 0;
 
+  const [state, dispatch] = useSearchContext();
+
+  const handleItemClick = () =>
+    dispatch({
+      type: SearchActions.SET_SEARCH_FORM_DATA,
+      payload: {
+        ...state.searchFormData,
+        destination: {
+          id: id,
+          text: destinationName,
+        },
+      },
+    });
+
   useEffect(() => {
     if (shouldFetch) {
       refetch();
@@ -52,9 +68,9 @@ export const TopDestinationsSideBarItem: React.FC<
       </ImageWrapper>
     );
 
-  if (data?.data.results[0]) {
+  if (data?.data.results.length !== 0) {
     return (
-      <ImageWrapper to='search-results' smooth onClick={() => console.log(id)}>
+      <ImageWrapper to='search-results' smooth onClick={handleItemClick}>
         <ItemName>
           <p>{destinationName}</p>
         </ItemName>

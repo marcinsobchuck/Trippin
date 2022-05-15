@@ -1,18 +1,29 @@
-import { recommendedPlacesArray } from "../components/SearchDestinationSection/config";
 import { SearchActions } from "./enums/searchActions.enum";
 import { SearchAction, SearchState } from "./types/searchReducer.types";
 
 export const initialState: SearchState = {
-  currentRecommendedPlace: recommendedPlacesArray[5],
-  hasRecommendedPlaceChanged: false,
+  limit: 100,
+  isFormSubmitting: true,
+
+  // Pagination
+
+  page: 1,
+
+  // Form data
+
   searchFormData: {
-    start: "",
-    destination: "",
-    depart: "",
-    return: "",
+    start: {
+      id: "",
+      text: "",
+    },
+    destination: {
+      id: "",
+      text: "",
+    },
+    departDate: "",
+    returnDate: "",
   },
   flightType: "round",
-  limit: 100,
   passengers: {
     adults: 1,
     children: 0,
@@ -22,22 +33,10 @@ export const initialState: SearchState = {
     code: "M",
     text: "Economy",
   },
-  isLoading: false,
-  isError: false,
-  showResults: false,
-  searchResults: [],
-  visibleItems: [],
 };
 
 export const reducer = (state: SearchState, action: SearchAction) => {
   switch (action.type) {
-    case SearchActions.SET_CURRENT_RECOMMENDED_PLACE:
-      return {
-        ...state,
-        currentRecommendedPlace: action.payload,
-      };
-    case SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED:
-      return { ...state, hasRecommendedPlaceChanged: action.payload };
     case SearchActions.SET_FLIGHT_TYPE:
       return {
         ...state,
@@ -64,36 +63,19 @@ export const reducer = (state: SearchState, action: SearchAction) => {
         limit: action.payload,
       };
     }
-    case SearchActions.SET_IS_LOADING: {
+    case SearchActions.SET_IS_FORM_SUBMITTING: {
       return {
         ...state,
-        isLoading: action.payload,
+        isFormSubmitting: action.payload,
       };
     }
-    case SearchActions.SET_IS_ERROR: {
+    case SearchActions.SET_PAGE: {
       return {
         ...state,
-        isError: action.payload,
+        page: action.payload,
       };
     }
-    case SearchActions.SET_SHOW_RESULTS: {
-      return {
-        ...state,
-        showResults: action.payload,
-      };
-    }
-    case SearchActions.SET_SEARCH_RESULTS: {
-      return {
-        ...state,
-        searchResults: action.payload,
-      };
-    }
-    case SearchActions.SET_VISIBLE_ITEMS: {
-      return {
-        ...state,
-        visibleItems: action.payload,
-      };
-    }
+
     default:
       return state;
   }

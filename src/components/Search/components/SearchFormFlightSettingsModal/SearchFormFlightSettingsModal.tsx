@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useField } from "formik";
 import { Breakpoint } from "src/enums/breakpoint.enum";
 import { useOnClickOutside } from "src/hooks/useClickOutside";
 import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
@@ -25,13 +26,11 @@ import adult from "src/assets/images/adult.svg";
 import child from "src/assets/images/child.svg";
 import infant from "src/assets/images/infant.svg";
 import { Stepper } from "src/components/Stepper/Stepper";
-import { useSearchContext } from "../../hooks/useSearchContext";
-import { SearchActions } from "../../reducer/enums/searchActions.enum";
 import {
   CustomRadioInput,
   StyledRadioInput,
 } from "src/styles/RadioInput.styled";
-import { cabinClassArray } from "./config";
+import { cabinClassArray, CabinClassValue } from "./config";
 import { CodeType, Passengers } from "../../reducer/types/searchReducer.types";
 
 type Operation = "INCREMENT" | "DECREMENT";
@@ -72,6 +71,19 @@ const steppersData: SteppersDataType[] = [
   },
 ];
 
+const getTextFromValue = (value: CabinClassValue) => {
+  switch (value) {
+    case "M":
+      return "Economy";
+    case "W":
+      return "Economy premium";
+    case "C":
+      return "Business";
+    case "F":
+      return "First class";
+  }
+};
+
 export const SearchFormFlightSettingsModal: React.FC<
   SearchFormFlightSettingsProps
 > = ({ setShowFlightSettingsModal, showFlightSettingsModal, ...props }) => {
@@ -80,26 +92,24 @@ export const SearchFormFlightSettingsModal: React.FC<
   });
   const ref = useRef(null);
 
-  const [state, dispatch] = useSearchContext();
-
-  const { passengers, cabinClass } = state;
-
   const handleCloseModal = () => setShowFlightSettingsModal(false);
+
+  const [field, , { setValue }] = useField(props);
 
   const setPassengers = useCallback(
     (passengerType: keyof Passengers, operation: Operation) => {
-      dispatch({
-        type: SearchActions.SET_PASSENGERS,
-        payload: {
-          ...passengers,
+      setValue({
+        ...field.value,
+        passengers: {
+          ...field.value.passengers,
           [passengerType]:
             operation === "INCREMENT"
-              ? passengers[passengerType] + 1
-              : passengers[passengerType] - 1,
+              ? field.value.passengers[passengerType] + 1
+              : field.value.passengers[passengerType] - 1,
         },
       });
     },
-    [dispatch, passengers]
+    [field.value, setValue]
   );
 
   useOnClickOutside(ref, handleCloseModal);
@@ -135,8 +145,8 @@ export const SearchFormFlightSettingsModal: React.FC<
                 <Stepper
                   increment={() => setPassengers(stepper.type, "INCREMENT")}
                   decrement={() => setPassengers(stepper.type, "DECREMENT")}
-                  passengers={passengers}
-                  value={passengers[stepper.type]}
+                  passengers={field.value.passengers}
+                  value={field.value.passengers[stepper.type]}
                   minValue={stepper.minValue}
                   maxValue={stepper.maxValue}
                 />
@@ -147,27 +157,29 @@ export const SearchFormFlightSettingsModal: React.FC<
             </SectionTitle>
 
             <RadioWrapper role='group'>
-              {cabinClassArray.map((cabin, index) => (
-                <ReStyledRadioLabel key={cabin.value}>
-                  <StyledRadioInput
-                    type='radio'
-                    name='cabin'
-                    value={cabin.value}
-                    defaultChecked={cabinClass.code === cabin.value}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      dispatch({
-                        type: SearchActions.SET_CABIN_CLASS,
-                        payload: {
-                          code: e.currentTarget.value as CodeType,
-                          text: cabin.text,
-                        },
-                      })
-                    }
-                  />
-                  <CustomRadioInput />
-                  {cabin.text}
-                </ReStyledRadioLabel>
-              ))}
+              {cabinClassArray.map((cabin) => {
+                return (
+                  <ReStyledRadioLabel key={cabin.value}>
+                    <StyledRadioInput
+                      {...field}
+                      value={cabin.value}
+                      onChange={(event) => {
+                        setValue({
+                          ...field.value,
+                          code: event.currentTarget.value as CodeType,
+                          text: getTextFromValue(
+                            event.currentTarget.value as CabinClassValue
+                          ),
+                        });
+                      }}
+                      type='radio'
+                      defaultChecked={cabin.value === field.value.code}
+                    />
+                    <CustomRadioInput />
+                    {cabin.text}
+                  </ReStyledRadioLabel>
+                );
+              })}
             </RadioWrapper>
           </Wrapper>
         </animated.div>

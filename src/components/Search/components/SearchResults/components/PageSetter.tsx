@@ -1,4 +1,6 @@
 import React from "react";
+import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
+import { SearchActions } from "src/components/Search/reducer/enums/searchActions.enum";
 import { PageNumber, Wrapper } from "./PageSetter.styled";
 import { PageSetterProps } from "./PageSetter.types";
 
@@ -7,11 +9,9 @@ interface GetVisisblePagesArrayParams {
   maxPages: number;
 }
 
-export const PageSetter: React.FC<PageSetterProps> = ({
-  maxPages,
-  page,
-  setPage,
-}) => {
+export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
+  const [{ page }, dispatch] = useSearchContext();
+
   const getVisiblePagesArray = ({
     page,
     maxPages,
@@ -35,12 +35,13 @@ export const PageSetter: React.FC<PageSetterProps> = ({
 
   const decrementPage = () => {
     if (page === 1) return;
-    setPage((page) => page - 1);
+
+    dispatch({ type: SearchActions.SET_PAGE, payload: page - 1 });
   };
 
   const incrementPage = () => {
     if (page === maxPages) return;
-    setPage((page) => page + 1);
+    dispatch({ type: SearchActions.SET_PAGE, payload: page + 1 });
   };
 
   return (
@@ -52,7 +53,7 @@ export const PageSetter: React.FC<PageSetterProps> = ({
           to='search-results'
           smooth
           $isActive={page === 1}
-          onClick={() => setPage(1)}
+          onClick={() => dispatch({ type: SearchActions.SET_PAGE, payload: 1 })}
         >
           1
         </PageNumber>
@@ -64,7 +65,9 @@ export const PageSetter: React.FC<PageSetterProps> = ({
           to='search-results'
           smooth
           $isActive={page === number}
-          onClick={() => setPage(number)}
+          onClick={() =>
+            dispatch({ type: SearchActions.SET_PAGE, payload: number })
+          }
         >
           {number}
         </PageNumber>
@@ -76,7 +79,9 @@ export const PageSetter: React.FC<PageSetterProps> = ({
           to='search-results'
           smooth
           $isActive={maxPages === page}
-          onClick={() => setPage(maxPages)}
+          onClick={() =>
+            dispatch({ type: SearchActions.SET_PAGE, payload: maxPages })
+          }
         >
           {maxPages}
         </PageNumber>

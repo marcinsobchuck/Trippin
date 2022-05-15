@@ -1,9 +1,17 @@
-interface cabinClass {
-  value: "M" | "W" | "C" | "F";
-  text: "Economy" | "Economy premium" | "Business" | "First class";
+export type CabinClassValue = "M" | "W" | "C" | "F";
+
+export type CabinClassText =
+  | "Economy"
+  | "Economy premium"
+  | "Business"
+  | "First class";
+
+interface CabinClass {
+  value: CabinClassValue;
+  text: CabinClassText;
 }
 
-export const cabinClassArray: cabinClass[] = [
+export const cabinClassArray: CabinClass[] = [
   {
     value: "M",
     text: "Economy",

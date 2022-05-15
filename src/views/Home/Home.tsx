@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
 import { Footer } from "src/components/Footer/Footer";
 import { SearchResults } from "src/components/Search/components/SearchResults/SearchResults";
 import { SearchDestinationSection } from "../../components/Search/components/SearchDestinationSection/SearchDestinationSection";

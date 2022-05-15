@@ -23,85 +23,63 @@ import adult from "src/assets/images/adult.svg";
 import child from "src/assets/images/child.svg";
 import infant from "src/assets/images/infant.svg";
 import { SearchFormFlightSettingsModal } from "../SearchFormFlightSettingsModal/SearchFormFlightSettingsModal";
-import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
-import { useAuth } from "src/hooks/useAuth";
 import * as Yup from "yup";
-import { SearchParameters } from "src/apiServices/types/kiwiApi.types";
+import { RecommendedPlace } from "src/shared/types";
 
 const searchSchema = Yup.object().shape({
-  start: Yup.string().required("Required"),
+  start: Yup.object({
+    id: Yup.string().required("Required"),
+  }),
   date: Yup.object().when("flightType", {
     is: "round",
     then: Yup.object({
-      depart: Yup.string().required("Required"),
-      return: Yup.string().required("If round, return required"),
+      departDate: Yup.string().required("Required"),
+      returnDate: Yup.string().required("If round, return required"),
     }),
     otherwise: Yup.object({
-      depart: Yup.string().required("Required"),
+      departDate: Yup.string().required("Required"),
     }),
   }),
 });
 
-export const SearchForm: React.FC = () => {
+interface SearchFormProps {
+  formRef: React.Ref<FormikProps<SearchFormInitialValues>>;
+  currentRecommendedPlace: RecommendedPlace;
+}
+
+export const SearchForm: React.FC<SearchFormProps> = ({
+  formRef,
+  currentRecommendedPlace,
+}) => {
   const initialValues: SearchFormInitialValues = {
-    start: "",
-    destination: "",
+    start: {
+      id: "",
+      text: "",
+    },
+    destination: {
+      id: "",
+      text: "",
+    },
     date: {
-      depart: "",
-      return: "",
+      departDate: "",
+      returnDate: "",
     },
     flightType: "round",
+    flightSettings: {
+      passengers: {
+        adults: 1,
+        children: 0,
+        infants: 0,
+      },
+      code: "M",
+      text: "Economy",
+    },
   };
 
   const [showFlightSettingsModal, setShowFlightSettingsModal] =
     useState<boolean>(false);
 
-  const {
-    regionalSettings: {
-      currency: { currencyCode },
-    },
-  } = useAuth();
-
-  const [state, dispatch] = useSearchContext();
-
-  const {
-    currentRecommendedPlace,
-    hasRecommendedPlaceChanged,
-    passengers: { adults, children, infants },
-    cabinClass: { code: cabinClassCode, text },
-    searchFormData: { start, destination, return: returnDate, depart },
-    flightType,
-    limit,
-  } = state;
-
-  const getParameters = () => {
-    const parameters: SearchParameters = {
-      fly_from: start,
-      fly_to: destination,
-      date_from: depart,
-      date_to: depart,
-      flight_type: flightType,
-      adults,
-      selected_cabins: cabinClassCode,
-      curr: currencyCode,
-      limit: destination === "" || destination === "anywhere" ? 500 : limit,
-    };
-
-    if (flightType === "round") {
-      parameters.return_from = returnDate;
-      parameters.return_to = returnDate;
-    }
-    if (children !== 0) {
-      parameters.children = children;
-    }
-    if (infants !== 0) {
-      parameters.infants = infants;
-    }
-
-    return parameters;
-  };
-
-  const { refetch } = useSearchResults(getParameters());
+  const [, dispatch] = useSearchContext();
 
   const { t } = useTranslation();
 
@@ -110,42 +88,57 @@ export const SearchForm: React.FC = () => {
       <Formik
         validationSchema={searchSchema}
         initialValues={initialValues}
-        onSubmit={(
-          { start, destination, date, flightType },
-          { setSubmitting }
-        ) => {
-          dispatch({ type: SearchActions.SET_IS_LOADING, payload: true });
-          dispatch({ type: SearchActions.SET_SHOW_RESULTS, payload: true });
-          if (hasRecommendedPlaceChanged) {
-            destination = currentRecommendedPlace.id;
-          }
+        innerRef={formRef}
+        onSubmit={({
+          start,
+          destination,
+          date: { departDate, returnDate },
+          flightType,
+          flightSettings: { passengers, code, text },
+        }) => {
           dispatch({
-            type: SearchActions.SET_SEARCH_FORM_DATA,
-            payload: {
-              start,
-              destination: hasRecommendedPlaceChanged
-                ? currentRecommendedPlace.id
-                : destination,
-              depart: date.depart,
-              return: date.return,
-            },
+            type: SearchActions.SET_IS_FORM_SUBMITTING,
+            payload: true,
           });
           dispatch({
             type: SearchActions.SET_FLIGHT_TYPE,
             payload: flightType,
           });
-          setSubmitting(false);
+          dispatch({ type: SearchActions.SET_PASSENGERS, payload: passengers });
+          dispatch({
+            type: SearchActions.SET_CABIN_CLASS,
+            payload: { code, text },
+          });
+          dispatch({
+            type: SearchActions.SET_SEARCH_FORM_DATA,
+            payload: {
+              start: {
+                id: start.id,
+                text: start.text,
+              },
+              destination: {
+                id: destination.id,
+                text: destination.text,
+              },
+              departDate,
+              returnDate,
+            },
+          });
+          dispatch({
+            type: SearchActions.SET_IS_FORM_SUBMITTING,
+            payload: false,
+          });
           window.scrollTo({
             top: document.documentElement.clientHeight,
             behavior: "smooth",
           });
-          refetch();
         }}
       >
-        {(props: FormikProps<SearchFormInitialValues>) => (
+        {({ values, errors }: FormikProps<SearchFormInitialValues>) => (
           <StyledForm>
             <SettingsWrapper>
               <SearchFormRadio name='flightType' />
+
               <FlightSettings
                 onClick={() =>
                   setShowFlightSettingsModal((prevState) => !prevState)
@@ -154,26 +147,36 @@ export const SearchForm: React.FC = () => {
                 <PassengersWrapper>
                   <ItemWrapper>
                     <StyledIcon src={adult} />
-                    <ItemText>{adults}</ItemText>
+                    <ItemText>
+                      {values.flightSettings.passengers.adults}
+                    </ItemText>
                   </ItemWrapper>
                   <ItemWrapper>
                     <StyledIcon src={child} />
-                    <ItemText>{children}</ItemText>
+                    <ItemText>
+                      {values.flightSettings.passengers.children}
+                    </ItemText>
                   </ItemWrapper>
                   <ItemWrapper>
                     <StyledIcon src={infant} />
-                    <ItemText>{infants}</ItemText>
+                    <ItemText>
+                      {values.flightSettings.passengers.infants}
+                    </ItemText>
                   </ItemWrapper>
                 </PassengersWrapper>
-                <ItemText>{text}</ItemText>
+                <ItemText>{values.flightSettings.text}</ItemText>
               </FlightSettings>
 
               <SearchFormFlightSettingsModal
                 setShowFlightSettingsModal={setShowFlightSettingsModal}
                 showFlightSettingsModal={showFlightSettingsModal}
+                name='flightSettings'
               />
             </SettingsWrapper>
-
+            <p style={{ color: "white" }}>
+              {JSON.stringify(values, null, 2)}
+              {JSON.stringify(errors, null, 2)}
+            </p>
             <InputsWrapper>
               <SearchFormInput
                 label={t("views.home.labels.start")}
@@ -186,6 +189,7 @@ export const SearchForm: React.FC = () => {
                 name='destination'
                 placeholder={t("views.home.placeholders.destination")}
                 type='text'
+                currentRecommendedPlace={currentRecommendedPlace}
                 isDestination
               />
               <SearchFormDatePicker name='date' />

@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Flight } from "src/apiServices/types/kiwiApi.types";
 import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
 import { ListWrapper, Wrapper } from "./SearchResultsList.styled";
@@ -9,36 +9,85 @@ import { useMediaQuery } from "react-responsive";
 import { Breakpoint } from "src/enums/breakpoint.enum";
 import { FlightDetailsModal } from "./FlightDetailsModal";
 import { PageSetter } from "./PageSetter";
-import { SearchActions } from "src/components/Search/reducer/enums/searchActions.enum";
+import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
+import { useAuth } from "src/hooks/useAuth";
+import { FilterAndSort } from "./FilterAndSort";
 
-export const SearchResultsList: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
+interface SearchResultsListProps {
+  setVisibleItems: (x: Flight[]) => void;
+  visibleItems?: Flight[];
+}
+
+export const SearchResultsList: React.FC<SearchResultsListProps> = ({
+  visibleItems,
+  setVisibleItems,
+}) => {
   const [activeFlight, setActiveFlight] = useState<Flight>();
   const [showFlightDetailsModal, setShowFlightDetailsModal] =
     useState<boolean>(false);
-  const [state, dispatch] = useSearchContext();
-
-  const { searchResults, isLoading, isError } = state;
+  const [{ page }, dispatch] = useSearchContext();
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
   });
 
-  const limit = 8;
-  const maxPages = Math.ceil(searchResults.data?.length / limit);
+  const [
+    {
+      searchFormData: { start, destination, departDate, returnDate },
+      flightType,
+      passengers: { adults, children: childrenPassengers, infants },
+      cabinClass: { code },
+    },
+  ] = useSearchContext();
 
+  const {
+    regionalSettings: {
+      currency: { currencyCode },
+      language: { languageCode },
+    },
+  } = useAuth();
+
+  const parameters = {
+    fly_from: start.id,
+    fly_to: destination.id,
+    date_from: departDate,
+    date_to: departDate,
+    return_from: returnDate,
+    return_to: returnDate,
+    flight_type: flightType,
+    adults,
+    children: childrenPassengers,
+    infants,
+    selected_cabins: code,
+    curr: currencyCode,
+    locale: languageCode,
+    limit: 100,
+  };
+
+  const { refetch, isFetching, isError, data } = useSearchResults(parameters);
+
+  const flightsData = data?.data.data;
+  const noFlights = flightsData?.length === 0;
+
+  const limit = 8;
+  const maxPages = data ? Math.ceil(data.data.data.length / limit) : 0;
   const offset = page === 1 ? 0 : (page - 1) * limit;
 
   useEffect(() => {
-    if (searchResults.data) {
-      dispatch({
-        type: SearchActions.SET_VISIBLE_ITEMS,
-        payload: searchResults?.data.slice(offset, page * limit),
-      });
-    }
-  }, [dispatch, offset, page, searchResults]);
+    refetch();
+  }, [refetch, destination, currencyCode, languageCode]);
 
-  if (isLoading)
+  useEffect(() => {
+    if (flightsData) {
+      setVisibleItems(flightsData.slice(offset, page * limit));
+    }
+  }, [dispatch, flightsData, offset, page, setVisibleItems]);
+
+  if (isError) return <Wrapper>Error retrieving data from the server!</Wrapper>;
+
+  if (noFlights) return <Wrapper>Sry no flights</Wrapper>;
+
+  if (isFetching)
     return (
       <ListWrapper>
         <Oval
@@ -56,22 +105,19 @@ export const SearchResultsList: React.FC = () => {
       </ListWrapper>
     );
 
-  if (isError) return <div>Error retrieving data from the server!</div>;
-
-  if (searchResults?.data?.length === 0) return <div>Sry no flights</div>;
-
   return (
     <Wrapper>
-      {" "}
+      <FilterAndSort setVisibleItems={setVisibleItems} />
       <ListWrapper>
-        {state.visibleItems.map((flight: Flight) => (
-          <SearchResultsListItem
-            key={flight.id}
-            data={flight}
-            setShowFlightDetailsModal={setShowFlightDetailsModal}
-            setActiveFlight={setActiveFlight}
-          />
-        ))}
+        {visibleItems &&
+          visibleItems.map((flight: Flight) => (
+            <SearchResultsListItem
+              key={flight.id}
+              data={flight}
+              setShowFlightDetailsModal={setShowFlightDetailsModal}
+              setActiveFlight={setActiveFlight}
+            />
+          ))}
 
         {showFlightDetailsModal && (
           <FlightDetailsModal
@@ -81,7 +127,7 @@ export const SearchResultsList: React.FC = () => {
           />
         )}
       </ListWrapper>
-      <PageSetter page={page} maxPages={maxPages} setPage={setPage} />
+      <PageSetter maxPages={maxPages} />
     </Wrapper>
   );
 };

@@ -23,15 +23,14 @@ export const RegionalSettingsModal: React.FC<{
   setShowRegionalSettingsModal: React.Dispatch<React.SetStateAction<boolean>>;
   showRegionalSettingsModal: boolean;
 }> = ({ showRegionalSettingsModal, setShowRegionalSettingsModal }) => {
-  const { regionalSettings, setRegionalSettings } = useAuth();
+  const {
+    regionalSettings: { language, currency },
+    setRegionalSettings,
+  } = useAuth();
 
   const initialValues: initialValuesTypes = {
-    language: {
-      language: regionalSettings.language.language,
-      languageCode: regionalSettings.language.languageCode,
-      flag: regionalSettings.language.flag,
-    },
-    currency: regionalSettings.currency,
+    language,
+    currency,
   };
 
   const { changeLanguage } = i18n;
@@ -41,6 +40,12 @@ export const RegionalSettingsModal: React.FC<{
   const regionalSettingsModalTransition = useModalAnimation(
     showRegionalSettingsModal
   );
+
+  const handleSubmit = ({ language, currency }: initialValuesTypes) => {
+    setRegionalSettings({ language, currency });
+    changeLanguage(language.languageCode);
+    handleCloseModal();
+  };
 
   const ref = useRef(null);
 
@@ -63,33 +68,16 @@ export const RegionalSettingsModal: React.FC<{
                 visibility: "visible",
               }}
             >
-              <Formik
-                initialValues={initialValues}
-                onSubmit={(values) => {
-                  setRegionalSettings({
-                    language: {
-                      language: values.language.language,
-                      languageCode: values.language.languageCode,
-                      flag: values.language.flag,
-                    },
-                    currency: {
-                      currency: values.currency.currency,
-                      currencyCode: values.currency.currencyCode,
-                      currencyIcon: values.currency.currencyIcon,
-                    },
-                  });
-                  changeLanguage(values.language.languageCode);
-                  handleCloseModal();
-                }}
-              >
+              <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                 <StyledForm ref={ref}>
                   <IconWrapper onClick={handleCloseModal}>
                     <CloseIcon src={closeIcon} />
                   </IconWrapper>
                   <ModalTitle>Regional settings</ModalTitle>
-                  <LanguageSelect name="language" />
-                  <CurrencySelect name="currency" />
-                  <StyledButton type="submit" variant="quaternary">
+
+                  <LanguageSelect name='language' />
+                  <CurrencySelect name='currency' />
+                  <StyledButton type='submit' variant='quaternary'>
                     Save
                   </StyledButton>
                 </StyledForm>

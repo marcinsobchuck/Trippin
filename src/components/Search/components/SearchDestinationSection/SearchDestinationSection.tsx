@@ -35,8 +35,8 @@ import burger from "src/assets/images/burger.svg";
 import { AccountInformationModal } from "src/components/AccountInformationModal/AccountInformationModal";
 import { DrawerMenu } from "../DrawerMenu/DrawerMenu";
 import { RecommendedPlace } from "src/shared/types";
-import { useSearchContext } from "../../hooks/useSearchContext";
-import { SearchActions } from "../../reducer/enums/searchActions.enum";
+import { FormikProps } from "formik";
+import { SearchFormInitialValues } from "../SearchForm/SearchForm.types";
 
 export const SearchDestinationSection: React.FC = () => {
   const isTablet = useMediaQuery({
@@ -50,6 +50,8 @@ export const SearchDestinationSection: React.FC = () => {
   const [currentUrl, setCurrentUrl] = useState<string>(
     isTablet ? landscapeBudapest : portraitBudapest
   );
+  const [currentRecommendedPlace, setCurrentRecommendedPlace] =
+    useState<RecommendedPlace>(recommendedPlacesArray[5]);
   const [initialised, setInitialised] = useState<boolean>(false);
   const [showRegionalSettingsModal, setShowRegionalSettingsModal] =
     useState<boolean>(false);
@@ -66,24 +68,6 @@ export const SearchDestinationSection: React.FC = () => {
     leave: { opacity: 0 },
     config: { duration: 2000 },
   });
-
-  const [state, dispatch] = useSearchContext();
-
-  const { currentRecommendedPlace } = state;
-
-  const handleClickOnPlace = (
-    event: React.MouseEvent<HTMLLIElement>,
-    place: RecommendedPlace
-  ) => {
-    dispatch({
-      type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
-      payload: true,
-    });
-    dispatch({
-      type: SearchActions.SET_CURRENT_RECOMMENDED_PLACE,
-      payload: { ...place, inputText: event.currentTarget.innerText },
-    });
-  };
 
   useEffect(() => {
     setInitialised(true);
@@ -115,6 +99,22 @@ export const SearchDestinationSection: React.FC = () => {
 
   const menuRef = useRef(null);
   const settingsModalRef = useRef(null);
+  const formRef = useRef<FormikProps<SearchFormInitialValues>>(null);
+
+  const handleClickOnPlace = (
+    event: React.MouseEvent<HTMLLIElement>,
+    place: RecommendedPlace
+  ) => {
+    formRef.current?.setFieldValue("destination", {
+      id: event.currentTarget.id,
+      text: event.currentTarget.innerText,
+    });
+
+    setCurrentRecommendedPlace({
+      ...place,
+      inputText: event.currentTarget.innerText,
+    });
+  };
 
   const handleBurgerClick = () => setIsDrawerMenuOpen((prev) => !prev);
 
@@ -197,7 +197,10 @@ export const SearchDestinationSection: React.FC = () => {
           ))}
         </ListWrapper>
       </SidebarWrapper>
-      <SearchForm />
+      <SearchForm
+        formRef={formRef}
+        currentRecommendedPlace={currentRecommendedPlace}
+      />
       <RegionalSettingsModal
         setShowRegionalSettingsModal={setShowRegionalSettingsModal}
         showRegionalSettingsModal={showRegionalSettingsModal}

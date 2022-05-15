@@ -32,8 +32,6 @@ import { useCodes } from "src/apiServices/hooks/useCodes";
 import { LocationsType } from "src/enums/locationsType.enum";
 import { Breakpoint } from "src/enums/breakpoint.enum";
 import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
-import { useSearchContext } from "../../hooks/useSearchContext";
-import { SearchActions } from "../../reducer/enums/searchActions.enum";
 
 export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   label,
@@ -41,20 +39,17 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   className,
   type,
   isDestination,
+  currentRecommendedPlace,
   ...props
 }) => {
   const [currentCodes, setCurrentCodes] = useState<string[]>([]);
   const [place, setPlace] = useState<string>("");
 
-  const [, , helpers] = useField(props);
+  const [field, , helpers] = useField(props);
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
   });
-
-  const [state, dispatch] = useSearchContext();
-
-  const { currentRecommendedPlace, hasRecommendedPlaceChanged } = state;
 
   const { data: codes } = useCodes();
   const { data, refetch, isFetching } = useLocations({
@@ -75,7 +70,6 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     highlightedIndex,
     inputValue,
     setInputValue,
-    selectedItem,
   } = useCombobox({
     items: data?.data.locations ? data?.data.locations : [],
     onInputValueChange: ({ inputValue, selectedItem }) => {
@@ -159,36 +153,25 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
 
     if (inputValue && inputValue !== "anywhere") {
       setPlace(inputValue);
-      setValue(selectedItem ? selectedItem.id : "");
     }
   };
 
   const handleOnSelect = (selectedItem: Location) => {
-    if (inputValue && inputValue !== "anywhere" && isDestination) {
-      dispatch({
-        type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
-        payload: false,
-      });
-    }
-    setValue(selectedItem.id);
+    setValue({ id: selectedItem.id, text: selectedItem.name });
   };
 
   const handleClickAnywhere = () => {
-    dispatch({
-      type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
-      payload: false,
-    });
     setInputValue("anywhere");
-    setValue("anywhere");
+    setValue({ id: "anywhere", text: "anywhere" });
+
     toggleMenu();
   };
 
   useEffect(() => {
-    if (place === currentRecommendedPlace?.place) return;
     if (place.trim() !== "") {
       refetch();
     }
-  }, [currentRecommendedPlace?.place, place, refetch]);
+  }, [place, refetch]);
 
   useEffect(() => {
     if (data?.data.locations) {
@@ -197,24 +180,9 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   }, [data?.data.locations, getCurrentCountryCodes]);
 
   useEffect(() => {
-    if (isDestination && hasRecommendedPlaceChanged) {
-      setInputValue(currentRecommendedPlace.inputText);
-    }
-  }, [
-    currentRecommendedPlace,
-    isDestination,
-    setInputValue,
-    hasRecommendedPlaceChanged,
-  ]);
-
-  useEffect(() => {
-    if (isDestination && inputValue === "") {
-      dispatch({
-        type: SearchActions.SET_HAS_RECOMMENDED_PLACE_CHANGED,
-        payload: false,
-      });
-    }
-  }, [dispatch, inputValue, isDestination]);
+    currentRecommendedPlace &&
+      setInputValue(currentRecommendedPlace?.inputText);
+  }, [currentRecommendedPlace, setInputValue]);
 
   useLockBodyScroll(!isTabletS && isOpen);
 
@@ -243,13 +211,11 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
         )}
       </StyledLabelWrapper>
       <StyledInput
+        {...field}
         {...getInputProps({
-          onBlur: () => {
-            if (!selectedItem) setValue("");
-          },
           onChange: (e: any) => {
             if (e.target.value === "") {
-              setValue("");
+              setValue({ id: "", text: "" });
             }
           },
         })}

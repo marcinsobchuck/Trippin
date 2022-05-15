@@ -48,7 +48,7 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({
     <SelectWrapper>
       <StyledLabel {...getLabelProps()}>Currency choice</StyledLabel>
       <StyledButton
-        type="button"
+        type='button'
         {...getToggleButtonProps({
           style: {
             border: isOpen ? `1px solid ${Colors.LightBlue}` : "",
@@ -62,7 +62,7 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({
                 ? selectedItem.currencyIcon
                 : regionalSettings.currency.currencyIcon
             }
-            alt="currency symbol"
+            alt='currency symbol'
           />
           <StyledText>
             {selectedItem
@@ -92,7 +92,7 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({
               })}
             >
               {item.currency} - {item.currencyCode}
-              <StyledIcon src={item.currencyIcon} alt="icon" />
+              <StyledIcon src={item.currencyIcon} alt='icon' />
             </StyledListItem>
           ))}
       </StyledList>

@@ -51,6 +51,7 @@ export interface SearchParameters {
   infants?: number;
   selected_cabins: CodeType;
   curr: "USD" | "GBP" | "EUR" | "PLN";
+  locale: "pl" | "en";
   limit: number;
 }
 

@@ -48,8 +48,8 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
     setStartDate(selectedStartDate);
     setEndDate(selectedEndDate);
     setValue({
-      depart: selectedStartDate?.format("DD/MM/YYYY"),
-      return: selectedEndDate?.format("DD/MM/YYYY"),
+      departDate: selectedStartDate?.format("DD/MM/YYYY"),
+      returnDate: selectedEndDate?.format("DD/MM/YYYY"),
     });
   };
 
