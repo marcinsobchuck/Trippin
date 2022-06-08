@@ -1,6 +1,7 @@
 import { Colors } from "src/enums/colors.enum";
 import { FontWeight } from "src/enums/fontWeight.enum";
 import { Link } from "react-scroll";
+import svg from "react-inlinesvg";
 import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
@@ -25,6 +26,7 @@ export const PageNumber = styled(Link)<{ $isActive: boolean }>`
   width: 40px;
   text-align: center;
   cursor: pointer;
+  transition: 0.2s;
   :hover {
     background-color: ${Colors.DarkerBlue};
     color: ${Colors.White};
@@ -36,4 +38,35 @@ export const PageNumber = styled(Link)<{ $isActive: boolean }>`
       color: ${Colors.White};
       background-color: ${Colors.DarkerBlue};
     `}
+`;
+
+const sharedStyles = css`
+  height: 28px;
+  width: 28px;
+  color: ${Colors.DeepDarkBlue};
+  transition: 0.2s;
+`;
+
+export const IconWrapper = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  :hover {
+    svg {
+      color: ${Colors.LightBlue};
+    }
+  }
+`;
+
+export const RightArrow = styled(svg)`
+  ${sharedStyles};
+  transform: rotate(270deg);
+`;
+
+export const LeftArrow = styled(svg)`
+  ${sharedStyles};
+  transform: rotate(90deg);
 `;

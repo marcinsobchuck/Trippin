@@ -1,8 +1,15 @@
 import React from "react";
 import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
 import { SearchActions } from "src/components/Search/reducer/enums/searchActions.enum";
-import { PageNumber, Wrapper } from "./PageSetter.styled";
+import {
+  PageNumber,
+  RightArrow,
+  LeftArrow,
+  Wrapper,
+  IconWrapper,
+} from "./PageSetter.styled";
 import { PageSetterProps } from "./PageSetter.types";
+import arrow from "src/assets/images/arrow.svg";
 
 interface GetVisisblePagesArrayParams {
   page: number;
@@ -46,7 +53,12 @@ export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
 
   return (
     <Wrapper>
-      <div onClick={decrementPage}>&#8592;</div>
+      {page !== 1 && (
+        <IconWrapper to='search-results' smooth>
+          <LeftArrow src={arrow} onClick={decrementPage} />
+        </IconWrapper>
+      )}
+
       {maxPages > 5 && (
         <PageNumber
           id='1'
@@ -86,7 +98,12 @@ export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
           {maxPages}
         </PageNumber>
       )}
-      <div onClick={incrementPage}>&#8594;</div>
+
+      {page !== maxPages && (
+        <IconWrapper to='search-results' smooth>
+          <RightArrow src={arrow} onClick={incrementPage} />
+        </IconWrapper>
+      )}
     </Wrapper>
   );
 };

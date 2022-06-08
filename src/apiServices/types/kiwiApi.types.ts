@@ -1,4 +1,8 @@
-import { CodeType } from "src/components/Search/reducer/types/searchReducer.types";
+import {
+  CodeType,
+  SortByType,
+  SortTypeType,
+} from "src/components/Search/reducer/types/searchReducer.types";
 
 export type LocationType = "airport" | "country" | "city";
 
@@ -7,6 +11,7 @@ export interface LocationsParameters {
   location_types: LocationType[];
   limit: number;
   sort: "name" | "-name";
+  locale: string;
 }
 
 export interface Location {
@@ -53,6 +58,11 @@ export interface SearchParameters {
   curr: "USD" | "GBP" | "EUR" | "PLN";
   locale: "pl" | "en";
   limit: number;
+  price_from?: number;
+  price_to?: number;
+  sort: SortByType;
+  asc: SortTypeType;
+  max_stopovers: number | undefined;
 }
 
 export interface Route {

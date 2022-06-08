@@ -1,10 +1,10 @@
-import firebase from "firebase/app";
 import usaFlag from "src/assets/images/usaFlag.png";
 import polishFlag from "src/assets/images/polishFlag.png";
 import dollar from "src/assets/images/dollar.png";
 import euro from "src/assets/images/euro.png";
 import zloty from "src/assets/images/zloty.png";
 import pound from "src/assets/images/pound.png";
+import { UserCredential, User } from "firebase/auth";
 
 export interface RegionalSettingsTypes {
   language: {
@@ -20,19 +20,13 @@ export interface RegionalSettingsTypes {
 }
 
 export interface AuthContextType {
-  currentUser: firebase.User | null;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<firebase.auth.UserCredential>;
-  signUp: (
-    email: string,
-    password: string
-  ) => Promise<firebase.auth.UserCredential>;
+  currentUser: User | null;
+  login: (email: string, password: string) => Promise<UserCredential>;
+  signUp: (email: string, password: string) => Promise<UserCredential>;
   logout: () => void;
   resetPassword: (email: string) => Promise<void>;
-  updateEmail: (email: string) => Promise<void> | undefined;
-  updatePassword: (password: string) => Promise<void> | undefined;
+  updateMail: (email: string) => Promise<void> | undefined;
+  updatePass: (password: string) => Promise<void> | undefined;
   setIsFirstEntry: React.Dispatch<React.SetStateAction<boolean>>;
   isFirstEntry: boolean;
   regionalSettings: RegionalSettingsTypes;

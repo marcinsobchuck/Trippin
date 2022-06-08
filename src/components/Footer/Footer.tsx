@@ -20,16 +20,16 @@ export const Footer: React.FC = () => {
     <Wrapper>
       <div>
         <a
-          href="https://github.com/marcinsobchuck"
-          target="_blank"
-          rel="noreferrer"
+          href='https://github.com/marcinsobchuck'
+          target='_blank'
+          rel='noreferrer'
         >
           <SocialIcon src={github} />
         </a>
         <a
-          href="https://www.linkedin.com/in/marcin-sobczak-b66a0a1b5/"
-          target="_blank"
-          rel="noreferrer"
+          href='https://www.linkedin.com/in/marcin-sobczak-b66a0a1b5/'
+          target='_blank'
+          rel='noreferrer'
         >
           <SocialIcon src={linkedin} />
         </a>

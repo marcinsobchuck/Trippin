@@ -56,12 +56,11 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
       initialValues={initialValues}
       onSubmit={async ({ email, password }, { resetForm, setSubmitting }) => {
         setSubmitting(true);
-        await onSubmit(email, password).catch((error) =>
-          setError(error.message)
-        );
+        await onSubmit(email, password)
+          .then(() => history.push("/"))
+          .catch((error) => setError("User not found"));
         setSubmitting(false);
         resetForm();
-        history.push("/");
       }}
       validationSchema={validationSchema}
     >

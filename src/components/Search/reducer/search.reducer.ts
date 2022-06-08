@@ -2,9 +2,8 @@ import { SearchActions } from "./enums/searchActions.enum";
 import { SearchAction, SearchState } from "./types/searchReducer.types";
 
 export const initialState: SearchState = {
-  limit: 100,
   isFormSubmitting: true,
-
+  isParamsEqual: false,
   // Pagination
 
   page: 1,
@@ -33,6 +32,19 @@ export const initialState: SearchState = {
     code: "M",
     text: "Economy",
   },
+
+  // Sort and filter
+
+  price: {
+    min: 0,
+    max: 0,
+  },
+  rangeSliderValue: [0, 0],
+  sort: {
+    sortBy: "price",
+    sortType: 1,
+  },
+  directOnly: 0,
 };
 
 export const reducer = (state: SearchState, action: SearchAction) => {
@@ -57,12 +69,6 @@ export const reducer = (state: SearchState, action: SearchAction) => {
         ...state,
         searchFormData: action.payload,
       };
-    case SearchActions.SET_LIMIT: {
-      return {
-        ...state,
-        limit: action.payload,
-      };
-    }
     case SearchActions.SET_IS_FORM_SUBMITTING: {
       return {
         ...state,
@@ -73,6 +79,38 @@ export const reducer = (state: SearchState, action: SearchAction) => {
       return {
         ...state,
         page: action.payload,
+      };
+    }
+    case SearchActions.SET_PRICE: {
+      return {
+        ...state,
+        price: action.payload,
+      };
+    }
+    case SearchActions.SET_RANGE_SLIDER_VALUE: {
+      return {
+        ...state,
+        rangeSliderValue: action.payload,
+        page: 1,
+      };
+    }
+    case SearchActions.SET_SORT: {
+      return {
+        ...state,
+        sort: action.payload,
+        page: 1,
+      };
+    }
+    case SearchActions.SET_IS_PARAMS_EQUAL: {
+      return {
+        ...state,
+        isParamsEqual: action.payload,
+      };
+    }
+    case SearchActions.SET_DIRECT_ONLY: {
+      return {
+        ...state,
+        directOnly: action.payload,
       };
     }
 

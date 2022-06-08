@@ -8,6 +8,10 @@ export interface Passengers {
 }
 export type CodeType = "M" | "W" | "C" | "F";
 
+export type SortByType = "price" | "duration" | "quality";
+
+export type SortTypeType = 1 | 0;
+
 export interface SearchFormData {
   start: {
     id: string;
@@ -30,8 +34,18 @@ export type SearchState = {
     text: CabinClassText;
   };
   isFormSubmitting: boolean;
+  isParamsEqual: boolean;
   searchFormData: SearchFormData;
-  limit: number;
+  price: {
+    min: number;
+    max: number;
+  };
+  rangeSliderValue: number[];
+  sort: {
+    sortBy: SortByType;
+    sortType: SortTypeType;
+  };
+  directOnly: number | undefined;
 };
 
 export interface SetFlightType {
@@ -57,11 +71,6 @@ export interface SetSearchFormData {
   payload: SearchFormData;
 }
 
-export interface SetLimit {
-  type: SearchActions.SET_LIMIT;
-  payload: number;
-}
-
 export interface SetShowResults {
   type: SearchActions.SET_SHOW_RESULTS;
   payload: boolean;
@@ -82,11 +91,46 @@ export interface SetPage {
   payload: number;
 }
 
+export interface SetPrice {
+  type: SearchActions.SET_PRICE;
+  payload: {
+    min: number;
+    max: number;
+  };
+}
+
+export interface SetRangeSliderValue {
+  type: SearchActions.SET_RANGE_SLIDER_VALUE;
+  payload: number[];
+}
+
+export interface SetSort {
+  type: SearchActions.SET_SORT;
+  payload: {
+    sortBy: SortByType;
+    sortType: SortTypeType;
+  };
+}
+
+export interface SetIsParamsEqual {
+  type: SearchActions.SET_IS_PARAMS_EQUAL;
+  payload: boolean;
+}
+
+export interface SetDirectOnly {
+  type: SearchActions.SET_DIRECT_ONLY;
+  payload: number | undefined;
+}
+
 export type SearchAction =
   | SetFlightType
   | SetCabinClass
   | SetPassengers
   | SetSearchFormData
-  | SetLimit
   | SetIsFormSubmitting
-  | SetPage;
+  | SetPage
+  | SetPrice
+  | SetRangeSliderValue
+  | SetSort
+  | SetIsParamsEqual
+  | SetDirectOnly;

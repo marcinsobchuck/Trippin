@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
-import firebase from "firebase/app";
 import { auth } from "../firebase";
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateEmail,
+  updatePassword,
+  onAuthStateChanged,
+  signOut,
+  User,
+} from "firebase/auth";
+
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { AuthContextType, RegionalSettingsTypes } from "./AuthContext.types";
 import usaFlag from "src/assets/images/usaFlag.png";
@@ -11,7 +22,7 @@ export const AuthContext = React.createContext<AuthContextType>(
 );
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFirstEntry, setIsFirstEntry] = useLocalStorage("firstEntry", true);
   const [regionalSettings, setRegionalSettings] =
@@ -29,23 +40,24 @@ export const AuthProvider: React.FC = ({ children }) => {
     });
 
   const signUp = (email: string, password: string) =>
-    auth.createUserWithEmailAndPassword(email, password);
+    createUserWithEmailAndPassword(auth, email, password);
 
   const login = (email: string, password: string) =>
-    auth.signInWithEmailAndPassword(email, password);
-  const logout = () => auth.signOut();
+    signInWithEmailAndPassword(auth, email, password);
+  const logout = () => signOut(auth);
 
-  const resetPassword = (email: string) => auth.sendPasswordResetEmail(email);
+  const resetPassword = (email: string) => sendPasswordResetEmail(auth, email);
 
-  const updateEmail = (email: string) => currentUser?.updateEmail(email);
+  const updateMail = (email: string) =>
+    updateEmail(auth.currentUser as User, email);
 
-  const updatePassword = (password: string) =>
-    currentUser?.updatePassword(password);
+  const updatePass = (password: string) =>
+    updatePassword(auth.currentUser as User, password);
 
   useEffect(() => {
     currentUser && setIsFirstEntry(false);
 
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
     });
@@ -59,8 +71,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     signUp,
     logout,
     resetPassword,
-    updateEmail,
-    updatePassword,
+    updateMail,
+    updatePass,
     setIsFirstEntry,
     isFirstEntry,
     regionalSettings,

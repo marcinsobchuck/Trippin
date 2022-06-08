@@ -17,6 +17,7 @@ import { Breakpoint } from "../../../../enums/breakpoint.enum";
 import { useField, useFormikContext } from "formik";
 import { SearchFormDatePickerProps } from "./SearchFormDatePicker.types";
 import { useTranslation } from "react-i18next";
+import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
 
 export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
   ...props
@@ -54,6 +55,8 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
   };
 
   const { t } = useTranslation();
+
+  useLockBodyScroll(isTabletS ? false : !!focusedInput);
 
   const renderCalendarInfo = () => {
     return (
@@ -100,7 +103,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
           />
         </CompactDatePicker>
       ) : (
-        <FullScreenDatePicker>
+        <FullScreenDatePicker isOpen={!!focusedInput}>
           <DateRangePicker
             startDate={startDate}
             startDateId='depart-date'

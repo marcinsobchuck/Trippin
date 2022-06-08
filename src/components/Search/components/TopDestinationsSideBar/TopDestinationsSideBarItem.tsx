@@ -36,7 +36,15 @@ export const TopDestinationsSideBarItem: React.FC<
 
   const [state, dispatch] = useSearchContext();
 
-  const handleItemClick = () =>
+  const handleItemClick = () => {
+    dispatch({
+      type: SearchActions.SET_IS_PARAMS_EQUAL,
+      payload: false,
+    });
+    dispatch({
+      type: SearchActions.SET_RANGE_SLIDER_VALUE,
+      payload: [0, 0],
+    });
     dispatch({
       type: SearchActions.SET_SEARCH_FORM_DATA,
       payload: {
@@ -47,6 +55,7 @@ export const TopDestinationsSideBarItem: React.FC<
         },
       },
     });
+  };
 
   useEffect(() => {
     if (shouldFetch) {

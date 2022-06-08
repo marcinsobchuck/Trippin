@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import * as Yup from "yup";
+import isEqual from "lodash.isequal";
 import { Formik, FormikProps } from "formik";
 import {
   Wrapper,
@@ -23,7 +25,6 @@ import adult from "src/assets/images/adult.svg";
 import child from "src/assets/images/child.svg";
 import infant from "src/assets/images/infant.svg";
 import { SearchFormFlightSettingsModal } from "../SearchFormFlightSettingsModal/SearchFormFlightSettingsModal";
-import * as Yup from "yup";
 import { RecommendedPlace } from "src/shared/types";
 
 const searchSchema = Yup.object().shape({
@@ -79,9 +80,80 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   const [showFlightSettingsModal, setShowFlightSettingsModal] =
     useState<boolean>(false);
 
-  const [, dispatch] = useSearchContext();
+  const [state, dispatch] = useSearchContext();
 
   const { t } = useTranslation();
+
+  const handleSubmit = ({
+    start,
+    destination,
+    date: { departDate, returnDate },
+    flightType,
+    flightSettings: { passengers, code, text },
+  }: SearchFormInitialValues) => {
+    const dataToSubmit = {
+      searchFormData: {
+        start: {
+          id: start.id,
+          text: start.text,
+        },
+        destination: {
+          id: destination.id,
+          text: destination.text,
+        },
+        departDate,
+        returnDate,
+      },
+      flightType,
+      passengers,
+      cabinClass: {
+        code,
+        text,
+      },
+    };
+
+    const paramsCheck = isEqual(dataToSubmit, {
+      searchFormData: state.searchFormData,
+      flightType: state.flightType,
+      passengers: state.passengers,
+      cabinClass: state.cabinClass,
+    });
+
+    dispatch({ type: SearchActions.SET_IS_PARAMS_EQUAL, payload: paramsCheck });
+
+    dispatch({
+      type: SearchActions.SET_IS_FORM_SUBMITTING,
+      payload: true,
+    });
+    dispatch({
+      type: SearchActions.SET_FLIGHT_TYPE,
+      payload: dataToSubmit.flightType,
+    });
+    dispatch({
+      type: SearchActions.SET_PASSENGERS,
+      payload: dataToSubmit.passengers,
+    });
+    dispatch({
+      type: SearchActions.SET_CABIN_CLASS,
+      payload: dataToSubmit.cabinClass,
+    });
+    dispatch({
+      type: SearchActions.SET_SEARCH_FORM_DATA,
+      payload: dataToSubmit.searchFormData,
+    });
+    dispatch({
+      type: SearchActions.SET_RANGE_SLIDER_VALUE,
+      payload: [0, 0],
+    });
+    dispatch({
+      type: SearchActions.SET_IS_FORM_SUBMITTING,
+      payload: false,
+    });
+    window.scrollTo({
+      top: document.documentElement.clientHeight,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <Wrapper>
@@ -89,50 +161,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
         validationSchema={searchSchema}
         initialValues={initialValues}
         innerRef={formRef}
-        onSubmit={({
-          start,
-          destination,
-          date: { departDate, returnDate },
-          flightType,
-          flightSettings: { passengers, code, text },
-        }) => {
-          dispatch({
-            type: SearchActions.SET_IS_FORM_SUBMITTING,
-            payload: true,
-          });
-          dispatch({
-            type: SearchActions.SET_FLIGHT_TYPE,
-            payload: flightType,
-          });
-          dispatch({ type: SearchActions.SET_PASSENGERS, payload: passengers });
-          dispatch({
-            type: SearchActions.SET_CABIN_CLASS,
-            payload: { code, text },
-          });
-          dispatch({
-            type: SearchActions.SET_SEARCH_FORM_DATA,
-            payload: {
-              start: {
-                id: start.id,
-                text: start.text,
-              },
-              destination: {
-                id: destination.id,
-                text: destination.text,
-              },
-              departDate,
-              returnDate,
-            },
-          });
-          dispatch({
-            type: SearchActions.SET_IS_FORM_SUBMITTING,
-            payload: false,
-          });
-          window.scrollTo({
-            top: document.documentElement.clientHeight,
-            behavior: "smooth",
-          });
-        }}
+        onSubmit={handleSubmit}
       >
         {({ values, errors }: FormikProps<SearchFormInitialValues>) => (
           <StyledForm>
@@ -173,10 +202,10 @@ export const SearchForm: React.FC<SearchFormProps> = ({
                 name='flightSettings'
               />
             </SettingsWrapper>
-            <p style={{ color: "white" }}>
+            {/* <p style={{ color: "white" }}>
               {JSON.stringify(values, null, 2)}
               {JSON.stringify(errors, null, 2)}
-            </p>
+            </p> */}
             <InputsWrapper>
               <SearchFormInput
                 label={t("views.home.labels.start")}

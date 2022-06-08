@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Breakpoint } from "../../../../enums/breakpoint.enum";
 import { Colors } from "../../../../enums/colors.enum";
 import { FontSize } from "../../../../enums/fontSize.enum";
@@ -34,12 +34,22 @@ export const StyledLabel = styled.label`
   }
 `;
 
-export const FullScreenDatePicker = styled.div`
+export const FullScreenDatePicker = styled.div<{ isOpen: boolean }>`
   width: 100%;
 
   .DateRangePicker {
     position: static;
     width: 100%;
+
+    ${({ isOpen }) =>
+      isOpen &&
+      css`
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 19;
+      `}
   }
 
   .DateRangePickerInput {

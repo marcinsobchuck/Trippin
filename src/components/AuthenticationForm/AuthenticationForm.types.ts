@@ -1,10 +1,7 @@
-import firebase from "firebase/app";
+import { UserCredential } from "firebase/auth";
 
 export interface AuthenticationFormProps {
-  onSubmit: (
-    email: string,
-    password: string
-  ) => Promise<firebase.auth.UserCredential>;
+  onSubmit: (email: string, password: string) => Promise<UserCredential>;
   buttonText: string;
   title: string;
   handleToggleMobileAnimation?: () => void;

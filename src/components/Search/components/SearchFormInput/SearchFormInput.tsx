@@ -32,6 +32,7 @@ import { useCodes } from "src/apiServices/hooks/useCodes";
 import { LocationsType } from "src/enums/locationsType.enum";
 import { Breakpoint } from "src/enums/breakpoint.enum";
 import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
+import { useAuth } from "src/hooks/useAuth";
 
 export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   label,
@@ -45,18 +46,33 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   const [currentCodes, setCurrentCodes] = useState<string[]>([]);
   const [place, setPlace] = useState<string>("");
 
+  const {
+    regionalSettings: {
+      language: { languageCode },
+    },
+  } = useAuth();
   const [field, , helpers] = useField(props);
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
   });
 
-  const { data: codes } = useCodes();
+  const convertLanguageCodes = (code: "pl" | "en") => {
+    switch (code) {
+      case "en":
+        return "en-EN";
+      case "pl":
+        return "pl-PL";
+    }
+  };
+
+  const { data: codes, refetch: refetchCodes } = useCodes(languageCode);
   const { data, refetch, isFetching } = useLocations({
     term: place,
     limit: isTabletS ? 6 : 10,
     location_types: ["airport", "city", "country"],
     sort: "name",
+    locale: convertLanguageCodes(languageCode),
   });
 
   const {
@@ -163,7 +179,6 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   const handleClickAnywhere = () => {
     setInputValue("anywhere");
     setValue({ id: "anywhere", text: "anywhere" });
-
     toggleMenu();
   };
 
@@ -171,7 +186,11 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     if (place.trim() !== "") {
       refetch();
     }
-  }, [place, refetch]);
+  }, [place, refetch, languageCode]);
+
+  useEffect(() => {
+    refetchCodes();
+  }, [languageCode, refetchCodes]);
 
   useEffect(() => {
     if (data?.data.locations) {

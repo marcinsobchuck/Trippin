@@ -19,7 +19,7 @@ export const InputWrapper = styled.div<SharedProps>`
   ${({ isFullscreen }) =>
     isFullscreen &&
     css`
-      position: absolute;
+      position: fixed;
       z-index: 10;
       left: 0;
       top: 0;
