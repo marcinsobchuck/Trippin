@@ -12,69 +12,11 @@ import {
 import { Colors } from "src/enums/colors.enum";
 import arrow from "src/assets/images/arrow.svg";
 import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
-import { SearchActions } from "src/components/Search/reducer/enums/searchActions.enum";
-import {
-  SortByType,
-  SortTypeType,
-} from "src/components/Search/reducer/types/searchReducer.types";
-
-// 1 - ascending, 0 - descending
-
-interface Option {
-  value: {
-    sortBy: SortByType;
-    sortType: SortTypeType;
-  };
-  text: string;
-}
-
-const options: Option[] = [
-  {
-    value: {
-      sortBy: "price",
-      sortType: 1,
-    },
-    text: "Price: from lowest",
-  },
-  {
-    value: {
-      sortBy: "price",
-      sortType: 0,
-    },
-    text: "Price: from highest",
-  },
-  {
-    value: {
-      sortBy: "duration",
-      sortType: 1,
-    },
-    text: "Duration: from shortest",
-  },
-  {
-    value: {
-      sortBy: "duration",
-      sortType: 0,
-    },
-    text: "Duration: from longest",
-  },
-  {
-    value: {
-      sortBy: "quality",
-      sortType: 1,
-    },
-    text: "Quality: from highest",
-  },
-  {
-    value: {
-      sortBy: "quality",
-      sortType: 0,
-    },
-    text: "Quality: from lowest",
-  },
-];
+import { options } from "../config";
+import { setSort } from "src/components/Search/reducer/actions/search.actions";
 
 export const SortSelect: React.FC = () => {
-  const [{ sort }, dispatch] = useSearchContext();
+  const [, dispatch] = useSearchContext();
   const {
     isOpen,
     selectedItem,
@@ -86,8 +28,7 @@ export const SortSelect: React.FC = () => {
   } = useSelect({
     items: options,
     onSelectedItemChange: ({ selectedItem }) => {
-      selectedItem &&
-        dispatch({ type: SearchActions.SET_SORT, payload: selectedItem.value });
+      selectedItem && setSort(dispatch, selectedItem.value);
     },
     defaultSelectedItem: options[0],
   });

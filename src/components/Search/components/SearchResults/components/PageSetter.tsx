@@ -10,6 +10,7 @@ import {
 } from "./PageSetter.styled";
 import { PageSetterProps } from "./PageSetter.types";
 import arrow from "src/assets/images/arrow.svg";
+import { setPage } from "src/components/Search/reducer/actions/search.actions";
 
 interface GetVisisblePagesArrayParams {
   page: number;
@@ -42,13 +43,12 @@ export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
 
   const decrementPage = () => {
     if (page === 1) return;
-
-    dispatch({ type: SearchActions.SET_PAGE, payload: page - 1 });
+    setPage(dispatch, page - 1);
   };
 
   const incrementPage = () => {
     if (page === maxPages) return;
-    dispatch({ type: SearchActions.SET_PAGE, payload: page + 1 });
+    setPage(dispatch, page + 1);
   };
 
   return (
@@ -65,7 +65,7 @@ export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
           to='search-results'
           smooth
           $isActive={page === 1}
-          onClick={() => dispatch({ type: SearchActions.SET_PAGE, payload: 1 })}
+          onClick={() => setPage(dispatch, 1)}
         >
           1
         </PageNumber>
@@ -77,9 +77,7 @@ export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
           to='search-results'
           smooth
           $isActive={page === number}
-          onClick={() =>
-            dispatch({ type: SearchActions.SET_PAGE, payload: number })
-          }
+          onClick={() => setPage(dispatch, number)}
         >
           {number}
         </PageNumber>
@@ -91,9 +89,7 @@ export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
           to='search-results'
           smooth
           $isActive={maxPages === page}
-          onClick={() =>
-            dispatch({ type: SearchActions.SET_PAGE, payload: maxPages })
-          }
+          onClick={() => setPage(dispatch, maxPages)}
         >
           {maxPages}
         </PageNumber>

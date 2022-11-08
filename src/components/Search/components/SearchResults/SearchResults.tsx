@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchContext } from "../../hooks/useSearchContext";
 import { ResultsWrapper, Wrapper } from "./SearchResults.styled";
 import { SearchResultsList } from "./components/SearchResultsList";
@@ -13,10 +13,9 @@ import { useAuth } from "src/hooks/useAuth";
 
 import sortfilter from "src/assets/images/sortfilter.svg";
 import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
-import isEqual from "lodash.isequal";
 
 export const SearchResults: React.FC = () => {
-  const [{ isFormSubmitting }, dispatch] = useSearchContext();
+  const [{ isFormSubmitting }] = useSearchContext();
 
   const [visibleItems, setVisibleItems] = useState<Flight[]>();
   const [flightsData, setFlightsData] = useState<Flight[]>();
@@ -36,63 +35,34 @@ export const SearchResults: React.FC = () => {
       flightType,
       passengers: { adults, children: childrenPassengers, infants },
       cabinClass: { code },
-      price: { min, max },
       rangeSliderValue,
       sort: { sortBy, sortType },
       directOnly,
     },
   ] = useSearchContext();
-  const parameters: SearchParameters = useMemo(
-    () => ({
-      fly_from: start.id,
-      fly_to: destination.id,
-      date_from: departDate,
-      date_to: departDate,
-      return_from: returnDate,
-      return_to: returnDate,
-      flight_type: flightType,
-      adults,
-      children: childrenPassengers,
-      infants,
-      selected_cabins: code,
-      curr: currencyCode,
-      locale: languageCode,
-      limit: 300,
-      price_from: rangeSliderValue[0],
-      price_to: rangeSliderValue[1],
-      sort: sortBy,
-      asc: sortType,
-      max_stopovers: directOnly,
-    }),
-    [
-      adults,
-      childrenPassengers,
-      code,
-      currencyCode,
-      departDate,
-      destination.id,
-      flightType,
-      infants,
-      languageCode,
-      rangeSliderValue,
-      returnDate,
-      sortBy,
-      sortType,
-      start.id,
-      directOnly,
-    ]
-  );
-  const [params, setParams] = useState<SearchParameters>(parameters);
-
-  const prevParameters = useRef<SearchParameters>();
+  const parameters: SearchParameters = {
+    fly_from: start.id,
+    fly_to: destination.id,
+    date_from: departDate,
+    date_to: departDate,
+    return_from: returnDate,
+    return_to: returnDate,
+    flight_type: flightType,
+    adults,
+    children: childrenPassengers,
+    infants,
+    selected_cabins: code,
+    curr: currencyCode,
+    locale: languageCode,
+    limit: 300,
+    price_from: rangeSliderValue[0],
+    price_to: rangeSliderValue[1],
+    sort: sortBy,
+    asc: sortType,
+    max_stopovers: directOnly,
+  };
 
   const { refetch } = useSearchResults(parameters);
-
-  const paramsNotEqual = !isEqual(prevParameters.current, params);
-
-  useEffect(() => {
-    prevParameters.current = params;
-  }, [params]);
 
   useEffect(() => {
     if (!isFormSubmitting) {
@@ -108,7 +78,6 @@ export const SearchResults: React.FC = () => {
     sortType,
     sortBy,
     element,
-    parameters,
     directOnly,
     isFormSubmitting,
   ]);
@@ -132,7 +101,6 @@ export const SearchResults: React.FC = () => {
             <FilterAndSort
               flightsData={flightsData}
               setShowSortAndFilter={setShowSortAndFilter}
-              paramsNotEqual={paramsNotEqual}
               parameters={parameters}
             />
           )}

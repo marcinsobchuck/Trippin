@@ -11,20 +11,18 @@ import {
 import arrow from "src/assets/images/arrow.svg";
 import { Checkbox } from "../../../Checkbox/Checkbox";
 import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
-import { SearchActions } from "src/components/Search/reducer/enums/searchActions.enum";
 import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
+import { setDirectOnly } from "src/components/Search/reducer/actions/search.actions";
 
 interface FilterAndSortProps {
   flightsData: Flight[];
   setShowSortAndFilter: (x: boolean) => void;
-  paramsNotEqual: boolean;
   parameters: SearchParameters;
 }
 
 export const FilterAndSort: React.FC<FilterAndSortProps> = ({
   flightsData,
   setShowSortAndFilter,
-  paramsNotEqual,
   parameters,
 }) => {
   const [checked, setChecked] = useState<boolean>(true);
@@ -38,20 +36,13 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked((prev) => !prev);
-    dispatch({
-      type: SearchActions.SET_DIRECT_ONLY,
-      payload: e.currentTarget.checked ? 0 : undefined,
-    });
+    setDirectOnly(dispatch, e.currentTarget.checked ? 0 : undefined);
   };
 
   return (
     <Wrapper>
       <FilterWrapper>
-        <PriceRangeSlider
-          parameters={parameters}
-          flightsData={flightsData}
-          paramsNotEqual={paramsNotEqual}
-        />
+        <PriceRangeSlider parameters={parameters} flightsData={flightsData} />
 
         <Checkbox
           label='Direct only'

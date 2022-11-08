@@ -12,7 +12,12 @@ import { Rings } from "react-loader-spinner";
 import { Colors } from "src/enums/colors.enum";
 import { Tag } from "src/apiServices/types/kiwiApi.types";
 import { useSearchContext } from "../../hooks/useSearchContext";
-import { SearchActions } from "../../reducer/enums/searchActions.enum";
+
+import {
+  setIsParamsEqual,
+  setRangeSliderValue,
+  setSearchFormData,
+} from "../../reducer/actions/search.actions";
 interface TopDestinationsSideBarItemProps {
   destinationName: string;
   continent: string;
@@ -37,22 +42,13 @@ export const TopDestinationsSideBarItem: React.FC<
   const [state, dispatch] = useSearchContext();
 
   const handleItemClick = () => {
-    dispatch({
-      type: SearchActions.SET_IS_PARAMS_EQUAL,
-      payload: false,
-    });
-    dispatch({
-      type: SearchActions.SET_RANGE_SLIDER_VALUE,
-      payload: [0, 0],
-    });
-    dispatch({
-      type: SearchActions.SET_SEARCH_FORM_DATA,
-      payload: {
-        ...state.searchFormData,
-        destination: {
-          id: id,
-          text: destinationName,
-        },
+    setIsParamsEqual(dispatch, false);
+    setRangeSliderValue(dispatch, [0, 0]);
+    setSearchFormData(dispatch, {
+      ...state.searchFormData,
+      destination: {
+        id: id,
+        text: destinationName,
       },
     });
   };

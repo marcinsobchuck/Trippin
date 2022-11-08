@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as Yup from "yup";
 import isEqual from "lodash.isequal";
 import { Formik, FormikProps } from "formik";
 import {
@@ -19,29 +18,22 @@ import { SearchFormDatePicker } from "../SearchFormDatePicker/SearchFormDatePick
 import { useTranslation } from "react-i18next";
 import { SearchFormInitialValues } from "./SearchForm.types";
 import { useSearchContext } from "../../hooks/useSearchContext";
-import { SearchActions } from "../../reducer/enums/searchActions.enum";
 import { SearchFormRadio } from "../SearchFormRadio/SearchFormRadio";
 import adult from "src/assets/images/adult.svg";
 import child from "src/assets/images/child.svg";
 import infant from "src/assets/images/infant.svg";
 import { SearchFormFlightSettingsModal } from "../SearchFormFlightSettingsModal/SearchFormFlightSettingsModal";
 import { RecommendedPlace } from "src/shared/types";
-
-const searchSchema = Yup.object().shape({
-  start: Yup.object({
-    id: Yup.string().required("Required"),
-  }),
-  date: Yup.object().when("flightType", {
-    is: "round",
-    then: Yup.object({
-      departDate: Yup.string().required("Required"),
-      returnDate: Yup.string().required("If round, return required"),
-    }),
-    otherwise: Yup.object({
-      departDate: Yup.string().required("Required"),
-    }),
-  }),
-});
+import { searchSchema } from "./config";
+import {
+  setCabinClass,
+  setFlightType,
+  setIsFormSubmitting,
+  setIsParamsEqual,
+  setPassengers,
+  setRangeSliderValue,
+  setSearchFormData,
+} from "../../reducer/actions/search.actions";
 
 interface SearchFormProps {
   formRef: React.Ref<FormikProps<SearchFormInitialValues>>;
@@ -119,36 +111,14 @@ export const SearchForm: React.FC<SearchFormProps> = ({
       cabinClass: state.cabinClass,
     });
 
-    dispatch({ type: SearchActions.SET_IS_PARAMS_EQUAL, payload: paramsCheck });
-
-    dispatch({
-      type: SearchActions.SET_IS_FORM_SUBMITTING,
-      payload: true,
-    });
-    dispatch({
-      type: SearchActions.SET_FLIGHT_TYPE,
-      payload: dataToSubmit.flightType,
-    });
-    dispatch({
-      type: SearchActions.SET_PASSENGERS,
-      payload: dataToSubmit.passengers,
-    });
-    dispatch({
-      type: SearchActions.SET_CABIN_CLASS,
-      payload: dataToSubmit.cabinClass,
-    });
-    dispatch({
-      type: SearchActions.SET_SEARCH_FORM_DATA,
-      payload: dataToSubmit.searchFormData,
-    });
-    dispatch({
-      type: SearchActions.SET_RANGE_SLIDER_VALUE,
-      payload: [0, 0],
-    });
-    dispatch({
-      type: SearchActions.SET_IS_FORM_SUBMITTING,
-      payload: false,
-    });
+    setIsParamsEqual(dispatch, paramsCheck);
+    setIsFormSubmitting(dispatch, true);
+    setFlightType(dispatch, dataToSubmit.flightType);
+    setPassengers(dispatch, dataToSubmit.passengers);
+    setCabinClass(dispatch, dataToSubmit.cabinClass);
+    setSearchFormData(dispatch, dataToSubmit.searchFormData);
+    setRangeSliderValue(dispatch, [0, 0]);
+    setIsFormSubmitting(dispatch, false);
     window.scrollTo({
       top: document.documentElement.clientHeight,
       behavior: "smooth",
@@ -202,10 +172,6 @@ export const SearchForm: React.FC<SearchFormProps> = ({
                 name='flightSettings'
               />
             </SettingsWrapper>
-            {/* <p style={{ color: "white" }}>
-              {JSON.stringify(values, null, 2)}
-              {JSON.stringify(errors, null, 2)}
-            </p> */}
             <InputsWrapper>
               <SearchFormInput
                 label={t("views.home.labels.start")}

@@ -4,20 +4,23 @@ import { Flight, SearchParameters } from "src/apiServices/types/kiwiApi.types";
 import { Label, LabelText, Wrapper } from "./PriceRangeSlider.styled";
 import { useAuth } from "src/hooks/useAuth";
 import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
-import { SearchActions } from "src/components/Search/reducer/enums/searchActions.enum";
 import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
 import { Oval } from "react-loader-spinner";
 import { Colors } from "src/enums/colors.enum";
+import {
+  setIsParamsEqual,
+  setPrice,
+  setRangeSliderValue,
+} from "src/components/Search/reducer/actions/search.actions";
 
 interface PriceRangeSliderProps {
   flightsData: Flight[];
-  paramsNotEqual: boolean;
+
   parameters: SearchParameters;
 }
 
 export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
   flightsData,
-  paramsNotEqual,
   parameters,
 }) => {
   const {
@@ -30,6 +33,7 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     {
       price: { min, max },
       isParamsEqual,
+      rangeSliderValue,
     },
     dispatch,
   ] = useSearchContext();
@@ -48,19 +52,11 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     event: Event | React.SyntheticEvent<Element, Event>,
     newValue: number[] | number
   ) => {
-    dispatch({
-      type: SearchActions.SET_IS_PARAMS_EQUAL,
-      payload: true,
-    });
-    dispatch({
-      type: SearchActions.SET_RANGE_SLIDER_VALUE,
-      payload: newValue as number[],
-    });
+    setIsParamsEqual(dispatch, true);
+    setRangeSliderValue(dispatch, newValue as number[]);
   };
 
   const noFlights = flightsData?.length === 0;
-
-  console.log(value);
 
   const getMinAndMaxPrice = useCallback(
     (data: Flight[]) => {
@@ -70,10 +66,8 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
         const prices = data.map((flight) => flight.price);
         const min = Math.min(...prices);
         const max = Math.max(...prices);
-
-        dispatch({ type: SearchActions.SET_PRICE, payload: { min, max } });
+        setPrice(dispatch, { min, max });
         setValue([min, max]);
-        console.log("xd");
       }
     },
     [dispatch, isParamsEqual, noFlights]
@@ -83,7 +77,11 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     if (!isParamsEqual && flightsData) {
       getMinAndMaxPrice(flightsData);
     }
-  }, [dispatch, flightsData, getMinAndMaxPrice, isParamsEqual]);
+
+    if (isParamsEqual) {
+      setValue([rangeSliderValue[0], rangeSliderValue[1]]);
+    }
+  }, [flightsData, getMinAndMaxPrice, isParamsEqual, rangeSliderValue]);
 
   if (isError) {
     return <Wrapper>Can't get the price</Wrapper>;

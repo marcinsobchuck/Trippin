@@ -1,5 +1,6 @@
 import { SearchActions } from "./enums/searchActions.enum";
-import { SearchAction, SearchState } from "./types/searchReducer.types";
+import { SearchAction } from "./types/search.actions.types";
+import { SearchState } from "./types/searchReducer.types";
 
 export const initialState: SearchState = {
   isFormSubmitting: true,
