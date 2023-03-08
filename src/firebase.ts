@@ -11,6 +11,6 @@ const app = initializeApp({
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 });
 
-export const auth = getAuth();
-export const db = getFirestore();
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 export default app;

@@ -5,8 +5,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-  updateEmail,
-  updatePassword,
   onAuthStateChanged,
   signOut,
   User,
@@ -48,12 +46,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const resetPassword = (email: string) => sendPasswordResetEmail(auth, email);
 
-  const updateMail = (email: string) =>
-    updateEmail(auth.currentUser as User, email);
-
-  const updatePass = (password: string) =>
-    updatePassword(auth.currentUser as User, password);
-
   useEffect(() => {
     currentUser && setIsFirstEntry(false);
 
@@ -71,8 +63,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     signUp,
     logout,
     resetPassword,
-    updateMail,
-    updatePass,
     setIsFirstEntry,
     isFirstEntry,
     regionalSettings,
