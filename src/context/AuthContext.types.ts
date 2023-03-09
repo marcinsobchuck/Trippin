@@ -25,8 +25,6 @@ export interface AuthContextType {
   signUp: (email: string, password: string) => Promise<UserCredential>;
   logout: () => void;
   resetPassword: (email: string) => Promise<void>;
-  updateMail: (email: string) => Promise<void> | undefined;
-  updatePass: (password: string) => Promise<void> | undefined;
   setIsFirstEntry: React.Dispatch<React.SetStateAction<boolean>>;
   isFirstEntry: boolean;
   regionalSettings: RegionalSettingsTypes;
