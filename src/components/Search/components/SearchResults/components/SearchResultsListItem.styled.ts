@@ -18,7 +18,7 @@ export const ItemWrapper = styled.div`
   border-radius: 9px;
   border: 1px solid transparent;
   padding: 18px;
-  background-color: ${Colors.White};
+
   box-shadow: ${Boxshadow.Boxshadow};
   margin-bottom: 24px;
   cursor: pointer;
@@ -26,6 +26,7 @@ export const ItemWrapper = styled.div`
   flex-direction: column;
   transition: 0.3s;
   width: 100%;
+  background-color: ${Colors.White};
 
   :hover ${DetailsButton} {
     background-color: ${Colors.Silver};
@@ -98,7 +99,7 @@ export const SectionDivider = styled.div`
   margin: 30px 0;
 
   span {
-    background: #fff;
+    background-color: ${Colors.White};
     padding: 0 10px;
   }
 `;
@@ -118,4 +119,27 @@ export const ButtonsWrapper = styled.div`
   @media ${Breakpoint.Desktop} {
     justify-content: center;
   }
+`;
+
+export const FavouriteWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 9px;
+  margin-top: 14px;
+  transition: 0.3s;
+  :hover {
+    background-color: ${Colors.DeepDarkBlue};
+    color: ${Colors.White};
+    fill: ${Colors.White};
+  }
+  p {
+    margin-right: 3px;
+  }
+`;
+
+export const FavouriteIcon = styled(svg)`
+  width: 16px;
+  height: 16px;
 `;

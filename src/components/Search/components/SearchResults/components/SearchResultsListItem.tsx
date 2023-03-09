@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
 import {
   ItemWrapper,
@@ -10,30 +10,58 @@ import {
   Price,
   FlightDirectionsWrapper,
   DetailsButton,
+  FavouriteIcon,
+  FavouriteWrapper,
 } from "./SearchResultsListItem.styled";
 import rarrow from "src/assets/images/rarrow.svg";
 import { useAuth } from "src/hooks/useAuth";
 import { Button } from "src/styles/Button.styled";
 import { FlightRoute } from "./FlightRoute";
 import { SearchResultsListItemProps } from "./SearchResultsListItem.types";
-import { formatDateToLocalDate, formatDateToLocalTime } from "../utils";
+import {
+  addFavourites,
+  deleteFavourites,
+  formatDateToLocalDate,
+  formatDateToLocalTime,
+} from "../utils";
 import { useRoutes } from "../hooks/useRotues";
+import plus from "src/assets/images/plus.svg";
+import minus from "src/assets/images/minus.svg";
 
 export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   data,
   setShowFlightDetailsModal,
   setActiveFlight,
+  favourites,
 }) => {
+  const [alreadyLiked, setAlreadyLiked] = useState<boolean>(() =>
+    favourites.some((el) => el.id === data.id)
+  );
+
   const [{ flightType }] = useSearchContext();
 
-  const { regionalSettings } = useAuth();
+  const { regionalSettings, currentUser } = useAuth();
 
   const routes = useRoutes(data);
 
-  const handleItemClick = () => {
+  const handleItemClick = (e: React.MouseEvent) => {
     setShowFlightDetailsModal(true);
     setActiveFlight(data);
   };
+
+  const handleAddToFavourites = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addFavourites(currentUser, data);
+    setAlreadyLiked(true);
+  };
+
+  const handleDeleteFromFavourites = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    deleteFavourites(currentUser, data);
+    setAlreadyLiked(false);
+  };
+
+  console.log(alreadyLiked);
 
   const renderContent = () => {
     if (flightType === "round") {
@@ -110,8 +138,23 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
               <i className='fas fa-chevron-down' /> Show details
             </DetailsButton>
             <a href={data.deep_link} target='_blank' rel='noopener noreferrer'>
-              <Button variant='quaternary'>See on kiwi.com</Button>
+              <Button
+                variant='quaternary'
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+              >
+                See on kiwi.com
+              </Button>
             </a>
+            <FavouriteWrapper
+              onClick={(e) =>
+                alreadyLiked
+                  ? handleDeleteFromFavourites(e)
+                  : handleAddToFavourites(e)
+              }
+            >
+              <p>{alreadyLiked ? "Delete" : "Save"}</p>
+              <FavouriteIcon src={alreadyLiked ? minus : plus} />
+            </FavouriteWrapper>
           </ButtonsWrapper>
         </ItemWrapper>
       );
@@ -154,8 +197,23 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
               <i className='fas fa-chevron-down' /> Show details
             </DetailsButton>
             <a href={data.deep_link} target='_blank' rel='noopener noreferrer'>
-              <Button variant='quaternary'>See on kiwi.com</Button>
+              <Button
+                variant='quaternary'
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+              >
+                See on kiwi.com
+              </Button>
             </a>
+            <FavouriteWrapper
+              onClick={(e: React.MouseEvent) =>
+                alreadyLiked
+                  ? handleDeleteFromFavourites(e)
+                  : handleAddToFavourites(e)
+              }
+            >
+              <p>{alreadyLiked ? "Delete" : "Save"}</p>
+              <FavouriteIcon src={alreadyLiked ? minus : plus} />
+            </FavouriteWrapper>
           </ButtonsWrapper>
         </ItemWrapper>
       );

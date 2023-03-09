@@ -10,6 +10,8 @@ import { Breakpoint } from "src/enums/breakpoint.enum";
 import { FlightDetailsModal } from "./FlightDetailsModal";
 import { PageSetter } from "./PageSetter";
 import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
+import { useAuth } from "src/hooks/useAuth";
+import { useFavourites } from "../hooks/useFavourites";
 
 interface SearchResultsListProps {
   setVisibleItems: (x: Flight[]) => void;
@@ -28,13 +30,14 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   const [showFlightDetailsModal, setShowFlightDetailsModal] =
     useState<boolean>(false);
 
+  const { isFetching, isError, data } = useSearchResults(parameters);
   const [{ page }, dispatch] = useSearchContext();
+  const { currentUser } = useAuth();
+  const favourites = useFavourites(currentUser);
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
   });
-
-  const { isFetching, isError, data } = useSearchResults(parameters);
 
   const flightsData = data?.data.data;
   const noFlights = flightsData?.length === 0;
@@ -84,6 +87,7 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
           visibleItems.map((flight: Flight) => (
             <SearchResultsListItem
               key={flight.id}
+              favourites={favourites}
               data={flight}
               setShowFlightDetailsModal={setShowFlightDetailsModal}
               setActiveFlight={setActiveFlight}

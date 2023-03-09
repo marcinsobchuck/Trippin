@@ -1,4 +1,8 @@
 import moment from "moment";
+import { Flight } from "src/apiServices/types/kiwiApi.types";
+import { db } from "src/firebase";
+import { setDoc, doc, deleteDoc } from "firebase/firestore";
+import { User } from "firebase/auth";
 
 export const formatDateToLocalTime = (date: number) =>
   moment.unix(date).local().format("HH:mm");
@@ -17,4 +21,41 @@ export const getDateDifference = (past: number, future: number) => {
   const result = `${hours}h  ${minutes}min`;
 
   return result;
+};
+
+export const addFavourites = async (user: User | null, item: Flight) => {
+  if (!user) return;
+
+  const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
+
+  console.log(docRef);
+
+  try {
+    await setDoc(
+      docRef,
+      {
+        id: item.id,
+        from: item.cityFrom,
+        to: item.cityTo,
+        price: item.price,
+      },
+      { merge: true }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteFavourites = async (user: User | null, item: Flight) => {
+  if (!user) return;
+
+  const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
+
+  console.log(docRef);
+
+  try {
+    await deleteDoc(docRef);
+  } catch (err) {
+    console.log(err);
+  }
 };
