@@ -15,7 +15,6 @@ import {
 
 interface PriceRangeSliderProps {
   flightsData: Flight[];
-
   parameters: SearchParameters;
 }
 
@@ -33,12 +32,11 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     {
       price: { min, max },
       isParamsEqual,
-      rangeSliderValue,
     },
     dispatch,
   ] = useSearchContext();
 
-  const [value, setValue] = useState<number[]>([0, 0]);
+  const [value, setValue] = useState<number[]>([min, max]);
 
   const valueToText = (value: number) => `${value}`;
 
@@ -62,26 +60,20 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     (data: Flight[]) => {
       if (noFlights) setValue([0, 0]);
 
-      if (!isParamsEqual) {
-        const prices = data.map((flight) => flight.price);
-        const min = Math.min(...prices);
-        const max = Math.max(...prices);
-        setPrice(dispatch, { min, max });
-        setValue([min, max]);
-      }
+      const prices = data.map((flight) => flight.price);
+      const min = Math.min(...prices);
+      const max = Math.max(...prices);
+      setPrice(dispatch, { min, max });
+      setValue([min, max]);
     },
-    [dispatch, isParamsEqual, noFlights]
+    [dispatch, noFlights]
   );
 
   useEffect(() => {
     if (!isParamsEqual && flightsData) {
       getMinAndMaxPrice(flightsData);
     }
-
-    if (isParamsEqual) {
-      setValue([rangeSliderValue[0], rangeSliderValue[1]]);
-    }
-  }, [flightsData, getMinAndMaxPrice, isParamsEqual, rangeSliderValue]);
+  }, [flightsData, getMinAndMaxPrice, isParamsEqual]);
 
   if (isError) {
     return <Wrapper>Can't get the price</Wrapper>;
@@ -91,7 +83,7 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     return (
       <Wrapper>
         <Label>
-          <LabelText> Price range</LabelText>
+          <LabelText>Price range</LabelText>
 
           {isFetching ? (
             <Oval
