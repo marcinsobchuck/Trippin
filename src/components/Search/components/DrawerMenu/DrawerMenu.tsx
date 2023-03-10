@@ -37,10 +37,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
   const history = useHistory();
 
   const handleAuthAction = () => {
-    if (currentUser) {
-      logout();
-      return;
-    }
+    currentUser && logout();
     history.push("/entry");
   };
 
@@ -62,9 +59,9 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
           >
             <p>Settings</p>
             <CurrentSettings>
-              <StyledImg src={regionalSettings.currency.currencyIcon} alt="" />
+              <StyledImg src={regionalSettings.currency.currencyIcon} alt='' />
               <p>{regionalSettings.currency.currencyCode}</p>
-              <StyledImg src={regionalSettings.language.flag} alt="flag" />
+              <StyledImg src={regionalSettings.language.flag} alt='flag' />
             </CurrentSettings>
           </RegionalSettingsMenuItem>
           <LinksWrapper>

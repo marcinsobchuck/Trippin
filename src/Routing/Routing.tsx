@@ -7,7 +7,7 @@ import { Routes } from "../enums/routes.enum";
 import { Entry } from "../views/Entry/Entry";
 import { ForgottenPassword } from "../views/ForgottenPassword/ForgottenPassword";
 import { Home } from "../views/Home/Home";
-import { Wishlist } from "../views/Wishlist/Wishlist";
+import { Favourites } from "../views/Favourites/Favourites";
 import { PrivateRoute } from "./PrivateRoute";
 
 export const Routing: React.FC = () => {
@@ -16,7 +16,7 @@ export const Routing: React.FC = () => {
       <Route exact path={Routes.Home} component={Home} />
       <Route path={Routes.Entry} component={Entry} />
       <Route path={Routes.ForgottenPassword} component={ForgottenPassword} />
-      <PrivateRoute path={Routes.Wishlist} component={Wishlist} />
+      <PrivateRoute path={Routes.Favourites} component={Favourites} />
       <Route path='*' component={NotFound404} />
     </Switch>
   );

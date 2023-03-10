@@ -3,6 +3,7 @@ import svg from "react-inlinesvg";
 import { Colors } from "../../enums/colors.enum";
 
 interface StyledLogoProps {
+  clickable: boolean;
   color?: string;
 }
 
@@ -13,6 +14,7 @@ export const LogoWrapper = styled.div<StyledLogoProps>`
   width: 100px;
   fill: ${({ color }) => (color ? color : Colors.DarkerBlue)};
   color: ${({ color }) => (color ? color : Colors.DarkerBlue)};
+  cursor: ${({ clickable }) => (clickable ? "pointer" : "auto")};
 `;
 
 export const LogoIcon = styled(svg)`

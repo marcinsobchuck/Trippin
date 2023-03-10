@@ -5,14 +5,18 @@ import { useModalAnimation } from "src/hooks/useModalAnimation";
 import { animated } from "@react-spring/web";
 import { Routes } from "src/enums/routes.enum";
 import { menuItems } from "src/shared/config";
+import { useHistory } from "react-router-dom";
 
 export const AccountInformationModal: React.FC<{
   showAccountInfoModal: boolean;
 }> = ({ showAccountInfoModal }) => {
   const { logout, currentUser } = useAuth();
 
+  const history = useHistory();
+
   const handleAuthAction = () => {
     currentUser && logout();
+    history.push("/entry");
   };
 
   const accountInformationModalTransition =
@@ -40,10 +44,7 @@ export const AccountInformationModal: React.FC<{
                 {item.text}
               </StyledText>
             ))}
-            <StyledText
-              to={!currentUser ? Routes.Entry : ""}
-              onClick={handleAuthAction}
-            >
+            <StyledText to={Routes.Entry} onClick={handleAuthAction}>
               {currentUser ? "Sign out" : "Sign in"}
             </StyledText>
           </Wrapper>
