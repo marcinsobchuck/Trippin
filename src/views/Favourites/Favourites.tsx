@@ -9,6 +9,7 @@ import {
 import rarrow from "src/assets/images/arrow.svg";
 import { Logo } from "src/components/Logo/Logo";
 import { useHistory } from "react-router-dom";
+import { FavouritesList } from "src/components/FavouritesList/FavouritesList";
 
 export const Favourites: React.FC = () => {
   const history = useHistory();
@@ -23,7 +24,9 @@ export const Favourites: React.FC = () => {
         </ButtonWrapper>
         <Logo />
       </Header>
-      <MainContentWrapper></MainContentWrapper>
+      <MainContentWrapper>
+        <FavouritesList />
+      </MainContentWrapper>
     </>
   );
 };

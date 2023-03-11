@@ -48,4 +48,27 @@ export const Arrow = styled(svg)`
   height: 32px;
 `;
 
-export const MainContentWrapper = styled.div``;
+export const MainContentWrapper = styled.div`
+  padding: 10px 16px;
+
+  @media ${Breakpoint.Desktop} {
+    margin: 0 auto;
+    max-width: 1024px;
+  }
+`;
+
+export const FavouriteTripsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+`;
+
+export const FavouriteTrip = styled.div`
+  padding: 12px 18px;
+  border-radius: 9px;
+  background-color: ${Colors.NiceGray};
+
+  :not(:last-of-type) {
+    margin-bottom: 12px;
+  }
+`;

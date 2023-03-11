@@ -28,16 +28,18 @@ export const addFavourites = async (user: User | null, item: Flight) => {
 
   const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
 
-  console.log(docRef);
-
   try {
     await setDoc(
       docRef,
       {
         id: item.id,
         from: item.cityFrom,
+        fromCountry: item.countryFrom,
         to: item.cityTo,
+        toCountry: item.countryTo,
         price: item.price,
+        depart: item.dTimeUTC,
+        arrival: item.aTimeUTC,
       },
       { merge: true }
     );
@@ -50,8 +52,6 @@ export const deleteFavourites = async (user: User | null, item: Flight) => {
   if (!user) return;
 
   const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
-
-  console.log(docRef);
 
   try {
     await deleteDoc(docRef);

@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   position: relative;
   display: flex;
   min-height: 100vh;
-  /* padding: 30px 12px; */
   background-color: ${Colors.OtherGray};
 `;
 
