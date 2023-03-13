@@ -23,7 +23,11 @@ export const getDateDifference = (past: number, future: number) => {
   return result;
 };
 
-export const addFavourites = async (user: User | null, item: Flight) => {
+export const addFavourites = async (
+  user: User | null,
+  item: Flight,
+  currency: string
+) => {
   if (!user) return;
 
   const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
@@ -37,9 +41,10 @@ export const addFavourites = async (user: User | null, item: Flight) => {
         fromCountry: item.countryFrom,
         to: item.cityTo,
         toCountry: item.countryTo,
-        price: item.price,
+        price: `${item.price} ${currency}`,
         depart: item.dTimeUTC,
         arrival: item.aTimeUTC,
+        link: item.deep_link,
       },
       { merge: true }
     );

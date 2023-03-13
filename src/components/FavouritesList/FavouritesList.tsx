@@ -1,37 +1,56 @@
 import React from "react";
 import { useAuth } from "src/hooks/useAuth";
 import { useFavourites } from "../Search/components/SearchResults/hooks/useFavourites";
+import { FavouriteTrip } from "./FavouriteTrip";
+import { Oval } from "react-loader-spinner";
+import { Colors } from "src/enums/colors.enum";
 import {
-  Email,
-  Heading,
-  UserIcon,
-  UserInfoWrapper,
-} from "./FavouritesList.styled";
-
-import user from "src/assets/images/user.svg";
-import {
-  FavouriteTrip,
   FavouriteTripsContainer,
-} from "src/views/Favourites/Favourites.styled";
+  NoResults,
+  NoResultsLink,
+  NoResultsText,
+} from "./FavouritesList.styled";
+import { Routes } from "src/enums/routes.enum";
+import { RedirectButton } from "src/styles/Button.styled";
 
 export const FavouritesList: React.FC = () => {
   const { currentUser } = useAuth();
-  const data = useFavourites(currentUser);
-  console.log(data);
+  const { data, isLoading } = useFavourites(currentUser);
+
+  if (isLoading)
+    return (
+      <Oval
+        color={Colors.DarkBlue}
+        secondaryColor={Colors.Blue}
+        wrapperStyle={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "90px",
+        }}
+      />
+    );
+
+  if (data.length === 0) {
+    return (
+      <FavouriteTripsContainer>
+        <NoResults>
+          <NoResultsText>You don't have any upcoming trips.</NoResultsText>
+          <NoResultsLink>
+            Add your next trip to favourites and it will appear here.
+          </NoResultsLink>
+          <RedirectButton to={Routes.Home} variant='quaternary' width={162}>
+            Search now
+          </RedirectButton>
+        </NoResults>
+      </FavouriteTripsContainer>
+    );
+  }
 
   return (
     <>
-      <UserInfoWrapper>
-        <UserIcon src={user} />
-        <Email>{currentUser?.email}</Email>
-      </UserInfoWrapper>
-
-      <Heading>Your trips</Heading>
       <FavouriteTripsContainer>
         {data.map((trip) => (
-          <FavouriteTrip>
-            <p>{trip.from}</p> to <p>{trip.to}</p>
-          </FavouriteTrip>
+          <FavouriteTrip trip={trip} />
         ))}
       </FavouriteTripsContainer>
     </>

@@ -33,7 +33,7 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   const { isFetching, isError, data } = useSearchResults(parameters);
   const [{ page }, dispatch] = useSearchContext();
   const { currentUser } = useAuth();
-  const favourites = useFavourites(currentUser);
+  const { data: favourites } = useFavourites(currentUser);
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,

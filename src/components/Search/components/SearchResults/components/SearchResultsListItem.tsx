@@ -51,7 +51,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
 
   const handleAddToFavourites = (e: React.MouseEvent) => {
     e.stopPropagation();
-    addFavourites(currentUser, data);
+    addFavourites(currentUser, data, regionalSettings.currency.currencyCode);
     setAlreadyLiked(true);
   };
 
@@ -61,7 +61,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
     setAlreadyLiked(false);
   };
 
-  console.log(alreadyLiked);
+  console.log(data);
 
   const renderContent = () => {
     if (flightType === "round") {

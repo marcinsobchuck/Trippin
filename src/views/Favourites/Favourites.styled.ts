@@ -4,6 +4,8 @@ import { Boxshadow } from "src/enums/boxShadow.enum";
 import { Colors } from "src/enums/colors.enum";
 import svg from "react-inlinesvg";
 import { Breakpoint } from "src/enums/breakpoint.enum";
+import { FontSize } from "src/enums/fontSize.enum";
+import { FontWeight } from "src/enums/fontWeight.enum";
 
 export const Header = styled.header`
   position: relative;
@@ -57,18 +59,27 @@ export const MainContentWrapper = styled.div`
   }
 `;
 
-export const FavouriteTripsContainer = styled.div`
+export const UserInfoWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-bottom: 32px;
+  align-items: center;
+  margin-bottom: 16px;
 `;
 
-export const FavouriteTrip = styled.div`
-  padding: 12px 18px;
-  border-radius: 9px;
-  background-color: ${Colors.NiceGray};
+export const UserIcon = styled(svg)`
+  width: 36px;
+  height: 36px;
+  margin-right: 9px;
+  fill: ${Colors.Silver};
+`;
 
-  :not(:last-of-type) {
-    margin-bottom: 12px;
-  }
+export const Email = styled.p`
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.SemiBold};
+`;
+
+export const Heading = styled.h2`
+  font-size: ${FontSize.Big};
+  color: ${Colors.DeepDarkBlue};
+  font-weight: ${FontWeight.Bold};
+  margin-bottom: 24px;
 `;

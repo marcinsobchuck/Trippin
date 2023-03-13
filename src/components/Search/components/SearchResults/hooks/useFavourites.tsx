@@ -12,14 +12,16 @@ export interface FavouriteFlight {
   price: number;
   depart: number;
   arrival: number;
+  link: string;
 }
 
 export const useFavourites = (user: User | null) => {
   const [data, setData] = useState<FavouriteFlight[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getData = useCallback(async () => {
     const favourites: FavouriteFlight[] = [];
-
+    setIsLoading(true);
     try {
       const querySnapshot = await getDocs(
         collection(db, `/users/${user?.uid}/favourites`)
@@ -28,16 +30,16 @@ export const useFavourites = (user: User | null) => {
       querySnapshot.forEach((doc) => {
         favourites.push(doc.data() as FavouriteFlight);
       });
+      setData(favourites);
     } catch (err) {
       console.log(err);
     }
-
-    setData(favourites);
+    setIsLoading(false);
   }, [user?.uid]);
 
   useEffect(() => {
     getData();
   }, [getData]);
 
-  return data;
+  return { data, isLoading };
 };
