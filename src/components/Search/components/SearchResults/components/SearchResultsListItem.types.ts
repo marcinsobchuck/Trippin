@@ -1,5 +1,4 @@
 import { Flight, Route } from "src/apiServices/types/kiwiApi.types";
-import { FavouriteFlight } from "../hooks/useFavourites";
 
 export interface RoutesData {
   departRoutes: Route[];
@@ -8,7 +7,7 @@ export interface RoutesData {
 
 export interface SearchResultsListItemProps {
   data: Flight;
-  favourites: FavouriteFlight[];
+  favourites: Flight[];
   setShowFlightDetailsModal: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveFlight: React.Dispatch<React.SetStateAction<Flight | undefined>>;
 }

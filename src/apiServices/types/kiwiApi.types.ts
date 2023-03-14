@@ -112,6 +112,11 @@ export interface Flight {
   route: Route[];
   nightsInDest: number | null;
   has_airport_change: boolean;
+  duration: {
+    departure: number;
+    return: number;
+    total: number;
+  };
 }
 
 export interface SearchResponse {

@@ -49,8 +49,8 @@ export const FavouritesList: React.FC = () => {
   return (
     <>
       <FavouriteTripsContainer>
-        {data.map((trip) => (
-          <FavouriteTrip trip={trip} />
+        {data.map((flight) => (
+          <FavouriteTrip key={flight.id} flight={flight} />
         ))}
       </FavouriteTripsContainer>
     </>

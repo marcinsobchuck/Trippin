@@ -33,21 +33,7 @@ export const addFavourites = async (
   const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
 
   try {
-    await setDoc(
-      docRef,
-      {
-        id: item.id,
-        from: item.cityFrom,
-        fromCountry: item.countryFrom,
-        to: item.cityTo,
-        toCountry: item.countryTo,
-        price: `${item.price} ${currency}`,
-        depart: item.dTimeUTC,
-        arrival: item.aTimeUTC,
-        link: item.deep_link,
-      },
-      { merge: true }
-    );
+    await setDoc(docRef, item, { merge: true });
   } catch (err) {
     console.log(err);
   }

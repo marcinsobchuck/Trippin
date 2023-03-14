@@ -33,6 +33,8 @@ export const SortSelect: React.FC = () => {
     defaultSelectedItem: options[0],
   });
 
+  console.log(selectedItem?.value);
+
   return (
     <Wrapper>
       <StyledLabel {...getLabelProps()}>Sort by</StyledLabel>

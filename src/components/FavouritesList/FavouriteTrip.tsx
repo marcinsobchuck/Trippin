@@ -1,27 +1,63 @@
 import React from "react";
-import { FavouriteFlight } from "../Search/components/SearchResults/hooks/useFavourites";
-import { TextPrimary, TripContainer } from "./FavouriteTrip.styled";
+import { Flight } from "src/apiServices/types/kiwiApi.types";
+import { useRoutes } from "../Search/components/SearchResults/hooks/useRotues";
+import {
+  formatDateToLocalDate,
+  formatDateToLocalTime,
+} from "../Search/components/SearchResults/utils";
 
-// id: string;
-// from: string;
-// fromCountry: string;
-// to: string;
-// toCountry: string;
-// price: number;
-// depart: number;
-// arrival: number;
-// link: string;
+import {
+  DateText,
+  Divider,
+  FontAwesomeIcon,
+  InfoContainer,
+  TextPrimary,
+  TripContainer,
+} from "./FavouriteTrip.styled";
 
 interface FavouriteTripProps {
-  trip: FavouriteFlight;
+  flight: Flight;
 }
 
-export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ trip }) => {
+export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
+  const {
+    countryFrom,
+    cityFrom,
+    countryTo,
+    cityTo,
+    price,
+    deep_link,
+    aTimeUTC,
+    dTimeUTC,
+    duration: { return: returnDuration },
+  } = flight;
+
+  const formatedTimeArrival = formatDateToLocalTime(aTimeUTC);
+  const formatedDateArrival = formatDateToLocalDate(aTimeUTC);
+
+  const formatedTimeDeparture = formatDateToLocalTime(dTimeUTC);
+  const formatedDateDeparture = formatDateToLocalDate(dTimeUTC);
+
   return (
     <TripContainer>
-      <TextPrimary>
-        {trip.from}, {trip.fromCountry}
-      </TextPrimary>
+      <InfoContainer>
+        <TextPrimary>
+          {countryFrom.name}, {cityFrom}
+        </TextPrimary>
+        <DateText>{formatedDateDeparture}</DateText>
+        <DateText>{formatedTimeDeparture}</DateText>
+      </InfoContainer>
+      <Divider>
+        <FontAwesomeIcon className='fa-solid fa-angles-down' />
+      </Divider>
+      <InfoContainer>
+        <TextPrimary>
+          {countryTo.name}, {cityTo}
+        </TextPrimary>
+        <DateText>{formatedDateArrival}</DateText>
+        <DateText>{formatedTimeArrival}</DateText>
+      </InfoContainer>
+      {returnDuration !== 0 && <InfoContainer>ok</InfoContainer>}
     </TripContainer>
   );
 };
