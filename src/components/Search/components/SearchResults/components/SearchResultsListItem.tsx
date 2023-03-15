@@ -61,8 +61,6 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
     setAlreadyLiked(false);
   };
 
-  console.log(data);
-
   const renderContent = () => {
     if (flightType === "round") {
       return (

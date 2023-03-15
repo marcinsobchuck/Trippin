@@ -5,9 +5,11 @@ import { FontSize } from "src/enums/fontSize.enum";
 import { FontWeight } from "src/enums/fontWeight.enum";
 import { Breakpoint } from "src/enums/breakpoint.enum";
 
+interface SharedReturnTypes {
+  isReturnRoute?: boolean;
+}
+
 export const TripContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   background-color: ${Colors.NiceGray};
   border-radius: 9px;
   border: 1px solid ${Colors.Silver};
@@ -15,6 +17,11 @@ export const TripContainer = styled.div`
   :not(:last-of-type) {
     margin-bottom: 12px;
   }
+`;
+
+export const RouteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 
   @media ${Breakpoint.Desktop} {
     flex-direction: row;
@@ -38,16 +45,15 @@ export const TextPrimary = styled.p`
   color: ${Colors.DarkBlue};
 `;
 
-export const TextSecondary = styled.p``;
-
 export const DateText = styled.p`
   font-size: ${FontSize.Small};
   font-weight: ${FontWeight.Medium};
 `;
 
-export const Divider = styled.div`
+export const Divider = styled.div<SharedReturnTypes>`
   text-align: center;
-  background-color: ${Colors.LighterBlue};
+  background-color: ${({ isReturnRoute }) =>
+    isReturnRoute ? Colors.DeepDarkBlue : Colors.LighterBlue};
 
   @media ${Breakpoint.Desktop} {
     display: flex;
@@ -57,8 +63,11 @@ export const Divider = styled.div`
   }
 `;
 
-export const FontAwesomeIcon = styled.i`
-  color: ${Colors.Blue};
+export const FontAwesomeIcon = styled.i<SharedReturnTypes>`
+  color: ${({ isReturnRoute }) => (isReturnRoute ? Colors.White : Colors.Blue)};
+
+  transform: ${({ isReturnRoute }) =>
+    isReturnRoute ? "rotate(-90deg)" : "rotate(0)"};
 
   @media ${Breakpoint.Desktop} {
     transform: rotate(-90deg);
