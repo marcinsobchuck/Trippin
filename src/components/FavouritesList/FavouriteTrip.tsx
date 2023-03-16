@@ -1,24 +1,29 @@
 import React from "react";
-import { Flight } from "src/apiServices/types/kiwiApi.types";
-import { useRoutes } from "../Search/components/SearchResults/hooks/useRotues";
+import { useAuth } from "src/hooks/useAuth";
+import { RedirectButton } from "src/styles/Button.styled";
+import { FavouriteFlight } from "../Search/components/SearchResults/hooks/useFavourites";
+
 import {
+  deleteFavourites,
   formatDateToLocalDate,
   formatDateToLocalTime,
 } from "../Search/components/SearchResults/utils";
-import { useSearchContext } from "../Search/hooks/useSearchContext";
 
 import {
+  ActionsMenu,
   DateText,
   Divider,
   FontAwesomeIcon,
   InfoContainer,
+  PriceText,
   RouteContainer,
+  Summary,
   TextPrimary,
   TripContainer,
 } from "./FavouriteTrip.styled";
 
 interface FavouriteTripProps {
-  flight: Flight;
+  flight: FavouriteFlight;
 }
 
 export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
@@ -31,8 +36,10 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
     deep_link,
     aTimeUTC,
     dTimeUTC,
-    duration: { return: returnDuration },
+    currency,
   } = flight;
+
+  const { currentUser } = useAuth();
 
   const formatedTimeArrival = formatDateToLocalTime(aTimeUTC);
   const formatedDateArrival = formatDateToLocalDate(aTimeUTC);
@@ -42,9 +49,9 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
 
   const returnRoutes = flight.route.filter((route) => route.return === 1);
 
-  console.log(
-    returnRoutes.length > 0 && formatDateToLocalTime(returnRoutes[0].dTimeUTC)
-  );
+  const handleDeleteItem = () => {
+    deleteFavourites(currentUser, flight);
+  };
 
   return (
     <TripContainer>
@@ -76,11 +83,11 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
               className='fa-solid fa-right-left'
             />
           </Divider>
+
           <RouteContainer>
             <InfoContainer>
               <TextPrimary>
-                {countryTo.name},{" "}
-                {returnRoutes[returnRoutes.length - 1].cityFrom}
+                {countryTo.name}, {returnRoutes[0].cityFrom}
               </TextPrimary>
               <DateText>
                 {formatDateToLocalDate(returnRoutes[0].dTimeUTC)}
@@ -100,12 +107,12 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
                 {returnRoutes[returnRoutes.length - 1].cityTo}
               </TextPrimary>
               <DateText>
-                {formatDateToLocalTime(
+                {formatDateToLocalDate(
                   returnRoutes[returnRoutes.length - 1].aTimeUTC
                 )}
               </DateText>
               <DateText>
-                {formatDateToLocalDate(
+                {formatDateToLocalTime(
                   returnRoutes[returnRoutes.length - 1].aTimeUTC
                 )}
               </DateText>
@@ -113,6 +120,17 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
           </RouteContainer>
         </>
       ) : null}
+      <Summary>
+        <PriceText>
+          {price} {currency}
+        </PriceText>
+        <RedirectButton to={deep_link} variant='quaternary'>
+          See on kiwi.com
+        </RedirectButton>
+      </Summary>
+      <ActionsMenu onClick={handleDeleteItem}>
+        <i className='fa-solid fa-trash' />
+      </ActionsMenu>
     </TripContainer>
   );
 };

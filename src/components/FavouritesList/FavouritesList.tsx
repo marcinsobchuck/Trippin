@@ -49,9 +49,11 @@ export const FavouritesList: React.FC = () => {
   return (
     <>
       <FavouriteTripsContainer>
-        {data.map((flight) => (
-          <FavouriteTrip key={flight.id} flight={flight} />
-        ))}
+        {data
+          .sort((a, b) => a.dTimeUTC - b.dTimeUTC)
+          .map((flight) => (
+            <FavouriteTrip key={flight.id} flight={flight} />
+          ))}
       </FavouriteTripsContainer>
     </>
   );

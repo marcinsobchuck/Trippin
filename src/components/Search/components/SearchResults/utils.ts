@@ -3,6 +3,7 @@ import { Flight } from "src/apiServices/types/kiwiApi.types";
 import { db } from "src/firebase";
 import { setDoc, doc, deleteDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
+import { FavouriteFlight } from "./hooks/useFavourites";
 
 export const formatDateToLocalTime = (date: number) =>
   moment.unix(date).local().format("HH:mm");
@@ -33,7 +34,7 @@ export const addFavourites = async (
   const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
 
   try {
-    await setDoc(docRef, item, { merge: true });
+    await setDoc(docRef, { ...item, currency }, { merge: true });
   } catch (err) {
     console.log(err);
   }

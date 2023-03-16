@@ -4,12 +4,16 @@ import { useEffect, useState, useCallback } from "react";
 import { Flight } from "src/apiServices/types/kiwiApi.types";
 import { db } from "src/firebase";
 
+export interface FavouriteFlight extends Flight {
+  currency: string;
+}
+
 export const useFavourites = (user: User | null) => {
-  const [data, setData] = useState<Flight[]>([]);
+  const [data, setData] = useState<FavouriteFlight[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getData = useCallback(async () => {
-    const favourites: Flight[] = [];
+    const favourites: FavouriteFlight[] = [];
     setIsLoading(true);
     try {
       const querySnapshot = await getDocs(
@@ -17,7 +21,7 @@ export const useFavourites = (user: User | null) => {
       );
 
       querySnapshot.forEach((doc) => {
-        favourites.push(doc.data() as Flight);
+        favourites.push(doc.data() as FavouriteFlight);
       });
       setData(favourites);
     } catch (err) {

@@ -9,13 +9,41 @@ interface SharedReturnTypes {
   isReturnRoute?: boolean;
 }
 
+export const ActionsMenu = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 70px;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+  transform: translateX(100px);
+  transition: transform 0.3s ease-in-out;
+  background-color: ${Colors.White};
+  cursor: pointer;
+  transition: 0.3s;
+
+  :hover {
+    background-color: ${Colors.Silver};
+  }
+`;
+
 export const TripContainer = styled.div`
+  position: relative;
   background-color: ${Colors.NiceGray};
   border-radius: 9px;
   border: 1px solid ${Colors.Silver};
+  overflow: hidden;
+
+  :hover ${ActionsMenu} {
+    transform: translateX(0);
+  }
 
   :not(:last-of-type) {
-    margin-bottom: 12px;
+    margin-bottom: 24px;
   }
 `;
 
@@ -31,9 +59,10 @@ export const RouteContainer = styled.div`
 
 export const InfoContainer = styled.div`
   padding: 12px 18px;
-  flex-basis: 40%;
 
   @media ${Breakpoint.Desktop} {
+    flex-basis: 40%;
+
     :last-of-type {
       text-align: right;
     }
@@ -51,15 +80,17 @@ export const DateText = styled.p`
 `;
 
 export const Divider = styled.div<SharedReturnTypes>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background-color: ${({ isReturnRoute }) =>
-    isReturnRoute ? Colors.DeepDarkBlue : Colors.LighterBlue};
+    isReturnRoute ? Colors.DarkBlue : Colors.LighterBlue};
+  height: ${({ isReturnRoute }) => (isReturnRoute ? "60px" : "30px")};
 
   @media ${Breakpoint.Desktop} {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-basis: 5%;
+    flex-basis: 10%;
+    height: ${({ isReturnRoute }) => (isReturnRoute ? "60px" : "auto")};
   }
 `;
 
@@ -72,4 +103,18 @@ export const FontAwesomeIcon = styled.i<SharedReturnTypes>`
   @media ${Breakpoint.Desktop} {
     transform: rotate(-90deg);
   }
+`;
+
+export const Summary = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px dashed ${Colors.Gray};
+  padding: 8px 18px 18px;
+`;
+
+export const PriceText = styled.h2`
+  text-align: left;
+  font-size: ${FontSize.Big};
+  color: ${Colors.DeepDarkBlue};
+  font-weight: ${FontWeight.SemiBold};
 `;
