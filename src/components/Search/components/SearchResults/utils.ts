@@ -3,7 +3,6 @@ import { Flight } from "src/apiServices/types/kiwiApi.types";
 import { db } from "src/firebase";
 import { setDoc, doc, deleteDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
-import { FavouriteFlight } from "./hooks/useFavourites";
 
 export const formatDateToLocalTime = (date: number) =>
   moment.unix(date).local().format("HH:mm");
@@ -40,10 +39,10 @@ export const addFavourites = async (
   }
 };
 
-export const deleteFavourites = async (user: User | null, item: Flight) => {
+export const deleteFavourites = async (user: User | null, itemId: string) => {
   if (!user) return;
 
-  const docRef = doc(db, `users/${user.uid}/favourites`, item.id);
+  const docRef = doc(db, `users/${user.uid}/favourites`, itemId);
 
   try {
     await deleteDoc(docRef);

@@ -15,7 +15,8 @@ import { RedirectButton } from "src/styles/Button.styled";
 
 export const FavouritesList: React.FC = () => {
   const { currentUser } = useAuth();
-  const { data, isLoading } = useFavourites(currentUser);
+
+  const { data, isLoading, deleteFavouriteTrip } = useFavourites(currentUser);
 
   if (isLoading)
     return (
@@ -46,13 +47,21 @@ export const FavouritesList: React.FC = () => {
     );
   }
 
+  const handleDeleteFavouriteTrip = (id: string) => {
+    deleteFavouriteTrip(id);
+  };
+
   return (
     <>
       <FavouriteTripsContainer>
         {data
-          .sort((a, b) => a.dTimeUTC - b.dTimeUTC)
+          ?.sort((a, b) => a.dTimeUTC - b.dTimeUTC)
           .map((flight) => (
-            <FavouriteTrip key={flight.id} flight={flight} />
+            <FavouriteTrip
+              key={flight.id}
+              flight={flight}
+              onDelete={handleDeleteFavouriteTrip}
+            />
           ))}
       </FavouriteTripsContainer>
     </>

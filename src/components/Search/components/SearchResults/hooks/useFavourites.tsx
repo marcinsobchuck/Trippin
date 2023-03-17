@@ -3,6 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState, useCallback } from "react";
 import { Flight } from "src/apiServices/types/kiwiApi.types";
 import { db } from "src/firebase";
+import { deleteFavourites } from "../utils";
 
 export interface FavouriteFlight extends Flight {
   currency: string;
@@ -30,9 +31,15 @@ export const useFavourites = (user: User | null) => {
     setIsLoading(false);
   }, [user?.uid]);
 
+  const deleteFavouriteTrip = (id: string) => {
+    const newData = data.filter((item) => item.id !== id);
+    setData(newData);
+    deleteFavourites(user, id);
+  };
+
   useEffect(() => {
     getData();
   }, [getData]);
 
-  return { data, isLoading };
+  return { data, isLoading, deleteFavouriteTrip };
 };

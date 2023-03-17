@@ -57,7 +57,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
 
   const handleDeleteFromFavourites = (e: React.MouseEvent) => {
     e.stopPropagation();
-    deleteFavourites(currentUser, data);
+    deleteFavourites(currentUser, data.id);
     setAlreadyLiked(false);
   };
 

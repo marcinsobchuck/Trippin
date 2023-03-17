@@ -1,10 +1,8 @@
 import React from "react";
-import { useAuth } from "src/hooks/useAuth";
 import { RedirectButton } from "src/styles/Button.styled";
 import { FavouriteFlight } from "../Search/components/SearchResults/hooks/useFavourites";
 
 import {
-  deleteFavourites,
   formatDateToLocalDate,
   formatDateToLocalTime,
 } from "../Search/components/SearchResults/utils";
@@ -24,9 +22,13 @@ import {
 
 interface FavouriteTripProps {
   flight: FavouriteFlight;
+  onDelete: (id: string) => void;
 }
 
-export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
+export const FavouriteTrip: React.FC<FavouriteTripProps> = ({
+  flight,
+  onDelete,
+}) => {
   const {
     countryFrom,
     cityFrom,
@@ -37,9 +39,8 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
     aTimeUTC,
     dTimeUTC,
     currency,
+    id,
   } = flight;
-
-  const { currentUser } = useAuth();
 
   const formatedTimeArrival = formatDateToLocalTime(aTimeUTC);
   const formatedDateArrival = formatDateToLocalDate(aTimeUTC);
@@ -48,10 +49,6 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
   const formatedDateDeparture = formatDateToLocalDate(dTimeUTC);
 
   const returnRoutes = flight.route.filter((route) => route.return === 1);
-
-  const handleDeleteItem = () => {
-    deleteFavourites(currentUser, flight);
-  };
 
   return (
     <TripContainer>
@@ -128,7 +125,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight }) => {
           See on kiwi.com
         </RedirectButton>
       </Summary>
-      <ActionsMenu onClick={handleDeleteItem}>
+      <ActionsMenu onClick={() => onDelete(id)}>
         <i className='fa-solid fa-trash' />
       </ActionsMenu>
     </TripContainer>
