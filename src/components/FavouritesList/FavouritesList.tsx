@@ -12,11 +12,35 @@ import {
 } from "./FavouritesList.styled";
 import { Routes } from "src/enums/routes.enum";
 import { RedirectButton } from "src/styles/Button.styled";
+import { useTransition } from "react-spring";
 
 export const FavouritesList: React.FC = () => {
   const { currentUser } = useAuth();
 
   const { data, isLoading, deleteFavouriteTrip } = useFavourites(currentUser);
+
+  const sortedData = data.sort((a, b) => a.dTimeUTC - b.dTimeUTC);
+
+  const transitions = useTransition(sortedData, {
+    keys: (flight) => flight.id,
+    trail: 100,
+    from: {
+      transform: "translate3d(0px, -20px, 0px) scale(1)",
+      opacity: 0,
+      height: 0,
+    },
+    enter: (flight) => ({
+      transform: "translate3d(0px, 0px, 0px) scale(1)",
+      opacity: 1,
+      height: flight.duration.return > 0 ? 330 : 160,
+    }),
+    leave: {
+      transform: "translate3d(0px, 20px, 0px) scale(0)",
+      opacity: 0,
+      height: 0,
+      marginBottom: 0,
+    },
+  });
 
   if (isLoading)
     return (
@@ -54,15 +78,14 @@ export const FavouritesList: React.FC = () => {
   return (
     <>
       <FavouriteTripsContainer>
-        {data
-          ?.sort((a, b) => a.dTimeUTC - b.dTimeUTC)
-          .map((flight) => (
-            <FavouriteTrip
-              key={flight.id}
-              flight={flight}
-              onDelete={handleDeleteFavouriteTrip}
-            />
-          ))}
+        {transitions((styles, flight) => (
+          <FavouriteTrip
+            key={flight.id}
+            flight={flight}
+            onDelete={handleDeleteFavouriteTrip}
+            style={styles}
+          />
+        ))}
       </FavouriteTripsContainer>
     </>
   );

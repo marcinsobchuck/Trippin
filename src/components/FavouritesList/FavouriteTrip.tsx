@@ -1,4 +1,5 @@
 import React from "react";
+import { SpringValue } from "react-spring";
 import { RedirectButton } from "src/styles/Button.styled";
 import { FavouriteFlight } from "../Search/components/SearchResults/hooks/useFavourites";
 
@@ -23,11 +24,17 @@ import {
 interface FavouriteTripProps {
   flight: FavouriteFlight;
   onDelete: (id: string) => void;
+  style: {
+    transform: SpringValue<string>;
+    opacity: SpringValue<number>;
+    height: SpringValue<number>;
+  };
 }
 
 export const FavouriteTrip: React.FC<FavouriteTripProps> = ({
   flight,
   onDelete,
+  style,
 }) => {
   const {
     countryFrom,
@@ -51,7 +58,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({
   const returnRoutes = flight.route.filter((route) => route.return === 1);
 
   return (
-    <TripContainer>
+    <TripContainer style={style}>
       <RouteContainer>
         <InfoContainer>
           <TextPrimary>

@@ -4,6 +4,7 @@ import { Colors } from "src/enums/colors.enum";
 import { FontSize } from "src/enums/fontSize.enum";
 import { FontWeight } from "src/enums/fontWeight.enum";
 import { Breakpoint } from "src/enums/breakpoint.enum";
+import { animated } from "react-spring";
 
 interface SharedReturnTypes {
   isReturnRoute?: boolean;
@@ -31,19 +32,20 @@ export const ActionsMenu = styled.div`
   }
 `;
 
-export const TripContainer = styled.div`
+export const TripContainer = styled(animated.div)`
   position: relative;
   background-color: ${Colors.NiceGray};
   border-radius: 9px;
   border: 1px solid ${Colors.Silver};
   overflow: hidden;
+  height: 100%;
 
   :hover ${ActionsMenu} {
     transform: translateX(0);
   }
 
-  :not(:last-of-type) {
-    margin-bottom: 24px;
+  &:not(:last-child) {
+    margin-bottom: 16px;
   }
 `;
 
