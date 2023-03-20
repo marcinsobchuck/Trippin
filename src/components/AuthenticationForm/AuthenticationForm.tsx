@@ -55,12 +55,9 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
     <Formik
       initialValues={initialValues}
       onSubmit={async ({ email, password }, { resetForm, setSubmitting }) => {
-        setSubmitting(true);
         await onSubmit(email, password)
           .then(() => history.push("/"))
           .catch((error) => setError("User not found"));
-        setSubmitting(false);
-        resetForm();
       }}
       validationSchema={validationSchema}
     >

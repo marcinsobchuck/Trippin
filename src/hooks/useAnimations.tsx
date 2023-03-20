@@ -22,7 +22,6 @@ export const useAnimations = () => {
       y: 0,
       opacity: 0,
     },
-    expires: true,
     config: {
       duration: 600,
     },
@@ -33,12 +32,11 @@ export const useAnimations = () => {
     from: {
       width: "40%",
     },
-    to: [
-      {
-        position: "absolute",
-        left: toggleDesktopAnimation ? "60%" : "0%",
-      },
-    ],
+    to: {
+      position: "absolute",
+      left: toggleDesktopAnimation ? "60%" : "0%",
+    },
+
     delay: 400,
     config: {
       duration: 450,
@@ -59,7 +57,6 @@ export const useAnimations = () => {
       opacity: 0,
     },
     delay: toggleDesktopAnimation ? 500 : 0,
-    expires: true,
   });
 
   const headingSignUpTransition = useTransition(toggleDesktopAnimation, {
@@ -76,7 +73,6 @@ export const useAnimations = () => {
       opacity: 0,
     },
     delay: toggleDesktopAnimation ? 0 : 500,
-    expires: true,
   });
 
   const buttonsTransition = useTransition(toggleDesktopAnimation, {
@@ -88,18 +84,17 @@ export const useAnimations = () => {
     },
     leave: { opacity: 0, x: 0, y: 400 },
     delay: 1000,
-    expires: true,
   });
+
   const formAnimation = useSpring({
     from: {
       width: "60%",
     },
-    to: [
-      {
-        position: "absolute",
-        left: toggleDesktopAnimation ? "0%" : "40%",
-      },
-    ],
+    to: {
+      position: "absolute",
+      left: toggleDesktopAnimation ? "0%" : "40%",
+    },
+
     delay: 400,
     config: {
       duration: 450,
@@ -124,7 +119,6 @@ export const useAnimations = () => {
       opacity: 0,
     },
     delay: 550,
-    expires: true,
     config: {
       duration: 100,
     },
