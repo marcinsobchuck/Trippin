@@ -4,11 +4,11 @@ import { db } from "src/firebase";
 import { setDoc, doc, deleteDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
 
-export const formatDateToLocalTime = (date: number) =>
-  moment.unix(date).local().format("HH:mm");
+export const formatTime = (date: number) =>
+  moment.unix(date).utcOffset(0).format("HH:mm");
 
-export const formatDateToLocalDate = (date: number) =>
-  moment.unix(date).local().format("DD.MM.YY");
+export const formatDate = (date: number) =>
+  moment.unix(date).utcOffset(0).format("DD.MM.YY");
 
 export const getDateDifference = (past: number, future: number) => {
   const departureDate = moment.unix(past);

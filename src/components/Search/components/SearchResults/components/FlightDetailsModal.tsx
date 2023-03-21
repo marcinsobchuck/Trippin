@@ -24,7 +24,7 @@ import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
 import { FlightDetailsModalProps } from "./FlightDetailsModal.types";
 import { useRoutes } from "../hooks/useRotues";
 import closeIcon from "src/assets/images/close.svg";
-import { formatDateToLocalTime, getDateDifference } from "../utils";
+import { formatTime, getDateDifference } from "../utils";
 import { useAuth } from "src/hooks/useAuth";
 import { Button } from "src/styles/Button.styled";
 import { useSearchContext } from "src/components/Search/hooks/useSearchContext";
@@ -94,13 +94,13 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                             <RouteDetails>
                               <RouteDetailRow>
                                 <StyledTime>
-                                  {formatDateToLocalTime(departRoute.dTimeUTC)}
+                                  {formatTime(departRoute.dTime)}
                                 </StyledTime>
                                 <p>{departRoute.cityFrom}</p>
                               </RouteDetailRow>
                               <RouteDetailRow>
                                 <StyledTime>
-                                  {formatDateToLocalTime(departRoute.aTimeUTC)}
+                                  {formatTime(departRoute.aTime)}
                                 </StyledTime>
                                 {departRoute.cityTo}
                               </RouteDetailRow>
@@ -154,17 +154,13 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                                 <RouteDetails>
                                   <RouteDetailRow>
                                     <StyledTime>
-                                      {formatDateToLocalTime(
-                                        returnRoute.dTimeUTC
-                                      )}
+                                      {formatTime(returnRoute.dTime)}
                                     </StyledTime>
                                     <p>{returnRoute.cityFrom}</p>
                                   </RouteDetailRow>
                                   <RouteDetailRow>
                                     <StyledTime>
-                                      {formatDateToLocalTime(
-                                        returnRoute.aTimeUTC
-                                      )}
+                                      {formatTime(returnRoute.aTime)}
                                     </StyledTime>
                                     {returnRoute.cityTo}
                                   </RouteDetailRow>

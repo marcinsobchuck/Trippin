@@ -21,8 +21,8 @@ import { SearchResultsListItemProps } from "./SearchResultsListItem.types";
 import {
   addFavourites,
   deleteFavourites,
-  formatDateToLocalDate,
-  formatDateToLocalTime,
+  formatDate,
+  formatTime,
 } from "../utils";
 import { useRoutes } from "../hooks/useRotues";
 import plus from "src/assets/images/plus.svg";
@@ -43,6 +43,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   const { regionalSettings, currentUser } = useAuth();
 
   const routes = useRoutes(data);
+  console.log(data);
 
   const handleItemClick = (e: React.MouseEvent) => {
     setShowFlightDetailsModal(true);
@@ -84,9 +85,9 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
             <FlightRoute
               data={data}
               routeType='Departure'
-              departDate={formatDateToLocalDate(data.dTimeUTC)}
-              departTime={formatDateToLocalTime(data.dTimeUTC)}
-              arrivalTime={formatDateToLocalTime(data.aTimeUTC)}
+              departDate={formatDate(data.dTime)}
+              departTime={formatTime(data.dTime)}
+              arrivalTime={formatTime(data.aTime)}
               stops={routes && routes.departRoutes.length - 1}
               routeDirection={data.cityTo}
               cityFrom={data.cityFrom}
@@ -106,14 +107,10 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
               <FlightRoute
                 data={data}
                 routeType='Return'
-                departDate={formatDateToLocalDate(
-                  routes.returnRoutes[routes.returnRoutes.length - 1].aTimeUTC
-                )}
-                departTime={formatDateToLocalTime(
-                  routes.returnRoutes[0].dTimeUTC
-                )}
-                arrivalTime={formatDateToLocalTime(
-                  routes?.returnRoutes[routes.returnRoutes.length - 1].aTimeUTC
+                departDate={formatDate(routes.returnRoutes[0].dTime)}
+                departTime={formatTime(routes.returnRoutes[0].dTime)}
+                arrivalTime={formatTime(
+                  routes?.returnRoutes[routes.returnRoutes.length - 1].aTime
                 )}
                 stops={routes.returnRoutes.length - 1}
                 routeDirection={
@@ -178,9 +175,9 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
             <FlightRoute
               data={data}
               routeType='Departure'
-              departDate={formatDateToLocalDate(data.dTimeUTC)}
-              departTime={formatDateToLocalTime(data.dTimeUTC)}
-              arrivalTime={formatDateToLocalTime(data.aTimeUTC)}
+              departDate={formatDate(data.dTime)}
+              departTime={formatTime(data.dTime)}
+              arrivalTime={formatTime(data.aTime)}
               stops={routes && routes.departRoutes.length - 1}
               routeDirection={data.cityTo}
               cityFrom={data.cityFrom}

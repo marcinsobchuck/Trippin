@@ -4,8 +4,8 @@ import { RedirectButton } from "src/styles/Button.styled";
 import { FavouriteFlight } from "../Search/components/SearchResults/hooks/useFavourites";
 
 import {
-  formatDateToLocalDate,
-  formatDateToLocalTime,
+  formatDate,
+  formatTime,
 } from "../Search/components/SearchResults/utils";
 
 import {
@@ -43,17 +43,17 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({
     cityTo,
     price,
     deep_link,
-    aTimeUTC,
-    dTimeUTC,
+    aTime,
+    dTime,
     currency,
     id,
   } = flight;
 
-  const formatedTimeArrival = formatDateToLocalTime(aTimeUTC);
-  const formatedDateArrival = formatDateToLocalDate(aTimeUTC);
+  const formatedTimeArrival = formatTime(aTime);
+  const formatedDateArrival = formatDate(aTime);
 
-  const formatedTimeDeparture = formatDateToLocalTime(dTimeUTC);
-  const formatedDateDeparture = formatDateToLocalDate(dTimeUTC);
+  const formatedTimeDeparture = formatTime(dTime);
+  const formatedDateDeparture = formatDate(dTime);
 
   const returnRoutes = flight.route.filter((route) => route.return === 1);
 
@@ -93,13 +93,9 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({
               <TextPrimary>
                 {countryTo.name}, {returnRoutes[0].cityFrom}
               </TextPrimary>
+              <DateText>{formatDate(returnRoutes[0].dTime)}</DateText>
               <DateText>
-                {formatDateToLocalDate(returnRoutes[0].dTimeUTC)}
-              </DateText>
-              <DateText>
-                {formatDateToLocalTime(
-                  returnRoutes[returnRoutes.length - 1].dTimeUTC
-                )}
+                {formatTime(returnRoutes[returnRoutes.length - 1].dTime)}
               </DateText>
             </InfoContainer>
             <Divider>
@@ -111,14 +107,10 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({
                 {returnRoutes[returnRoutes.length - 1].cityTo}
               </TextPrimary>
               <DateText>
-                {formatDateToLocalDate(
-                  returnRoutes[returnRoutes.length - 1].aTimeUTC
-                )}
+                {formatDate(returnRoutes[returnRoutes.length - 1].aTime)}
               </DateText>
               <DateText>
-                {formatDateToLocalTime(
-                  returnRoutes[returnRoutes.length - 1].aTimeUTC
-                )}
+                {formatTime(returnRoutes[returnRoutes.length - 1].aTime)}
               </DateText>
             </InfoContainer>
           </RouteContainer>
