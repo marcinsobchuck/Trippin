@@ -5,7 +5,6 @@ import { getPhotos } from "../unsplashApi";
 export const usePhotos = (parameters: PhotosParameters) => {
   const fetchPhotos = useQuery(parameters.query, () => getPhotos(parameters), {
     refetchOnWindowFocus: false,
-    enabled: false,
   });
   return fetchPhotos;
 };

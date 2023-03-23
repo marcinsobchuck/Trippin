@@ -16,7 +16,7 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({
 }) => {
   const [{ searchFormData }] = useSearchContext();
 
-  const { data, refetch, isError, isSuccess, isFetching } = useTopDestinations({
+  const { data, refetch, isError, isFetching } = useTopDestinations({
     term: searchFormData.start.id,
     limit: Math.ceil(visibleItems.length * 2.5),
   });
@@ -60,7 +60,6 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({
             key={topDestination.id}
             id={topDestination.id}
             destinationName={topDestination.name}
-            shouldFetch={isSuccess}
             continent={topDestination.continent.name}
             tags={topDestination.tags}
           />

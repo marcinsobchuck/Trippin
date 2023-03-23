@@ -9,6 +9,7 @@ export interface Photo {
     small: string;
     thumb: string;
   };
+  blur_hash: string;
 }
 
 export interface PhotosResponse {

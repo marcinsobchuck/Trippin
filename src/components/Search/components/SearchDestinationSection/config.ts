@@ -1,16 +1,10 @@
-import { RecommendedPlaces } from "src/enums/backgroundImages.enum";
+import { RecommendedPlaces } from "src/enums/recommendedPlaces.enum";
 
 export const recommendedPlacesArray = [
   {
     id: "barcelona_es",
     place_key: "views.home.recommended.barcelona",
     place: RecommendedPlaces.BARCELONA,
-    inputText: "",
-  },
-  {
-    id: "moscow_cf_ru",
-    place_key: "views.home.recommended.moscow",
-    place: RecommendedPlaces.MOSCOW,
     inputText: "",
   },
   {

@@ -21,14 +21,13 @@ import {
 interface TopDestinationsSideBarItemProps {
   destinationName: string;
   continent: string;
-  shouldFetch: boolean;
   tags: Tag[];
   id: string;
 }
 
 export const TopDestinationsSideBarItem: React.FC<
   TopDestinationsSideBarItemProps
-> = ({ destinationName, shouldFetch, continent, tags, id }) => {
+> = ({ destinationName, continent, tags, id }) => {
   const [queryTerm, setQueryTerm] = useState(destinationName);
 
   const { data, refetch, isFetching } = usePhotos({
@@ -54,15 +53,11 @@ export const TopDestinationsSideBarItem: React.FC<
   };
 
   useEffect(() => {
-    if (shouldFetch) {
-      refetch();
-    }
-
     if (noResults) {
       setQueryTerm(continent);
       refetch();
     }
-  }, [continent, noResults, refetch, shouldFetch]);
+  }, [continent, noResults, refetch]);
 
   if (isFetching)
     return (
