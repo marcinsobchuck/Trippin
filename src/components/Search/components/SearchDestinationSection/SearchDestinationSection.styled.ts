@@ -5,6 +5,25 @@ import { FontSize } from "../../../../enums/fontSize.enum";
 import { FontWeight } from "../../../../enums/fontWeight.enum";
 import { Logo } from "../../../Logo/Logo";
 import svg from "react-inlinesvg";
+import { animated } from "react-spring";
+
+interface AnimatedBackgroundProps {
+  backgroundImage: string;
+}
+
+export const AnimatedBackground = styled(animated.div)<AnimatedBackgroundProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -10;
+  background-image: ${({ backgroundImage }) =>
+    backgroundImage ? `url(${backgroundImage})` : null};
+  background-size: cover;
+  background-position: center;
+  will-change: opacity;
+`;
 
 export const Wrapper = styled.div`
   display: flex;

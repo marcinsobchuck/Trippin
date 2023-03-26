@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   ListWrapper,
   Item,
@@ -15,11 +15,11 @@ import {
   ArrowIcon,
   BurgerMenuIcon,
   BurgerMenuIconWrapper,
+  AnimatedBackground,
 } from "./SearchDestinationSection.styled";
 import { useMediaQuery } from "react-responsive";
 import { Breakpoint } from "../../../../enums/breakpoint.enum";
 import { Colors } from "../../../../enums/colors.enum";
-
 import { SearchForm } from "../SearchForm/SearchForm";
 import { useTranslation } from "react-i18next";
 import { RegionalSettingsModal } from "src/components/RegionalSettingsModal/RegionalSettingsModal";
@@ -34,16 +34,14 @@ import { FormikProps } from "formik";
 import { SearchFormInitialValues } from "../SearchForm/SearchForm.types";
 import { recommendedPlacesArray } from "./config";
 import { RecommendedPlace } from "src/shared/types";
-import { usePhotos } from "src/apiServices/hooks/usePhotos";
-import { PhotosParameters } from "src/apiServices/types/unsplashApi.types";
-import { OptimizedImage } from "src/components/OptimizedImage/OptimizedImage";
+import { useTransition } from "react-spring";
 
 export const SearchDestinationSection: React.FC = () => {
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
   });
   const [currentRecommendedPlace, setCurrentRecommendedPlace] =
-    useState<RecommendedPlace>(() => recommendedPlacesArray[3]);
+    useState<RecommendedPlace>(() => recommendedPlacesArray[0]);
   const [showRegionalSettingsModal, setShowRegionalSettingsModal] =
     useState<boolean>(false);
   const [showAccountInfoModal, setShowAccountInfoModal] =
@@ -51,19 +49,6 @@ export const SearchDestinationSection: React.FC = () => {
   const [isDrawerMenuOpen, setIsDrawerMenuOpen] = useState<boolean>(false);
 
   const { regionalSettings } = useAuth();
-
-  const photoParameters: PhotosParameters = {
-    query: currentRecommendedPlace.place,
-    per_page: 1,
-    orientation: "landscape",
-  };
-  const { data, isFetching } = usePhotos(photoParameters);
-
-  const photo = data?.data.results[0];
-
-  useEffect(() => {
-    console.log(photo);
-  }, [photo]);
 
   const { t } = useTranslation();
 
@@ -74,10 +59,6 @@ export const SearchDestinationSection: React.FC = () => {
   const handleAccountInfoClick = () => {
     setShowAccountInfoModal((prevState) => !prevState);
   };
-
-  const menuRef = useRef(null);
-  const settingsModalRef = useRef(null);
-  const formRef = useRef<FormikProps<SearchFormInitialValues>>(null);
 
   const handleClickOnPlace = (
     event: React.MouseEvent<HTMLLIElement>,
@@ -95,15 +76,29 @@ export const SearchDestinationSection: React.FC = () => {
 
   const handleBurgerClick = () => setIsDrawerMenuOpen((prev) => !prev);
 
+  const menuRef = useRef(null);
+  const settingsModalRef = useRef(null);
+  const formRef = useRef<FormikProps<SearchFormInitialValues>>(null);
+
   useOnClickOutside(menuRef, () => setShowAccountInfoModal(false));
   useOnClickOutside(settingsModalRef, () =>
     setShowRegionalSettingsModal(false)
   );
 
+  const backgroundTransition = useTransition(currentRecommendedPlace.image, {
+    key: currentRecommendedPlace.id,
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 1000 },
+  });
+
   return (
     <>
-      <OptimizedImage image={photo} isFetching={isFetching} />
       <Wrapper>
+        {backgroundTransition((style, item) => (
+          <AnimatedBackground backgroundImage={item} style={style} />
+        ))}
         {!isTabletS && (
           <BurgerMenuIconWrapper onClick={handleBurgerClick}>
             <BurgerMenuIcon src={burger} />

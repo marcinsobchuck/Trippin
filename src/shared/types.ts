@@ -3,4 +3,5 @@ export interface RecommendedPlace {
   place_key?: string;
   inputText: string;
   place: string;
+  image: string;
 }

@@ -1,20 +1,16 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Blurhash } from "react-blurhash";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import React, { useEffect, useState } from "react";
 
-import { Photo } from "src/apiServices/types/unsplashApi.types";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ImageWrapper, StyledBlurhash } from "./OptimizedImage.styled";
 
 interface OptimizedImageProps {
-  image?: Photo;
-  isFetching: boolean;
+  image: {
+    src: string;
+    blurHash: string;
+  };
 }
 
-export const OptimizedImage: React.FC<OptimizedImageProps> = ({
-  image,
-  isFetching,
-}) => {
+export const OptimizedImage: React.FC<OptimizedImageProps> = ({ image }) => {
   const [isLoaded, setLoaded] = useState(false);
   const [isLoadStarted, setLoadStarted] = useState(false);
 
@@ -32,23 +28,19 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     setLoadStarted(false);
   }, [image]);
 
-  console.log(isFetching);
   return (
     <ImageWrapper>
-      {!isFetching && (
-        <LazyLoadImage
-          key={image?.id}
-          src={image?.urls.full}
-          height='100%'
-          width='100%'
-          onLoad={handleLoad}
-          beforeLoad={handleLoadStarted}
-        />
-      )}
-
-      {!isLoaded && isLoadStarted && image?.blur_hash && (
+      <LazyLoadImage
+        key={image.src}
+        src={image.src}
+        height='100%'
+        width='100%'
+        onLoad={handleLoad}
+        beforeLoad={handleLoadStarted}
+      />
+      {!isLoaded && isLoadStarted && (
         <StyledBlurhash
-          hash={image.blur_hash}
+          hash={image.blurHash}
           width='100%'
           height='100%'
           resolutionX={32}
