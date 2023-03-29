@@ -86,35 +86,31 @@ export const SearchResults: React.FC = () => {
     setShowSortAndFilter((prev) => !prev);
   };
 
-  if (!isFormSubmitting) {
-    return (
-      <Wrapper id='search-results'>
-        {visibleItems && <TopDestinationsSideBar visibleItems={visibleItems} />}
+  return (
+    <Wrapper id='search-results'>
+      {visibleItems && <TopDestinationsSideBar visibleItems={visibleItems} />}
 
-        <ResultsWrapper>
-          {!showSortAndFilter && (
-            <SortFilterButton onClick={handleButtonClick}>
-              <SortFilterIcon src={sortfilter} />
-            </SortFilterButton>
-          )}
-          {flightsData && showSortAndFilter && (
-            <FilterAndSort
-              flightsData={flightsData}
-              setShowSortAndFilter={setShowSortAndFilter}
-              parameters={parameters}
-            />
-          )}
-
-          <SearchResultsList
-            visibleItems={visibleItems}
-            setVisibleItems={setVisibleItems}
-            setFlightsData={setFlightsData}
+      <ResultsWrapper>
+        {!showSortAndFilter && (
+          <SortFilterButton onClick={handleButtonClick}>
+            <SortFilterIcon src={sortfilter} />
+          </SortFilterButton>
+        )}
+        {flightsData && showSortAndFilter && (
+          <FilterAndSort
+            flightsData={flightsData}
+            setShowSortAndFilter={setShowSortAndFilter}
             parameters={parameters}
           />
-        </ResultsWrapper>
-      </Wrapper>
-    );
-  }
+        )}
 
-  return null;
+        <SearchResultsList
+          visibleItems={visibleItems}
+          setVisibleItems={setVisibleItems}
+          setFlightsData={setFlightsData}
+          parameters={parameters}
+        />
+      </ResultsWrapper>
+    </Wrapper>
+  );
 };

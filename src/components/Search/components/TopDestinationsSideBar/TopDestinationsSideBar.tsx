@@ -16,10 +16,31 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({
 }) => {
   const [{ searchFormData }] = useSearchContext();
 
-  const { data, refetch, isError, isFetching } = useTopDestinations({
+  const { data, refetch, isError, isLoading } = useTopDestinations({
     term: searchFormData.start.id,
     limit: Math.ceil(visibleItems.length * 2.5),
   });
+
+  const topDestinations = data?.data.locations;
+  const noTopDestinations = topDestinations?.length === 0;
+
+  // const Arrrrrrrrray = ["Warsaw", "London", "Barcelona"];
+
+  // const queryResults = useQueries(
+  //   Arrrrrrrrray.map((topDestination) => {
+  //     return {
+  //       queryKey: ["top-destination", topDestination],
+  //       queryFn: () =>
+  //         getPhotos({
+  //           orientation: "landscape",
+  //           per_page: 1,
+  //           query: topDestination,
+  //         }),
+  //     };
+  //   })
+  // );
+
+  // console.log(queryResults);
 
   useEffect(() => {
     if (visibleItems.length > 0) {
@@ -29,10 +50,9 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({
 
   if (isError) return <Wrapper>Error retrieving data from the server</Wrapper>;
 
-  if (data?.data.locations.length === 0)
-    return <Wrapper>No top destinations</Wrapper>;
+  if (noTopDestinations) return <Wrapper>No top destinations</Wrapper>;
 
-  if (isFetching)
+  if (isLoading)
     return (
       <Wrapper>
         <Grid
@@ -55,7 +75,7 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({
         </HeadingText>
       </Heading>
       <div>
-        {data?.data.locations.map((topDestination) => (
+        {topDestinations?.map((topDestination) => (
           <TopDestinationsSideBarItem
             key={topDestination.id}
             id={topDestination.id}

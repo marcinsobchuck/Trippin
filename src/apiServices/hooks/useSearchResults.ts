@@ -4,7 +4,7 @@ import { SearchParameters } from "../types/kiwiApi.types";
 
 export const useSearchResults = (parameters: SearchParameters) => {
   const fetchSearchResults = useQuery(
-    "searchResults",
+    [parameters.fly_from, parameters.fly_to],
     () => getSearchResults(parameters),
     {
       refetchOnWindowFocus: false,

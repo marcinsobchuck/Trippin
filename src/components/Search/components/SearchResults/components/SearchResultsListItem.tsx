@@ -43,7 +43,6 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   const { regionalSettings, currentUser } = useAuth();
 
   const routes = useRoutes(data);
-  console.log(data);
 
   const handleItemClick = (e: React.MouseEvent) => {
     setShowFlightDetailsModal(true);

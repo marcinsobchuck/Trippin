@@ -40,7 +40,7 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
 
   const valueToText = (value: number) => `${value}`;
 
-  const { isFetching, isError } = useSearchResults(parameters);
+  const { isLoading, isError } = useSearchResults(parameters);
 
   const handleChange = (event: Event, newValue: number[] | number) => {
     setValue(newValue as number[]);
@@ -85,7 +85,7 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
         <Label>
           <LabelText>Price range</LabelText>
 
-          {isFetching ? (
+          {isLoading ? (
             <Oval
               color={Colors.DeepDarkBlue}
               secondaryColor={Colors.LightBlue}
@@ -109,7 +109,7 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
           valueLabelDisplay='auto'
           min={min}
           max={max}
-          disabled={isFetching}
+          disabled={isLoading}
         />
       </Wrapper>
     );

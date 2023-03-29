@@ -19,7 +19,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({ image }) => {
   };
 
   const handleLoadStarted = () => {
-    console.log("Started: ");
     setLoadStarted(true);
   };
 

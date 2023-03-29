@@ -32,7 +32,7 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
     setShowSortAndFilter(false);
   };
 
-  const { isFetching } = useSearchResults(parameters);
+  const { isLoading } = useSearchResults(parameters);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked((prev) => !prev);
@@ -48,7 +48,7 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
           label='Direct only'
           onChange={handleCheckboxChange}
           checked={checked}
-          disabled={isFetching}
+          disabled={isLoading}
         />
       </FilterWrapper>
 

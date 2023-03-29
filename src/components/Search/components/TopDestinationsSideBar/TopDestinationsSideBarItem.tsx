@@ -18,6 +18,7 @@ import {
   setRangeSliderValue,
   setSearchFormData,
 } from "../../reducer/actions/search.actions";
+
 interface TopDestinationsSideBarItemProps {
   destinationName: string;
   continent: string;
@@ -30,12 +31,13 @@ export const TopDestinationsSideBarItem: React.FC<
 > = ({ destinationName, continent, tags, id }) => {
   const [queryTerm, setQueryTerm] = useState(destinationName);
 
-  const { data, refetch, isFetching } = usePhotos({
+  const { data, refetch, isLoading } = usePhotos({
     orientation: "landscape",
     per_page: 1,
     query: queryTerm,
   });
 
+  const photoData = data?.data.results;
   const noResults = data?.data.results.length === 0;
 
   const [state, dispatch] = useSearchContext();
@@ -59,7 +61,7 @@ export const TopDestinationsSideBarItem: React.FC<
     }
   }, [continent, noResults, refetch]);
 
-  if (isFetching)
+  if (isLoading)
     return (
       <ImageWrapper to='#'>
         <SkeletonImage>

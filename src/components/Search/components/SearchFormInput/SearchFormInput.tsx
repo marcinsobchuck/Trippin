@@ -67,7 +67,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   };
 
   const { data: codes, refetch: refetchCodes } = useCodes(languageCode);
-  const { data, refetch, isFetching } = useLocations({
+  const { data, refetch, isLoading } = useLocations({
     term: place,
     limit: isTabletS ? 6 : 10,
     location_types: ["airport", "city", "country"],
@@ -210,7 +210,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
       <StyledLabelWrapper isFullscreen={!isTabletS && isOpen}>
         <StyledLabel {...getLabelProps()} isFullscreen={!isTabletS && isOpen}>
           {label}
-          {isFetching && isOpen && (
+          {isLoading && isOpen && (
             <ThreeDots
               color={!isTabletS && isOpen ? Colors.DarkerBlue : Colors.White}
               width={16}
@@ -244,7 +244,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
 
       <StyledList isFullscreen={!isTabletS && isOpen} {...getMenuProps()}>
         {isOpen &&
-          !isFetching &&
+          !isLoading &&
           inputValue !== "" &&
           data?.data.locations.map((location, index) => (
             <StyledItem

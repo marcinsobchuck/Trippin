@@ -119,10 +119,6 @@ export const SearchForm: React.FC<SearchFormProps> = ({
     setSearchFormData(dispatch, dataToSubmit.searchFormData);
     setRangeSliderValue(dispatch, [0, 0]);
     setIsFormSubmitting(dispatch, false);
-    window.scrollTo({
-      top: document.documentElement.clientHeight,
-      behavior: "smooth",
-    });
   };
 
   return (
