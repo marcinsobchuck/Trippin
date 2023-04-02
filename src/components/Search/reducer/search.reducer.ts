@@ -3,8 +3,6 @@ import { SearchAction } from "./types/search.actions.types";
 import { SearchState } from "./types/searchReducer.types";
 
 export const initialState: SearchState = {
-  isFormSubmitting: true,
-  isParamsEqual: false,
   // Pagination
 
   page: 1,
@@ -20,18 +18,18 @@ export const initialState: SearchState = {
       id: "",
       text: "",
     },
-    departDate: "",
-    returnDate: "",
-  },
-  flightType: "round",
-  passengers: {
-    adults: 1,
-    children: 0,
-    infants: 0,
-  },
-  cabinClass: {
-    code: "M",
-    text: "Economy",
+    date: {
+      inbound: "",
+      outbound: "",
+    },
+    flightType: "round",
+    flightSettings: {
+      adults: 1,
+      children: 0,
+      infants: 0,
+      cabinCode: "M",
+      cabinClass: "Economy",
+    },
   },
 
   // Sort and filter
@@ -50,32 +48,12 @@ export const initialState: SearchState = {
 
 export const reducer = (state: SearchState, action: SearchAction) => {
   switch (action.type) {
-    case SearchActions.SET_FLIGHT_TYPE:
-      return {
-        ...state,
-        flightType: action.payload,
-      };
-    case SearchActions.SET_PASSENGERS:
-      return {
-        ...state,
-        passengers: action.payload,
-      };
-    case SearchActions.SET_CABIN_CLASS:
-      return {
-        ...state,
-        cabinClass: action.payload,
-      };
     case SearchActions.SET_SEARCH_FORM_DATA:
       return {
         ...state,
         searchFormData: action.payload,
       };
-    case SearchActions.SET_IS_FORM_SUBMITTING: {
-      return {
-        ...state,
-        isFormSubmitting: action.payload,
-      };
-    }
+
     case SearchActions.SET_PAGE: {
       return {
         ...state,
@@ -102,12 +80,7 @@ export const reducer = (state: SearchState, action: SearchAction) => {
         page: 1,
       };
     }
-    case SearchActions.SET_IS_PARAMS_EQUAL: {
-      return {
-        ...state,
-        isParamsEqual: action.payload,
-      };
-    }
+
     case SearchActions.SET_DIRECT_ONLY: {
       return {
         ...state,

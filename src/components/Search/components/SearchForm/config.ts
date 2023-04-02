@@ -7,11 +7,11 @@ export const searchSchema = Yup.object().shape({
   date: Yup.object().when("flightType", {
     is: "round",
     then: Yup.object({
-      departDate: Yup.string().required("Required"),
-      returnDate: Yup.string().required("If round, return required"),
+      inbound: Yup.string().required("Required"),
+      outbound: Yup.string().required("If round, return required"),
     }),
     otherwise: Yup.object({
-      departDate: Yup.string().required("Required"),
+      inbound: Yup.string().required("Required"),
     }),
   }),
 });

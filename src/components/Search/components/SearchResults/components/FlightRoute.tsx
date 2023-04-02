@@ -29,8 +29,11 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
   airportCodeTo,
   flyDuration,
 }) => {
-  const [state] = useSearchContext();
-  const { cabinClass } = state;
+  const [
+    {
+      searchFormData: { flightSettings },
+    },
+  ] = useSearchContext();
 
   return (
     <>
@@ -77,7 +80,7 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
               <p>Stops: {stops}</p>
             </FlightBadge>
             <FlightBadge color={Colors.DarkGreen} bgColor={Colors.LightGreen}>
-              {cabinClass.text}
+              {flightSettings.cabinClass}
             </FlightBadge>
           </BadgesWrapper>
         </FlightDetailsItem>

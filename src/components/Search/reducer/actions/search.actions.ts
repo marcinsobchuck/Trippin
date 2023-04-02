@@ -2,53 +2,20 @@ import { Dispatch } from "react";
 
 import { SearchActions } from "../enums/searchActions.enum";
 import {
-  SetCabinClass,
   SetDirectOnly,
-  SetFlightType,
-  SetIsFormSubmitting,
-  SetIsParamsEqual,
   SetPage,
-  SetPassengers,
   SetPrice,
   SetRangeSliderValue,
   SetSearchFormData,
-  SetShowResults,
   SetSort,
   SetVisibleItems,
 } from "../types/search.actions.types";
-import {
-  Cabin,
-  FlightType,
-  Passengers,
-  Price,
-  SearchFormData,
-  Sort,
-} from "../types/searchReducer.types";
-
-export const setFlightType = (
-  dispatch: Dispatch<SetFlightType>,
-  flightType: FlightType
-) => {
-  dispatch({ type: SearchActions.SET_FLIGHT_TYPE, payload: flightType });
-};
-
-export const setPassengers = (
-  dispatch: Dispatch<SetPassengers>,
-  passengers: Passengers
-) => {
-  dispatch({ type: SearchActions.SET_PASSENGERS, payload: passengers });
-};
-
-export const setCabinClass = (
-  dispatch: Dispatch<SetCabinClass>,
-  cabin: Cabin
-) => {
-  dispatch({ type: SearchActions.SET_CABIN_CLASS, payload: cabin });
-};
+import { Price, Sort } from "../types/searchReducer.types";
+import { SearchFormTypes } from "src/shared/types";
 
 export const setSearchFormData = (
   dispatch: Dispatch<SetSearchFormData>,
-  searchFormData: SearchFormData
+  searchFormData: SearchFormTypes
 ) => {
   dispatch({
     type: SearchActions.SET_SEARCH_FORM_DATA,
@@ -56,25 +23,6 @@ export const setSearchFormData = (
   });
 };
 
-export const setShowResults = (
-  dispatch: Dispatch<SetShowResults>,
-  showResults: boolean
-) => {
-  dispatch({
-    type: SearchActions.SET_SHOW_RESULTS,
-    payload: showResults,
-  });
-};
-
-export const setIsFormSubmitting = (
-  dispatch: Dispatch<SetIsFormSubmitting>,
-  isFormSubmitting: boolean
-) => {
-  dispatch({
-    type: SearchActions.SET_IS_FORM_SUBMITTING,
-    payload: isFormSubmitting,
-  });
-};
 export const setVisibleItems = (
   dispatch: Dispatch<SetVisibleItems>,
   visibleItems: any
@@ -111,16 +59,6 @@ export const setSort = (dispatch: Dispatch<SetSort>, sort: Sort) => {
   dispatch({
     type: SearchActions.SET_SORT,
     payload: sort,
-  });
-};
-
-export const setIsParamsEqual = (
-  dispatch: Dispatch<SetIsParamsEqual>,
-  isParamsEqual: boolean
-) => {
-  dispatch({
-    type: SearchActions.SET_IS_PARAMS_EQUAL,
-    payload: isParamsEqual,
   });
 };
 

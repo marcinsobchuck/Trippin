@@ -62,7 +62,7 @@ export interface SearchParameters {
   price_to?: number;
   sort: SortByType;
   asc: SortTypeType;
-  max_stopovers: number | undefined;
+  max_stopovers?: number;
 }
 
 export interface Route {

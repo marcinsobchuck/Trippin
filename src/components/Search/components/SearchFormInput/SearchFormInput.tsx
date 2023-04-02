@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, ChangeEvent } from "react";
 import { useCombobox } from "downshift";
-import { useField } from "formik";
+import { FieldHookConfig, useField } from "formik";
 import { SearchFormInputProps } from "./SearchFormInput.types";
 import { useLocations } from "src/apiServices/hooks/useLocations";
 import { Location } from "src/apiServices/types/kiwiApi.types";
@@ -232,7 +232,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
       <StyledInput
         {...field}
         {...getInputProps({
-          onChange: (e: any) => {
+          onChange: (e: ChangeEvent<HTMLInputElement>) => {
             if (e.target.value === "") {
               setValue({ id: "", text: "" });
             }

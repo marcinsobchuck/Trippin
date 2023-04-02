@@ -8,7 +8,6 @@ import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
 import { Oval } from "react-loader-spinner";
 import { Colors } from "src/enums/colors.enum";
 import {
-  setIsParamsEqual,
   setPrice,
   setRangeSliderValue,
 } from "src/components/Search/reducer/actions/search.actions";
@@ -30,8 +29,10 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
 
   const [
     {
+      searchFormData: {
+        destination: { id: destinationId },
+      },
       price: { min, max },
-      isParamsEqual,
     },
     dispatch,
   ] = useSearchContext();
@@ -50,7 +51,6 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     event: Event | React.SyntheticEvent<Element, Event>,
     newValue: number[] | number
   ) => {
-    setIsParamsEqual(dispatch, true);
     setRangeSliderValue(dispatch, newValue as number[]);
   };
 
@@ -70,10 +70,8 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
   );
 
   useEffect(() => {
-    if (!isParamsEqual && flightsData) {
-      getMinAndMaxPrice(flightsData);
-    }
-  }, [flightsData, getMinAndMaxPrice, isParamsEqual]);
+    getMinAndMaxPrice(flightsData);
+  }, [flightsData, getMinAndMaxPrice, destinationId]);
 
   if (isError) {
     return <Wrapper>Can't get the price</Wrapper>;

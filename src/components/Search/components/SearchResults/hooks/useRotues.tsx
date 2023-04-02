@@ -6,7 +6,11 @@ import { RoutesData } from "../components/SearchResultsListItem.types";
 export const useRoutes = (flight: Flight | undefined) => {
   const [routesData, setRoutesData] = useState<RoutesData | undefined>();
 
-  const [{ flightType }] = useSearchContext();
+  const [
+    {
+      searchFormData: { flightType },
+    },
+  ] = useSearchContext();
 
   useEffect(() => {
     if (flight) {

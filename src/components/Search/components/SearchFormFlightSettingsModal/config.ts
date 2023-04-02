@@ -1,17 +1,11 @@
-export type CabinClassValue = "M" | "W" | "C" | "F";
+import { CabinClass, CabinCode } from "src/shared/types";
 
-export type CabinClassText =
-  | "Economy"
-  | "Economy premium"
-  | "Business"
-  | "First class";
-
-interface CabinClass {
-  value: CabinClassValue;
-  text: CabinClassText;
+interface Cabin {
+  value: CabinCode;
+  text: CabinClass;
 }
 
-export const cabinClassArray: CabinClass[] = [
+export const cabinClassArray: Cabin[] = [
   {
     value: "M",
     text: "Economy",

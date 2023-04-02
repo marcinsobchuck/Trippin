@@ -38,7 +38,11 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
     favourites.some((el) => el.id === data.id)
   );
 
-  const [{ flightType }] = useSearchContext();
+  const [
+    {
+      searchFormData: { flightType },
+    },
+  ] = useSearchContext();
 
   const { regionalSettings, currentUser } = useAuth();
 

@@ -40,7 +40,11 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
 
   const ref = useRef(null);
 
-  const [{ flightType }] = useSearchContext();
+  const [
+    {
+      searchFormData: { flightType },
+    },
+  ] = useSearchContext();
 
   const routes = useRoutes(data);
 

@@ -31,9 +31,9 @@ import burger from "src/assets/images/burger.svg";
 import { AccountInformationModal } from "src/components/AccountInformationModal/AccountInformationModal";
 import { DrawerMenu } from "../DrawerMenu/DrawerMenu";
 import { FormikProps } from "formik";
-import { SearchFormInitialValues } from "../SearchForm/SearchForm.types";
+
 import { recommendedPlacesArray } from "./config";
-import { RecommendedPlace } from "src/shared/types";
+import { RecommendedPlace, SearchFormTypes } from "src/shared/types";
 import { useTransition } from "react-spring";
 
 export const SearchDestinationSection: React.FC = () => {
@@ -78,7 +78,7 @@ export const SearchDestinationSection: React.FC = () => {
 
   const menuRef = useRef(null);
   const settingsModalRef = useRef(null);
-  const formRef = useRef<FormikProps<SearchFormInitialValues>>(null);
+  const formRef = useRef<FormikProps<SearchFormTypes>>(null);
 
   useOnClickOutside(menuRef, () => setShowAccountInfoModal(false));
   useOnClickOutside(settingsModalRef, () =>

@@ -30,7 +30,7 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   const [showFlightDetailsModal, setShowFlightDetailsModal] =
     useState<boolean>(false);
 
-  const { isFetching, isError, data } = useSearchResults(parameters);
+  const { isFetching, isError, data, isLoading } = useSearchResults(parameters);
   const [{ page }, dispatch] = useSearchContext();
   const { currentUser } = useAuth();
   const { data: favourites } = useFavourites(currentUser);
@@ -55,7 +55,7 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
 
   if (isError) return <Wrapper>Error retrieving data from the server!</Wrapper>;
 
-  if (isFetching)
+  if (isLoading)
     return (
       <Wrapper>
         <Oval

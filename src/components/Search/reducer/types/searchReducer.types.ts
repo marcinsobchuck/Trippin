@@ -1,3 +1,5 @@
+import { SearchFormTypes } from "src/shared/types";
+
 export interface Passengers {
   adults: number;
   children: number;
@@ -25,34 +27,14 @@ export interface Sort {
   sortType: SortTypeType;
 }
 
-export type FlightType = "round" | "oneway";
-
 export interface Price {
   min: number;
   max: number;
 }
 
-export interface SearchFormData {
-  start: {
-    id: string;
-    text: string;
-  };
-  destination: {
-    id: string;
-    text: string;
-  };
-  departDate: string;
-  returnDate?: string;
-}
-
 export type SearchState = {
   page: number;
-  flightType: FlightType;
-  passengers: Passengers;
-  cabinClass: Cabin;
-  isFormSubmitting: boolean;
-  isParamsEqual: boolean;
-  searchFormData: SearchFormData;
+  searchFormData: SearchFormTypes;
   price: Price;
   rangeSliderValue: number[];
   sort: Sort;

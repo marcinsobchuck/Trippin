@@ -14,7 +14,6 @@ import { Tag } from "src/apiServices/types/kiwiApi.types";
 import { useSearchContext } from "../../hooks/useSearchContext";
 
 import {
-  setIsParamsEqual,
   setRangeSliderValue,
   setSearchFormData,
 } from "../../reducer/actions/search.actions";
@@ -43,14 +42,10 @@ export const TopDestinationsSideBarItem: React.FC<
   const [state, dispatch] = useSearchContext();
 
   const handleItemClick = () => {
-    setIsParamsEqual(dispatch, false);
     setRangeSliderValue(dispatch, [0, 0]);
     setSearchFormData(dispatch, {
       ...state.searchFormData,
-      destination: {
-        id: id,
-        text: destinationName,
-      },
+      start: { id, text: destinationName },
     });
   };
 

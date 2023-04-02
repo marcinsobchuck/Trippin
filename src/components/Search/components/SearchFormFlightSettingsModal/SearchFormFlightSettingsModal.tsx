@@ -30,8 +30,9 @@ import {
   CustomRadioInput,
   StyledRadioInput,
 } from "src/styles/RadioInput.styled";
-import { cabinClassArray, CabinClassValue } from "./config";
+import { cabinClassArray } from "./config";
 import { CodeType, Passengers } from "../../reducer/types/searchReducer.types";
+import { CabinClass, CabinCode } from "src/shared/types";
 
 type Operation = "INCREMENT" | "DECREMENT";
 
@@ -71,7 +72,7 @@ const steppersData: SteppersDataType[] = [
   },
 ];
 
-const getTextFromValue = (value: CabinClassValue) => {
+const getTextFromValue = (value: CabinCode) => {
   switch (value) {
     case "M":
       return "Economy";
@@ -96,17 +97,27 @@ export const SearchFormFlightSettingsModal: React.FC<
 
   const [field, , { setValue }] = useField(props);
 
+  const passengers = {
+    adults: field.value.adults,
+    children: field.value.children,
+    infants: field.value.infants,
+  };
+
   const setPassengers = useCallback(
     (passengerType: keyof Passengers, operation: Operation) => {
       setValue({
         ...field.value,
-        passengers: {
-          ...field.value.passengers,
-          [passengerType]:
-            operation === "INCREMENT"
-              ? field.value.passengers[passengerType] + 1
-              : field.value.passengers[passengerType] - 1,
-        },
+        [passengerType]:
+          operation === "INCREMENT"
+            ? field.value[passengerType] + 1
+            : field.value[passengerType] - 1,
+        // flightSettings: {
+        //   ...field.value.passengers,
+        //   [passengerType]:
+        //     operation === "INCREMENT"
+        //       ? field.value.passengers[passengerType] + 1
+        //       : field.value.passengers[passengerType] - 1,
+        // },
       });
     },
     [field.value, setValue]
@@ -145,8 +156,8 @@ export const SearchFormFlightSettingsModal: React.FC<
                 <Stepper
                   increment={() => setPassengers(stepper.type, "INCREMENT")}
                   decrement={() => setPassengers(stepper.type, "DECREMENT")}
-                  passengers={field.value.passengers}
-                  value={field.value.passengers[stepper.type]}
+                  passengers={passengers}
+                  value={field.value[stepper.type]}
                   minValue={stepper.minValue}
                   maxValue={stepper.maxValue}
                 />
@@ -166,14 +177,14 @@ export const SearchFormFlightSettingsModal: React.FC<
                       onChange={(event) => {
                         setValue({
                           ...field.value,
-                          code: event.currentTarget.value as CodeType,
-                          text: getTextFromValue(
-                            event.currentTarget.value as CabinClassValue
+                          cabinCode: event.currentTarget.value as CabinCode,
+                          cabinClass: getTextFromValue(
+                            event.currentTarget.value as CabinCode
                           ),
                         });
                       }}
                       type='radio'
-                      defaultChecked={cabin.value === field.value.code}
+                      defaultChecked={cabin.value === field.value.cabinCode}
                     />
                     <CustomRadioInput />
                     {cabin.text}

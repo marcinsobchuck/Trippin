@@ -1,5 +1,5 @@
 import { FieldHookConfig } from "formik";
-import { RecommendedPlace } from "src/shared/types";
+import { InputPlaceType, RecommendedPlace } from "src/shared/types";
 
 export interface Props {
   label: string;
@@ -10,8 +10,4 @@ export interface Props {
   currentRecommendedPlace?: RecommendedPlace;
 }
 
-export type SearchFormInputProps = Props &
-  FieldHookConfig<{
-    id: string;
-    text: string;
-  }>;
+export type SearchFormInputProps = Props & FieldHookConfig<InputPlaceType>;

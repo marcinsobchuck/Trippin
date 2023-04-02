@@ -18,6 +18,7 @@ import { useField, useFormikContext } from "formik";
 import { SearchFormDatePickerProps } from "./SearchFormDatePicker.types";
 import { useTranslation } from "react-i18next";
 import { useLockBodyScroll } from "src/hooks/useLockBodyScroll";
+import { SearchFormTypes } from "src/shared/types";
 
 export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
   ...props
@@ -28,12 +29,12 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
     "startDate" | "endDate" | null
   >(null);
 
-  const [, , helpers] = useField(props);
+  const [field, , helpers] = useField(props);
   const { setValue } = helpers;
 
   const {
     values: { flightType },
-  } = useFormikContext();
+  } = useFormikContext<SearchFormTypes>();
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
@@ -49,8 +50,8 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
     setStartDate(selectedStartDate);
     setEndDate(selectedEndDate);
     setValue({
-      departDate: selectedStartDate?.format("DD/MM/YYYY"),
-      returnDate: selectedEndDate?.format("DD/MM/YYYY"),
+      inbound: selectedStartDate?.format("DD/MM/YYYY") as string,
+      outbound: selectedEndDate?.format("DD/MM/YYYY") as string,
     });
   };
 
@@ -105,6 +106,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({
       ) : (
         <FullScreenDatePicker isOpen={!!focusedInput}>
           <DateRangePicker
+            {...field}
             startDate={startDate}
             startDateId='depart-date'
             endDate={flightType === "oneway" ? null : endDate}
