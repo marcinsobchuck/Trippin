@@ -3818,9 +3818,9 @@
     "tryer" "^1.0.1"
 
 "big-integer@^1.6.16":
-  "integrity" "sha512-j51egjPa7/i+RdiRuJbPdJ2FIUYYPhvYLjzoYbcMMm62ooO6F94fETG4MTs46zPAF9Brs04OajboA/qTGuz78w=="
-  "resolved" "https://registry.npmjs.org/big-integer/-/big-integer-1.6.48.tgz"
-  "version" "1.6.48"
+  "integrity" "sha512-GPEid2Y9QU1Exl1rpO9B2IPJGHPSupF5GnVIP0blYvNOMer2bTvSWs1jGOUg04hTmu67nmLsQ9TBo1puaotBHg=="
+  "resolved" "https://registry.npmjs.org/big-integer/-/big-integer-1.6.51.tgz"
+  "version" "1.6.51"
 
 "big.js@^5.2.2":
   "integrity" "sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ=="
@@ -8628,9 +8628,9 @@
     "object-visit" "^1.0.0"
 
 "match-sorter@^6.0.2":
-  "integrity" "sha512-efYOf/wUpNb8FgNY+cOD2EIJI1S5I7YPKsw0LBp7wqPh5pmMS6i/wr3ZWwfwrAw1NvqTA2KUReVRWDX84lUcOQ=="
-  "resolved" "https://registry.npmjs.org/match-sorter/-/match-sorter-6.3.0.tgz"
-  "version" "6.3.0"
+  "integrity" "sha512-mxybbo3pPNuA+ZuCUhm5bwNkXrJTbsk5VWbR5wiwz/GC6LIiegBGn2w3O08UG/jdbYLinw51fSQ5xNU1U3MgBw=="
+  "resolved" "https://registry.npmjs.org/match-sorter/-/match-sorter-6.3.1.tgz"
+  "version" "6.3.1"
   dependencies:
     "@babel/runtime" "^7.12.5"
     "remove-accents" "0.4.2"
@@ -8942,7 +8942,7 @@
     "thunky" "^1.0.2"
 
 "nano-time@1.0.0":
-  "integrity" "sha1-sFVPaa2J4i0JB/ehKwmTpdlhN+8="
+  "integrity" "sha512-flnngywOoQ0lLQOTRNexn2gGSNuM9bKj9RZAWSzhQ+UJYaAFG9bac4DW9VHjUAzrOaIcajHybCTHe/bkvozQqA=="
   "resolved" "https://registry.npmjs.org/nano-time/-/nano-time-1.0.0.tgz"
   "version" "1.0.0"
   dependencies:
@@ -10839,10 +10839,10 @@
   dependencies:
     "prop-types" "^15.5.8"
 
-"react-query@^3.18.1":
-  "integrity" "sha512-17lv3pQxU9n+cB5acUv0/cxNTjo9q8G+RsedC6Ax4V9D8xEM7Q5xf9xAbCPdEhDrrnzPjTls9fQEABKRSi7OJA=="
-  "resolved" "https://registry.npmjs.org/react-query/-/react-query-3.18.1.tgz"
-  "version" "3.18.1"
+"react-query@^3.39.3":
+  "integrity" "sha512-nLfLz7GiohKTJDuT4us4X3h/8unOh+00MLb2yJoGTPjxKs2bc1iDhkNx2bd5MKklXnOD3NrVZ+J2UXujA5In4g=="
+  "resolved" "https://registry.npmjs.org/react-query/-/react-query-3.39.3.tgz"
+  "version" "3.39.3"
   dependencies:
     "@babel/runtime" "^7.5.5"
     "broadcast-channel" "^3.4.1"
@@ -11030,7 +11030,7 @@
     "prop-types" "^15.7.2"
     "react-with-direction" "^1.3.1"
 
-"react@*", "react@^0.14 || ^15 || ^16", "react@^0.14 || ^15.0.0 || ^16.0.0-alpha", "react@^0.14 || ^15.5.4 || ^16.1.1", "react@^0.14 || >=15", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0", "react@^15.5.4 || ^16.0.0 || ^17.0.0", "react@^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x", "react@^16.0.0 || ^17.0.0", "react@^16.8.0  || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>=0.14", "react@>=15", "react@>=16.11", "react@>=16.12.0", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^0.14 || ^15 || ^16", "react@^0.14 || ^15.0.0 || ^16.0.0-alpha", "react@^0.14 || ^15.5.4 || ^16.1.1", "react@^0.14 || >=15", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0", "react@^15.5.4 || ^16.0.0 || ^17.0.0", "react@^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x", "react@^16.0.0 || ^17.0.0", "react@^16.8.0  || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2", "react@>= 16", "react@>= 16.8.0", "react@>=0.14", "react@>=15", "react@>=16.11", "react@>=16.12.0", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -11321,7 +11321,7 @@
   "version" "0.2.7"
 
 "remove-accents@0.4.2":
-  "integrity" "sha1-CkPTqq4egNuRngeuJUsoXZ4ce7U="
+  "integrity" "sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA=="
   "resolved" "https://registry.npmjs.org/remove-accents/-/remove-accents-0.4.2.tgz"
   "version" "0.4.2"
 

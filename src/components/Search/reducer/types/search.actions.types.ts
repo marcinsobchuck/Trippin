@@ -37,10 +37,16 @@ export interface SetDirectOnly {
   payload: number | undefined;
 }
 
+export interface SetIsParamsEqual {
+  type: SearchActions.SET_IS_PARAMS_EQUAL;
+  payload: boolean;
+}
+
 export type SearchAction =
   | SetSearchFormData
   | SetPage
   | SetPrice
   | SetRangeSliderValue
   | SetSort
-  | SetDirectOnly;
+  | SetDirectOnly
+  | SetIsParamsEqual;

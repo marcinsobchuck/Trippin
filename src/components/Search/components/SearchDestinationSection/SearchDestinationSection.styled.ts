@@ -8,7 +8,7 @@ import svg from "react-inlinesvg";
 import { animated } from "react-spring";
 
 interface AnimatedBackgroundProps {
-  backgroundImage: string;
+  $backgroundImage: string;
 }
 
 export const AnimatedBackground = styled(animated.div)<AnimatedBackgroundProps>`
@@ -18,8 +18,8 @@ export const AnimatedBackground = styled(animated.div)<AnimatedBackgroundProps>`
   width: 100%;
   height: 100vh;
   z-index: -10;
-  background-image: ${({ backgroundImage }) =>
-    backgroundImage ? `url(${backgroundImage})` : null};
+  background-image: ${({ $backgroundImage }) =>
+    $backgroundImage ? `url(${$backgroundImage})` : null};
   background-size: cover;
   background-position: center;
   will-change: opacity;

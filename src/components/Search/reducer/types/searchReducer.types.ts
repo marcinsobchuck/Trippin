@@ -39,4 +39,5 @@ export type SearchState = {
   rangeSliderValue: number[];
   sort: Sort;
   directOnly: number | undefined;
+  isParamsEqual: boolean;
 };

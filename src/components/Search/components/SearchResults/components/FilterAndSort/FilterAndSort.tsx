@@ -15,18 +15,23 @@ import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
 import { setDirectOnly } from "src/components/Search/reducer/actions/search.actions";
 
 interface FilterAndSortProps {
-  flightsData: Flight[];
   setShowSortAndFilter: (x: boolean) => void;
   parameters: SearchParameters;
 }
 
 export const FilterAndSort: React.FC<FilterAndSortProps> = ({
-  flightsData,
   setShowSortAndFilter,
   parameters,
 }) => {
   const [checked, setChecked] = useState<boolean>(true);
-  const [, dispatch] = useSearchContext();
+  const [
+    {
+      searchFormData: {
+        start: { id: startId },
+      },
+    },
+    dispatch,
+  ] = useSearchContext();
 
   const handleHideSortAndFilter = () => {
     setShowSortAndFilter(false);
@@ -42,7 +47,7 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
   return (
     <Wrapper>
       <FilterWrapper>
-        <PriceRangeSlider parameters={parameters} flightsData={flightsData} />
+        <PriceRangeSlider parameters={parameters} />
 
         <Checkbox
           label='Direct only'

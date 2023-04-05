@@ -4,7 +4,7 @@ import { LocationsParameters } from "../types/kiwiApi.types";
 
 export const useLocations = (parameters: LocationsParameters) => {
   const fetchLocations = useQuery(
-    parameters.term,
+    ["location", parameters.term],
     () => getLocations(parameters),
     {
       refetchOnWindowFocus: false,

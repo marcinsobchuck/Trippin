@@ -3,6 +3,7 @@ import { Dispatch } from "react";
 import { SearchActions } from "../enums/searchActions.enum";
 import {
   SetDirectOnly,
+  SetIsParamsEqual,
   SetPage,
   SetPrice,
   SetRangeSliderValue,
@@ -69,5 +70,15 @@ export const setDirectOnly = (
   dispatch({
     type: SearchActions.SET_DIRECT_ONLY,
     payload: directOnly,
+  });
+};
+
+export const setIsParamsEqual = (
+  dispatch: Dispatch<SetIsParamsEqual>,
+  isParamsEqual: boolean
+) => {
+  dispatch({
+    type: SearchActions.SET_IS_PARAMS_EQUAL,
+    payload: isParamsEqual,
   });
 };

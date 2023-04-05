@@ -64,25 +64,13 @@ export const SearchResults: React.FC = () => {
     max_stopovers: directOnly,
   };
 
-  const { refetch } = useSearchResults(parameters);
+  const { isLoading, data } = useSearchResults(parameters, !!startId);
 
   useEffect(() => {
-    if (startId) {
-      refetch();
+    if (isLoading) {
       element?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [
-    startId,
-    refetch,
-    destinationId,
-    currencyCode,
-    languageCode,
-    rangeSliderValue,
-    sortType,
-    sortBy,
-    element,
-    directOnly,
-  ]);
+  }, [element, isLoading]);
 
   const handleButtonClick = () => {
     setShowSortAndFilter((prev) => !prev);
@@ -99,9 +87,8 @@ export const SearchResults: React.FC = () => {
               <SortFilterIcon src={sortfilter} />
             </SortFilterButton>
           )}
-          {flightsData && showSortAndFilter && (
+          {showSortAndFilter && (
             <FilterAndSort
-              flightsData={flightsData}
               setShowSortAndFilter={setShowSortAndFilter}
               parameters={parameters}
             />

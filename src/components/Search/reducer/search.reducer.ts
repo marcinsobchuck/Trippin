@@ -44,6 +44,7 @@ export const initialState: SearchState = {
     sortType: 1,
   },
   directOnly: 0,
+  isParamsEqual: false,
 };
 
 export const reducer = (state: SearchState, action: SearchAction) => {
@@ -87,6 +88,13 @@ export const reducer = (state: SearchState, action: SearchAction) => {
         directOnly: action.payload,
         rangeSliderValue: [0, 0],
         isParamsEqual: false,
+      };
+    }
+
+    case SearchActions.SET_IS_PARAMS_EQUAL: {
+      return {
+        ...state,
+        isParamsEqual: action.payload,
       };
     }
 

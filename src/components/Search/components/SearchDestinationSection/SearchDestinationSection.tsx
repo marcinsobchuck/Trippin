@@ -54,7 +54,6 @@ export const SearchDestinationSection: React.FC = () => {
 
   const handleRegionalSettingsClick = () => {
     setShowRegionalSettingsModal((prevState) => !prevState);
-    setShowAccountInfoModal(false);
   };
   const handleAccountInfoClick = () => {
     setShowAccountInfoModal((prevState) => !prevState);
@@ -97,7 +96,7 @@ export const SearchDestinationSection: React.FC = () => {
     <>
       <Wrapper>
         {backgroundTransition((style, item) => (
-          <AnimatedBackground backgroundImage={item} style={style} />
+          <AnimatedBackground $backgroundImage={item} style={style} />
         ))}
         {!isTabletS && (
           <BurgerMenuIconWrapper onClick={handleBurgerClick}>
@@ -119,8 +118,12 @@ export const SearchDestinationSection: React.FC = () => {
               <BurgerMenuIcon src={burger} />
             </BurgerMenuIconWrapper>
 
-            <Menu ref={menuRef}>
-              <MenuItem id='account' onClick={handleAccountInfoClick}>
+            <Menu>
+              <MenuItem
+                ref={menuRef}
+                id='account'
+                onClick={handleAccountInfoClick}
+              >
                 <ArrowIcon src={arrow} />
                 <AccountIcon src={user} />
               </MenuItem>
@@ -134,7 +137,6 @@ export const SearchDestinationSection: React.FC = () => {
                 </CurrencyIndicator>
                 <LanguageFlag src={regionalSettings.language.flag} alt='flag' />
               </MenuItem>
-
               <AccountInformationModal
                 showAccountInfoModal={showAccountInfoModal}
               />

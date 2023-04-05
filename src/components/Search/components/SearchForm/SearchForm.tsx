@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, FormikProps } from "formik";
 import {
   Wrapper,
@@ -23,7 +23,13 @@ import infant from "src/assets/images/infant.svg";
 import { SearchFormFlightSettingsModal } from "../SearchFormFlightSettingsModal/SearchFormFlightSettingsModal";
 import { RecommendedPlace, SearchFormTypes } from "src/shared/types";
 import { searchSchema } from "./config";
-import { setSearchFormData } from "../../reducer/actions/search.actions";
+import {
+  setIsParamsEqual,
+  setPrice,
+  setRangeSliderValue,
+  setSearchFormData,
+} from "../../reducer/actions/search.actions";
+import isEqual from "lodash.isequal";
 
 interface SearchFormProps {
   formRef: React.Ref<FormikProps<SearchFormTypes>>;
@@ -60,11 +66,16 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   const [showFlightSettingsModal, setShowFlightSettingsModal] =
     useState<boolean>(false);
 
-  const [state, dispatch] = useSearchContext();
+  const [{ searchFormData }, dispatch] = useSearchContext();
 
   const { t } = useTranslation();
 
   const handleSubmit = (submitData: SearchFormTypes) => {
+    const paramsCheck = isEqual(submitData, searchFormData);
+
+    setIsParamsEqual(dispatch, paramsCheck);
+    setRangeSliderValue(dispatch, [0, 0]);
+    setPrice(dispatch, { min: 0, max: 0 });
     setSearchFormData(dispatch, submitData);
   };
 

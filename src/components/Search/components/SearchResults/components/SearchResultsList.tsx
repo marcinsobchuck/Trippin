@@ -29,9 +29,18 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   const [activeFlight, setActiveFlight] = useState<Flight>();
   const [showFlightDetailsModal, setShowFlightDetailsModal] =
     useState<boolean>(false);
+  const [
+    {
+      page,
+      searchFormData: {
+        start: { id: startId },
+      },
+    },
+    dispatch,
+  ] = useSearchContext();
 
   const { isFetching, isError, data, isLoading } = useSearchResults(parameters);
-  const [{ page }, dispatch] = useSearchContext();
+
   const { currentUser } = useAuth();
   const { data: favourites } = useFavourites(currentUser);
 
@@ -49,9 +58,8 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   useEffect(() => {
     if (flightsData) {
       setVisibleItems(flightsData.slice(offset, page * limit));
-      setFlightsData(flightsData);
     }
-  }, [dispatch, flightsData, offset, page, setFlightsData, setVisibleItems]);
+  }, [dispatch, flightsData, offset, page, setVisibleItems]);
 
   if (isError) return <Wrapper>Error retrieving data from the server!</Wrapper>;
 

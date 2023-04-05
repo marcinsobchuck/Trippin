@@ -38,6 +38,6 @@ export const HeadingText = styled.p`
   font-size: ${FontSize.Medium};
   span {
     font-weight: ${FontWeight.SemiBold};
-    font-size: ${FontSize.Big};
+    font-size: ${FontSize.Medium};
   }
 `;
