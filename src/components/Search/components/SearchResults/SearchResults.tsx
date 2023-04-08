@@ -13,12 +13,11 @@ import { useAuth } from "src/hooks/useAuth";
 
 import sortfilter from "src/assets/images/sortfilter.svg";
 import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
+import { useTopDestinations } from "src/apiServices/hooks/useTopDestinations";
 
 export const SearchResults: React.FC = () => {
   const [visibleItems, setVisibleItems] = useState<Flight[]>();
-  const [flightsData, setFlightsData] = useState<Flight[]>();
   const [showSortAndFilter, setShowSortAndFilter] = useState<boolean>(true);
-  const element = document.getElementById("search-results");
 
   const {
     regionalSettings: {
@@ -64,7 +63,14 @@ export const SearchResults: React.FC = () => {
     max_stopovers: directOnly,
   };
 
-  const { isLoading, data } = useSearchResults(parameters, !!startId);
+  const { isLoading } = useSearchResults(parameters, !!startId);
+
+  const { data } = useTopDestinations({
+    term: startId,
+    limit: visibleItems && Math.ceil(visibleItems.length * 2.5),
+  });
+
+  const element = document.getElementById("search-results");
 
   useEffect(() => {
     if (isLoading) {
@@ -97,7 +103,6 @@ export const SearchResults: React.FC = () => {
           <SearchResultsList
             visibleItems={visibleItems}
             setVisibleItems={setVisibleItems}
-            setFlightsData={setFlightsData}
             parameters={parameters}
           />
         </ResultsWrapper>

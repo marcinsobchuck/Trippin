@@ -16,14 +16,12 @@ import { useFavourites } from "../hooks/useFavourites";
 interface SearchResultsListProps {
   setVisibleItems: (x: Flight[]) => void;
   visibleItems?: Flight[];
-  setFlightsData: (x: Flight[]) => void;
   parameters: SearchParameters;
 }
 
 export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   visibleItems,
   setVisibleItems,
-  setFlightsData,
   parameters,
 }) => {
   const [activeFlight, setActiveFlight] = useState<Flight>();

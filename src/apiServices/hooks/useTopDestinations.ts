@@ -8,7 +8,7 @@ export const useTopDestinations = (parameters: TopDestinationsParameters) => {
     () => getTopDestinations(parameters),
     {
       refetchOnWindowFocus: false,
-      enabled: false,
+      enabled: !!parameters.limit,
     }
   );
 

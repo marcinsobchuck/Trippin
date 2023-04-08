@@ -130,7 +130,7 @@ export interface SearchResponse {
 
 export interface TopDestinationsParameters {
   term: string;
-  limit: number;
+  limit?: number;
 }
 
 export interface Tag {
