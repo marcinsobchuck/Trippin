@@ -13,13 +13,27 @@ import {
 import { Routes } from "src/enums/routes.enum";
 import { RedirectButton } from "src/styles/Button.styled";
 import { useTransition } from "react-spring";
+import moment from "moment";
+import { deleteFavourites } from "../Search/components/SearchResults/utils";
 
 export const FavouritesList: React.FC = () => {
   const { currentUser } = useAuth();
 
   const { data, isLoading, deleteFavouriteTrip } = useFavourites(currentUser);
 
-  const sortedData = data.sort((a, b) => a.dTimeUTC - b.dTimeUTC);
+  const now = moment();
+
+  const filteredData = data.filter((flight) => {
+    if (moment.unix(flight.dTime).diff(now, "hours") <= 3) {
+      deleteFavourites(currentUser, flight.id);
+    }
+    return moment.unix(flight.dTime).diff(now, "hours") >= 3;
+  });
+  const sortedData = filteredData.sort((a, b) => a.dTimeUTC - b.dTimeUTC);
+
+  const handleDeleteFavouriteTrip = (id: string) => {
+    deleteFavouriteTrip(id);
+  };
 
   const transitions = useTransition(sortedData, {
     keys: (flight) => flight.id,
@@ -70,10 +84,6 @@ export const FavouritesList: React.FC = () => {
       </FavouriteTripsContainer>
     );
   }
-
-  const handleDeleteFavouriteTrip = (id: string) => {
-    deleteFavouriteTrip(id);
-  };
 
   return (
     <>

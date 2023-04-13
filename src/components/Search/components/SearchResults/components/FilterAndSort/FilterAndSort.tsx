@@ -24,14 +24,7 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
   parameters,
 }) => {
   const [checked, setChecked] = useState<boolean>(true);
-  const [
-    {
-      searchFormData: {
-        start: { id: startId },
-      },
-    },
-    dispatch,
-  ] = useSearchContext();
+  const [, dispatch] = useSearchContext();
 
   const handleHideSortAndFilter = () => {
     setShowSortAndFilter(false);
