@@ -70,7 +70,7 @@ export const SearchResults: React.FC = () => {
     if (isLoading) {
       element?.scrollIntoView({ behavior: "smooth" });
     }
-  }, []);
+  }, [element, isLoading]);
 
   const handleButtonClick = () => {
     setShowSortAndFilter((prev) => !prev);

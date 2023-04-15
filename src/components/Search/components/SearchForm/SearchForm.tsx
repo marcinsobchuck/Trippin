@@ -87,7 +87,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
         innerRef={formRef}
         onSubmit={handleSubmit}
       >
-        {({ values, errors }: FormikProps<SearchFormTypes>) => (
+        {({ values, errors, isSubmitting }: FormikProps<SearchFormTypes>) => (
           <StyledForm>
             <SettingsWrapper>
               <SearchFormRadio name='flightType' />
@@ -137,7 +137,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
               <SearchFormDatePicker name='date' />
             </InputsWrapper>
 
-            <Button variant='quaternary' type='submit'>
+            <Button variant='quaternary' type='submit' disabled={isSubmitting}>
               {t("views.home.buttons.search")}
             </Button>
           </StyledForm>
