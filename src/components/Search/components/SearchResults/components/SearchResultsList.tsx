@@ -12,6 +12,7 @@ import { PageSetter } from "./PageSetter";
 import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
 import { useAuth } from "src/hooks/useAuth";
 import { useFavourites } from "../hooks/useFavourites";
+import { User } from "firebase/auth";
 
 interface SearchResultsListProps {
   setVisibleItems: (x: Flight[]) => void;
@@ -27,20 +28,12 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   const [activeFlight, setActiveFlight] = useState<Flight>();
   const [showFlightDetailsModal, setShowFlightDetailsModal] =
     useState<boolean>(false);
-  const [
-    {
-      page,
-      searchFormData: {
-        start: { id: startId },
-      },
-    },
-    dispatch,
-  ] = useSearchContext();
+  const [{ page }, dispatch] = useSearchContext();
 
-  const { isFetching, isError, data, isLoading } = useSearchResults(parameters);
+  const { isError, data, isLoading } = useSearchResults(parameters);
 
   const { currentUser } = useAuth();
-  const { data: favourites } = useFavourites(currentUser);
+  const { data: favourites } = useFavourites(currentUser as User);
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,

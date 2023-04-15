@@ -4,12 +4,26 @@ import { useEffect, useState, useCallback } from "react";
 import { Flight } from "src/apiServices/types/kiwiApi.types";
 import { db } from "src/firebase";
 import { deleteFavourites } from "../utils";
+import moment from "moment";
 
 export interface FavouriteFlight extends Flight {
   currency: string;
 }
 
-export const useFavourites = (user: User | null) => {
+const now = moment();
+
+const filterAndSortData = (data: FavouriteFlight[], user: User) => {
+  const filteredData = data.filter((flight) => {
+    if (moment.unix(flight.dTime).diff(now, "hours") <= 3) {
+      deleteFavourites(user, flight.id);
+    }
+    return moment.unix(flight.dTime).diff(now, "hours") >= 3;
+  });
+  const sortedData = filteredData.sort((a, b) => a.dTimeUTC - b.dTimeUTC);
+  return sortedData;
+};
+
+export const useFavourites = (user: User) => {
   const [data, setData] = useState<FavouriteFlight[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -24,12 +38,13 @@ export const useFavourites = (user: User | null) => {
       querySnapshot.forEach((doc) => {
         favourites.push(doc.data() as FavouriteFlight);
       });
-      setData(favourites);
+
+      setData(filterAndSortData(favourites, user));
     } catch (err) {
       console.log(err);
     }
     setIsLoading(false);
-  }, [user?.uid]);
+  }, [user]);
 
   const deleteFavouriteTrip = (id: string) => {
     const newData = data.filter((item) => item.id !== id);

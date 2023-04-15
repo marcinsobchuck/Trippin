@@ -13,6 +13,7 @@ import {
 } from "../types/search.actions.types";
 import { Price, Sort } from "../types/searchReducer.types";
 import { SearchFormTypes } from "src/shared/types";
+import { Flight } from "src/apiServices/types/kiwiApi.types";
 
 export const setSearchFormData = (
   dispatch: Dispatch<SetSearchFormData>,
@@ -26,7 +27,7 @@ export const setSearchFormData = (
 
 export const setVisibleItems = (
   dispatch: Dispatch<SetVisibleItems>,
-  visibleItems: any
+  visibleItems: Flight[]
 ) => {
   dispatch({
     type: SearchActions.SET_VISIBLE_ITEMS,

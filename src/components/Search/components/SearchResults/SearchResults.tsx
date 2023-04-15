@@ -13,11 +13,10 @@ import { useAuth } from "src/hooks/useAuth";
 
 import sortfilter from "src/assets/images/sortfilter.svg";
 import { useSearchResults } from "src/apiServices/hooks/useSearchResults";
-import { useTopDestinations } from "src/apiServices/hooks/useTopDestinations";
 
 export const SearchResults: React.FC = () => {
-  const [visibleItems, setVisibleItems] = useState<Flight[]>();
-  const [showSortAndFilter, setShowSortAndFilter] = useState<boolean>(true);
+  const [visibleItems, setVisibleItems] = useState<Flight[]>([]);
+  const [showSortAndFilter, setShowSortAndFilter] = useState(true);
 
   const {
     regionalSettings: {
@@ -65,18 +64,13 @@ export const SearchResults: React.FC = () => {
 
   const { isLoading } = useSearchResults(parameters, !!startId);
 
-  const { data } = useTopDestinations({
-    term: startId,
-    limit: visibleItems && Math.ceil(visibleItems.length * 2.5),
-  });
-
   const element = document.getElementById("search-results");
 
   useEffect(() => {
     if (isLoading) {
       element?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [element, isLoading]);
+  }, []);
 
   const handleButtonClick = () => {
     setShowSortAndFilter((prev) => !prev);
@@ -85,7 +79,7 @@ export const SearchResults: React.FC = () => {
   if (startId) {
     return (
       <Wrapper id='search-results'>
-        {visibleItems && <TopDestinationsSideBar visibleItems={visibleItems} />}
+        <TopDestinationsSideBar visibleItems={visibleItems} />
 
         <ResultsWrapper>
           {!showSortAndFilter && (

@@ -17,6 +17,7 @@ import { FavouritesList } from "src/components/FavouritesList/FavouritesList";
 
 import user from "src/assets/images/user.svg";
 import { useAuth } from "src/hooks/useAuth";
+import { Footer } from "src/components/Footer/Footer";
 
 export const Favourites: React.FC = () => {
   const history = useHistory();
@@ -41,6 +42,7 @@ export const Favourites: React.FC = () => {
         <Heading>Your trips</Heading>
         <FavouritesList />
       </MainContentWrapper>
+      <Footer />
     </>
   );
 };

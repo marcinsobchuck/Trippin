@@ -1,6 +1,7 @@
 import { SearchFormTypes } from "src/shared/types";
 import { SearchActions } from "../enums/searchActions.enum";
 import { Price, Sort } from "./searchReducer.types";
+import { Flight } from "src/apiServices/types/kiwiApi.types";
 
 export interface SetSearchFormData {
   type: SearchActions.SET_SEARCH_FORM_DATA;
@@ -9,7 +10,7 @@ export interface SetSearchFormData {
 
 export interface SetVisibleItems {
   type: SearchActions.SET_VISIBLE_ITEMS;
-  payload: any;
+  payload: Flight[];
 }
 
 export interface SetPage {
