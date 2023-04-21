@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import { Colors } from "../../enums/colors.enum";
-import { FontSize } from "../../enums/fontSize.enum";
-import { FontWeight } from "../../enums/fontWeight.enum";
+import styled from 'styled-components';
+
+import { Colors } from '../../enums/colors.enum';
+import { FontSize } from '../../enums/fontSize.enum';
+import { FontWeight } from '../../enums/fontWeight.enum';
 
 export const Wrapper = styled.div`
   display: flex;

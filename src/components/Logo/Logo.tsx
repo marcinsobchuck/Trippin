@@ -1,17 +1,20 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import logoIcon from "src/assets/images/logo.svg";
-import { Routes } from "src/enums/routes.enum";
-import { LogoWrapper, LogoIcon, LogoText } from "./Logo.styled";
-import { LogoProps } from "./Logo.types";
+import React from 'react';
+
+import { useHistory } from 'react-router-dom';
+
+import logoIcon from 'src/assets/images/logo.svg';
+
+import { Routes } from 'src/enums/routes.enum';
+
+import { LogoIcon, LogoText,LogoWrapper } from './Logo.styled';
+import { LogoProps } from './Logo.types';
 
 export const Logo: React.FC<LogoProps> = ({ className, color }) => {
-  const pathname = window.location.pathname;
+  const { pathname } = window.location;
 
   const history = useHistory();
 
-  const handleClick = () =>
-    pathname !== Routes.Home && history.push(Routes.Home);
+  const handleClick = () => pathname !== Routes.Home && history.push(Routes.Home);
 
   return (
     <LogoWrapper

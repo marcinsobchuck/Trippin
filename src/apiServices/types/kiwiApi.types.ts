@@ -2,27 +2,27 @@ import {
   CodeType,
   SortByType,
   SortTypeType,
-} from "src/components/Search/reducer/types/searchReducer.types";
+} from 'src/views/Home/reducer/types/searchReducer.types';
 
-export type LocationType = "airport" | "country" | "city";
+export type LocationType = 'airport' | 'country' | 'city';
 
 export interface LocationsParameters {
   term: string;
   location_types: LocationType[];
   limit: number;
-  sort: "name" | "-name";
+  sort: 'name' | '-name';
   locale: string;
 }
 
 export interface Location {
   id: string;
-  city?: {
+  city: {
+    id: string;
     code: string;
     continent: {
       id: string;
       name: string;
     };
-    id: string;
     name: string;
     country: {
       id: string;
@@ -31,7 +31,7 @@ export interface Location {
     timezone: string;
   };
   name: string;
-  country?: {
+  country: {
     id: string;
     name: string;
   };
@@ -50,13 +50,13 @@ export interface SearchParameters {
   date_to: string;
   return_from?: string;
   return_to?: string;
-  flight_type: "round" | "oneway";
+  flight_type: 'round' | 'oneway';
   adults: number;
   children?: number;
   infants?: number;
   selected_cabins: CodeType;
-  curr: "USD" | "GBP" | "EUR" | "PLN";
-  locale: "pl" | "en";
+  curr: 'USD' | 'GBP' | 'EUR' | 'PLN';
+  locale: 'pl' | 'en';
   limit: number;
   price_from?: number;
   price_to?: number;
@@ -134,7 +134,7 @@ export interface TopDestinationsParameters {
 }
 
 export interface Tag {
-  tag: "string";
+  tag: 'string';
 }
 
 export interface TopDestination {

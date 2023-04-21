@@ -1,7 +1,9 @@
-import styled from "styled-components";
-import svg from "react-inlinesvg";
-import { Colors } from "src/enums/colors.enum";
-import { FontSize } from "src/enums/fontSize.enum";
+import styled from 'styled-components';
+
+import svg from 'react-inlinesvg';
+
+import { Colors } from 'src/enums/colors.enum';
+import { FontSize } from 'src/enums/fontSize.enum';
 
 export const Wrapper = styled.div`
   background-color: ${Colors.DeepDarkBlue};

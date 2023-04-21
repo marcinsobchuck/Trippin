@@ -1,11 +1,18 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Boxshadow } from "src/enums/boxShadow.enum";
-import { Colors } from "src/enums/colors.enum";
-import svg from "react-inlinesvg";
-import { Breakpoint } from "src/enums/breakpoint.enum";
-import { FontSize } from "src/enums/fontSize.enum";
-import { FontWeight } from "src/enums/fontWeight.enum";
+import svg from 'react-inlinesvg';
+
+import { Boxshadow } from 'src/enums/boxShadow.enum';
+import { Breakpoint } from 'src/enums/breakpoint.enum';
+import { Colors } from 'src/enums/colors.enum';
+import { FontSize } from 'src/enums/fontSize.enum';
+import { FontWeight } from 'src/enums/fontWeight.enum';
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
 
 export const Header = styled.header`
   position: relative;
@@ -51,10 +58,11 @@ export const Arrow = styled(svg)`
 `;
 
 export const MainContentWrapper = styled.div`
+  align-self: center;
+  width: 100%;
   padding: 10px 16px;
 
   @media ${Breakpoint.Desktop} {
-    margin: 0 auto;
     max-width: 1024px;
   }
 `;

@@ -1,23 +1,20 @@
-import { useState } from "react";
-import { useSpring, useTransition } from "react-spring";
+import { useState } from 'react';
+
+import { useSpring, useTransition } from 'react-spring';
 
 export const useAnimations = () => {
-  const [toggleMobileAnimation, setToggleMobileAnimation] =
-    useState<boolean>(true);
-  const [toggleDesktopAnimation, setToggleDesktopAnimation] =
-    useState<boolean>(true);
+  const [toggleMobileAnimation, setToggleMobileAnimation] = useState<boolean>(true);
+  const [toggleDesktopAnimation, setToggleDesktopAnimation] = useState<boolean>(true);
 
-  const handleToggleMobileAnimation = () =>
-    setToggleMobileAnimation((prev) => !prev);
-  const handleToggleDesktopAnimation = () =>
-    setToggleDesktopAnimation((prev) => !prev);
-  //Mobile
+  const handleToggleMobileAnimation = () => setToggleMobileAnimation((prev) => !prev);
+  const handleToggleDesktopAnimation = () => setToggleDesktopAnimation((prev) => !prev);
+  // Mobile
   const mobileTransition = useTransition(toggleMobileAnimation, {
     from: { x: 0, y: 600, opacity: 0 },
     enter: { x: 0, y: 0, opacity: 1 },
     leave: {
-      position: "fixed",
-      width: "380px",
+      position: 'fixed',
+      width: '380px',
       x: 1000,
       y: 0,
       opacity: 0,
@@ -27,14 +24,14 @@ export const useAnimations = () => {
     },
   });
 
-  //Desktop
+  // Desktop
   const sideActionAnimation = useSpring({
     from: {
-      width: "40%",
+      width: '40%',
     },
     to: {
-      position: "absolute",
-      left: toggleDesktopAnimation ? "60%" : "0%",
+      position: 'absolute',
+      left: toggleDesktopAnimation ? '60%' : '0%',
     },
 
     delay: 400,
@@ -51,7 +48,7 @@ export const useAnimations = () => {
       y: 0,
     },
     leave: {
-      position: "absolute",
+      position: 'absolute',
       x: 300,
       y: 0,
       opacity: 0,
@@ -67,7 +64,7 @@ export const useAnimations = () => {
       y: 0,
     },
     leave: {
-      position: "absolute",
+      position: 'absolute',
       x: -300,
       y: 0,
       opacity: 0,
@@ -78,7 +75,7 @@ export const useAnimations = () => {
   const buttonsTransition = useTransition(toggleDesktopAnimation, {
     from: { opacity: 0, x: 0, y: 500 },
     enter: {
-      position: "absolute",
+      position: 'absolute',
       opacity: 1,
       y: 325,
     },
@@ -88,11 +85,11 @@ export const useAnimations = () => {
 
   const formAnimation = useSpring({
     from: {
-      width: "60%",
+      width: '60%',
     },
     to: {
-      position: "absolute",
-      left: toggleDesktopAnimation ? "0%" : "40%",
+      position: 'absolute',
+      left: toggleDesktopAnimation ? '0%' : '40%',
     },
 
     delay: 400,
@@ -113,7 +110,7 @@ export const useAnimations = () => {
       y: 0,
     },
     leave: {
-      position: "absolute",
+      position: 'absolute',
       x: 0,
       y: 0,
       opacity: 0,
@@ -131,7 +128,7 @@ export const useAnimations = () => {
       y: 20,
     },
     enter: {
-      position: "absolute",
+      position: 'absolute',
       opacity: 1,
       zIndex: 2,
       x: 20,

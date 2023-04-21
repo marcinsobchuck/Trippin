@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Breakpoint } from "src/enums/breakpoint.enum";
-import { Colors } from "src/enums/colors.enum";
-import { FontWeight } from "src/enums/fontWeight.enum";
+import { Breakpoint } from 'src/enums/breakpoint.enum';
+import { Colors } from 'src/enums/colors.enum';
+import { FontWeight } from 'src/enums/fontWeight.enum';
 
 export const Wrapper = styled.div`
   width: 100vw;

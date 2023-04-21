@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+
+import copy from 'src/assets/images/copy.svg';
+import github from 'src/assets/images/github.svg';
+import linkedin from 'src/assets/images/linkedin.svg';
 
 import {
   CopyIcon,
   CopyWrapper,
-  Wrapper,
+  Copyright,
   SocialIcon,
   StyledEmail,
   TooltipText,
-  Copyright,
-} from "./Footer.styled";
-import github from "src/assets/images/github.svg";
-import linkedin from "src/assets/images/linkedin.svg";
-import copy from "src/assets/images/copy.svg";
+  Wrapper,
+} from './Footer.styled';
 
 export const Footer: React.FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
@@ -19,25 +20,23 @@ export const Footer: React.FC = () => {
   return (
     <Wrapper>
       <div>
-        <a
-          href='https://github.com/marcinsobchuck'
-          target='_blank'
-          rel='noreferrer'
-        >
+        <a href="https://github.com/marcinsobchuck" target="_blank" rel="noreferrer">
           <SocialIcon src={github} />
         </a>
         <a
-          href='https://www.linkedin.com/in/marcin-sobczak-b66a0a1b5/'
-          target='_blank'
-          rel='noreferrer'
+          href="https://www.linkedin.com/in/marcin-sobczak-b66a0a1b5/"
+          target="_blank"
+          rel="noreferrer"
         >
           <SocialIcon src={linkedin} />
         </a>
       </div>
       <StyledEmail
         onClick={() => {
-          setCopied(true);
-          navigator.clipboard.writeText("marcinsobchuck@gmail.com");
+          navigator.clipboard
+            .writeText('marcinsobchuck@gmail.com')
+            .then(() => setCopied(true))
+            .catch(() => setCopied(false));
         }}
         onMouseLeave={() => setCopied(false)}
       >
@@ -45,7 +44,7 @@ export const Footer: React.FC = () => {
           <CopyIcon src={copy} />
           <p>marcinsobchuck@gmail.com</p>
         </CopyWrapper>
-        <TooltipText>{copied ? "Copied" : "Copy to clipboard"}</TooltipText>
+        <TooltipText>{copied ? 'Copied' : 'Copy to clipboard'}</TooltipText>
       </StyledEmail>
       <Copyright>Created by Marcin Sobczak &copy;</Copyright>
     </Wrapper>

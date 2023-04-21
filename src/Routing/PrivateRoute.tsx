@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { Route, RouteProps, Redirect } from "react-router-dom";
+import { Redirect,Route, RouteProps } from 'react-router-dom';
 
-import { Routes } from "../enums/routes.enum";
-import { useAuth } from "../hooks/useAuth";
+import { Routes } from '../enums/routes.enum';
+import { useAuth } from '../hooks/useAuth';
 
 interface PrivateRouteProps extends RouteProps {
   component: React.FC;

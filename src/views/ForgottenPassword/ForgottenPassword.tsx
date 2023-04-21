@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Formik } from "formik";
-import { useAuth } from "../../hooks/useAuth";
+import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
+
+import { FormHero } from 'src/components/FormHero/FormHero';
+import { useAuth } from 'src/hooks/useAuth';
+import { Button } from 'src/styles/Button.styled';
+
 import {
+  FormWrapper,
   StyledForm,
   Title,
-  FormWrapper,
-} from "../../components/AuthenticationForm/AuthenticationForm.styled";
-import { FormHero } from "../../components/FormHero/FormHero";
-import { useHistory } from "react-router-dom";
+} from '../Entry/components/AuthenticationForm/AuthenticationForm.styled';
+
 import {
   ErrorMesage,
   Information,
@@ -16,8 +20,7 @@ import {
   StyledAuthFormInput,
   StyledButton,
   Wrapper,
-} from "./ForgottenPassword.styled";
-import { Button } from "../../styles/Button.styled";
+} from './ForgottenPassword.styled';
 
 export const ForgottenPassword: React.FC = () => {
   const [succesMsg, setSuccesMsg] = useState<string | null>();
@@ -33,14 +36,12 @@ export const ForgottenPassword: React.FC = () => {
       <Wrapper>
         <FormWrapper>
           <Formik
-            initialValues={{ email: "" }}
+            initialValues={{ email: '' }}
             onSubmit={({ email }, { resetForm }) => {
               resetPassword(email)
                 .then(() => {
                   setError(null);
-                  setSuccesMsg(
-                    `E-mail with a reset link has been sent to ${email}.`
-                  );
+                  setSuccesMsg(`E-mail with a reset link has been sent to ${email}.`);
                 })
                 .catch(() => {
                   setSuccesMsg(null);
@@ -64,20 +65,10 @@ export const ForgottenPassword: React.FC = () => {
                   {error && <ErrorMesage>{error}</ErrorMesage>}
                 </InputContainer>
 
-                <Button
-                  variant="primary"
-                  width={200}
-                  type="submit"
-                  disabled={!dirty}
-                >
+                <Button variant="primary" width={200} type="submit" disabled={!dirty}>
                   Reset password
                 </Button>
-                <StyledButton
-                  variant="secondary"
-                  width={160}
-                  type="button"
-                  onClick={handleGoBack}
-                >
+                <StyledButton variant="secondary" width={160} type="button" onClick={handleGoBack}>
                   Go back
                 </StyledButton>
               </StyledForm>

@@ -1,14 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { useField } from "formik";
-import { AuthFormInputProps } from "./AuthFormInput.types";
+import { useField } from 'formik';
+
 import {
-  StyledInput,
-  StyledLabel,
-  Wrapper,
-  ErrorSpace,
-  ErrorStyled,
-} from "./AuthFormInput.styled";
+ErrorSpace, ErrorStyled,
+  StyledInput, StyledLabel, Wrapper, } from './AuthFormInput.styled';
+import { AuthFormInputProps } from './AuthFormInput.types';
 
 export const AuthFormInput: React.FC<AuthFormInputProps> = ({
   label,
@@ -22,12 +19,7 @@ export const AuthFormInput: React.FC<AuthFormInputProps> = ({
   return (
     <Wrapper className={className}>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput
-        {...field}
-        type={type}
-        id={label}
-        placeholder={placeholder}
-      />
+      <StyledInput {...field} type={type} id={label} placeholder={placeholder} />
       {meta.touched && meta.error ? (
         <ErrorStyled>{meta.error}</ErrorStyled>
       ) : (

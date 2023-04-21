@@ -1,6 +1,8 @@
-import styled from "styled-components";
-import svg from "react-inlinesvg";
-import { Colors } from "../../enums/colors.enum";
+import styled from 'styled-components';
+
+import svg from 'react-inlinesvg';
+
+import { Colors } from 'src/enums/colors.enum';
 
 interface StyledLogoProps {
   clickable: boolean;
@@ -12,9 +14,9 @@ export const LogoWrapper = styled.div<StyledLogoProps>`
   align-items: center;
   position: relative;
   width: 100px;
-  fill: ${({ color }) => (color ? color : Colors.DarkerBlue)};
-  color: ${({ color }) => (color ? color : Colors.DarkerBlue)};
-  cursor: ${({ clickable }) => (clickable ? "pointer" : "auto")};
+  fill: ${({ color }) => color || Colors.DarkerBlue};
+  color: ${({ color }) => color || Colors.DarkerBlue};
+  cursor: ${({ clickable }) => (clickable ? 'pointer' : 'auto')};
 `;
 
 export const LogoIcon = styled(svg)`
@@ -22,7 +24,7 @@ export const LogoIcon = styled(svg)`
   width: 36px;
 `;
 export const LogoText = styled.p`
-  font-family: "Merriweather Sans", sans-serif;
+  font-family: 'Merriweather Sans', sans-serif;
   font-weight: 500;
   font-size: 18px;
   position: absolute;

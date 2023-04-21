@@ -6,15 +6,15 @@ export interface RecommendedPlace {
   image: string;
 }
 
-export type CabinCode = "M" | "W" | "C" | "F";
+export type CabinCode = 'M' | 'W' | 'C' | 'F';
 
 export type CabinClass =
-  | "Economy"
-  | "Economy premium"
-  | "Business"
-  | "First class";
+  | 'Economy'
+  | 'Economy premium'
+  | 'Business'
+  | 'First class';
 
-export type FlightType = "round" | "oneway";
+export type FlightType = 'round' | 'oneway';
 
 export type InputPlaceType = {
   id: string;

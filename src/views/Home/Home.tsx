@@ -1,21 +1,25 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { Footer } from "src/components/Footer/Footer";
-import { SearchResults } from "src/components/Search/components/SearchResults/SearchResults";
-import { SearchDestinationSection } from "../../components/Search/components/SearchDestinationSection/SearchDestinationSection";
-import { Search } from "../../components/Search/Search";
-import { Routes } from "../../enums/routes.enum";
-import { useAuth } from "../../hooks/useAuth";
+import React from 'react';
+
+import { Redirect } from 'react-router-dom';
+
+import { Footer } from 'src/components/Footer/Footer';
+
+import { Routes } from '../../enums/routes.enum';
+import { useAuth } from '../../hooks/useAuth';
+
+import { SearchDestinationSection } from './components/SearchDestinationSection/SearchDestinationSection';
+import { SearchResults } from './components/SearchResults/SearchResults';
+import { SearchProvider } from './context/search.context';
 
 export const Home: React.FC = () => {
   const { isFirstEntry, currentUser } = useAuth();
 
   return (
     <>
-      <Search>
+      <SearchProvider>
         <SearchDestinationSection />
         <SearchResults />
-      </Search>
+      </SearchProvider>
       <Footer />
       {isFirstEntry && !currentUser && <Redirect to={Routes.Entry} />}
     </>

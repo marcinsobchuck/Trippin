@@ -1,5 +1,14 @@
-import { AuthenticationForm } from "../../components/AuthenticationForm/AuthenticationForm";
-import { useAuth } from "../../hooks/useAuth";
+import { useMediaQuery } from 'react-responsive';
+import { animated } from 'react-spring';
+
+import { FormHero } from '../../components/FormHero/FormHero';
+import { Logo } from '../../components/Logo/Logo';
+import { Breakpoint } from '../../enums/breakpoint.enum';
+import { Colors } from '../../enums/colors.enum';
+import { useAnimations } from '../../hooks/useAnimations';
+import { useAuth } from '../../hooks/useAuth';
+
+import { AuthenticationForm } from './components/AuthenticationForm/AuthenticationForm';
 import {
   Description,
   DesktopFormWrapper,
@@ -10,14 +19,7 @@ import {
   SideAction,
   SideBox,
   StyledButton,
-} from "./Entry.styled";
-import { FormHero } from "../../components/FormHero/FormHero";
-import { animated } from "react-spring";
-import { useMediaQuery } from "react-responsive";
-import { Breakpoint } from "../../enums/breakpoint.enum";
-import { Colors } from "../../enums/colors.enum";
-import { Logo } from "../../components/Logo/Logo";
-import { useAnimations } from "../../hooks/useAnimations";
+} from './Entry.styled';
 
 export const Entry: React.FC = () => {
   const { signUp, login } = useAuth();
@@ -39,115 +41,27 @@ export const Entry: React.FC = () => {
     handleToggleMobileAnimation,
   } = useAnimations();
 
-  return (
-    <>
-      {isDesktop ? (
-        <DesktopWrapper>
-          {logoTransition((style, item) =>
-            item ? (
-              <animated.div style={style}>
-                <Logo color={Colors.DarkerBlue} />
-              </animated.div>
-            ) : (
-              <animated.div style={style}>
-                <Logo color={Colors.White} />
-              </animated.div>
-            )
-          )}
+  if (isDesktop) {
+    return (
+      <DesktopWrapper>
+        {logoTransition((style, item) =>
+          item ? (
+            <animated.div style={style}>
+              <Logo color={Colors.DarkerBlue} />
+            </animated.div>
+          ) : (
+            <animated.div style={style}>
+              <Logo color={Colors.White} />
+            </animated.div>
+          ),
+        )}
 
-          <animated.div style={formAnimation}>
-            <DesktopFormWrapper>
-              {formTransition((style, item) =>
-                item ? (
-                  <animated.div style={style}>
-                    <AuthenticationForm
-                      title="Login"
-                      buttonText="Login"
-                      onSubmit={login}
-                    />
-                  </animated.div>
-                ) : (
-                  <animated.div style={style}>
-                    <AuthenticationForm
-                      title="Sign-up"
-                      isRegisterForm
-                      buttonText="Sign-up"
-                      onSubmit={signUp}
-                    />
-                  </animated.div>
-                )
-              )}
-            </DesktopFormWrapper>
-          </animated.div>
-
-          <animated.div style={sideActionAnimation}>
-            <SideAction>
-              <SideBox>
-                {headingLoginTransition(
-                  (style, item) =>
-                    item && (
-                      <animated.div style={style}>
-                        <Heading>Hello, Friend!</Heading>
-                        <Description>
-                          Enter your personal details and start journey with us
-                        </Description>
-                      </animated.div>
-                    )
-                )}
-                {headingSignUpTransition(
-                  (style, item) =>
-                    !item && (
-                      <animated.div style={style}>
-                        <Heading>Welcome Back!</Heading>
-                        <Description>
-                          To keep connected with us please login with your
-                          personal info
-                        </Description>
-                      </animated.div>
-                    )
-                )}
-                {buttonsTransition((style, item) =>
-                  item ? (
-                    <animated.div style={style}>
-                      <StyledButton
-                        width={200}
-                        type="button"
-                        variant="primary"
-                        onClick={handleToggleDesktopAnimation}
-                      >
-                        Sign-up
-                      </StyledButton>
-                    </animated.div>
-                  ) : (
-                    <animated.div style={style}>
-                      <StyledButton
-                        width={200}
-                        type="button"
-                        variant="primary"
-                        onClick={handleToggleDesktopAnimation}
-                      >
-                        Login
-                      </StyledButton>
-                    </animated.div>
-                  )
-                )}
-              </SideBox>
-            </SideAction>
-          </animated.div>
-        </DesktopWrapper>
-      ) : (
-        <MobileWrapper>
-          <FormHero />
-          <FormWrapper>
-            {mobileTransition((style, item) =>
+        <animated.div style={formAnimation}>
+          <DesktopFormWrapper>
+            {formTransition((style, item) =>
               item ? (
                 <animated.div style={style}>
-                  <AuthenticationForm
-                    title="Login"
-                    buttonText="Login"
-                    onSubmit={login}
-                    handleToggleMobileAnimation={handleToggleMobileAnimation}
-                  />
+                  <AuthenticationForm title="Login" buttonText="Login" onSubmit={login} />
                 </animated.div>
               ) : (
                 <animated.div style={style}>
@@ -156,14 +70,97 @@ export const Entry: React.FC = () => {
                     isRegisterForm
                     buttonText="Sign-up"
                     onSubmit={signUp}
-                    handleToggleMobileAnimation={handleToggleMobileAnimation}
                   />
                 </animated.div>
-              )
+              ),
             )}
-          </FormWrapper>
-        </MobileWrapper>
-      )}
-    </>
+          </DesktopFormWrapper>
+        </animated.div>
+
+        <animated.div style={sideActionAnimation}>
+          <SideAction>
+            <SideBox>
+              {headingLoginTransition(
+                (style, item) =>
+                  item && (
+                    <animated.div style={style}>
+                      <Heading>Hello, Friend!</Heading>
+                      <Description>
+                        Enter your personal details and start journey with us
+                      </Description>
+                    </animated.div>
+                  ),
+              )}
+              {headingSignUpTransition(
+                (style, item) =>
+                  !item && (
+                    <animated.div style={style}>
+                      <Heading>Welcome Back!</Heading>
+                      <Description>
+                        To keep connected with us please login with your personal info
+                      </Description>
+                    </animated.div>
+                  ),
+              )}
+              {buttonsTransition((style, item) =>
+                item ? (
+                  <animated.div style={style}>
+                    <StyledButton
+                      width={200}
+                      type="button"
+                      variant="primary"
+                      onClick={handleToggleDesktopAnimation}
+                    >
+                      Sign-up
+                    </StyledButton>
+                  </animated.div>
+                ) : (
+                  <animated.div style={style}>
+                    <StyledButton
+                      width={200}
+                      type="button"
+                      variant="primary"
+                      onClick={handleToggleDesktopAnimation}
+                    >
+                      Login
+                    </StyledButton>
+                  </animated.div>
+                ),
+              )}
+            </SideBox>
+          </SideAction>
+        </animated.div>
+      </DesktopWrapper>
+    );
+  }
+
+  return (
+    <MobileWrapper>
+      <FormHero />
+      <FormWrapper>
+        {mobileTransition((style, item) =>
+          item ? (
+            <animated.div style={style}>
+              <AuthenticationForm
+                title="Login"
+                buttonText="Login"
+                onSubmit={login}
+                handleToggleMobileAnimation={handleToggleMobileAnimation}
+              />
+            </animated.div>
+          ) : (
+            <animated.div style={style}>
+              <AuthenticationForm
+                title="Sign-up"
+                isRegisterForm
+                buttonText="Sign-up"
+                onSubmit={signUp}
+                handleToggleMobileAnimation={handleToggleMobileAnimation}
+              />
+            </animated.div>
+          ),
+        )}
+      </FormWrapper>
+    </MobileWrapper>
   );
 };

@@ -1,11 +1,12 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
-import { Link } from "react-router-dom";
-import { FontSize } from "../enums/fontSize.enum";
-import { Colors } from "../enums/colors.enum";
-import { FontWeight } from "../enums/fontWeight.enum";
+import { Link } from 'react-router-dom';
 
-type ButtonVariants = "primary" | "secondary" | "tertiary" | "quaternary";
+import { Colors } from '../enums/colors.enum';
+import { FontSize } from '../enums/fontSize.enum';
+import { FontWeight } from '../enums/fontWeight.enum';
+
+type ButtonVariants = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 
 interface StyledButtonProps {
   width?: number;
@@ -24,7 +25,7 @@ const ButtonStyles = {
     padding: 10px 20px;
 
     ::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -79,12 +80,16 @@ const getSharedStyles = (width?: number) => css`
   cursor: pointer;
   text-align: center;
   transition: 0.2s ease-in-out;
-  width: ${width ? `${width}px` : "auto"};
+  width: ${width ? `${width}px` : 'auto'};
 `;
 
 export const Button = styled.button<StyledButtonProps>`
   ${({ width }) => getSharedStyles(width)};
   ${({ variant }) => ButtonStyles[variant]}
+  &[disabled] {
+    background-color: ${Colors.WhiteOpacity};
+    pointer-events: none;
+  }
 `;
 
 export const RedirectButton = styled(Link)<StyledButtonProps>`

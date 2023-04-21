@@ -1,0 +1,65 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "prettier",
+    "plugin:react/jsx-runtime"
+  ],
+  "parserOptions": {
+       "project": "./tsconfig.json"
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off", 
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/function-component-definition": [
+      2,
+      {
+          "namedComponents": "arrow-function"
+      }
+    ],
+    "no-prototype-builtins": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "sort-imports": ["error", {
+      "ignoreCase": false,
+      "ignoreDeclarationSort": true
+    }],
+    "import/order": ["error",
+    { "groups": [
+      "builtin", "external", "internal", "parent", "sibling", "index"
+    ],
+      "pathGroups": [
+        {
+          "pattern": "react",
+          "group": "builtin",
+          "position": "before"
+        },
+        {
+          "pattern": "styled-components",
+          "group": "external",
+          "position": "before"
+        },
+        {
+          "pattern": "src/assets/**",
+          "group": "external",
+          "position": "after"
+        },
+        {
+          "pattern": "src/**",
+          "group": "internal",
+          "position": "before"
+        }
+       
+      ],
+      "pathGroupsExcludedImportTypes": ["react"],
+      "newlines-between": "always",
+      "alphabetize": {
+        "order": "asc",
+        "caseInsensitive": true
+      }
+    }]
+  }
+}

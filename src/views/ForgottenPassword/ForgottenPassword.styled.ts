@@ -1,8 +1,9 @@
-import styled from "styled-components";
-import { AuthFormInput } from "../../components/AuthenticationFormInput/AuthFormInput";
-import { Button } from "../../styles/Button.styled";
-import { Breakpoint } from "../../enums/breakpoint.enum";
-import { Colors } from "../../enums/colors.enum";
+import styled from 'styled-components';
+
+import { AuthFormInput } from '../../components/AuthenticationFormInput/AuthFormInput';
+import { Breakpoint } from '../../enums/breakpoint.enum';
+import { Colors } from '../../enums/colors.enum';
+import { Button } from '../../styles/Button.styled';
 
 export const Wrapper = styled.div`
   margin: 0 auto;

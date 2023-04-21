@@ -1,4 +1,4 @@
-import { useTransition } from "react-spring";
+import { useTransition } from 'react-spring';
 
 export const useModalAnimation = (key: boolean) => {
   const transition = useTransition(key, {

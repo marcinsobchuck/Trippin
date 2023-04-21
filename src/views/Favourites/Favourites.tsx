@@ -1,4 +1,16 @@
-import React from "react";
+import React from 'react';
+
+import { useHistory } from 'react-router-dom';
+
+import rarrow from 'src/assets/images/arrow.svg';
+import user from 'src/assets/images/user.svg';
+
+import { Logo } from 'src/components/Logo/Logo';
+import { useAuth } from 'src/hooks/useAuth';
+import { FavouritesList } from 'src/views/Favourites/components/FavouritesList/FavouritesList';
+
+import { Footer } from '../../components/Footer/Footer';
+
 import {
   Arrow,
   ButtonText,
@@ -9,15 +21,8 @@ import {
   MainContentWrapper,
   UserIcon,
   UserInfoWrapper,
-} from "./Favourites.styled";
-import rarrow from "src/assets/images/arrow.svg";
-import { Logo } from "src/components/Logo/Logo";
-import { useHistory } from "react-router-dom";
-import { FavouritesList } from "src/components/FavouritesList/FavouritesList";
-
-import user from "src/assets/images/user.svg";
-import { useAuth } from "src/hooks/useAuth";
-import { Footer } from "src/components/Footer/Footer";
+  Wrapper,
+} from './Favourites.styled';
 
 export const Favourites: React.FC = () => {
   const history = useHistory();
@@ -26,7 +31,7 @@ export const Favourites: React.FC = () => {
 
   const handleButtonClick = () => history.goBack();
   return (
-    <>
+    <Wrapper>
       <Header>
         <ButtonWrapper onClick={handleButtonClick}>
           <Arrow src={rarrow} />
@@ -43,6 +48,6 @@ export const Favourites: React.FC = () => {
         <FavouritesList />
       </MainContentWrapper>
       <Footer />
-    </>
+    </Wrapper>
   );
 };

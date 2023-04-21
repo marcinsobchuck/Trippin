@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { Blurhash } from "react-blurhash";
+import { Blurhash } from 'react-blurhash';
 
 export const ImageWrapper = styled.div`
   position: absolute;
