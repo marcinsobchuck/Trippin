@@ -4,14 +4,12 @@ import { Formik, FormikHelpers, FormikProps } from 'formik';
 import isEqual from 'lodash.isequal';
 import { useTranslation } from 'react-i18next';
 
-import adult from 'src/assets/images/adult.svg';
-import child from 'src/assets/images/child.svg';
-import infant from 'src/assets/images/infant.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
+import { Colors } from 'src/enums/colors.enum';
 import { RecommendedPlace, SearchFormTypes } from 'src/shared/types';
 import { Button } from 'src/styles/Button.styled';
+import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
-import { useSearchContext } from '../../../../hooks/useSearchContext';
 import {
   setIsParamsEqual,
   setRangeSliderValue,
@@ -31,7 +29,6 @@ import {
   PassengersWrapper,
   SettingsWrapper,
   StyledForm,
-  StyledIcon,
   Wrapper,
 } from './SearchForm.styled';
 
@@ -70,10 +67,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommen
 
   const { t } = useTranslation();
 
-  const handleSubmit = (
-    submitData: SearchFormTypes,
-    { setSubmitting }: FormikHelpers<SearchFormTypes>,
-  ) => {
+  const handleSubmit = (submitData: SearchFormTypes, { setSubmitting }: FormikHelpers<SearchFormTypes>) => {
     const paramsCheck = isEqual(submitData, searchFormData);
 
     setIsParamsEqual(dispatch, paramsCheck);
@@ -98,15 +92,15 @@ export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommen
               <FlightSettings onClick={() => setShowFlightSettingsModal((prevState) => !prevState)}>
                 <PassengersWrapper>
                   <ItemWrapper>
-                    <StyledIcon src={adult} />
+                    <Icon name="adultIcon" width={16} height={16} fill={Colors.White} />
                     <ItemText>{values.flightSettings.adults}</ItemText>
                   </ItemWrapper>
                   <ItemWrapper>
-                    <StyledIcon src={child} />
+                    <Icon name="childIcon" width={16} height={16} fill={Colors.White} />
                     <ItemText>{values.flightSettings.children}</ItemText>
                   </ItemWrapper>
                   <ItemWrapper>
-                    <StyledIcon src={infant} />
+                    <Icon name="infantIcon" width={16} height={16} fill={Colors.White} />
                     <ItemText>{values.flightSettings.infants}</ItemText>
                   </ItemWrapper>
                 </PassengersWrapper>

@@ -2,11 +2,11 @@ import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 
-import logoIcon from 'src/assets/images/logo.svg';
-
 import { Routes } from 'src/enums/routes.enum';
 
-import { LogoIcon, LogoText,LogoWrapper } from './Logo.styled';
+import { Icon } from '../Icon/Icon';
+
+import { LogoText, LogoWrapper } from './Logo.styled';
 import { LogoProps } from './Logo.types';
 
 export const Logo: React.FC<LogoProps> = ({ className, color }) => {
@@ -23,7 +23,7 @@ export const Logo: React.FC<LogoProps> = ({ className, color }) => {
       className={className}
       onClick={handleClick}
     >
-      <LogoIcon src={logoIcon} />
+      <Icon name="logoIcon" width={36} height={36} fill={color} />
       <LogoText>TRIPPIN</LogoText>
     </LogoWrapper>
   );

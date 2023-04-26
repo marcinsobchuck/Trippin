@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
 import { Colors } from 'src/enums/colors.enum';
-
-export const Icon = styled(svg)`
-  fill: ${Colors.White};
-  height: 12px;
-  width: 12px;
-`;
 
 export const HiddenCheckbox = styled.input`
   border: 0;
@@ -34,7 +26,7 @@ export const StyledCheckbox = styled.div<{ checked: boolean }>`
   border-radius: 3px;
   transition: 0.3s;
 
-  ${Icon} {
+  svg {
     visibility: ${({ checked }) => (checked ? 'visible' : 'hidden')};
   }
 `;

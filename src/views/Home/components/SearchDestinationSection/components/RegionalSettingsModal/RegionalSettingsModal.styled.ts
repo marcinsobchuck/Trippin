@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { Form } from 'formik';
-import svg from 'react-inlinesvg';
 
 import { Boxshadow } from 'src/enums/boxShadow.enum';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
@@ -58,12 +57,6 @@ export const IconWrapper = styled.div`
   :hover {
     background-color: ${Colors.Silver};
   }
-`;
-
-export const CloseIcon = styled(svg)`
-  fill: ${Colors.DarkerBlue};
-  height: 16px;
-  width: 16px;
 `;
 
 export const ModalTitle = styled.h2`

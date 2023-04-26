@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import svg from 'react-inlinesvg';
 import { Link } from 'react-router-dom';
 
 import { Breakpoint } from 'src/enums/breakpoint.enum';
@@ -48,8 +47,9 @@ export const Wrapper = styled.div<SharedProps>`
   transition: transform 0.3s cubic-bezier(0.64, 0, 0.78, 0);
   transform: translateX(-102%);
 
-  ${({ isOpen }) => isOpen
-    && css`
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
       transform: translateX(0);
       transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     `}
@@ -79,13 +79,10 @@ export const IconWrapper = styled.div`
 
   :hover {
     background-color: ${Colors.LightGray};
-    fill: ${Colors.DarkerBlue};
+    svg {
+      fill: ${Colors.DarkerBlue};
+    }
   }
-`;
-
-export const CloseIcon = styled(svg)`
-  height: 24px;
-  width: 24px;
 `;
 
 export const MenuItemsWrapper = styled.div`
@@ -150,8 +147,9 @@ export const MenuItem = styled(Link)<MenuItemProps>`
   transition: 0.2s;
   padding-bottom: 8px;
 
-  ${({ $isDisabled }) => $isDisabled
-    && css`
+  ${({ $isDisabled }) =>
+    $isDisabled &&
+    css`
       color: ${Colors.Gray};
       pointer-events: none;
     `}

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { FontSize } from 'src/enums/fontSize.enum';
@@ -50,10 +48,4 @@ export const SortFilterButton = styled.div`
   :hover {
     background-color: ${Colors.LightBlue};
   }
-`;
-
-export const SortFilterIcon = styled(svg)`
-  fill: ${Colors.White};
-  height: 18px;
-  width: 18px;
 `;

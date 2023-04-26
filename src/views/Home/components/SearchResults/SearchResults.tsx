@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
-import moment from 'moment';
-
-import sortfilter from 'src/assets/images/sortfilter.svg';
-
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Flight, SearchParameters } from 'src/apiServices/types/kiwiApi.types';
+import { Icon } from 'src/components/Icon/Icon';
+import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 
 import { useSearchContext } from '../../hooks/useSearchContext';
 
 import { FilterAndSort } from './components/FilterAndSort/FilterAndSort';
 import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
-import {
-  SortFilterButton,
-  SortFilterIcon,
-} from './components/SearchResultsList/SearchResultsList.styled';
+import { SortFilterButton } from './components/SearchResultsList/SearchResultsList.styled';
 import { TopDestinationsSideBar } from './components/TopDestinationsSidebar/TopDestinationsSidebar';
 import { ResultsWrapper, Wrapper } from './SearchResults.styled';
 
@@ -29,8 +24,6 @@ export const SearchResults: React.FC = () => {
       language: { languageCode },
     },
   } = useAuth();
-
-  moment();
 
   const [
     {
@@ -91,7 +84,7 @@ export const SearchResults: React.FC = () => {
         <ResultsWrapper>
           {!showSortAndFilter && (
             <SortFilterButton onClick={handleButtonClick}>
-              <SortFilterIcon src={sortfilter} />
+              <Icon name="sortFilterIcon" width={18} height={18} fill={Colors.White} />
             </SortFilterButton>
           )}
           {showSortAndFilter && (

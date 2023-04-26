@@ -1,17 +1,14 @@
 import React from 'react';
 
-
 import { useSelect } from 'downshift';
-import { FieldHookConfig,useField } from 'formik';
+import { FieldHookConfig, useField } from 'formik';
 
-import arrowIcon from 'src/assets/images/arrow.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 
 import { currencies } from './config';
 import {
-  Arrow,
   SelectWrapper,
   StyledButton,
   StyledIcon,
@@ -65,11 +62,9 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({ ...props }
             src={selectedItem ? selectedItem.currencyIcon : regionalSettings.currency.currencyIcon}
             alt="currency symbol"
           />
-          <StyledText>
-            {selectedItem ? selectedItem.currency : regionalSettings.currency.currency}
-          </StyledText>
+          <StyledText>{selectedItem ? selectedItem.currency : regionalSettings.currency.currency}</StyledText>
         </StyledSelectedItem>
-        <Arrow src={arrowIcon} />
+        <Icon name="arrowIcon" width={32} height={32} />
       </StyledButton>
       <StyledList
         {...getMenuProps({

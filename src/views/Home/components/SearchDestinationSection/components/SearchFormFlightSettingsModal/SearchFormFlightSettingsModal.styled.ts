@@ -54,12 +54,6 @@ export const IconWrapper = styled.div`
   }
 `;
 
-export const CloseIcon = styled(svg)`
-  fill: ${Colors.DarkerBlue};
-  height: 16px;
-  width: 16px;
-`;
-
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;

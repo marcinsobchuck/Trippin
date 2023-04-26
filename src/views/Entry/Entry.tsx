@@ -65,12 +65,7 @@ export const Entry: React.FC = () => {
                 </animated.div>
               ) : (
                 <animated.div style={style}>
-                  <AuthenticationForm
-                    title="Sign-up"
-                    isRegisterForm
-                    buttonText="Sign-up"
-                    onSubmit={signUp}
-                  />
+                  <AuthenticationForm title="Sign-up" isRegisterForm buttonText="Sign-up" onSubmit={signUp} />
                 </animated.div>
               ),
             )}
@@ -85,9 +80,7 @@ export const Entry: React.FC = () => {
                   item && (
                     <animated.div style={style}>
                       <Heading>Hello, Friend!</Heading>
-                      <Description>
-                        Enter your personal details and start journey with us
-                      </Description>
+                      <Description>Enter your personal details and start journey with us</Description>
                     </animated.div>
                   ),
               )}

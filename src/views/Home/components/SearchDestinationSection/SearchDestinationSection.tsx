@@ -5,10 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 import { useTransition } from 'react-spring';
 
-import arrow from 'src/assets/images/arrow.svg';
-import burger from 'src/assets/images/burger.svg';
-import user from 'src/assets/images/user.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
@@ -21,10 +18,7 @@ import { RegionalSettingsModal } from './components/RegionalSettingsModal/Region
 import { SearchForm } from './components/SearchForm/SearchForm';
 import { recommendedPlacesArray } from './config';
 import {
-  AccountIcon,
   AnimatedBackground,
-  ArrowIcon,
-  BurgerMenuIcon,
   BurgerMenuIconWrapper,
   CurrencyIcon,
   CurrencyIndicator,
@@ -35,6 +29,7 @@ import {
   MenuItem,
   SidebarNavbar,
   SidebarWrapper,
+  StyledIcon,
   StyledLogo,
   Wrapper,
 } from './SearchDestinationSection.styled';
@@ -96,7 +91,7 @@ export const SearchDestinationSection: React.FC = () => {
       ))}
       {!isTabletS && (
         <BurgerMenuIconWrapper onClick={handleBurgerClick}>
-          <BurgerMenuIcon src={burger} />
+          <Icon name="burgerIcon" width={24} height={24} fill={Colors.White} />
         </BurgerMenuIconWrapper>
       )}
 
@@ -111,13 +106,13 @@ export const SearchDestinationSection: React.FC = () => {
           <StyledLogo color={Colors.White} />
 
           <BurgerMenuIconWrapper onClick={handleBurgerClick}>
-            <BurgerMenuIcon src={burger} />
+            <Icon name="burgerIcon" width={24} height={24} fill={Colors.White} />
           </BurgerMenuIconWrapper>
 
           <Menu>
             <MenuItem ref={menuRef} id="account" onClick={handleAccountInfoClick}>
-              <ArrowIcon src={arrow} />
-              <AccountIcon src={user} />
+              <StyledIcon name="arrowIcon" height={26} width={26} color={Colors.White} />
+              <Icon name="userIcon" height={24} width={24} fill={Colors.White} />
             </MenuItem>
             <MenuItem id="settings" onClick={handleRegionalSettingsClick}>
               <CurrencyIcon src={regionalSettings.currency.currencyIcon} alt="currency icon" />

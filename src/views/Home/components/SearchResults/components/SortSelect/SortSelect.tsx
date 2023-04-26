@@ -2,23 +2,14 @@ import React from 'react';
 
 import { useSelect } from 'downshift';
 
-import arrow from 'src/assets/images/arrow.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 import { setSort } from 'src/views/Home/reducer/actions/search.actions';
 
 import { options } from '../FilterAndSort/config';
 
-import {
-  Arrow,
-  StyledButton,
-  StyledItem,
-  StyledLabel,
-  StyledList,
-  StyledText,
-  Wrapper,
-} from './SortSelect.styled';
+import { StyledButton, StyledItem, StyledLabel, StyledList, StyledText, Wrapper } from './SortSelect.styled';
 
 export const SortSelect: React.FC = () => {
   const [, dispatch] = useSearchContext();
@@ -45,7 +36,7 @@ export const SortSelect: React.FC = () => {
       <StyledLabel {...getLabelProps()}>Sort by</StyledLabel>
       <StyledButton type="button" {...getToggleButtonProps()}>
         <StyledText>{selectedItem && selectedItem.text}</StyledText>
-        <Arrow src={arrow} />
+        <Icon name="arrowIcon" width={18} height={18} />
       </StyledButton>
       <StyledList
         {...getMenuProps({

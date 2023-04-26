@@ -78,6 +78,10 @@ export const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: 8px;
+
+  svg {
+    margin-right: 6px;
+  }
 `;
 
 export const StyledIcon = styled(svg)`

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { FontSize } from 'src/enums/fontSize.enum';
@@ -63,9 +61,4 @@ export const StyledItem = styled.div`
   :last-of-type {
     border-bottom: none;
   }
-`;
-
-export const Arrow = styled(svg)`
-  width: 18px;
-  height: 18px;
 `;

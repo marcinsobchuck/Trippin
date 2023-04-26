@@ -2,10 +2,9 @@ import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 
-import rarrow from 'src/assets/images/arrow.svg';
-import user from 'src/assets/images/user.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Logo } from 'src/components/Logo/Logo';
+import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { FavouritesList } from 'src/views/Favourites/components/FavouritesList/FavouritesList';
 
@@ -19,7 +18,6 @@ import {
   Header,
   Heading,
   MainContentWrapper,
-  UserIcon,
   UserInfoWrapper,
   Wrapper,
 } from './Favourites.styled';
@@ -34,14 +32,14 @@ export const Favourites: React.FC = () => {
     <Wrapper>
       <Header>
         <ButtonWrapper onClick={handleButtonClick}>
-          <Arrow src={rarrow} />
+          <Arrow name="arrowIcon" width={32} height={32} color={Colors.DeepDarkBlue} />
           <ButtonText>Go back</ButtonText>
         </ButtonWrapper>
-        <Logo />
+        <Logo color={Colors.DeepDarkBlue} />
       </Header>
       <MainContentWrapper>
         <UserInfoWrapper>
-          <UserIcon src={user} />
+          <Icon name="userIcon" width={36} height={36} color={Colors.Silver} />
           <Email>{currentUser?.email}</Email>
         </UserInfoWrapper>
         <Heading>Your trips</Heading>

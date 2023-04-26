@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
-import copy from 'src/assets/images/copy.svg';
-import github from 'src/assets/images/github.svg';
-import linkedin from 'src/assets/images/linkedin.svg';
+import { Colors } from 'src/enums/colors.enum';
+
+import { Icon } from '../Icon/Icon';
 
 import {
-  CopyIcon,
   CopyWrapper,
   Copyright,
   SocialIcon,
   StyledEmail,
+  StyledLink,
   TooltipText,
   Wrapper,
 } from './Footer.styled';
@@ -20,16 +20,16 @@ export const Footer: React.FC = () => {
   return (
     <Wrapper>
       <div>
-        <a href="https://github.com/marcinsobchuck" target="_blank" rel="noreferrer">
-          <SocialIcon src={github} />
-        </a>
-        <a
+        <StyledLink href="https://github.com/marcinsobchuck" target="_blank" rel="noreferrer">
+          <SocialIcon name="githubIcon" width={32} height={32} fill={Colors.White} />
+        </StyledLink>
+        <StyledLink
           href="https://www.linkedin.com/in/marcin-sobczak-b66a0a1b5/"
           target="_blank"
           rel="noreferrer"
         >
-          <SocialIcon src={linkedin} />
-        </a>
+          <SocialIcon name="linkedinIcon" width={32} height={32} fill={Colors.White} />
+        </StyledLink>
       </div>
       <StyledEmail
         onClick={() => {
@@ -41,7 +41,7 @@ export const Footer: React.FC = () => {
         onMouseLeave={() => setCopied(false)}
       >
         <CopyWrapper>
-          <CopyIcon src={copy} />
+          <Icon name="copyIcon" width={18} height={18} fill={Colors.White} />
           <p>marcinsobchuck@gmail.com</p>
         </CopyWrapper>
         <TooltipText>{copied ? 'Copied' : 'Copy to clipboard'}</TooltipText>

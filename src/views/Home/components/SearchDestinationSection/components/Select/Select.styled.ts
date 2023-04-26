@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
 import { Boxshadow } from 'src/enums/boxShadow.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { FontSize } from 'src/enums/fontSize.enum';
@@ -45,11 +43,6 @@ export const StyledIcon = styled.img`
 
 export const StyledText = styled.p`
   margin-left: 8px;
-`;
-
-export const Arrow = styled(svg)`
-  width: 32px;
-  height: 32px;
 `;
 
 export const StyledList = styled.ul`

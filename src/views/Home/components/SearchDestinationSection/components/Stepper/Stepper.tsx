@@ -1,14 +1,9 @@
 import React from 'react';
 
-import minus from 'src/assets/images/minus.svg';
-import plus from 'src/assets/images/plus.svg';
+import { Icon } from 'src/components/Icon/Icon';
+import { Colors } from 'src/enums/colors.enum';
 
-import {
-  StepperIcon,
-  StepperIconWrapper,
-  StepperWrapper,
-  StyledStepperInput,
-} from './Stepper.styled';
+import { StepperIconWrapper, StepperWrapper, StyledStepperInput } from './Stepper.styled';
 import { StepperProps } from './Stepper.types';
 
 export const Stepper: React.FC<StepperProps> = ({
@@ -28,20 +23,12 @@ export const Stepper: React.FC<StepperProps> = ({
 
   return (
     <StepperWrapper>
-      <StepperIconWrapper
-        type="button"
-        disabled={value <= minValue}
-        onClick={decrement}
-      >
-        <StepperIcon src={minus} />
+      <StepperIconWrapper type="button" disabled={value <= minValue} onClick={decrement}>
+        <Icon name="minusIcon" width={18} height={18} fill={Colors.DarkerBlue} />
       </StepperIconWrapper>
       <StyledStepperInput type="text" value={value} readOnly />
-      <StepperIconWrapper
-        type="button"
-        disabled={detectDisabled()}
-        onClick={increment}
-      >
-        <StepperIcon src={plus} />
+      <StepperIconWrapper type="button" disabled={detectDisabled()} onClick={increment}>
+        <Icon name="plusIcon" width={18} height={18} fill={Colors.DarkerBlue} />
       </StepperIconWrapper>
     </StepperWrapper>
   );

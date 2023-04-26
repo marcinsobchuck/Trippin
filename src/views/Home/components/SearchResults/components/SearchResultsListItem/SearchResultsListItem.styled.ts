@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Boxshadow } from 'src/enums/boxShadow.enum';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
@@ -51,10 +50,7 @@ export const FlightWrapper = styled.div`
   }
 `;
 
-export const StyledIcon = styled(svg)`
-  width: 16px;
-  height: 16px;
-  color: ${Colors.DeepDarkBlue};
+export const StyledIcon = styled(Icon)`
   transform: rotate(90deg);
 
   @media ${Breakpoint.Mobile} {
@@ -139,9 +135,4 @@ export const FavouriteWrapper = styled.div`
   p {
     margin-right: 3px;
   }
-`;
-
-export const FavouriteIcon = styled(svg)`
-  width: 16px;
-  height: 16px;
 `;

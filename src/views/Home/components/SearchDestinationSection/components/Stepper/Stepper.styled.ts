@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
 import { Colors } from 'src/enums/colors.enum';
 import { FontWeight } from 'src/enums/fontWeight.enum';
 
@@ -10,12 +8,6 @@ export const StepperWrapper = styled.div`
   width: 100px;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const StepperIcon = styled(svg)`
-  height: 18px;
-  width: 18px;
-  fill: ${Colors.DarkerBlue};
 `;
 
 export const StepperIconWrapper = styled.button`
@@ -36,8 +28,10 @@ export const StepperIconWrapper = styled.button`
   :disabled {
     cursor: not-allowed;
   }
-  :disabled ${StepperIcon} {
-    fill: ${Colors.Gray};
+  :disabled {
+    svg {
+      fill: ${Colors.Gray};
+    }
   }
 `;
 

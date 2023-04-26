@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-import minus from 'src/assets/images/minus.svg';
-import plus from 'src/assets/images/plus.svg';
-import rarrow from 'src/assets/images/rarrow.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
+import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
@@ -15,7 +13,6 @@ import { FlightRoute } from '../FlightRoute/FlightRoute';
 import {
   ButtonsWrapper,
   DetailsButton,
-  FavouriteIcon,
   FavouriteWrapper,
   FlightDirections,
   FlightDirectionsWrapper,
@@ -33,9 +30,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   setActiveFlight,
   favourites,
 }) => {
-  const [alreadyLiked, setAlreadyLiked] = useState<boolean>(() =>
-    favourites.some((el) => el.id === data.id),
-  );
+  const [alreadyLiked, setAlreadyLiked] = useState<boolean>(() => favourites.some((el) => el.id === data.id));
 
   const [
     {
@@ -73,7 +68,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
               <p>
                 {data.cityFrom},{data.flyFrom}
               </p>
-              <StyledIcon src={rarrow} />
+              <StyledIcon name="rarrowIcon" width={16} height={16} fill={Colors.DeepDarkBlue} />
               <p>
                 {data.cityTo},{data.flyTo}
               </p>
@@ -132,12 +127,10 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
             </Button>
           </a>
           <FavouriteWrapper
-            onClick={(e) =>
-              alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e)
-            }
+            onClick={(e) => (alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e))}
           >
             <p>{alreadyLiked ? 'Delete' : 'Save'}</p>
-            <FavouriteIcon src={alreadyLiked ? minus : plus} />
+            <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} />
           </FavouriteWrapper>
         </ButtonsWrapper>
       </ItemWrapper>
@@ -152,7 +145,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
               <p>
                 {data.cityFrom},{data.flyFrom}
               </p>
-              <StyledIcon src={rarrow} />
+              <StyledIcon name="rarrowIcon" width={16} height={16} fill={Colors.DeepDarkBlue} />
               <p>
                 {data.cityTo},{data.flyTo}
               </p>
@@ -191,7 +184,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
             }
           >
             <p>{alreadyLiked ? 'Delete' : 'Save'}</p>
-            <FavouriteIcon src={alreadyLiked ? minus : plus} />
+            <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} />
           </FavouriteWrapper>
         </ButtonsWrapper>
       </ItemWrapper>

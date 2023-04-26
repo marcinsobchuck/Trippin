@@ -1,36 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
-import tick from 'src/assets/images/tick.svg';
+import { Colors } from 'src/enums/colors.enum';
 
-import {
-  CheckboxContainer,
-  HiddenCheckbox,
-  Icon,
-  StyledCheckbox,
-} from './Checkbox.styled';
+import { Icon } from '../Icon/Icon';
 
-interface CheckboxProps {
-  checked: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  label: string;
-  disabled: boolean;
-}
+import { CheckboxContainer, HiddenCheckbox, StyledCheckbox } from './Checkbox.styled';
+import { CheckboxProps } from './Checkbox.types';
 
-export const Checkbox: React.FC<CheckboxProps> = ({
-  checked,
-  onChange,
-  label,
-  disabled,
-}) => (
+export const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, disabled }) => (
   <CheckboxContainer disabled={disabled}>
-    <HiddenCheckbox
-      type="checkbox"
-      checked={checked}
-      onChange={onChange}
-      disabled={disabled}
-    />
+    <HiddenCheckbox type="checkbox" checked={checked} onChange={onChange} disabled={disabled} />
     <StyledCheckbox checked={checked}>
-      <Icon src={tick} />
+      <Icon name="tickIcon" width={12} height={12} fill={Colors.White} />
     </StyledCheckbox>
     {label}
   </CheckboxContainer>

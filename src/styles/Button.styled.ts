@@ -84,10 +84,9 @@ const getSharedStyles = (width?: number) => css`
 `;
 
 export const Button = styled.button<StyledButtonProps>`
-  ${({ width }) => getSharedStyles(width)};
+  ${({ width }) => getSharedStyles(width)}
   ${({ variant }) => ButtonStyles[variant]}
   &[disabled] {
-    background-color: ${Colors.WhiteOpacity};
     pointer-events: none;
   }
 `;

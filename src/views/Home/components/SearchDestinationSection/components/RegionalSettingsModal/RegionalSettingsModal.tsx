@@ -3,8 +3,8 @@ import React, { useRef } from 'react';
 import { Formik } from 'formik';
 import { animated } from 'react-spring';
 
-import closeIcon from 'src/assets/images/close.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
+import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
@@ -15,7 +15,6 @@ import { CurrencySelect } from '../Select/CurrencySelect';
 import { LanguageSelect } from '../Select/LanguageSelect';
 
 import {
-  CloseIcon,
   IconWrapper,
   ModalOverlay,
   ModalTitle,
@@ -74,7 +73,7 @@ export const RegionalSettingsModal: React.FC<{
               <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                 <StyledForm ref={ref}>
                   <IconWrapper onClick={handleCloseModal}>
-                    <CloseIcon src={closeIcon} />
+                    <Icon name="closeIcon" height={16} width={16} fill={Colors.DarkerBlue} />
                   </IconWrapper>
                   <ModalTitle>Regional settings</ModalTitle>
 

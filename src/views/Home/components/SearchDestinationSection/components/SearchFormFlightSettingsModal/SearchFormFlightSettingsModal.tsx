@@ -4,24 +4,20 @@ import { useField } from 'formik';
 import { useMediaQuery } from 'react-responsive';
 import { animated } from 'react-spring';
 
-import adult from 'src/assets/images/adult.svg';
-import child from 'src/assets/images/child.svg';
-import closeIcon from 'src/assets/images/close.svg';
-import infant from 'src/assets/images/infant.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
+import { Colors } from 'src/enums/colors.enum';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
 import { useModalAnimation } from 'src/hooks/useModalAnimation';
 import { CabinCode } from 'src/shared/types';
 import { CustomRadioInput, StyledRadioInput } from 'src/styles/RadioInput.styled';
+import { Passengers } from 'src/views/Home/reducer/types/searchReducer.types';
 
-import { Passengers } from '../../../../reducer/types/searchReducer.types';
 import { Stepper } from '../Stepper/Stepper';
 
-import { cabinClassArray } from './config';
+import { cabinClassArray, steppersData } from './config';
 import {
-  CloseIcon,
   IconWrapper,
   ModalTitle,
   RadioWrapper,
@@ -37,42 +33,6 @@ import {
 import { SearchFormFlightSettingsProps } from './SearchFormFlightSettingsModal.types';
 
 type Operation = 'INCREMENT' | 'DECREMENT';
-
-interface SteppersDataType {
-  icon: string;
-  title: string;
-  underText: string;
-  type: keyof Passengers;
-  minValue: number;
-  maxValue: number;
-}
-
-const steppersData: SteppersDataType[] = [
-  {
-    icon: adult,
-    title: 'Adults',
-    underText: 'Over 11',
-    type: 'adults',
-    minValue: 1,
-    maxValue: 9,
-  },
-  {
-    icon: child,
-    title: 'Children',
-    underText: '2-11',
-    type: 'children',
-    minValue: 0,
-    maxValue: 8,
-  },
-  {
-    icon: infant,
-    title: 'Infants',
-    underText: 'Under 2',
-    type: 'infants',
-    minValue: 0,
-    maxValue: 1,
-  },
-];
 
 const getTextFromValue = (value: CabinCode) => {
   switch (value) {
@@ -114,9 +74,7 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
       setValue({
         ...field.value,
         [passengerType]:
-          operation === 'INCREMENT'
-            ? field.value[passengerType] + 1
-            : field.value[passengerType] - 1,
+          operation === 'INCREMENT' ? field.value[passengerType] + 1 : field.value[passengerType] - 1,
       });
     },
     [field.value, setValue],
@@ -136,7 +94,7 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
         >
           <Wrapper ref={ref}>
             <IconWrapper onClick={handleCloseModal}>
-              <CloseIcon src={closeIcon} />
+              <Icon name="closeIcon" height={16} width={16} fill={Colors.DarkerBlue} />
             </IconWrapper>
             <ModalTitle>Flight settings</ModalTitle>
             <SectionTitle>

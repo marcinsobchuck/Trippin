@@ -1,17 +1,14 @@
 import React from 'react';
 
-
 import { useSelect } from 'downshift';
-import { FieldHookConfig,useField } from 'formik';
+import { FieldHookConfig, useField } from 'formik';
 
-import arrowIcon from 'src/assets/images/arrow.svg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 
 import { languages } from './config';
 import {
-  Arrow,
   SelectWrapper,
   StyledButton,
   StyledIcon,
@@ -60,15 +57,10 @@ export const LanguageSelect: React.FC<FieldHookConfig<Language>> = ({ ...props }
         })}
       >
         <StyledSelectedItem>
-          <StyledIcon
-            src={selectedItem ? selectedItem.flag : regionalSettings.language.flag}
-            alt="flag"
-          />
-          <StyledText>
-            {selectedItem ? selectedItem.language : regionalSettings.language.language}
-          </StyledText>
+          <StyledIcon src={selectedItem ? selectedItem.flag : regionalSettings.language.flag} alt="flag" />
+          <StyledText>{selectedItem ? selectedItem.language : regionalSettings.language.language}</StyledText>
         </StyledSelectedItem>
-        <Arrow src={arrowIcon} />
+        <Icon name="arrowIcon" width={32} height={32} />
       </StyledButton>
       <StyledList
         {...getMenuProps({

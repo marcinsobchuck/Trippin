@@ -6,11 +6,10 @@ import { DateRangePicker } from 'react-dates';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 
+import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
 import { SearchFormTypes } from 'src/shared/types';
-
-import { Breakpoint } from '../../../../../../enums/breakpoint.enum';
-import { Button } from '../../../../../../styles/Button.styled';
+import { Button } from 'src/styles/Button.styled';
 
 import {
   CompactDatePicker,

@@ -4,12 +4,11 @@ import { Formik } from 'formik';
 import { TailSpin } from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
 
+import { AuthFormInput } from 'src/components/AuthenticationFormInput/AuthFormInput';
 import { Colors } from 'src/enums/colors.enum';
 import { Routes } from 'src/enums/routes.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { Button, RedirectButton } from 'src/styles/Button.styled';
-
-import { AuthFormInput } from '../../../../components/AuthenticationFormInput/AuthFormInput';
 
 import {
   ActionText,
@@ -59,12 +58,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
       {({ isSubmitting }) => (
         <StyledForm>
           <Title>{title}</Title>
-          <AuthFormInput
-            type="email"
-            name="email"
-            label="E-mail"
-            placeholder="Type your e-mail here"
-          />
+          <AuthFormInput type="email" name="email" label="E-mail" placeholder="Type your e-mail here" />
           <AuthFormInput
             name="password"
             label="Password"
@@ -96,12 +90,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
               )}
             </Button>
             <span>or</span>
-            <RedirectButton
-              variant="secondary"
-              width={200}
-              to={Routes.Home}
-              onClick={continueAsGuest}
-            >
+            <RedirectButton variant="secondary" width={200} to={Routes.Home} onClick={continueAsGuest}>
               Continue as a guest
             </RedirectButton>
           </ButtonsWrapper>
@@ -116,11 +105,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
             <>
               <ActionText>
                 Not registered yet?
-                <StyledButton
-                  type="button"
-                  variant="tertiary"
-                  onClick={handleToggleMobileAnimation}
-                >
+                <StyledButton type="button" variant="tertiary" onClick={handleToggleMobileAnimation}>
                   Create an account
                 </StyledButton>
               </ActionText>

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import svg from 'react-inlinesvg';
 
+import { Icon } from 'src/components/Icon/Icon';
 import { Boxshadow } from 'src/enums/boxShadow.enum';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
@@ -50,11 +51,8 @@ export const ButtonText = styled.p`
   color: ${Colors.DeepDarkBlue};
 `;
 
-export const Arrow = styled(svg)`
-  color: ${Colors.DeepDarkBlue};
+export const Arrow = styled(Icon)`
   transform: rotate(90deg);
-  width: 32px;
-  height: 32px;
 `;
 
 export const MainContentWrapper = styled.div`
@@ -83,6 +81,7 @@ export const UserIcon = styled(svg)`
 export const Email = styled.p`
   font-size: ${FontSize.Small};
   font-weight: ${FontWeight.SemiBold};
+  margin-left: 9px;
 `;
 
 export const Heading = styled.h2`

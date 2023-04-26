@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
 import { animated } from 'react-spring';
 
+import { Icon } from 'src/components/Icon/Icon';
 import { Logo } from 'src/components/Logo/Logo';
 
 import { Breakpoint } from '../../../../enums/breakpoint.enum';
@@ -21,8 +21,7 @@ export const AnimatedBackground = styled(animated.div)<AnimatedBackgroundProps>`
   width: 100%;
   height: 100vh;
   z-index: -10;
-  background-image: ${({ $backgroundImage }) =>
-    $backgroundImage ? `url(${$backgroundImage})` : null};
+  background-image: ${({ $backgroundImage }) => ($backgroundImage ? `url(${$backgroundImage})` : null)};
   background-size: cover;
   background-position: center;
   will-change: opacity;
@@ -96,12 +95,6 @@ export const BurgerMenuIconWrapper = styled.div`
   }
 `;
 
-export const BurgerMenuIcon = styled(svg)`
-  fill: ${Colors.White};
-  height: 24px;
-  width: 24px;
-`;
-
 export const Menu = styled.div`
   display: none;
 
@@ -136,22 +129,13 @@ export const MenuItem = styled.button`
   }
 `;
 
+export const StyledIcon = styled(Icon)`
+  margin-right: 3px;
+`;
+
 export const CurrencyIndicator = styled.p`
   margin-right: 6px;
   margin-left: 3px;
-`;
-
-export const AccountIcon = styled(svg)`
-  height: 24px;
-  width: 24px;
-  fill: ${Colors.White};
-`;
-
-export const ArrowIcon = styled(svg)`
-  height: 26px;
-  width: 26px;
-  color: ${Colors.White};
-  margin-right: 3px;
 `;
 
 export const CurrencyIcon = styled.img`
@@ -187,8 +171,7 @@ export const Item = styled.li<ItemProps>`
   margin: 3px 0;
   padding-right: 20px;
   cursor: pointer;
-  border-bottom: ${({ isActive }) =>
-    isActive ? `4px solid ${Colors.LightBlue}` : '4px solid transparent'};
+  border-bottom: ${({ isActive }) => (isActive ? `4px solid ${Colors.LightBlue}` : '4px solid transparent')};
   transition: 0.2s;
   :hover {
     background-color: ${Colors.WhiteOpacity};

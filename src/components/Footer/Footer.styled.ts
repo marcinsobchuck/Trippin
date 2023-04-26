@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
 import { Colors } from 'src/enums/colors.enum';
 import { FontSize } from 'src/enums/fontSize.enum';
+
+import { Icon } from '../Icon/Icon';
 
 export const Wrapper = styled.div`
   background-color: ${Colors.DeepDarkBlue};
@@ -15,12 +15,12 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-export const SocialIcon = styled(svg)`
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  fill: ${Colors.White};
+export const StyledLink = styled.a`
   margin: 0px 6px;
+`;
+
+export const SocialIcon = styled(Icon)`
+  cursor: pointer;
   transition: 0.3s;
   :hover {
     fill: ${Colors.LightBlue};
@@ -46,7 +46,7 @@ export const TooltipText = styled.span`
   transition: opacity 0.7s;
 
   ::after {
-    content: "";
+    content: '';
     position: absolute;
     top: -42%;
     left: 50%;
@@ -81,13 +81,9 @@ export const StyledEmail = styled.div`
 
 export const CopyWrapper = styled.div`
   display: flex;
-`;
-
-export const CopyIcon = styled(svg)`
-  fill: ${Colors.White};
-  width: 18px;
-  height: 18px;
-  margin-right: 6px;
+  svg {
+    margin-right: 6px;
+  }
 `;
 
 export const Copyright = styled.p`

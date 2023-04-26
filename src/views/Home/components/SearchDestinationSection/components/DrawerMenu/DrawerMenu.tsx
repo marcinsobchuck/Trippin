@@ -2,18 +2,15 @@ import React, { useRef } from 'react';
 
 import { useHistory } from 'react-router-dom';
 
-import close from 'src/assets/images/close.svg';
-import signin from 'src/assets/images/signin.png';
-import signout from 'src/assets/images/signout.png';
-
 import { Footer } from 'src/components/Footer/Footer';
+import { Icon } from 'src/components/Icon/Icon';
+import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
 import { menuItems } from 'src/shared/config';
 
 import {
-  CloseIcon,
   CurrentSettings,
   IconWrapper,
   ItemText,
@@ -54,7 +51,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
       <Overlay isOpen={isOpen} />
       <Wrapper ref={wrapperRef} isOpen={isOpen}>
         <IconWrapper onClick={() => setIsDrawerMenuOpen(false)}>
-          <CloseIcon src={close} />
+          <Icon name="closeIcon" width={24} height={24} fill={Colors.White} />
         </IconWrapper>
         <MenuItemsWrapper>
           <RegionalSettingsMenuItem
@@ -79,7 +76,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
           </LinksWrapper>
           <RegionalSettingsMenuItem onClick={handleAuthAction}>
             <p>{currentUser ? 'Sign out' : 'Sign in'}</p>
-            <StyledImg src={currentUser ? signout : signin} />
+            <Icon name={currentUser ? 'signOutImage' : 'signInImage'} />
           </RegionalSettingsMenuItem>
         </MenuItemsWrapper>
         <Footer />

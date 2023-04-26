@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo,useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import {
   User,
@@ -12,12 +12,10 @@ import {
 import dollar from 'src/assets/images/dollar.png';
 import usaFlag from 'src/assets/images/usaFlag.png';
 
-
 import { auth } from '../firebase';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 import { AuthContextType, RegionalSettingsTypes } from './AuthContext.types';
-
 
 export const AuthContext = React.createContext<AuthContextType>({} as AuthContextType);
 
@@ -25,27 +23,22 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFirstEntry, setIsFirstEntry] = useLocalStorage('firstEntry', true);
-  const [regionalSettings, setRegionalSettings] = useLocalStorage<RegionalSettingsTypes>(
-    'regionalSettings',
-    {
-      language: {
-        language: 'English',
-        languageCode: 'en',
-        flag: usaFlag,
-      },
-      currency: {
-        currency: 'U.S. Dollar',
-        currencyCode: 'USD',
-        currencyIcon: dollar,
-      },
+  const [regionalSettings, setRegionalSettings] = useLocalStorage<RegionalSettingsTypes>('regionalSettings', {
+    language: {
+      language: 'English',
+      languageCode: 'en',
+      flag: usaFlag,
     },
-  );
+    currency: {
+      currency: 'U.S. Dollar',
+      currencyCode: 'USD',
+      currencyIcon: dollar,
+    },
+  });
 
-  const signUp = (email: string, password: string) =>
-    createUserWithEmailAndPassword(auth, email, password);
+  const signUp = (email: string, password: string) => createUserWithEmailAndPassword(auth, email, password);
 
-  const login = (email: string, password: string) =>
-    signInWithEmailAndPassword(auth, email, password);
+  const login = (email: string, password: string) => signInWithEmailAndPassword(auth, email, password);
   const logout = () => signOut(auth);
 
   const resetPassword = (email: string) => sendPasswordResetEmail(auth, email);
