@@ -1,4 +1,4 @@
-import { User,UserCredential } from 'firebase/auth';
+import { User, UserCredential } from 'firebase/auth';
 
 import dollar from 'src/assets/images/dollar.png';
 import euro from 'src/assets/images/euro.png';
@@ -7,18 +7,20 @@ import pound from 'src/assets/images/pound.png';
 import usaFlag from 'src/assets/images/usaFlag.png';
 import zloty from 'src/assets/images/zloty.png';
 
+export interface Language {
+  language: 'English' | 'Polish';
+  languageCode: 'en' | 'pl';
+  flag: typeof usaFlag | typeof polishFlag;
+}
 
+export interface Currency {
+  currency: string;
+  currencyCode: 'USD' | 'GBP' | 'EUR' | 'PLN';
+  currencyIcon: typeof dollar | typeof euro | typeof zloty | typeof pound;
+}
 export interface RegionalSettingsTypes {
-  language: {
-    language: 'English' | 'Polish';
-    languageCode: 'en' | 'pl';
-    flag: typeof usaFlag | typeof polishFlag;
-  };
-  currency: {
-    currency: string;
-    currencyCode: 'USD' | 'GBP' | 'EUR' | 'PLN';
-    currencyIcon: typeof dollar | typeof euro | typeof zloty | typeof pound;
-  };
+  language: Language;
+  currency: Currency;
 }
 
 export interface AuthContextType {

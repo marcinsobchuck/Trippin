@@ -5,9 +5,6 @@ import { useField } from 'formik';
 import { ThreeDots } from 'react-loader-spinner';
 import { useMediaQuery } from 'react-responsive';
 
-import airplaneIcon from 'src/assets/images/airplane.svg';
-import cityIcon from 'src/assets/images/city.svg';
-import countryIcon from 'src/assets/images/country.svg';
 import globeIcon from 'src/assets/images/globe.svg';
 import planetEarthIcon from 'src/assets/images/planetEarthIcon.png';
 
@@ -36,6 +33,7 @@ import {
   StyledList,
 } from './SearchFormInput.styled';
 import { SearchFormInputProps } from './SearchFormInput.types';
+import { convertLanguageCodes, getLocationParameters } from './utils';
 
 export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   label,
@@ -60,17 +58,6 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     query: `${Breakpoint.TabletS}`,
   });
 
-  const convertLanguageCodes = (code: 'pl' | 'en') => {
-    switch (code) {
-      case 'en':
-        return 'en-EN';
-      case 'pl':
-        return 'pl-PL';
-      default:
-        return 'en-EN';
-    }
-  };
-
   const { data: codes } = useCodes(languageCode);
   const { data, isLoading } = useLocations({
     term: place,
@@ -80,10 +67,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     locale: convertLanguageCodes(languageCode),
   });
 
-  const loadOptions = (
-    inputValue: string | undefined,
-    selectedItem: Location | null | undefined,
-  ) => {
+  const loadOptions = (inputValue: string | undefined, selectedItem: Location | null | undefined) => {
     if (selectedItem && selectedItem.name === inputValue) {
       return;
     }
@@ -115,39 +99,10 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     onInputValueChange: ({ inputValue, selectedItem }) => {
       loadOptions(inputValue, selectedItem);
     },
-    onSelectedItemChange: ({ selectedItem }) =>
-      selectedItem ? handleOnSelect(selectedItem) : null,
+    onSelectedItemChange: ({ selectedItem }) => (selectedItem ? handleOnSelect(selectedItem) : null),
 
     itemToString: (item) => (item ? item.name : ''),
   });
-
-  const getLocationParameters = (location: Location) => {
-    switch (location.type) {
-      case LocationsType.Airport:
-        if (location.hasOwnProperty('country') && location.hasOwnProperty('city')) {
-          return {
-            name: location.country?.name,
-            icon: airplaneIcon,
-          };
-        }
-        return { name: location.city?.country.name, icon: airplaneIcon };
-      case LocationsType.City:
-        return {
-          name: location.country?.name,
-          icon: cityIcon,
-        };
-      case LocationsType.Country:
-        return {
-          name: location.name,
-          icon: countryIcon,
-        };
-      default:
-        return {
-          name: '',
-          icon: '',
-        };
-    }
-  };
 
   const getCurrentCountryCodes = useCallback(() => {
     if (codes?.data && data?.data.locations) {
@@ -245,8 +200,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
                 item: location,
                 index,
                 style: {
-                  backgroundColor:
-                    highlightedIndex === index ? `${Colors.Silver}` : `${Colors.White}`,
+                  backgroundColor: highlightedIndex === index ? `${Colors.Silver}` : `${Colors.White}`,
                 },
               })}
             >

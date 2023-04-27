@@ -3,17 +3,13 @@ import React, { useEffect } from 'react';
 import { Grid } from 'react-loader-spinner';
 
 import { useTopDestinations } from 'src/apiServices/hooks/useTopDestinations';
-import { Flight } from 'src/apiServices/types/kiwiApi.types';
 import { Colors } from 'src/enums/colors.enum';
 
 import { useSearchContext } from '../../../../hooks/useSearchContext';
 import { TopDestinationsSideBarItem } from '../TopDestinationSidebarItem/TopDestinationsSidebarItem';
 
 import { Heading, HeadingText, Wrapper } from './TopDestinationsSidebar.styled';
-
-interface TopDestinationsSideBarProps {
-  visibleItems: Flight[];
-}
+import { TopDestinationsSideBarProps } from './TopDestinationsSidebar.types';
 
 export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({ visibleItems }) => {
   const [{ searchFormData }] = useSearchContext();

@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import { animated } from 'react-spring';
 
 import { Icon } from 'src/components/Icon/Icon';
+import { RegionalSettingsTypes } from 'src/context/AuthContext.types';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
@@ -21,18 +22,18 @@ import {
   StyledButton,
   StyledForm,
 } from './RegionalSettingsModal.styled';
-import { InitialValuesTypes } from './RegionalSettingsModal.types';
+import { RegionalSettingsModalProps } from './RegionalSettingsModal.types';
 
-export const RegionalSettingsModal: React.FC<{
-  setShowRegionalSettingsModal: React.Dispatch<React.SetStateAction<boolean>>;
-  showRegionalSettingsModal: boolean;
-}> = ({ showRegionalSettingsModal, setShowRegionalSettingsModal }) => {
+export const RegionalSettingsModal: React.FC<RegionalSettingsModalProps> = ({
+  showRegionalSettingsModal,
+  setShowRegionalSettingsModal,
+}) => {
   const {
     regionalSettings: { language, currency },
     setRegionalSettings,
   } = useAuth();
 
-  const initialValues: InitialValuesTypes = {
+  const initialValues: RegionalSettingsTypes = {
     language,
     currency,
   };
@@ -43,7 +44,7 @@ export const RegionalSettingsModal: React.FC<{
 
   const regionalSettingsModalTransition = useModalAnimation(showRegionalSettingsModal);
 
-  const handleSubmit = (values: InitialValuesTypes) => {
+  const handleSubmit = (values: RegionalSettingsTypes) => {
     setRegionalSettings({ language: values.language, currency: values.currency });
     changeLanguage(language.languageCode);
     handleCloseModal();

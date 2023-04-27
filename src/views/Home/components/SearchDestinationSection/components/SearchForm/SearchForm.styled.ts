@@ -3,10 +3,9 @@ import styled from 'styled-components';
 import { Form } from 'formik';
 import svg from 'react-inlinesvg';
 
+import { Breakpoint } from 'src/enums/breakpoint.enum';
+import { Colors } from 'src/enums/colors.enum';
 import { FontSize } from 'src/enums/fontSize.enum';
-
-import { Breakpoint } from '../../../../../../enums/breakpoint.enum';
-import { Colors } from '../../../../../../enums/colors.enum';
 
 export const Wrapper = styled.div`
   background-color: ${Colors.BlackOpacity};

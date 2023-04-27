@@ -6,7 +6,7 @@ import { useAuth } from 'src/hooks/useAuth';
 import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
-import { useRoutes } from '../../hooks/useRotues';
+import { useRoutes } from '../../hooks/useRoutes';
 import { addFavourites, deleteFavourites, formatDate, formatTime } from '../../utils';
 import { FlightRoute } from '../FlightRoute/FlightRoute';
 

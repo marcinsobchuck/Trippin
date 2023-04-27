@@ -30,24 +30,8 @@ import {
   UnderText,
   Wrapper,
 } from './SearchFormFlightSettingsModal.styled';
-import { SearchFormFlightSettingsProps } from './SearchFormFlightSettingsModal.types';
-
-type Operation = 'INCREMENT' | 'DECREMENT';
-
-const getTextFromValue = (value: CabinCode) => {
-  switch (value) {
-    case 'M':
-      return 'Economy';
-    case 'W':
-      return 'Economy premium';
-    case 'C':
-      return 'Business';
-    case 'F':
-      return 'First class';
-    default:
-      return 'Economy';
-  }
-};
+import { Operation, SearchFormFlightSettingsProps } from './SearchFormFlightSettingsModal.types';
+import { getTextFromValue } from './utils';
 
 export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsProps> = ({
   setShowFlightSettingsModal,

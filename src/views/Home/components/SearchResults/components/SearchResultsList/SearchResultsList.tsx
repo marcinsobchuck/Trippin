@@ -5,7 +5,7 @@ import { Oval } from 'react-loader-spinner';
 import { useMediaQuery } from 'react-responsive';
 
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
-import { Flight, SearchParameters } from 'src/apiServices/types/kiwiApi.types';
+import { Flight } from 'src/apiServices/types/kiwiApi.types';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
@@ -17,12 +17,7 @@ import { PageSetter } from '../PageSetter/PageSetter';
 import { SearchResultsListItem } from '../SearchResultsListItem/SearchResultsListItem';
 
 import { ListWrapper, Wrapper } from './SearchResultsList.styled';
-
-interface SearchResultsListProps {
-  setVisibleItems: (x: Flight[]) => void;
-  visibleItems?: Flight[];
-  parameters: SearchParameters;
-}
+import { SearchResultsListProps } from './SearchResultsList.types';
 
 export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   visibleItems,

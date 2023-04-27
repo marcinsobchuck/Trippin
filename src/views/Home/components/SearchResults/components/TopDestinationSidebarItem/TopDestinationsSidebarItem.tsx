@@ -3,15 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Rings } from 'react-loader-spinner';
 
 import { usePhotos } from 'src/apiServices/hooks/usePhotos';
-import { Tag } from 'src/apiServices/types/kiwiApi.types';
 import { Colors } from 'src/enums/colors.enum';
-
-import { useSearchContext } from '../../../../hooks/useSearchContext';
+import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 import {
   setIsParamsEqual,
   setRangeSliderValue,
   setSearchFormData,
-} from '../../../../reducer/actions/search.actions';
+} from 'src/views/Home/reducer/actions/search.actions';
 
 import {
   ImageWrapper,
@@ -21,13 +19,7 @@ import {
   StyledTag,
   TagsWrapper,
 } from './TopDestinationsSidebarItem.styled';
-
-interface TopDestinationsSideBarItemProps {
-  destinationName: string;
-  continent: string;
-  tags: Tag[];
-  id: string;
-}
+import { TopDestinationsSideBarItemProps } from './TopDestinationsSidebarItem.types';
 
 export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProps> = ({
   destinationName,

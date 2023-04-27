@@ -19,14 +19,9 @@ import {
   StyledRedirectButton,
   Title,
 } from './AuthenticationForm.styled';
-import { AuthValues, AuthenticationFormProps } from './AuthenticationForm.types';
+import { AuthenticationFormProps } from './AuthenticationForm.types';
+import { initialValues } from './config';
 import { loginValidationSchema, registerValidationSchema } from './validationSchema';
-
-const initialValues: AuthValues = {
-  email: '',
-  password: '',
-  passwordConfirmation: '',
-};
 
 export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
   onSubmit,

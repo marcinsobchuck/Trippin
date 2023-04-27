@@ -6,12 +6,7 @@ import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 import { setPage } from 'src/views/Home/reducer/actions/search.actions';
 
 import { IconWrapper, LeftArrow, PageNumber, RightArrow, Wrapper } from './PageSetter.styled';
-import { PageSetterProps } from './PageSetter.types';
-
-interface GetVisisblePagesArrayParams {
-  page: number;
-  maxPages: number;
-}
+import { GetVisisblePagesArrayParams, PageSetterProps } from './PageSetter.types';
 
 export const PageSetter: React.FC<PageSetterProps> = ({ maxPages }) => {
   const [{ page }, dispatch] = useSearchContext();

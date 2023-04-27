@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { SpringValue } from 'react-spring';
-
 import { Button } from 'src/styles/Button.styled';
-import { FavouriteFlight } from 'src/views/Home/components/SearchResults/hooks/useFavourites';
 import { formatDate, formatTime } from 'src/views/Home/components/SearchResults/utils';
 
 import {
@@ -18,21 +15,11 @@ import {
   TextPrimary,
   TripContainer,
 } from './FavouriteTrip.styled';
-
-interface FavouriteTripProps {
-  flight: FavouriteFlight;
-  onDelete: (id: string) => void;
-  style: {
-    transform: SpringValue<string>;
-    opacity: SpringValue<number>;
-    height: SpringValue<number>;
-  };
-}
+import { FavouriteTripProps } from './FavouriteTrip.types';
 
 export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, style }) => {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { countryFrom, cityFrom, countryTo, cityTo, price, deep_link, aTime, dTime, currency, id } =
-    flight;
+  const { countryFrom, cityFrom, countryTo, cityTo, price, deep_link, aTime, dTime, currency, id } = flight;
 
   const formatedTimeArrival = formatTime(aTime);
   const formatedDateArrival = formatDate(aTime);

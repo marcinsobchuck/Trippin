@@ -9,10 +9,11 @@ import { useModalAnimation } from 'src/hooks/useModalAnimation';
 import { menuItems } from 'src/shared/config';
 
 import { StyledText, Wrapper } from './AccountInformationPopover.styled';
+import { AccountInformationPopoverProps } from './AccountInformationPopover.types';
 
-export const AccountInformationPopover: React.FC<{
-  showAccountInfoPopover: boolean;
-}> = ({ showAccountInfoPopover }) => {
+export const AccountInformationPopover: React.FC<AccountInformationPopoverProps> = ({
+  showAccountInfoPopover,
+}) => {
   const { logout, currentUser } = useAuth();
 
   const history = useHistory();

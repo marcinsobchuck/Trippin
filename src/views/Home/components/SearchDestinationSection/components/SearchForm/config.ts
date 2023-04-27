@@ -1,17 +1,24 @@
-import * as Yup from 'yup';
+import { SearchFormTypes } from 'src/shared/types';
 
-export const searchSchema = Yup.object().shape({
-  start: Yup.object({
-    id: Yup.string().required('Required'),
-  }),
-  date: Yup.object().when('flightType', {
-    is: 'round',
-    then: Yup.object({
-      inbound: Yup.string().required('Required'),
-      outbound: Yup.string().required('If round, return required'),
-    }),
-    otherwise: Yup.object({
-      inbound: Yup.string().required('Required'),
-    }),
-  }),
-});
+export const initialValues: SearchFormTypes = {
+  start: {
+    id: '',
+    text: '',
+  },
+  destination: {
+    id: '',
+    text: '',
+  },
+  date: {
+    inbound: '',
+    outbound: '',
+  },
+  flightType: 'round',
+  flightSettings: {
+    adults: 1,
+    children: 0,
+    infants: 0,
+    cabinCode: 'M',
+    cabinClass: 'Economy',
+  },
+};

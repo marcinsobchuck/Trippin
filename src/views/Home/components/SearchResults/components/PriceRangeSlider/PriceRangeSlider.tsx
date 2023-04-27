@@ -4,25 +4,14 @@ import Slider from '@mui/material/Slider';
 import { Oval } from 'react-loader-spinner';
 
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
-import { Flight, SearchParameters } from 'src/apiServices/types/kiwiApi.types';
+import { Flight } from 'src/apiServices/types/kiwiApi.types';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
-import {
-  setIsParamsEqual,
-  setRangeSliderValue,
-} from 'src/views/Home/reducer/actions/search.actions';
+import { setIsParamsEqual, setRangeSliderValue } from 'src/views/Home/reducer/actions/search.actions';
 
 import { Label, LabelText, Wrapper } from './PriceRangeSlider.styled';
-
-interface PriceRangeSliderProps {
-  parameters: SearchParameters;
-}
-
-interface Price {
-  min: number;
-  max: number;
-}
+import { Price, PriceRangeSliderProps } from './PriceRangeSlider.types';
 
 export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({ parameters }) => {
   const [price, setPrice] = useState<Price>({ min: 0, max: 0 });
@@ -82,12 +71,7 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({ parameters }
         <LabelText>Price range</LabelText>
 
         {isLoading ? (
-          <Oval
-            color={Colors.DeepDarkBlue}
-            secondaryColor={Colors.LightBlue}
-            width={22}
-            height={22}
-          />
+          <Oval color={Colors.DeepDarkBlue} secondaryColor={Colors.LightBlue} width={22} height={22} />
         ) : (
           <LabelText>
             {noFlights ? '0' : `${value[0]} - ${value[1]}`}

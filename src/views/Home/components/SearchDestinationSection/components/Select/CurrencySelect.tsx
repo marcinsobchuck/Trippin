@@ -4,6 +4,7 @@ import { useSelect } from 'downshift';
 import { FieldHookConfig, useField } from 'formik';
 
 import { Icon } from 'src/components/Icon/Icon';
+import { Currency } from 'src/context/AuthContext.types';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 
@@ -18,7 +19,6 @@ import {
   StyledSelectedItem,
   StyledText,
 } from './Select.styled';
-import { Currency } from './Select.types';
 
 export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({ ...props }) => {
   const { regionalSettings } = useAuth();

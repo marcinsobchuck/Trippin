@@ -3,25 +3,17 @@ import React, { useState } from 'react';
 import arrow from 'src/assets/images/arrow.svg';
 
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
-import { SearchParameters } from 'src/apiServices/types/kiwiApi.types';
 import { Checkbox } from 'src/components/Checkbox/Checkbox';
+import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
+import { setDirectOnly } from 'src/views/Home/reducer/actions/search.actions';
 
-import { useSearchContext } from '../../../../hooks/useSearchContext';
-import { setDirectOnly } from '../../../../reducer/actions/search.actions';
 import { PriceRangeSlider } from '../PriceRangeSlider/PriceRangeSlider';
 import { SortSelect } from '../SortSelect/SortSelect';
 
 import { Arrow, ButtonWrapper, FilterWrapper, Wrapper } from './FilterAndSort.styled';
+import { FilterAndSortProps } from './FilterAndSort.types';
 
-interface FilterAndSortProps {
-  setShowSortAndFilter: (x: boolean) => void;
-  parameters: SearchParameters;
-}
-
-export const FilterAndSort: React.FC<FilterAndSortProps> = ({
-  setShowSortAndFilter,
-  parameters,
-}) => {
+export const FilterAndSort: React.FC<FilterAndSortProps> = ({ setShowSortAndFilter, parameters }) => {
   const [checked, setChecked] = useState<boolean>(true);
   const [, dispatch] = useSearchContext();
 

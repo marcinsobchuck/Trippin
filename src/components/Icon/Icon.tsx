@@ -44,6 +44,7 @@ export const Icon: React.FC<IconProps> = ({ name, width, height, fill, color, sr
   const IMGProps = {
     width,
     height,
+    ...props,
   };
 
   const Icons: Record<IconProps['name'], any> = {

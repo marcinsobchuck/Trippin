@@ -3,11 +3,10 @@ import styled, { css } from 'styled-components';
 import svg from 'react-inlinesvg';
 
 import { Boxshadow } from 'src/enums/boxShadow.enum';
-
-import { Breakpoint } from '../../../../../../enums/breakpoint.enum';
-import { Colors } from '../../../../../../enums/colors.enum';
-import { FontSize } from '../../../../../../enums/fontSize.enum';
-import { FontWeight } from '../../../../../../enums/fontWeight.enum';
+import { Breakpoint } from 'src/enums/breakpoint.enum';
+import { Colors } from 'src/enums/colors.enum';
+import { FontSize } from 'src/enums/fontSize.enum';
+import { FontWeight } from 'src/enums/fontWeight.enum';
 
 interface SharedProps {
   isFullscreen?: boolean;

@@ -5,7 +5,7 @@ import pound from 'src/assets/images/pound.png';
 import usaFlag from 'src/assets/images/usaFlag.png';
 import zloty from 'src/assets/images/zloty.png';
 
-import { Currency, Language } from './Select.types';
+import { Currency, Language } from 'src/context/AuthContext.types';
 
 export const currencies: Currency[] = [
   { currencyIcon: dollar, currency: 'U.S. Dollar', currencyCode: 'USD' },

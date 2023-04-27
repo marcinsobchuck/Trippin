@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
-import { RecommendedPlace, SearchFormTypes } from 'src/shared/types';
+import { SearchFormTypes } from 'src/shared/types';
 import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
@@ -20,7 +20,7 @@ import { SearchFormFlightSettingsModal } from '../SearchFormFlightSettingsModal/
 import { SearchFormInput } from '../SearchFormInput/SearchFormInput';
 import { SearchFormRadio } from '../SearchFormRadio/SearchFormRadio';
 
-import { searchSchema } from './config';
+import { initialValues } from './config';
 import {
   FlightSettings,
   InputsWrapper,
@@ -31,36 +31,10 @@ import {
   StyledForm,
   Wrapper,
 } from './SearchForm.styled';
-
-interface SearchFormProps {
-  formRef: React.Ref<FormikProps<SearchFormTypes>>;
-  currentRecommendedPlace: RecommendedPlace;
-}
+import { SearchFormProps } from './SearchForm.types';
+import { searchSchema } from './validationSchema';
 
 export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommendedPlace }) => {
-  const initialValues: SearchFormTypes = {
-    start: {
-      id: '',
-      text: '',
-    },
-    destination: {
-      id: '',
-      text: '',
-    },
-    date: {
-      inbound: '',
-      outbound: '',
-    },
-    flightType: 'round',
-    flightSettings: {
-      adults: 1,
-      children: 0,
-      infants: 0,
-      cabinCode: 'M',
-      cabinClass: 'Economy',
-    },
-  };
-
   const [showFlightSettingsModal, setShowFlightSettingsModal] = useState<boolean>(false);
 
   const [{ searchFormData }, dispatch] = useSearchContext();

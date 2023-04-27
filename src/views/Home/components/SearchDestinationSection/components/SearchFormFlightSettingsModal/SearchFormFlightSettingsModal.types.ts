@@ -7,5 +7,6 @@ export interface Props {
   setShowFlightSettingsModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export type SearchFormFlightSettingsProps = Props &
-FieldHookConfig<FlightSettings>;
+export type SearchFormFlightSettingsProps = Props & FieldHookConfig<FlightSettings>;
+
+export type Operation = 'INCREMENT' | 'DECREMENT';

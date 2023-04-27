@@ -4,11 +4,10 @@ import { animated } from 'react-spring';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Logo } from 'src/components/Logo/Logo';
-
-import { Breakpoint } from '../../../../enums/breakpoint.enum';
-import { Colors } from '../../../../enums/colors.enum';
-import { FontSize } from '../../../../enums/fontSize.enum';
-import { FontWeight } from '../../../../enums/fontWeight.enum';
+import { Breakpoint } from 'src/enums/breakpoint.enum';
+import { Colors } from 'src/enums/colors.enum';
+import { FontSize } from 'src/enums/fontSize.enum';
+import { FontWeight } from 'src/enums/fontWeight.enum';
 
 interface AnimatedBackgroundProps {
   $backgroundImage: string;

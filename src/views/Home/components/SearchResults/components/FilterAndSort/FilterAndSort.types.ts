@@ -1,3 +1,5 @@
+import { SearchParameters } from 'src/apiServices/types/kiwiApi.types';
+
 import { SortByType, SortTypeType } from '../../../../reducer/types/searchReducer.types';
 
 export interface Option {
@@ -6,4 +8,9 @@ export interface Option {
     sortType: SortTypeType;
   };
   text: string;
+}
+
+export interface FilterAndSortProps {
+  setShowSortAndFilter: (x: boolean) => void;
+  parameters: SearchParameters;
 }

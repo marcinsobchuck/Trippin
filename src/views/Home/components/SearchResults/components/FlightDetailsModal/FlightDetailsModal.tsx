@@ -12,7 +12,7 @@ import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
 import { ModalOverlay } from '../../../SearchDestinationSection/components/RegionalSettingsModal/RegionalSettingsModal.styled';
-import { useRoutes } from '../../hooks/useRotues';
+import { useRoutes } from '../../hooks/useRoutes';
 import { formatTime, getDateDifference } from '../../utils';
 
 import {
@@ -112,8 +112,7 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
 
                             <AdditionalInfo>
                               <p>
-                                Duration:{' '}
-                                {getDateDifference(departRoute.dTimeUTC, departRoute.aTimeUTC)}{' '}
+                                Duration: {getDateDifference(departRoute.dTimeUTC, departRoute.aTimeUTC)}{' '}
                               </p>
                               <p>
                                 Flight no: {departRoute.airline} {departRoute.flight_no}
@@ -165,8 +164,7 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
 
                                 <AdditionalInfo>
                                   <p>
-                                    Duration:{' '}
-                                    {getDateDifference(returnRoute.dTimeUTC, returnRoute.aTimeUTC)}{' '}
+                                    Duration: {getDateDifference(returnRoute.dTimeUTC, returnRoute.aTimeUTC)}{' '}
                                   </p>
                                   <p>
                                     Flight no: {returnRoute.airline} {returnRoute.flight_no}
