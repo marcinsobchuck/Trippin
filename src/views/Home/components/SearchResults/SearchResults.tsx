@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
+import { useMediaQuery } from 'react-responsive';
+
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Flight, SearchParameters } from 'src/apiServices/types/kiwiApi.types';
 import { Icon } from 'src/components/Icon/Icon';
+import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 
@@ -17,6 +20,10 @@ import { ResultsWrapper, Wrapper } from './SearchResults.styled';
 export const SearchResults: React.FC = () => {
   const [visibleItems, setVisibleItems] = useState<Flight[]>([]);
   const [showSortAndFilter, setShowSortAndFilter] = useState(true);
+
+  const isDesktop = useMediaQuery({
+    query: Breakpoint.Desktop,
+  });
 
   const {
     regionalSettings: {
@@ -45,8 +52,8 @@ export const SearchResults: React.FC = () => {
     fly_to: destinationId,
     date_from: inbound,
     date_to: inbound,
-    return_from: outbound,
-    return_to: outbound,
+    return_from: flightType === 'round' ? outbound : undefined,
+    return_to: flightType === 'round' ? outbound : undefined,
     flight_type: flightType,
     adults,
     children,
@@ -62,15 +69,15 @@ export const SearchResults: React.FC = () => {
     max_stopovers: directOnly,
   };
 
-  const { isLoading } = useSearchResults(parameters, !!startId);
+  const { isLoading, isFetching } = useSearchResults(parameters, !!startId);
 
   const element = document.getElementById('search-results');
 
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading || isFetching) {
       element?.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [element, isLoading]);
+  }, [element, isFetching, isLoading]);
 
   const handleButtonClick = () => {
     setShowSortAndFilter((prev) => !prev);
@@ -79,7 +86,7 @@ export const SearchResults: React.FC = () => {
   if (startId) {
     return (
       <Wrapper id="search-results">
-        <TopDestinationsSideBar visibleItems={visibleItems} />
+        {isDesktop && <TopDestinationsSideBar visibleItems={visibleItems} />}
 
         <ResultsWrapper>
           {!showSortAndFilter && (

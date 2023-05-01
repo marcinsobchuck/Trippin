@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 
 import { Grid } from 'react-loader-spinner';
+import { useQueries } from 'react-query';
 
 import { useTopDestinations } from 'src/apiServices/hooks/useTopDestinations';
+import { getPhotos } from 'src/apiServices/unsplashApi';
 import { Colors } from 'src/enums/colors.enum';
 
 import { useSearchContext } from '../../../../hooks/useSearchContext';
@@ -21,24 +24,6 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({ 
 
   const topDestinations = data?.data.locations;
   const noTopDestinations = topDestinations?.length === 0;
-
-  // const Arrrrrrrrray = ["Warsaw", "London", "Barcelona"];
-
-  // const queryResults = useQueries(
-  //   Arrrrrrrrray.map((topDestination) => {
-  //     return {
-  //       queryKey: ["top-destination", topDestination],
-  //       queryFn: () =>
-  //         getPhotos({
-  //           orientation: "landscape",
-  //           per_page: 1,
-  //           query: topDestination,
-  //         }),
-  //     };
-  //   })
-  // );
-
-  // console.log(queryResults);
 
   useEffect(() => {
     if (visibleItems.length > 0) {

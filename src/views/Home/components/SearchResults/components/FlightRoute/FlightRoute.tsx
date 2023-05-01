@@ -17,10 +17,8 @@ import {
 } from './FlightRoute.styled';
 import { FlightRouteProps } from './FlightRoute.types';
 
-
 export const FlightRoute: React.FC<FlightRouteProps> = ({
   routeType,
-  data,
   stops,
   departTime,
   arrivalTime,
@@ -40,7 +38,6 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
 
   return (
     <>
-      {' '}
       <FlightGeneralInfo>
         <FlightGeneralInfoItem>
           <strong>{routeType}</strong>
@@ -56,7 +53,7 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
       </FlightGeneralInfo>
       <FlightDirection>
         <p>
-          TO
+          <span>direction: </span>
           {routeDirection}
         </p>
       </FlightDirection>
@@ -69,7 +66,7 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
           <FlightDetails>
             <p>{departTime}</p>
             <p>
-              {cityFrom},{airportCodeFrom}
+              {cityFrom}, {airportCodeFrom}
             </p>
           </FlightDetails>
         </FlightDetailsItem>
@@ -80,13 +77,10 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
 
           <BadgesWrapper>
             <FlightBadge color={Colors.Blue} bgColor={Colors.LighterBlue}>
-              {data.fly_duration}
+              {flyDuration}
             </FlightBadge>
             <FlightBadge color={Colors.Gray} bgColor={Colors.LightGray}>
-              <p>
-                Stops:
-                {stops}
-              </p>
+              <p>Stops: {stops}</p>
             </FlightBadge>
             <FlightBadge color={Colors.DarkGreen} bgColor={Colors.LightGreen}>
               {flightSettings.cabinClass}
@@ -101,7 +95,7 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
           <FlightDetails>
             <p>{arrivalTime}</p>
             <p>
-              {cityTo},{airportCodeTo}
+              {cityTo}, {airportCodeTo}
             </p>
           </FlightDetails>
         </FlightDetailsItem>

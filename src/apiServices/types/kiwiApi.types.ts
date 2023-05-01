@@ -1,8 +1,4 @@
-import {
-  CodeType,
-  SortByType,
-  SortTypeType,
-} from 'src/views/Home/reducer/types/searchReducer.types';
+import { CodeType, SortByType, SortTypeType } from 'src/views/Home/reducer/types/searchReducer.types';
 
 export type LocationType = 'airport' | 'country' | 'city';
 

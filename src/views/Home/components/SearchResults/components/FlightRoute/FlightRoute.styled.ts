@@ -38,8 +38,16 @@ export const FlightDirection = styled.div`
     font-weight: ${FontWeight.Light};
     line-height: 16px;
     color: ${Colors.Gray};
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
+  }
+
+  span {
+    letter-spacing: normal;
+    text-transform: none;
+    color: black;
+    font-weight: ${FontWeight.SemiBold};
+    font-size: ${FontSize.SmallXS};
   }
 `;
 

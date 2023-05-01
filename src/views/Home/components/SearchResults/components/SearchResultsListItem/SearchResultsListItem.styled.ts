@@ -13,6 +13,9 @@ export const DetailsButton = styled.div`
   transition: 0.3s;
   border-radius: 9px;
   font-size: ${FontSize.Small};
+  i {
+    margin-right: 3px;
+  }
 `;
 
 export const ItemWrapper = styled.div`
@@ -130,7 +133,10 @@ export const FavouriteWrapper = styled.div`
   :hover {
     background-color: ${Colors.DeepDarkBlue};
     color: ${Colors.White};
-    fill: ${Colors.White};
+
+    svg {
+      fill: ${Colors.White};
+    }
   }
   p {
     margin-right: 3px;

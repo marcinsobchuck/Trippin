@@ -90,8 +90,7 @@ export const Divider = styled.div<SharedReturnTypes>`
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: ${({ isReturnRoute }) =>
-    isReturnRoute ? Colors.DarkBlue : Colors.LighterBlue};
+  background-color: ${({ isReturnRoute }) => (isReturnRoute ? Colors.DarkBlue : Colors.LighterBlue)};
   height: ${({ isReturnRoute }) => (isReturnRoute ? '60px' : '30px')};
 
   @media ${Breakpoint.Desktop} {

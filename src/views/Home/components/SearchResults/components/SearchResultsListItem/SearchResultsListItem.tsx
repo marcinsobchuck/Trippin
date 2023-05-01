@@ -59,136 +59,82 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
     setAlreadyLiked(false);
   };
 
-  if (flightType === 'round') {
-    return (
-      <ItemWrapper key={data.id} onClick={handleItemClick}>
-        <FlightWrapper>
-          <FlightDirections>
-            <FlightDirectionsWrapper>
-              <p>
-                {data.cityFrom},{data.flyFrom}
-              </p>
-              <StyledIcon name="rarrowIcon" width={16} height={16} fill={Colors.DeepDarkBlue} />
-              <p>
-                {data.cityTo},{data.flyTo}
-              </p>
-            </FlightDirectionsWrapper>
-            <Price>
-              {data.price} {regionalSettings.currency.currencyCode}
-            </Price>
-          </FlightDirections>
+  return (
+    <ItemWrapper key={data.id} onClick={handleItemClick}>
+      <FlightWrapper>
+        <FlightDirections>
+          <FlightDirectionsWrapper>
+            <p>
+              {data.cityFrom}, {data.flyFrom}
+            </p>
+            <StyledIcon name="rarrowIcon" width={16} height={16} fill={Colors.DeepDarkBlue} />
+            <p>
+              {data.cityTo}, {data.flyTo}
+            </p>
+          </FlightDirectionsWrapper>
+          <Price>
+            {data.price} {regionalSettings.currency.currencyCode}
+          </Price>
+        </FlightDirections>
 
-          <FlightRoute
-            data={data}
-            routeType="Departure"
-            departDate={formatDate(data.dTime)}
-            departTime={formatTime(data.dTime)}
-            arrivalTime={formatTime(data.aTime)}
-            stops={routes && routes.departRoutes.length - 1}
-            routeDirection={data.cityTo}
-            cityFrom={data.cityFrom}
-            airportCodeFrom={data.flyFrom}
-            cityTo={data.cityTo}
-            airportCodeTo={data.flyTo}
-            flyDuration={data.fly_duration}
-          />
+        <FlightRoute
+          routeType="Departure"
+          departDate={formatDate(data.dTime)}
+          departTime={formatTime(data.dTime)}
+          arrivalTime={formatTime(data.aTime)}
+          stops={routes && routes.departRoutes.length - 1}
+          routeDirection={data.cityTo}
+          cityFrom={data.cityFrom}
+          airportCodeFrom={data.flyFrom}
+          cityTo={data.cityTo}
+          airportCodeTo={data.flyTo}
+          flyDuration={data.fly_duration}
+        />
 
-          <SectionDivider>
-            <span>
-              {data.nightsInDest} nights in
-              {data.cityTo}
-            </span>
-          </SectionDivider>
-
-          {routes?.returnRoutes && (
+        {routes && routes.returnRoutes.length > 0 && flightType === 'round' && (
+          <>
+            <SectionDivider>
+              <span>
+                {data.nightsInDest} nights in {data.cityTo}
+              </span>
+            </SectionDivider>
             <FlightRoute
-              data={data}
               routeType="Return"
               departDate={formatDate(routes.returnRoutes[0].dTime)}
               departTime={formatTime(routes.returnRoutes[0].dTime)}
-              arrivalTime={formatTime(routes?.returnRoutes[routes.returnRoutes.length - 1].aTime)}
+              arrivalTime={formatTime(routes.returnRoutes[routes.returnRoutes.length - 1].aTime)}
               stops={routes.returnRoutes.length - 1}
               routeDirection={routes.returnRoutes[routes.returnRoutes.length - 1].cityTo}
               cityFrom={routes.returnRoutes[0].cityFrom}
-              airportCodeFrom={routes?.returnRoutes[0].flyFrom}
+              airportCodeFrom={routes.returnRoutes[0].flyFrom}
               cityTo={routes.returnRoutes[routes.returnRoutes.length - 1].cityTo}
               airportCodeTo={routes.returnRoutes[routes.returnRoutes.length - 1].flyTo}
               flyDuration={data.return_duration}
             />
+          </>
+        )}
+      </FlightWrapper>
+      <ButtonsWrapper>
+        <DetailsButton>
+          <i className="fas fa-chevron-down" />
+          Show details
+        </DetailsButton>
+        <a href={data.deep_link} target="_blank" rel="noopener noreferrer">
+          <Button variant="quaternary" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+            See on kiwi.com
+          </Button>
+        </a>
+        <FavouriteWrapper
+          onClick={(e) => (alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e))}
+        >
+          {currentUser && (
+            <>
+              <p>{alreadyLiked ? 'Delete' : 'Save'}</p>
+              <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} fill={Colors.DeepDarkBlue} />
+            </>
           )}
-        </FlightWrapper>
-        <ButtonsWrapper>
-          <DetailsButton>
-            <i className="fas fa-chevron-down" /> Show details
-          </DetailsButton>
-          <a href={data.deep_link} target="_blank" rel="noopener noreferrer">
-            <Button variant="quaternary" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-              See on kiwi.com
-            </Button>
-          </a>
-          <FavouriteWrapper
-            onClick={(e) => (alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e))}
-          >
-            <p>{alreadyLiked ? 'Delete' : 'Save'}</p>
-            <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} />
-          </FavouriteWrapper>
-        </ButtonsWrapper>
-      </ItemWrapper>
-    );
-  }
-  if (flightType === 'oneway') {
-    return (
-      <ItemWrapper key={data.id} onClick={handleItemClick}>
-        <FlightWrapper>
-          <FlightDirections>
-            <FlightDirectionsWrapper>
-              <p>
-                {data.cityFrom},{data.flyFrom}
-              </p>
-              <StyledIcon name="rarrowIcon" width={16} height={16} fill={Colors.DeepDarkBlue} />
-              <p>
-                {data.cityTo},{data.flyTo}
-              </p>
-            </FlightDirectionsWrapper>
-            <Price>
-              {data.price} {regionalSettings.currency.currencyCode}
-            </Price>
-          </FlightDirections>
-          <FlightRoute
-            data={data}
-            routeType="Departure"
-            departDate={formatDate(data.dTime)}
-            departTime={formatTime(data.dTime)}
-            arrivalTime={formatTime(data.aTime)}
-            stops={routes && routes.departRoutes.length - 1}
-            routeDirection={data.cityTo}
-            cityFrom={data.cityFrom}
-            airportCodeFrom={data.flyFrom}
-            cityTo={data.cityTo}
-            airportCodeTo={data.flyTo}
-            flyDuration={data.fly_duration}
-          />
-        </FlightWrapper>
-        <ButtonsWrapper>
-          <DetailsButton>
-            <i className="fas fa-chevron-down" /> Show details
-          </DetailsButton>
-          <a href={data.deep_link} target="_blank" rel="noopener noreferrer">
-            <Button variant="quaternary" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-              See on kiwi.com
-            </Button>
-          </a>
-          <FavouriteWrapper
-            onClick={(e: React.MouseEvent) =>
-              alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e)
-            }
-          >
-            <p>{alreadyLiked ? 'Delete' : 'Save'}</p>
-            <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} />
-          </FavouriteWrapper>
-        </ButtonsWrapper>
-      </ItemWrapper>
-    );
-  }
-  return null;
+        </FavouriteWrapper>
+      </ButtonsWrapper>
+    </ItemWrapper>
+  );
 };

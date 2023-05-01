@@ -27,7 +27,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ ...p
   const [endDate, setEndDate] = useState<Moment | null>(null);
   const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate' | null>(null);
 
-  const [field, , helpers] = useField(props);
+  const [, , helpers] = useField(props);
   const { setValue } = helpers;
 
   const {
@@ -90,12 +90,12 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ ...p
             firstDayOfWeek={1}
             readOnly
             disabled={flightType === 'oneway' && 'endDate'}
+            displayFormat="DD/MM/YYYY"
           />
         </CompactDatePicker>
       ) : (
         <FullScreenDatePicker isOpen={!!focusedInput}>
           <DateRangePicker
-            {...field}
             startDate={startDate}
             startDateId="depart-date"
             endDate={flightType === 'oneway' ? null : endDate}
@@ -116,6 +116,7 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ ...p
             initialVisibleMonth={() => moment()}
             readOnly
             disabled={flightType === 'oneway' && 'endDate'}
+            displayFormat="DD/MM/YYYY"
           />
         </FullScreenDatePicker>
       )}

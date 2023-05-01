@@ -18,8 +18,18 @@ import {
 import { FavouriteTripProps } from './FavouriteTrip.types';
 
 export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, style }) => {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { countryFrom, cityFrom, countryTo, cityTo, price, deep_link, aTime, dTime, currency, id } = flight;
+  const {
+    countryFrom,
+    cityFrom,
+    countryTo,
+    cityTo,
+    price,
+    deep_link: deepLink,
+    aTime,
+    dTime,
+    currency,
+    id,
+  } = flight;
 
   const formatedTimeArrival = formatTime(aTime);
   const formatedDateArrival = formatDate(aTime);
@@ -34,7 +44,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
       <RouteContainer>
         <InfoContainer>
           <TextPrimary>
-            {countryFrom.name},{cityFrom}
+            {countryFrom.name}, {cityFrom}
           </TextPrimary>
           <DateText>{formatedDateDeparture}</DateText>
           <DateText>{formatedTimeDeparture}</DateText>
@@ -44,13 +54,12 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
         </Divider>
         <InfoContainer>
           <TextPrimary>
-            {countryTo.name},{cityTo}
+            {countryTo.name}, {cityTo}
           </TextPrimary>
           <DateText>{formatedDateArrival}</DateText>
           <DateText>{formatedTimeArrival}</DateText>
         </InfoContainer>
       </RouteContainer>
-
       {returnRoutes.length > 0 ? (
         <>
           <Divider isReturnRoute>
@@ -82,7 +91,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
         <PriceText>
           {price} {currency}
         </PriceText>
-        <a href={deep_link} target="_blank" rel="noopener noreferrer">
+        <a href={deepLink} target="_blank" rel="noopener noreferrer">
           <Button variant="quaternary">See on kiwi.com</Button>
         </a>
       </Summary>

@@ -1,8 +1,5 @@
-import { Flight } from 'src/apiServices/types/kiwiApi.types';
-
 export interface FlightRouteProps {
   routeType: string;
-  data: Flight;
   stops: number | undefined;
   departTime: string | undefined;
   arrivalTime: string | undefined;

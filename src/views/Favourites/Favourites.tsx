@@ -39,7 +39,7 @@ export const Favourites: React.FC = () => {
       </Header>
       <MainContentWrapper>
         <UserInfoWrapper>
-          <Icon name="userIcon" width={36} height={36} color={Colors.Silver} />
+          <Icon name="userIcon" width={36} height={36} fill={Colors.Silver} />
           <Email>{currentUser?.email}</Email>
         </UserInfoWrapper>
         <Heading>Your trips</Heading>
