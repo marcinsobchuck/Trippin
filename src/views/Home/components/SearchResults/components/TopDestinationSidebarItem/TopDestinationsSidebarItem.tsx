@@ -15,6 +15,7 @@ import {
   ImageWrapper,
   ItemName,
   SkeletonImage,
+  StyledBlurhash,
   StyledImage,
   StyledTag,
   TagsWrapper,
@@ -27,6 +28,17 @@ export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProp
   tags,
   id,
 }) => {
+  const [isLoaded, setLoaded] = useState(false);
+  const [isLoadStarted, setLoadStarted] = useState(false);
+
+  const handleLoad = () => {
+    setLoaded(true);
+  };
+
+  const handleLoadStarted = () => {
+    setLoadStarted(true);
+  };
+
   const [queryTerm, setQueryTerm] = useState(destinationName);
 
   const { data, refetch, isLoading } = usePhotos({
@@ -48,6 +60,13 @@ export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProp
     });
   };
 
+  const url = data?.data.results[0].urls.regular;
+
+  useEffect(() => {
+    setLoaded(false);
+    setLoadStarted(false);
+  }, [url]);
+
   useEffect(() => {
     if (noResults) {
       setQueryTerm(continent);
@@ -68,16 +87,36 @@ export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProp
   if (data?.data.results.length !== 0) {
     return (
       <ImageWrapper to="search-results" smooth onClick={handleItemClick}>
-        <ItemName>
-          <p>{destinationName}</p>
-        </ItemName>
-        <TagsWrapper>
-          {tags.map((tag) => (
-            <StyledTag key={tag.tag}>{tag.tag}</StyledTag>
-          ))}
-        </TagsWrapper>
+        {isLoaded && (
+          <>
+            <ItemName>
+              <p>{destinationName}</p>
+            </ItemName>
+            <TagsWrapper>
+              {tags.map((tag) => (
+                <StyledTag key={tag.tag}>{tag.tag}</StyledTag>
+              ))}
+            </TagsWrapper>
+          </>
+        )}
 
-        <StyledImage src={data?.data.results[0].urls.regular} />
+        <StyledImage
+          key={data?.data.results[0].id}
+          src={data?.data.results[0].urls.regular}
+          onLoad={handleLoad}
+          beforeLoad={handleLoadStarted}
+          placeholderSrc={data?.data.results[0].urls.small}
+        />
+        {data && !isLoaded && isLoadStarted && (
+          <StyledBlurhash
+            hash={data?.data.results[0].blur_hash}
+            width="100%"
+            height="100%"
+            resolutionX={32}
+            resolutionY={32}
+            punch={1}
+          />
+        )}
       </ImageWrapper>
     );
   }

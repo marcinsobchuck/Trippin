@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Blurhash } from 'react-blurhash';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-scroll';
 
 import { Colors } from 'src/enums/colors.enum';
@@ -57,6 +59,7 @@ export const ImageWrapper = styled(Link)`
   overflow: hidden;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+  height: 286px;
 
   :hover img {
     transform: scale(1.1);
@@ -74,7 +77,7 @@ export const ImageWrapper = styled(Link)`
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -85,7 +88,7 @@ export const ImageWrapper = styled(Link)`
   }
 `;
 
-export const StyledImage = styled.img`
+export const StyledImage = styled(LazyLoadImage)`
   display: block;
   width: 100%;
   max-width: 100%;
@@ -95,9 +98,16 @@ export const StyledImage = styled.img`
   transition: 0.3s ease-in-out;
 `;
 
+export const StyledBlurhash = styled(Blurhash)`
+  z-index: 20;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+`;
+
 export const SkeletonImage = styled.div`
   width: 100%;
-  height: 250px;
+  height: 286px;
   background-color: ${Colors.Silver};
   border-bottom: 1px solid ${Colors.White};
   border-right: 1px solid ${Colors.White};

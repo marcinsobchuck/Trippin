@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { Grid } from 'react-loader-spinner';
-import { useQueries } from 'react-query';
 
 import { useTopDestinations } from 'src/apiServices/hooks/useTopDestinations';
 import { getPhotos } from 'src/apiServices/unsplashApi';
 import { Colors } from 'src/enums/colors.enum';
+import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
-import { useSearchContext } from '../../../../hooks/useSearchContext';
 import { TopDestinationsSideBarItem } from '../TopDestinationSidebarItem/TopDestinationsSidebarItem';
 
-import { Heading, HeadingText, Wrapper } from './TopDestinationsSidebar.styled';
+import { Wrapper } from './TopDestinationsSidebar.styled';
 import { TopDestinationsSideBarProps } from './TopDestinationsSidebar.types';
 
 export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({ visibleItems }) => {
@@ -53,22 +53,16 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({ 
 
   return (
     <Wrapper>
-      <Heading>
-        <HeadingText>
-          Trending destinations from <span>{searchFormData.start.text}</span>
-        </HeadingText>
-      </Heading>
-      <div>
-        {topDestinations?.map((topDestination) => (
+      {topDestinations?.map((topDestination) => (
+        <LazyLoadComponent key={topDestination.id}>
           <TopDestinationsSideBarItem
-            key={topDestination.id}
             id={topDestination.id}
             destinationName={topDestination.name}
             continent={topDestination.continent.name}
             tags={topDestination.tags}
           />
-        ))}
-      </div>
+        </LazyLoadComponent>
+      ))}
     </Wrapper>
   );
 };
