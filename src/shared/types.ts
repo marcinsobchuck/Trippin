@@ -8,11 +8,7 @@ export interface RecommendedPlace {
 
 export type CabinCode = 'M' | 'W' | 'C' | 'F';
 
-export type CabinClass =
-  | 'Economy'
-  | 'Economy premium'
-  | 'Business'
-  | 'First class';
+export type CabinClass = string;
 
 export type FlightType = 'round' | 'oneway';
 
@@ -32,6 +28,7 @@ export type FlightSettings = {
   infants: number;
   cabinCode: CabinCode;
   cabinClass: CabinClass;
+  cabin_key: string;
 };
 
 export interface SearchFormTypes {

@@ -11,6 +11,7 @@ export interface Option {
 }
 
 export interface FilterAndSortProps {
-  setShowSortAndFilter: (x: boolean) => void;
+  setShowSortAndFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  showSortSortAndFilter: boolean;
   parameters: SearchParameters;
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Colors } from 'src/enums/colors.enum';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
@@ -35,6 +37,8 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
       searchFormData: { flightSettings },
     },
   ] = useSearchContext();
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -83,7 +87,7 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
               <p>Stops: {stops}</p>
             </FlightBadge>
             <FlightBadge color={Colors.DarkGreen} bgColor={Colors.LightGreen}>
-              {flightSettings.cabinClass}
+              {t(flightSettings.cabin_key)}
             </FlightBadge>
           </BadgesWrapper>
         </FlightDetailsItem>

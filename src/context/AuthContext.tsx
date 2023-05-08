@@ -25,12 +25,12 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [isFirstEntry, setIsFirstEntry] = useLocalStorage('firstEntry', true);
   const [regionalSettings, setRegionalSettings] = useLocalStorage<RegionalSettingsTypes>('regionalSettings', {
     language: {
-      language: 'English',
       languageCode: 'en',
       flag: usaFlag,
+      language_key: 'views.home.languages.english',
     },
     currency: {
-      currency: 'U.S. Dollar',
+      currency_key: 'views.home.currencies.dollar',
       currencyCode: 'USD',
       currencyIcon: dollar,
     },

@@ -2,6 +2,7 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { useCombobox } from 'downshift';
 import { useField } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { ThreeDots } from 'react-loader-spinner';
 import { useMediaQuery } from 'react-responsive';
 
@@ -57,6 +58,8 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
   });
+
+  const { t } = useTranslation();
 
   const { data: codes } = useCodes(languageCode);
   const { data, isLoading } = useLocations({
@@ -132,7 +135,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
       : planetEarthIcon;
 
   const handleClickAnywhere = () => {
-    setInputValue('anywhere');
+    setInputValue(t('views.home.searchInput.anywhere'));
     setValue({ id: 'anywhere', text: 'anywhere' });
     toggleMenu();
   };
@@ -219,10 +222,10 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
           <AnywhereItem onClick={handleClickAnywhere}>
             <StyledGlobe src={globeIcon} />
             <div>
-              <p>Not decided where?</p>
+              <p>{t('views.home.searchInput.notDecided')}</p>
               <p>
-                Choose to fly
-                <span>anywhere</span>
+                {t('views.home.searchInput.choose')}
+                <span>{t('views.home.searchInput.anywhere')}</span>
               </p>
             </div>
           </AnywhereItem>

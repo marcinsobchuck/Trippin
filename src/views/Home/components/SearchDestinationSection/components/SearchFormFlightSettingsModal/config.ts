@@ -2,18 +2,19 @@ import adult from 'src/assets/images/adult.svg';
 import child from 'src/assets/images/child.svg';
 import infant from 'src/assets/images/infant.svg';
 
-import { CabinClass, CabinCode } from 'src/shared/types';
+import { CabinCode } from 'src/shared/types';
 import { Passengers } from 'src/views/Home/reducer/types/searchReducer.types';
 
 interface Cabin {
   value: CabinCode;
-  text: CabinClass;
+  cabin_key: string;
 }
 
 interface SteppersDataType {
   icon: string;
-  title: string;
+  stepper_key: string;
   underText: string;
+  ageRestriction: number | null;
   type: keyof Passengers;
   minValue: number;
   maxValue: number;
@@ -22,43 +23,46 @@ interface SteppersDataType {
 export const cabinClassArray: Cabin[] = [
   {
     value: 'M',
-    text: 'Economy',
+    cabin_key: 'views.home.flightSettings.economy',
   },
   {
     value: 'W',
-    text: 'Economy premium',
+    cabin_key: 'views.home.flightSettings.economyPremium',
   },
   {
     value: 'C',
-    text: 'Business',
+    cabin_key: 'views.home.flightSettings.business',
   },
   {
     value: 'F',
-    text: 'First class',
+    cabin_key: 'views.home.flightSettings.firstClass',
   },
 ];
 
 export const steppersData: SteppersDataType[] = [
   {
     icon: adult,
-    title: 'Adults',
-    underText: 'Over 11',
+    stepper_key: 'views.home.flightSettings.adults',
+    underText: 'views.home.flightSettings.over',
+    ageRestriction: 11,
     type: 'adults',
     minValue: 1,
     maxValue: 9,
   },
   {
     icon: child,
-    title: 'Children',
+    stepper_key: 'views.home.flightSettings.children',
     underText: '2-11',
+    ageRestriction: null,
     type: 'children',
     minValue: 0,
     maxValue: 8,
   },
   {
     icon: infant,
-    title: 'Infants',
-    underText: 'Under 2',
+    stepper_key: 'views.home.flightSettings.infants',
+    underText: 'views.home.flightSettings.under',
+    ageRestriction: 2,
     type: 'infants',
     minValue: 0,
     maxValue: 1,

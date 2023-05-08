@@ -23,6 +23,7 @@
     ],
     "no-prototype-builtins": "off",
     "@typescript-eslint/no-shadow": "off",
+    "@typescript-eslint/naming-convention": "off",
     "sort-imports": ["error", {
       "ignoreCase": false,
       "ignoreDeclarationSort": true

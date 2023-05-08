@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { animated } from 'react-spring';
 
 import { Icon } from 'src/components/Icon/Icon';
@@ -45,12 +46,14 @@ export const RegionalSettingsModal: React.FC<RegionalSettingsModalProps> = ({
   const regionalSettingsModalTransition = useModalAnimation(showRegionalSettingsModal);
 
   const handleSubmit = (values: RegionalSettingsTypes) => {
+    changeLanguage(values.language.languageCode);
     setRegionalSettings({ language: values.language, currency: values.currency });
-    changeLanguage(language.languageCode);
+
     handleCloseModal();
   };
 
   const ref = useRef(null);
+  const { t } = useTranslation();
 
   useOnClickOutside(ref, () => setShowRegionalSettingsModal(false));
   useLockBodyScroll(showRegionalSettingsModal);
@@ -76,12 +79,12 @@ export const RegionalSettingsModal: React.FC<RegionalSettingsModalProps> = ({
                   <IconWrapper onClick={handleCloseModal}>
                     <Icon name="closeIcon" height={16} width={16} fill={Colors.DarkerBlue} />
                   </IconWrapper>
-                  <ModalTitle>Regional settings</ModalTitle>
+                  <ModalTitle>{t('views.home.modals.regionalSettings')}</ModalTitle>
 
                   <LanguageSelect name="language" />
                   <CurrencySelect name="currency" />
                   <StyledButton type="submit" variant="quaternary">
-                    Save
+                    {t('views.home.buttons.save')}
                   </StyledButton>
                 </StyledForm>
               </Formik>

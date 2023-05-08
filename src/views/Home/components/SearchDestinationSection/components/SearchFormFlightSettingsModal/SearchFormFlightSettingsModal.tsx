@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 
 import { useField } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 import { animated } from 'react-spring';
 
@@ -31,7 +32,6 @@ import {
   Wrapper,
 } from './SearchFormFlightSettingsModal.styled';
 import { Operation, SearchFormFlightSettingsProps } from './SearchFormFlightSettingsModal.types';
-import { getTextFromValue } from './utils';
 
 export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsProps> = ({
   setShowFlightSettingsModal,
@@ -67,6 +67,9 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
   useOnClickOutside(ref, handleCloseModal);
   useLockBodyScroll(!isTabletS && showFlightSettingsModal);
   const modalAnimation = useModalAnimation(showFlightSettingsModal);
+
+  const { t } = useTranslation();
+
   return modalAnimation(
     (styles, item) =>
       item && (
@@ -80,9 +83,9 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
             <IconWrapper onClick={handleCloseModal}>
               <Icon name="closeIcon" height={16} width={16} fill={Colors.DarkerBlue} />
             </IconWrapper>
-            <ModalTitle>Flight settings</ModalTitle>
+            <ModalTitle>{t('views.home.modals.flightSettings')}</ModalTitle>
             <SectionTitle>
-              <p>Passengers</p>
+              <p>{t('views.home.flightSettings.passengers')}</p>
               <UnderText>(max. 9)</UnderText>
             </SectionTitle>
             {steppersData.map((stepper) => (
@@ -90,8 +93,12 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
                 <RowLeftSide>
                   <StyledIcon src={stepper.icon} />
                   <div>
-                    <StyledText>{stepper.title}</StyledText>
-                    <UnderText>{stepper.underText}</UnderText>
+                    <StyledText>{t(stepper.stepper_key)}</StyledText>
+                    <UnderText>
+                      {stepper.ageRestriction !== null
+                        ? t(stepper.underText, { count: stepper.ageRestriction })
+                        : t(stepper.underText)}
+                    </UnderText>
                   </div>
                 </RowLeftSide>
                 <Stepper
@@ -105,7 +112,7 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
               </Row>
             ))}
             <SectionTitle>
-              <p>Cabin class</p>
+              <p>{t('views.home.flightSettings.cabinClass')}</p>
             </SectionTitle>
 
             <RadioWrapper role="group">
@@ -118,14 +125,14 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
                       setValue({
                         ...field.value,
                         cabinCode: event.currentTarget.value as CabinCode,
-                        cabinClass: getTextFromValue(event.currentTarget.value as CabinCode),
+                        cabin_key: cabin.cabin_key,
                       });
                     }}
                     type="radio"
                     defaultChecked={cabin.value === field.value.cabinCode}
                   />
                   <CustomRadioInput />
-                  {cabin.text}
+                  {t(cabin.cabin_key)}
                 </ReStyledRadioLabel>
               ))}
             </RadioWrapper>

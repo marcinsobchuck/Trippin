@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { Footer } from 'src/components/Footer/Footer';
@@ -44,6 +45,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
     history.push('/entry');
   };
 
+  const { t } = useTranslation();
+
   useLockBodyScroll(isOpen);
 
   return (
@@ -60,22 +63,22 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
               setShowRegionalSettingsModal(true);
             }}
           >
-            <p>Settings</p>
+            <p>{t('views.home.menu.settings')}</p>
             <CurrentSettings>
-              <StyledImg src={regionalSettings.currency.currencyIcon} alt="" />
+              <StyledImg src={regionalSettings.currency.currencyIcon} alt="currency icon" />
               <p>{regionalSettings.currency.currencyCode}</p>
               <StyledImg src={regionalSettings.language.flag} alt="flag" />
             </CurrentSettings>
           </RegionalSettingsMenuItem>
           <LinksWrapper>
             {menuItems.map((item) => (
-              <MenuItem key={item.text} $isDisabled={!currentUser} to={item.route}>
-                <ItemText>{item.text}</ItemText>
+              <MenuItem key={item.menu_key} $isDisabled={!currentUser} to={item.route}>
+                <ItemText>{t(item.menu_key)}</ItemText>
               </MenuItem>
             ))}
           </LinksWrapper>
           <RegionalSettingsMenuItem onClick={handleAuthAction}>
-            <p>{currentUser ? 'Sign out' : 'Sign in'}</p>
+            <p>{currentUser ? t('views.home.menu.signOut') : t('views.home.menu.signIn')}</p>
             <Icon name={currentUser ? 'signOutImage' : 'signInImage'} />
           </RegionalSettingsMenuItem>
         </MenuItemsWrapper>

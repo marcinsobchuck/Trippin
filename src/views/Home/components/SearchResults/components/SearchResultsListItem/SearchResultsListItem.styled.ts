@@ -76,6 +76,7 @@ export const FlightDirectionsWrapper = styled.div`
   font-weight: ${FontWeight.SemiBold};
   display: flex;
   flex-direction: column;
+
   @media ${Breakpoint.Mobile} {
     flex-direction: row;
     align-items: center;

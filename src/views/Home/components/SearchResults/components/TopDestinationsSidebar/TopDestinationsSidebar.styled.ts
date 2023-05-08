@@ -6,10 +6,8 @@ import { ImageWrapper } from '../TopDestinationSidebarItem/TopDestinationsSideba
 
 export const Wrapper = styled.div`
   position: relative;
-  display: none;
 
   @media ${Breakpoint.Desktop} {
-    width: 33vw;
     display: flex;
     flex-direction: column;
 

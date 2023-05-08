@@ -16,6 +16,7 @@ export const HiddenCheckbox = styled.input`
 `;
 
 export const StyledCheckbox = styled.div<{ checked: boolean }>`
+  margin-top: 6px;
   margin-right: 6px;
   display: flex;
   justify-content: center;
@@ -23,6 +24,7 @@ export const StyledCheckbox = styled.div<{ checked: boolean }>`
   width: 22px;
   height: 22px;
   background: ${({ checked }) => (checked ? Colors.DarkBlue : Colors.LightGray)};
+  border: 1px solid ${Colors.Silver};
   border-radius: 3px;
   transition: 0.3s;
 
@@ -33,6 +35,8 @@ export const StyledCheckbox = styled.div<{ checked: boolean }>`
 
 export const CheckboxContainer = styled.label<{ disabled: boolean }>`
   display: flex;
+  align-items: center;
+  flex-direction: column;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   :hover ${StyledCheckbox} {
     background-color: ${Colors.LightBlue};

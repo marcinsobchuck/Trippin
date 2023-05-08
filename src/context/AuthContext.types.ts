@@ -8,13 +8,13 @@ import usaFlag from 'src/assets/images/usaFlag.png';
 import zloty from 'src/assets/images/zloty.png';
 
 export interface Language {
-  language: 'English' | 'Polish';
   languageCode: 'en' | 'pl';
   flag: typeof usaFlag | typeof polishFlag;
+  language_key: string;
 }
 
 export interface Currency {
-  currency: string;
+  currency_key: string;
   currencyCode: 'USD' | 'GBP' | 'EUR' | 'PLN';
   currencyIcon: typeof dollar | typeof euro | typeof zloty | typeof pound;
 }

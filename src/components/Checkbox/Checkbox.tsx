@@ -10,10 +10,10 @@ import { CheckboxProps } from './Checkbox.types';
 
 export const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, label, disabled }) => (
   <CheckboxContainer disabled={disabled}>
+    {label}
     <HiddenCheckbox type="checkbox" checked={checked} onChange={onChange} disabled={disabled} />
     <StyledCheckbox checked={checked}>
       <Icon name="tickIcon" width={12} height={12} fill={Colors.White} />
     </StyledCheckbox>
-    {label}
   </CheckboxContainer>
 );

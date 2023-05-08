@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 
-import arrow from 'src/assets/images/arrow.svg';
-
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Checkbox } from 'src/components/Checkbox/Checkbox';
+import { Colors } from 'src/enums/colors.enum';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 import { setDirectOnly } from 'src/views/Home/reducer/actions/search.actions';
 
 import { PriceRangeSlider } from '../PriceRangeSlider/PriceRangeSlider';
 import { SortSelect } from '../SortSelect/SortSelect';
 
-import { Arrow, ButtonWrapper, FilterWrapper, Wrapper } from './FilterAndSort.styled';
+import { ButtonWrapper, FilterWrapper, StyledIcon, Wrapper } from './FilterAndSort.styled';
 import { FilterAndSortProps } from './FilterAndSort.types';
 
-export const FilterAndSort: React.FC<FilterAndSortProps> = ({ setShowSortAndFilter, parameters }) => {
+export const FilterAndSort: React.FC<FilterAndSortProps> = ({
+  showSortSortAndFilter,
+  setShowSortAndFilter,
+  parameters,
+}) => {
   const [checked, setChecked] = useState<boolean>(true);
   const [, dispatch] = useSearchContext();
 
-  const handleHideSortAndFilter = () => {
-    setShowSortAndFilter(false);
+  const handleShowSortAndFilter = () => {
+    setShowSortAndFilter((prev) => !prev);
   };
 
   const { isLoading } = useSearchResults(parameters);
@@ -29,7 +32,7 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({ setShowSortAndFilt
   };
 
   return (
-    <Wrapper>
+    <Wrapper isOpen={showSortSortAndFilter}>
       <FilterWrapper>
         <PriceRangeSlider parameters={parameters} />
 
@@ -43,8 +46,14 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({ setShowSortAndFilt
 
       <SortSelect />
 
-      <ButtonWrapper onClick={handleHideSortAndFilter}>
-        <Arrow src={arrow} />
+      <ButtonWrapper onClick={handleShowSortAndFilter}>
+        <StyledIcon
+          isOpen={showSortSortAndFilter}
+          name={showSortSortAndFilter ? 'arrowIcon' : 'sortFilterIcon'}
+          width={18}
+          height={18}
+          color={Colors.White}
+        />
       </ButtonWrapper>
     </Wrapper>
   );

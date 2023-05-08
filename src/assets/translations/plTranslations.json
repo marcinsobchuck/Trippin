@@ -2,14 +2,25 @@
   "views": {
     "entry": {},
     "home": {
-      "places": {
-        "xd": "Polskie XD"
+      "languages": {
+        "english": "Angielski",
+        "polish": "Polski"
+      },
+      "currencies": {
+        "dollar": "Dolar amerykański",
+        "euro": "Euro",
+        "polishZloty": "Polski złoty",
+        "britishPound": "Funt brytyjski"
       },
       "labels": {
         "start": "Start",
         "destination": "Cel podróży",
         "depart": "Wylot",
-        "return": "Powrót"
+        "return": "Powrót",
+        "languageChoice": "Wybór języka",
+        "currencyChoice": "Wybór waluty",
+        "flightType": "Typ lotu",
+        "popular": "Popularne z"
       },
       "placeholders": {
         "start": "Start",
@@ -18,7 +29,10 @@
         "return": "Powrót"
       },
       "buttons": {
-        "search": "Szukaj lotów"
+        "search": "Szukaj lotów",
+        "copy": "Skopiuj do schowka",
+        "copied": "Skopiowano",
+        "save": "Zapisz"
       },
       "recommended": {
         "barcelona": "Barcelona",
@@ -31,6 +45,40 @@
         "rome": "Rzym",
         "venice": "Wenecja",
         "vienna": "Wiedeń"
+      },
+      "flightType": {
+        "round": "W obie strony",
+        "oneway": "W jedną stronę"
+      },
+      "flightSettings": {
+        "economy": "Ekonomiczna",
+        "economyPremium": "Ekonomiczna premium",
+        "business": "Biznes",
+        "firstClass": "Pierwsza klasa",
+        "passengers": "Pasażerowie",
+        "adults": "Dorośli",
+        "children": "Dzieci",
+        "infants": "Niemowlęta",
+        "over": "Ponad {{count}}",
+        "under": "Poniżej {{count}}",
+        "cabinClass": "Klasa"
+      },
+      "modals": {
+        "regionalSettings": "Ustawienia regionalne",
+        "flightSettings": "Ustawienia lotu"
+      },
+      "menu": {
+        "myTrips": "Moje podróże",
+        "preferences": "Preferencje",
+        "account": "Konto",
+        "signIn": "Zaloguj się",
+        "signOut": "Wyloguj się",
+        "settings": "Ustawienia"
+      },
+      "searchInput": {
+        "notDecided": "Niezdecydowany?",
+        "choose": "Leć",
+        "anywhere": "gdziekolwiek"
       }
     }
   }

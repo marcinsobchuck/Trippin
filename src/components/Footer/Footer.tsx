@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Colors } from 'src/enums/colors.enum';
 
 import { Icon } from '../Icon/Icon';
@@ -16,6 +18,8 @@ import {
 
 export const Footer: React.FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -44,7 +48,7 @@ export const Footer: React.FC = () => {
           <Icon name="copyIcon" width={18} height={18} fill={Colors.White} />
           <p>marcinsobchuck@gmail.com</p>
         </CopyWrapper>
-        <TooltipText>{copied ? 'Copied' : 'Copy to clipboard'}</TooltipText>
+        <TooltipText>{copied ? t('views.home.buttons.copied') : t('views.home.buttons.copy')}</TooltipText>
       </StyledEmail>
       <Copyright>Created by Marcin Sobczak &copy;</Copyright>
     </Wrapper>

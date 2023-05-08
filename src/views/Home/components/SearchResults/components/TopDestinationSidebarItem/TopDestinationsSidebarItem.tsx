@@ -60,19 +60,17 @@ export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProp
     });
   };
 
-  const url = data?.data.results[0].urls.regular;
-
   useEffect(() => {
     setLoaded(false);
     setLoadStarted(false);
-  }, [url]);
+  }, []);
 
   useEffect(() => {
     if (noResults) {
       setQueryTerm(continent);
       refetch();
     }
-  }, [continent, noResults, refetch]);
+  }, [continent, destinationName, noResults, refetch]);
 
   if (isLoading) {
     return (

@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Flight, SearchParameters } from 'src/apiServices/types/kiwiApi.types';
-import { Icon } from 'src/components/Icon/Icon';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
-import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 
 import { useSearchContext } from '../../hooks/useSearchContext';
 
 import { FilterAndSort } from './components/FilterAndSort/FilterAndSort';
 import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
-import { SortFilterButton } from './components/SearchResultsList/SearchResultsList.styled';
 import { TopDestinationsSideBar } from './components/TopDestinationsSidebar/TopDestinationsSidebar';
-import { ResultsWrapper, Wrapper } from './SearchResults.styled';
+import {
+  Heading,
+  HeadingText,
+  ResultsWrapper,
+  TopDestinationsWrapper,
+  Wrapper,
+} from './SearchResults.styled';
 
 export const SearchResults: React.FC = () => {
   const [visibleItems, setVisibleItems] = useState<Flight[]>([]);
@@ -35,7 +39,7 @@ export const SearchResults: React.FC = () => {
   const [
     {
       searchFormData: {
-        start: { id: startId },
+        start: { id: startId, text },
         destination: { id: destinationId },
         date: { inbound, outbound },
         flightType,
@@ -69,34 +73,35 @@ export const SearchResults: React.FC = () => {
     max_stopovers: directOnly,
   };
 
-  const { isLoading, isFetching } = useSearchResults(parameters, !!startId);
+  const { isLoading, isFetching, isSuccess } = useSearchResults(parameters, !!startId);
 
   const element = document.getElementById('search-results');
 
   useEffect(() => {
-    if (isLoading || isFetching) {
+    if (isLoading || isFetching || isSuccess) {
       element?.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [element, isFetching, isLoading]);
+  }, [element, isFetching, isLoading, isSuccess]);
 
-  const handleButtonClick = () => {
-    setShowSortAndFilter((prev) => !prev);
-  };
+  const { t } = useTranslation();
 
   if (startId) {
     return (
       <Wrapper id="search-results">
-        {isDesktop && <TopDestinationsSideBar visibleItems={visibleItems} />}
+        <TopDestinationsWrapper>
+          <Heading>
+            <HeadingText>{t('views.home.labels.popular')}</HeadingText>
+            <span>{text}</span>
+          </Heading>
+          {isDesktop && <TopDestinationsSideBar visibleItems={visibleItems} />}
+        </TopDestinationsWrapper>
 
         <ResultsWrapper>
-          {!showSortAndFilter && (
-            <SortFilterButton onClick={handleButtonClick}>
-              <Icon name="sortFilterIcon" width={18} height={18} fill={Colors.White} />
-            </SortFilterButton>
-          )}
-          {showSortAndFilter && (
-            <FilterAndSort setShowSortAndFilter={setShowSortAndFilter} parameters={parameters} />
-          )}
+          <FilterAndSort
+            showSortSortAndFilter={showSortAndFilter}
+            setShowSortAndFilter={setShowSortAndFilter}
+            parameters={parameters}
+          />
 
           <SearchResultsList
             visibleItems={visibleItems}

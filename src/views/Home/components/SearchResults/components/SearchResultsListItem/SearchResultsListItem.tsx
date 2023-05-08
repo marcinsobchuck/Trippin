@@ -64,13 +64,9 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
       <FlightWrapper>
         <FlightDirections>
           <FlightDirectionsWrapper>
-            <p>
-              {data.cityFrom}, {data.flyFrom}
-            </p>
+            <p>{data.cityFrom}</p>
             <StyledIcon name="rarrowIcon" width={16} height={16} fill={Colors.DeepDarkBlue} />
-            <p>
-              {data.cityTo}, {data.flyTo}
-            </p>
+            <p>{data.cityTo}</p>
           </FlightDirectionsWrapper>
           <Price>
             {data.price} {regionalSettings.currency.currencyCode}

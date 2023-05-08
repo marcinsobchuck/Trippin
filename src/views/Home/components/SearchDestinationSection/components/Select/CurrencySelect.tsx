@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useSelect } from 'downshift';
 import { FieldHookConfig, useField } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Currency } from 'src/context/AuthContext.types';
@@ -36,9 +37,9 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({ ...props }
     items: currencies,
     onSelectedItemChange: ({ selectedItem }) => {
       if (selectedItem) {
-        const { currency, currencyCode, currencyIcon } = selectedItem;
+        const { currency_key, currencyCode, currencyIcon } = selectedItem;
         setValue({
-          currency,
+          currency_key,
           currencyCode,
           currencyIcon,
         });
@@ -46,9 +47,11 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({ ...props }
     },
   });
 
+  const { t } = useTranslation();
+
   return (
     <SelectWrapper>
-      <StyledLabel {...getLabelProps()}>Currency choice</StyledLabel>
+      <StyledLabel {...getLabelProps()}>{t('views.home.labels.currencyChoice')}</StyledLabel>
       <StyledButton
         type="button"
         {...getToggleButtonProps({
@@ -62,7 +65,9 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({ ...props }
             src={selectedItem ? selectedItem.currencyIcon : regionalSettings.currency.currencyIcon}
             alt="currency symbol"
           />
-          <StyledText>{selectedItem ? selectedItem.currency : regionalSettings.currency.currency}</StyledText>
+          <StyledText>
+            {selectedItem ? t(selectedItem.currency_key) : t(regionalSettings.currency.currency_key)}
+          </StyledText>
         </StyledSelectedItem>
         <Icon name="arrowIcon" width={32} height={32} />
       </StyledButton>
@@ -85,7 +90,7 @@ export const CurrencySelect: React.FC<FieldHookConfig<Currency>> = ({ ...props }
                 },
               })}
             >
-              {item.currency} -{item.currencyCode}
+              {t(item.currency_key)} - {item.currencyCode}
               <StyledIcon src={item.currencyIcon} alt="icon" />
             </StyledListItem>
           ))}

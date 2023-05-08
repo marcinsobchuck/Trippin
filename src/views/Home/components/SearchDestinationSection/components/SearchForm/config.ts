@@ -20,5 +20,6 @@ export const initialValues: SearchFormTypes = {
     infants: 0,
     cabinCode: 'M',
     cabinClass: 'Economy',
+    cabin_key: 'views.home.flightSettings.economy',
   },
 };

@@ -5,7 +5,7 @@ import { TopDestinationsParameters } from '../types/kiwiApi.types';
 
 export const useTopDestinations = (parameters: TopDestinationsParameters) => {
   const fetchTopDestinations = useQuery(
-    ['topDestinations', parameters.term],
+    ['topDestinations', parameters.term, parameters.locale],
     () => getTopDestinations(parameters),
     {
       refetchOnWindowFocus: false,

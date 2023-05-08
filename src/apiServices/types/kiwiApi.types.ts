@@ -126,6 +126,7 @@ export interface SearchResponse {
 
 export interface TopDestinationsParameters {
   term: string;
+  locale: string;
   limit?: number;
 }
 

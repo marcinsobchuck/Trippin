@@ -2,14 +2,25 @@
   "views": {
     "entry": {},
     "home": {
-      "places": {
-        "xd": "Angielskie XD"
+      "languages": {
+        "english": "English",
+        "polish": "Polish"
+      },
+      "currencies": {
+        "dollar": "U.S Dollar",
+        "euro": "Euro",
+        "polishZloty": "Polish zloty",
+        "britishPound": "British pound"
       },
       "labels": {
         "start": "Start",
         "destination": "Destination",
         "depart": "Depart",
-        "return": "Return"
+        "return": "Return",
+        "languageChoice": "Language choice",
+        "currencyChoice": "Currency choice",
+        "flightType": "Flight type",
+        "popular": "Popular from"
       },
       "placeholders": {
         "start": "Start",
@@ -18,7 +29,10 @@
         "return": "Return date"
       },
       "buttons": {
-        "search": "Search flights"
+        "search": "Search flights",
+        "copy": "Copied",
+        "copied": "Copy to clipboard",
+        "save": "Save"
       },
       "recommended": {
         "barcelona": "Barcelona",
@@ -31,6 +45,40 @@
         "rome": "Rome",
         "venice": "Venice",
         "vienna": "Vienna"
+      },
+      "flightType": {
+        "round": "Round",
+        "oneway": "Oneway"
+      },
+      "flightSettings": {
+        "economy": "Economy",
+        "economyPremium": "Economy premium",
+        "business": "Business",
+        "firstClass": "First class",
+        "passengers": "Passengers",
+        "adults": "Adults",
+        "children": "Children",
+        "infants": "Infants",
+        "over": "Over {{count}}",
+        "under": "Under {{count}}",
+        "cabinClass": "Cabin class"
+      },
+      "modals": {
+        "regionalSettings": "Regional settings",
+        "flightSettings": "Flight settings"
+      },
+      "menu": {
+        "myTrips": "My trips",
+        "preferences": "Preferences",
+        "account": "Account",
+        "signIn": "Sign in",
+        "signOut": "Sign out",
+        "settings": "Settings"
+      },
+      "searchInput": {
+        "notDecided": "Not decided where?",
+        "choose": "Choose to fly",
+        "anywhere": "anywhere"
       }
     }
   }

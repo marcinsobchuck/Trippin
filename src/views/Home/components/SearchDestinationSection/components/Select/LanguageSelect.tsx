@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useSelect } from 'downshift';
 import { FieldHookConfig, useField } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Language } from 'src/context/AuthContext.types';
@@ -37,7 +38,7 @@ export const LanguageSelect: React.FC<FieldHookConfig<Language>> = ({ ...props }
     onSelectedItemChange: ({ selectedItem }) => {
       if (selectedItem) {
         setValue({
-          language: selectedItem.language,
+          language_key: selectedItem.language_key,
           languageCode: selectedItem.languageCode,
           flag: selectedItem.flag,
         });
@@ -45,9 +46,11 @@ export const LanguageSelect: React.FC<FieldHookConfig<Language>> = ({ ...props }
     },
   });
 
+  const { t } = useTranslation();
+
   return (
     <SelectWrapper>
-      <StyledLabel {...getLabelProps()}>Language choice</StyledLabel>
+      <StyledLabel {...getLabelProps()}>{t('views.home.labels.languageChoice')}</StyledLabel>
       <StyledButton
         type="button"
         {...getToggleButtonProps({
@@ -58,7 +61,9 @@ export const LanguageSelect: React.FC<FieldHookConfig<Language>> = ({ ...props }
       >
         <StyledSelectedItem>
           <StyledIcon src={selectedItem ? selectedItem.flag : regionalSettings.language.flag} alt="flag" />
-          <StyledText>{selectedItem ? selectedItem.language : regionalSettings.language.language}</StyledText>
+          <StyledText>
+            {selectedItem ? t(selectedItem.language_key) : t(regionalSettings.language.language_key)}
+          </StyledText>
         </StyledSelectedItem>
         <Icon name="arrowIcon" width={32} height={32} />
       </StyledButton>
@@ -81,7 +86,7 @@ export const LanguageSelect: React.FC<FieldHookConfig<Language>> = ({ ...props }
                 },
               })}
             >
-              {item.language}
+              {t(item.language_key)}
               <StyledIcon src={item.flag} alt="flag" />
             </StyledListItem>
           ))}

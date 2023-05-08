@@ -173,6 +173,7 @@ export const FullScreenDatePicker = styled.div<{ isOpen: boolean }>`
     color: ${Colors.DarkerBlue};
     padding-top: 36px;
     padding-bottom: 20px;
+    text-transform: capitalize;
   }
 
   .CalendarMonth {
@@ -330,6 +331,7 @@ export const CompactDatePicker = styled.div`
 
   .CalendarMonth_caption {
     color: ${Colors.DarkerBlue};
+    text-transform: capitalize;
   }
 
   .DayPickerNavigation_button__default {

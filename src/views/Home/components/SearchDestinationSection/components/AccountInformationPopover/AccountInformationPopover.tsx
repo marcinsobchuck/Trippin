@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { animated } from 'react-spring';
 
@@ -26,6 +27,8 @@ export const AccountInformationPopover: React.FC<AccountInformationPopoverProps>
     history.push('/entry');
   };
 
+  const { t } = useTranslation();
+
   const accountInformationPopoverTransition = useModalAnimation(showAccountInfoPopover);
 
   return accountInformationPopoverTransition(
@@ -42,12 +45,12 @@ export const AccountInformationPopover: React.FC<AccountInformationPopoverProps>
         >
           <Wrapper>
             {menuItems.map((menuItem) => (
-              <StyledText key={menuItem.text} $isDisabled={!currentUser} to={menuItem.route}>
-                {menuItem.text}
+              <StyledText key={menuItem.menu_key} $isDisabled={!currentUser} to={menuItem.route}>
+                {t(menuItem.menu_key)}
               </StyledText>
             ))}
             <StyledText to={Routes.Entry} onClick={handleClick}>
-              {currentUser ? 'Sign out' : 'Sign in'}
+              {currentUser ? t('views.home.menu.signOut') : t('views.home.menu.signIn')}
             </StyledText>
           </Wrapper>
         </animated.div>

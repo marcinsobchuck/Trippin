@@ -8,13 +8,13 @@ import zloty from 'src/assets/images/zloty.png';
 import { Currency, Language } from 'src/context/AuthContext.types';
 
 export const currencies: Currency[] = [
-  { currencyIcon: dollar, currency: 'U.S. Dollar', currencyCode: 'USD' },
-  { currencyIcon: euro, currency: 'Euro', currencyCode: 'EUR' },
-  { currencyIcon: zloty, currency: 'Polish zloty', currencyCode: 'PLN' },
-  { currencyIcon: pound, currency: 'British pound', currencyCode: 'GBP' },
+  { currencyIcon: dollar, currency_key: 'views.home.currencies.dollar', currencyCode: 'USD' },
+  { currencyIcon: euro, currency_key: 'views.home.currencies.euro', currencyCode: 'EUR' },
+  { currencyIcon: zloty, currency_key: 'views.home.currencies.polishZloty', currencyCode: 'PLN' },
+  { currencyIcon: pound, currency_key: 'views.home.currencies.britishPound', currencyCode: 'GBP' },
 ];
 
 export const languages: Language[] = [
-  { flag: usaFlag, language: 'English', languageCode: 'en' },
-  { flag: polishFlag, language: 'Polish', languageCode: 'pl' },
+  { flag: usaFlag, languageCode: 'en', language_key: 'views.home.languages.english' },
+  { flag: polishFlag, languageCode: 'pl', language_key: 'views.home.languages.polish' },
 ];

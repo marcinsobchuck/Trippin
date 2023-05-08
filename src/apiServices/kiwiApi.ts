@@ -19,16 +19,12 @@ export const kiwiApi = axios.create({
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
 });
 
-export const getLocations = (
-  parameters: LocationsParameters,
-): Promise<AxiosResponse<LocationsResponse>> =>
+export const getLocations = (parameters: LocationsParameters): Promise<AxiosResponse<LocationsResponse>> =>
   kiwiApi.get('/locations/query', {
     params: parameters,
   });
 
-export const getSearchResults = (
-  parameters: SearchParameters,
-): Promise<AxiosResponse<SearchResponse>> =>
+export const getSearchResults = (parameters: SearchParameters): Promise<AxiosResponse<SearchResponse>> =>
   kiwiApi.get('/search/', {
     params: parameters,
   });

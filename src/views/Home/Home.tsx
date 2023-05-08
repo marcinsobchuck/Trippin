@@ -20,7 +20,9 @@ export const Home: React.FC = () => {
         <SearchDestinationSection />
         <SearchResults />
       </SearchProvider>
+
       <Footer />
+
       {isFirstEntry && !currentUser && <Redirect to={Routes.Entry} />}
     </>
   );

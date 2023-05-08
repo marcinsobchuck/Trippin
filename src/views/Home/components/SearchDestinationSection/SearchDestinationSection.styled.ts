@@ -27,6 +27,8 @@ export const AnimatedBackground = styled(animated.div)<AnimatedBackgroundProps>`
 `;
 
 export const Wrapper = styled.div`
+  position: relative;
+  z-index: 12;
   display: flex;
   align-items: center;
   justify-content: center;

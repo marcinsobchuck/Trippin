@@ -1,16 +1,26 @@
 import styled from 'styled-components';
 
-import svg from 'react-inlinesvg';
-
+import { Icon } from 'src/components/Icon/Icon';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
+import { FontSize } from 'src/enums/fontSize.enum';
+import { FontWeight } from 'src/enums/fontWeight.enum';
 
-export const Wrapper = styled.div`
+interface SharedProps {
+  isOpen: boolean;
+}
+
+export const Wrapper = styled.div<SharedProps>`
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.Medium};
+  color: ${Colors.DarkerBlue};
+  transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-101%)')};
+  transition: transform 0.3s ease-in-out;
   position: sticky;
   z-index: 10;
   left: 0;
   top: 0;
-  min-height: 86px;
+  min-height: 92px;
   width: 100%;
   padding: 12px 36px;
   display: flex;
@@ -38,20 +48,22 @@ export const ButtonWrapper = styled.div`
   border-bottom-right-radius: 9px;
   border: 1px solid ${Colors.Silver};
   border-top: none;
+  transition: 0.3s;
   cursor: pointer;
+  :hover {
+    background-color: ${Colors.LightBlue};
+  }
 `;
 
 export const FilterWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   flex-wrap: wrap;
-  align-items: center;
 `;
 
-export const Arrow = styled(svg)`
-  color: ${Colors.White};
-  transform: rotate(180deg);
-  width: 22px;
-  height: 22px;
+export const StyledIcon = styled(Icon)<SharedProps>`
+  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0)')};
+  fill: ${({ isOpen }) => !isOpen && Colors.White};
 `;

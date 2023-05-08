@@ -16,7 +16,10 @@ export const Wrapper = styled.div`
 `;
 
 export const Header = styled.header`
-  position: relative;
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  background-color: ${Colors.White};
   display: flex;
   justify-content: right;
   align-items: center;

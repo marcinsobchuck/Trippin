@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useField, useFormikContext } from 'formik';
 import moment, { Moment } from 'moment';
@@ -8,6 +8,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
+import i18n from 'src/i18n';
 import { SearchFormTypes } from 'src/shared/types';
 import { Button } from 'src/styles/Button.styled';
 
@@ -21,6 +22,7 @@ import {
   Wrapper,
 } from './SearchFormDatePicker.styled';
 import { SearchFormDatePickerProps } from './SearchFormDatePicker.types';
+import 'moment/locale/pl';
 
 export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ ...props }) => {
   const [startDate, setStartDate] = useState<Moment | null>(null);
@@ -51,6 +53,11 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ ...p
   };
 
   const { t } = useTranslation();
+  const { language } = i18n;
+
+  useEffect(() => {
+    moment.locale(language);
+  }, [language]);
 
   useLockBodyScroll(isTabletS ? false : !!focusedInput);
 

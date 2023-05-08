@@ -16,7 +16,7 @@ import { FlightDetailsModal } from '../FlightDetailsModal/FlightDetailsModal';
 import { PageSetter } from '../PageSetter/PageSetter';
 import { SearchResultsListItem } from '../SearchResultsListItem/SearchResultsListItem';
 
-import { ListWrapper, Wrapper } from './SearchResultsList.styled';
+import { ListWrapper, StickyWrapper, Wrapper } from './SearchResultsList.styled';
 import { SearchResultsListProps } from './SearchResultsList.types';
 
 export const SearchResultsList: React.FC<SearchResultsListProps> = ({
@@ -54,20 +54,20 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
 
   if (isLoading) {
     return (
-      <Wrapper>
+      <StickyWrapper>
         <Oval
           color={Colors.DeepDarkBlue}
           secondaryColor={Colors.LightBlue}
           wrapperStyle={{
             position: 'absolute',
-            left: '50vw',
-            top: '50vh',
-            transform: 'translate(-25vw, -25vh)',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
           }}
           width={isTabletS ? 320 : 200}
           height={isTabletS ? 320 : 200}
         />
-      </Wrapper>
+      </StickyWrapper>
     );
   }
 

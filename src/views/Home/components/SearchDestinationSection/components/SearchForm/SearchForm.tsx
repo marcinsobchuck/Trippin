@@ -78,7 +78,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommen
                     <ItemText>{values.flightSettings.infants}</ItemText>
                   </ItemWrapper>
                 </PassengersWrapper>
-                <ItemText>{values.flightSettings.cabinClass}</ItemText>
+                <ItemText>{t(values.flightSettings.cabin_key)}</ItemText>
               </FlightSettings>
 
               <SearchFormFlightSettingsModal

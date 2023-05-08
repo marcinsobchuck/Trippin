@@ -57,17 +57,13 @@ export const SideAction = styled.div`
   height: 100vh;
 
   ::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-      190deg,
-      rgba(0, 0, 0, 0),
-      rgba(14, 9, 69, 0.9) 80.71%
-    );
+    background: linear-gradient(190deg, rgba(0, 0, 0, 0), rgba(14, 9, 69, 0.9) 80.71%);
     background-size: cover;
     z-index: -1;
   }
