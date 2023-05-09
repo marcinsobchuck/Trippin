@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { FormHero } from 'src/components/FormHero/FormHero';
@@ -30,6 +31,8 @@ export const ForgottenPassword: React.FC = () => {
   const history = useHistory();
   const handleGoBack = () => history.goBack();
 
+  const { t } = useTranslation();
+
   return (
     <>
       <FormHero />
@@ -53,12 +56,12 @@ export const ForgottenPassword: React.FC = () => {
           >
             {({ dirty }) => (
               <StyledForm>
-                <Title>Reset password</Title>
+                <Title>{t('views.forgottenPassword.labels.reset')}</Title>
                 <InputContainer>
                   <StyledAuthFormInput
-                    label="E-mail"
+                    label={t('views.forgottenPassword.labels.email')}
                     name="email"
-                    placeholder="Type your e-mail here"
+                    placeholder={t('views.forgottenPassword.placeholders.email')}
                     type="email"
                   />
                   {succesMsg && <Information>{succesMsg}</Information>}
@@ -66,10 +69,10 @@ export const ForgottenPassword: React.FC = () => {
                 </InputContainer>
 
                 <Button variant="primary" width={200} type="submit" disabled={!dirty}>
-                  Reset password
+                  {t('views.forgottenPassword.buttons.reset')}
                 </Button>
                 <StyledButton variant="secondary" width={160} type="button" onClick={handleGoBack}>
-                  Go back
+                  {t('views.forgottenPassword.buttons.goBack')}
                 </StyledButton>
               </StyledForm>
             )}

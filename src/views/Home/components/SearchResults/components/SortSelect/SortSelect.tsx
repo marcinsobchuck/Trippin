@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useSelect } from 'downshift';
+import { useTranslation } from 'react-i18next';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
@@ -31,11 +32,13 @@ export const SortSelect: React.FC = () => {
     defaultSelectedItem: options[0],
   });
 
+  const { t } = useTranslation();
+
   return (
     <Wrapper>
-      <StyledLabel {...getLabelProps()}>Sort by</StyledLabel>
+      <StyledLabel {...getLabelProps()}>{t('views.home.labels.sort')}</StyledLabel>
       <StyledButton type="button" {...getToggleButtonProps()}>
-        <StyledText>{selectedItem && selectedItem.text}</StyledText>
+        <StyledText>{selectedItem && t(selectedItem.text_key)}</StyledText>
         <Icon name="arrowIcon" width={18} height={18} />
       </StyledButton>
       <StyledList
@@ -48,7 +51,7 @@ export const SortSelect: React.FC = () => {
         {isOpen &&
           options.map((item, index) => (
             <StyledItem
-              key={item.text}
+              key={item.text_key}
               {...getItemProps({
                 item,
                 index,
@@ -57,7 +60,7 @@ export const SortSelect: React.FC = () => {
                 },
               })}
             >
-              <StyledText>{item.text}</StyledText>
+              <StyledText>{t(item.text_key)}</StyledText>
             </StyledItem>
           ))}
       </StyledList>

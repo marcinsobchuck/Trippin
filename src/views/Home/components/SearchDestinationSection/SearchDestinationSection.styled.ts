@@ -68,8 +68,8 @@ export const BurgerMenuIconWrapper = styled.div`
   align-items: center;
   position: fixed;
   z-index: 1;
-  right: 8px;
-  top: 18px;
+  right: 4px;
+  top: 32px;
   width: 34px;
   height: 34px;
   cursor: pointer;

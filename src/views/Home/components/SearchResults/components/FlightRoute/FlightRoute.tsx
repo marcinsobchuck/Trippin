@@ -57,7 +57,7 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
       </FlightGeneralInfo>
       <FlightDirection>
         <p>
-          <span>direction: </span>
+          <span>{t('views.home.flightRoute.direction')}: </span>
           {routeDirection}
         </p>
       </FlightDirection>
@@ -84,7 +84,9 @@ export const FlightRoute: React.FC<FlightRouteProps> = ({
               {flyDuration}
             </FlightBadge>
             <FlightBadge color={Colors.Gray} bgColor={Colors.LightGray}>
-              <p>Stops: {stops}</p>
+              <p>
+                {t('views.home.flightRoute.stops')}: {stops}
+              </p>
             </FlightBadge>
             <FlightBadge color={Colors.DarkGreen} bgColor={Colors.LightGreen}>
               {t(flightSettings.cabin_key)}

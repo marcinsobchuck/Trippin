@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
@@ -40,6 +42,8 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
 
   const { regionalSettings, currentUser } = useAuth();
 
+  const { t } = useTranslation();
+
   const routes = useRoutes(data);
 
   const handleItemClick = () => {
@@ -74,7 +78,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
         </FlightDirections>
 
         <FlightRoute
-          routeType="Departure"
+          routeType={t('views.home.flightRoute.departure')}
           departDate={formatDate(data.dTime)}
           departTime={formatTime(data.dTime)}
           arrivalTime={formatTime(data.aTime)}
@@ -91,11 +95,11 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
           <>
             <SectionDivider>
               <span>
-                {data.nightsInDest} nights in {data.cityTo}
+                {data.nightsInDest} {t('views.home.flightRoute.nightsIn')} {data.cityTo}
               </span>
             </SectionDivider>
             <FlightRoute
-              routeType="Return"
+              routeType={t('views.home.flightRoute.return')}
               departDate={formatDate(routes.returnRoutes[0].dTime)}
               departTime={formatTime(routes.returnRoutes[0].dTime)}
               arrivalTime={formatTime(routes.returnRoutes[routes.returnRoutes.length - 1].aTime)}
@@ -113,11 +117,11 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
       <ButtonsWrapper>
         <DetailsButton>
           <i className="fas fa-chevron-down" />
-          Show details
+          {t('views.home.flightRoute.showDetails')}
         </DetailsButton>
         <a href={data.deep_link} target="_blank" rel="noopener noreferrer">
           <Button variant="quaternary" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-            See on kiwi.com
+            {t('views.home.buttons.kiwi')}
           </Button>
         </a>
         <FavouriteWrapper
@@ -125,7 +129,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
         >
           {currentUser && (
             <>
-              <p>{alreadyLiked ? 'Delete' : 'Save'}</p>
+              <p>{alreadyLiked ? t('views.home.buttons.delete') : t('views.home.buttons.save')}</p>
               <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} fill={Colors.DeepDarkBlue} />
             </>
           )}

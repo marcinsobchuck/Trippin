@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { TailSpin } from 'react-loader-spinner';
 import { useHistory } from 'react-router-dom';
 
@@ -40,32 +41,39 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
 
   const history = useHistory();
 
+  const { t } = useTranslation();
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={async ({ email, password }) => {
         await onSubmit(email, password)
           .then(() => history.push('/'))
-          .catch(() => setError('User not found'));
+          .catch(() => setError(t('views.entry.errors.userNotFound')));
       }}
       validationSchema={validationSchema}
     >
       {({ isSubmitting }) => (
         <StyledForm>
           <Title>{title}</Title>
-          <AuthFormInput type="email" name="email" label="E-mail" placeholder="Type your e-mail here" />
+          <AuthFormInput
+            type="email"
+            name="email"
+            label={t('views.entry.labels.email')}
+            placeholder={t('views.entry.placeholders.email')}
+          />
           <AuthFormInput
             name="password"
-            label="Password"
-            placeholder="Type your password here"
+            label={t('views.entry.labels.password')}
+            placeholder={t('views.entry.placeholders.password')}
             type="password"
           />
           {error && <Error>{error}</Error>}
           {isRegisterForm && (
             <AuthFormInput
               name="passwordConfirmation"
-              label="Password confirmation"
-              placeholder="Password confirmation"
+              label={t('views.entry.labels.passwordConfirmation')}
+              placeholder={t('views.entry.placeholders.passwordConfirmation')}
               type="password"
             />
           )}
@@ -84,28 +92,28 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
                 buttonText
               )}
             </Button>
-            <span>or</span>
+            <span>{t('views.entry.text.or')}</span>
             <RedirectButton variant="secondary" width={200} to={Routes.Home} onClick={continueAsGuest}>
-              Continue as a guest
+              {t('views.entry.buttons.guest')}
             </RedirectButton>
           </ButtonsWrapper>
           {isRegisterForm ? (
             <ActionText>
-              Already registered?
+              {t('views.entry.text.alreadyRegistered')}
               <StyledButton type="button" variant="tertiary" onClick={handleToggleMobileAnimation}>
-                Log in
+                {t('views.entry.buttons.login')}
               </StyledButton>
             </ActionText>
           ) : (
             <>
               <ActionText>
-                Not registered yet?
+                {t('views.entry.text.notRegistered')}
                 <StyledButton type="button" variant="tertiary" onClick={handleToggleMobileAnimation}>
-                  Create an account
+                  {t('views.entry.buttons.createAcc')}
                 </StyledButton>
               </ActionText>
               <StyledRedirectButton variant="tertiary" to={Routes.ForgottenPassword}>
-                Forgot password?
+                {t('views.entry.buttons.forgot')}
               </StyledRedirectButton>
             </>
           )}

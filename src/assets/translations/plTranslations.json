@@ -1,6 +1,55 @@
 {
   "views": {
-    "entry": {},
+    "forgottenPassword": {
+      "labels": {
+        "reset": "Resetowanie hasła",
+        "email": "E-mail"
+      },
+      "placeholders": {
+        "email": "Wpisz adres email"
+      },
+      "buttons": {
+        "reset": "Resetuj hasło",
+        "goBack": "Wróć"
+      }
+    },
+    "entry": {
+      "errors": {
+        "emailValid": "E-mail musi być w poprawnym formacie",
+        "emptyField": "To pole nie może byc puste",
+        "identicalPassword": "Hasła muszą byc takie same",
+        "atLeast6Char": "Hasło musi składać się z conajmniej 6 znaków",
+        "userNotFound": "Nie znaleziono użytkownika"
+      },
+      "labels": {
+        "login": "Logowanie",
+        "signUp": "Rejestracja",
+        "email": "E-mail",
+        "password": "Hasło",
+        "passwordConfirmation": "Powtórz hasło"
+      },
+      "placeholders": {
+        "email": "Wpisz adres email",
+        "password": "Wpisz hasło",
+        "passwordConfirmation": "Potwierdź hasło"
+      },
+      "buttons": {
+        "login": "Zaloguj",
+        "signUp": "Zarejestruj",
+        "guest": "Kontynuuj jako gość",
+        "createAcc": "Stwórz konto",
+        "forgot": "Zapomniałeś hasła?"
+      },
+      "text": {
+        "notRegistered": "Jeszcze nie masz konta?",
+        "alreadyRegistered": "Już zarejestrowany?",
+        "hello": "Witaj przyjacielu!",
+        "enterDetails": "Podaj swoje dane osobowe i podróżuj z nami",
+        "welcomeBack": "Witaj z powrotem!",
+        "keepConnected": "Aby pozostać z nami w kontakcie, zaloguj się za pomocą swoich danych osobowych",
+        "or": "lub"
+      }
+    },
     "home": {
       "languages": {
         "english": "Angielski",
@@ -20,7 +69,10 @@
         "languageChoice": "Wybór języka",
         "currencyChoice": "Wybór waluty",
         "flightType": "Typ lotu",
-        "popular": "Popularne z"
+        "popular": "Popularne z",
+        "priceRange": "Cena",
+        "directOnly": "Tylko bezpośrednie",
+        "sort": "Sortowanie"
       },
       "placeholders": {
         "start": "Start",
@@ -32,7 +84,9 @@
         "search": "Szukaj lotów",
         "copy": "Skopiuj do schowka",
         "copied": "Skopiowano",
-        "save": "Zapisz"
+        "save": "Zapisz",
+        "delete": "Usuń",
+        "kiwi": "Zobacz na kiwi.com"
       },
       "recommended": {
         "barcelona": "Barcelona",
@@ -65,7 +119,8 @@
       },
       "modals": {
         "regionalSettings": "Ustawienia regionalne",
-        "flightSettings": "Ustawienia lotu"
+        "flightSettings": "Ustawienia lotu",
+        "itineraryDetails": "Szczegóły lotu"
       },
       "menu": {
         "myTrips": "Moje podróże",
@@ -79,6 +134,41 @@
         "notDecided": "Niezdecydowany?",
         "choose": "Leć",
         "anywhere": "gdziekolwiek"
+      },
+      "flightRoute": {
+        "showDetails": "Pokaż szczegóły",
+        "direction": "kierunek",
+        "stops": "przesiadki",
+        "departure": "Wylot",
+        "return": "Powrót",
+        "nightsIn": "nocy w",
+        "to": "Do",
+        "totalDuration": "Całkowity czas lotu",
+        "duration": "Czas",
+        "flightNo": "Numer lotu",
+        "layover": "postój"
+      },
+      "sort": {
+        "fromLowestPrice": "Cena: od najmniejszej",
+        "fromHighestPrice": "Cena: od najwyższej",
+        "fromShortestDuration": "Czas: od najkrótszego",
+        "fromLongestDuration": "Czas: od najdłuższego",
+        "fromLowestQuality": "Jakość: od najmniejszej",
+        "fromHighestQuality": "Jakość: od największej"
+      }
+    },
+    "favourites": {
+      "buttons": {
+        "goBack": "Wróć",
+        "kiwi": "Zobacz na kiwi.com",
+        "search": "Szukaj lotów"
+      },
+      "labels": {
+        "yourTrips": "Twoje podróże"
+      },
+      "errors": {
+        "noUpcomingTrips": "Na razie nie masz nadchodzących lotów",
+        "addNextTrip": "Dodaj kolejną wycieczkę do ulubionych a pojawi się tutaj."
       }
     }
   }

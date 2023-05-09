@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { animated } from 'react-spring';
 
 import closeIcon from 'src/assets/images/close.svg';
@@ -51,6 +52,8 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
 
   const routes = useRoutes(data);
 
+  const { t } = useTranslation();
+
   const {
     regionalSettings: {
       currency: { currencyCode },
@@ -80,7 +83,7 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                   <CloseIcon src={closeIcon} />
                 </IconWrapper>
                 <ModalHeader>
-                  <h2>Itinerary details</h2>
+                  <h2>{t('views.home.modals.itineraryDetails')}</h2>
                   <p>
                     {data?.price} {currencyCode}
                   </p>
@@ -88,11 +91,10 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                 <MainContent>
                   <RouteHeader>
                     <p>
-                      To {data?.cityTo}, {data?.cityCodeTo}
+                      {t('views.home.flightRoute.to')} {data?.cityTo}, {data?.cityCodeTo}
                     </p>
                     <p>
-                      Total duration:
-                      {data?.fly_duration}
+                      {t('views.home.flightRoute.totalDuration')}: {data?.fly_duration}
                     </p>
                   </RouteHeader>
                   <RoutesWrapper>
@@ -112,10 +114,12 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
 
                             <AdditionalInfo>
                               <p>
-                                Duration: {getDateDifference(departRoute.dTimeUTC, departRoute.aTimeUTC)}{' '}
+                                {t('views.home.flightRoute.duration')}:{' '}
+                                {getDateDifference(departRoute.dTimeUTC, departRoute.aTimeUTC)}
                               </p>
                               <p>
-                                Flight no: {departRoute.airline} {departRoute.flight_no}
+                                {t('views.home.flightRoute.flightNo')}: {departRoute.airline}
+                                {departRoute.flight_no}
                               </p>
                             </AdditionalInfo>
                           </RouteDetails>
@@ -125,7 +129,7 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                           <Layover>
                             <p>
                               <i className="far fa-clock" />
-                              layover{' '}
+                              {t('views.home.flightRoute.layover')}{' '}
                               {getDateDifference(
                                 departRoute.aTimeUTC,
                                 routes?.departRoutes[index + 1]?.dTimeUTC,
@@ -140,11 +144,10 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                     <>
                       <RouteHeader>
                         <p>
-                          To {data?.cityFrom}, {data?.cityCodeFrom}
+                          {t('views.home.flightRoute.to')} {data?.cityFrom}, {data?.cityCodeFrom}
                         </p>
                         <p>
-                          Total duration:
-                          {data?.return_duration}
+                          {t('views.home.flightRoute.totalDuration')}: {data?.return_duration}
                         </p>
                       </RouteHeader>
                       <RoutesWrapper>
@@ -164,10 +167,12 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
 
                                 <AdditionalInfo>
                                   <p>
-                                    Duration: {getDateDifference(returnRoute.dTimeUTC, returnRoute.aTimeUTC)}{' '}
+                                    {t('views.home.flightRoute.duration')}:{' '}
+                                    {getDateDifference(returnRoute.dTimeUTC, returnRoute.aTimeUTC)}{' '}
                                   </p>
                                   <p>
-                                    Flight no: {returnRoute.airline} {returnRoute.flight_no}
+                                    {t('views.home.flightRoute.flightNo')}: {returnRoute.airline}{' '}
+                                    {returnRoute.flight_no}
                                   </p>
                                 </AdditionalInfo>
                               </RouteDetails>
@@ -178,7 +183,7 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                                 {' '}
                                 <p>
                                   <i className="far fa-clock" />
-                                  layover{' '}
+                                  {t('views.home.flightRoute.layover')}{' '}
                                   {getDateDifference(
                                     returnRoute.aTimeUTC,
                                     routes?.returnRoutes[index + 1]?.dTimeUTC,
@@ -194,7 +199,7 @@ export const FlightDetailsModal: React.FC<FlightDetailsModalProps> = ({
                 </MainContent>
                 <ButtonWrapper>
                   <a href={data?.deep_link} target="_blank" rel="noopener noreferrer">
-                    <Button variant="quaternary">See on kiwi.com</Button>
+                    <Button variant="quaternary">{t('views.home.buttons.kiwi')}</Button>
                   </a>
                 </ButtonWrapper>
               </Wrapper>

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { User } from 'firebase/auth';
+import { useTranslation } from 'react-i18next';
 import { Oval } from 'react-loader-spinner';
 import { useMediaQuery } from 'react-responsive';
-import { useTransition } from 'react-spring';
 
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
@@ -14,12 +14,8 @@ import { useFavourites } from 'src/views/Home/components/SearchResults/hooks/use
 
 import { FavouriteTrip } from '../FavouriteTrip/FavouriteTrip';
 
-import {
-  FavouriteTripsContainer,
-  NoResults,
-  NoResultsLink,
-  NoResultsText,
-} from './FavouritesList.styled';
+import { FavouriteTripsContainer, NoResults, NoResultsLink, NoResultsText } from './FavouritesList.styled';
+import { useFavouritesTransitions } from './useFavouritesTransitions';
 
 export const FavouritesList: React.FC = () => {
   const { currentUser } = useAuth();
@@ -34,47 +30,9 @@ export const FavouritesList: React.FC = () => {
     query: `${Breakpoint.Desktop}`,
   });
 
-  const transitionsDesktop = useTransition(data, {
-    keys: (flight) => flight.id,
-    trail: 100,
-    from: {
-      transform: 'translate3d(0px, -20px, 0px) scale(1)',
-      opacity: 0,
-      height: 0,
-    },
-    enter: (flight) => ({
-      transform: 'translate3d(0px, 0px, 0px) scale(1)',
-      opacity: 1,
-      height: flight.duration.return > 0 ? 330 : 160,
-    }),
-    leave: {
-      transform: 'translate3d(0px, 20px, 0px) scale(0)',
-      opacity: 0,
-      height: 0,
-      marginBottom: 0,
-    },
-  });
+  const { t } = useTranslation();
 
-  const transitionsMobile = useTransition(data, {
-    keys: (flight) => flight.id,
-    trail: 100,
-    from: {
-      transform: 'translate3d(0px, -20px, 0px) scale(1)',
-      opacity: 0,
-      height: 0,
-    },
-    enter: (flight) => ({
-      transform: 'translate3d(0px, 0px, 0px) scale(1)',
-      opacity: 1,
-      height: flight.duration.return > 0 ? 700 : 420,
-    }),
-    leave: {
-      transform: 'translate3d(0px, 20px, 0px) scale(0)',
-      opacity: 0,
-      height: 0,
-      marginBottom: 0,
-    },
-  });
+  const { transitionsDesktop, transitionsMobile } = useFavouritesTransitions(data);
 
   const transitions = isDesktop ? transitionsDesktop : transitionsMobile;
 
@@ -96,10 +54,10 @@ export const FavouritesList: React.FC = () => {
     return (
       <FavouriteTripsContainer>
         <NoResults>
-          <NoResultsText>You don't have any upcoming trips.</NoResultsText>
-          <NoResultsLink>Add your next trip to favourites and it will appear here.</NoResultsLink>
+          <NoResultsText>{t('views.favourites.errors.noUpcomingTrips')}</NoResultsText>
+          <NoResultsLink>{t('views.favourites.errors.addNextTrip')}</NoResultsLink>
           <RedirectButton to={Routes.Home} variant="quaternary" width={162}>
-            Search now
+            {t('views.favourites.buttons.search')}
           </RedirectButton>
         </NoResults>
       </FavouriteTripsContainer>
@@ -109,12 +67,7 @@ export const FavouritesList: React.FC = () => {
   return (
     <FavouriteTripsContainer>
       {transitions((styles, flight) => (
-        <FavouriteTrip
-          key={flight.id}
-          flight={flight}
-          onDelete={handleDeleteFavouriteTrip}
-          style={styles}
-        />
+        <FavouriteTrip key={flight.id} flight={flight} onDelete={handleDeleteFavouriteTrip} style={styles} />
       ))}
     </FavouriteTripsContainer>
   );

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 import { animated } from 'react-spring';
 
@@ -41,6 +42,8 @@ export const Entry: React.FC = () => {
     handleToggleMobileAnimation,
   } = useAnimations();
 
+  const { t } = useTranslation();
+
   if (isDesktop) {
     return (
       <DesktopWrapper>
@@ -61,11 +64,20 @@ export const Entry: React.FC = () => {
             {formTransition((style, item) =>
               item ? (
                 <animated.div style={style}>
-                  <AuthenticationForm title="Login" buttonText="Login" onSubmit={login} />
+                  <AuthenticationForm
+                    title={t('views.entry.labels.login')}
+                    buttonText={t('views.entry.buttons.login')}
+                    onSubmit={login}
+                  />
                 </animated.div>
               ) : (
                 <animated.div style={style}>
-                  <AuthenticationForm title="Sign-up" isRegisterForm buttonText="Sign-up" onSubmit={signUp} />
+                  <AuthenticationForm
+                    title={t('views.entry.labels.signUp')}
+                    isRegisterForm
+                    buttonText={t('views.entry.buttons.signUp')}
+                    onSubmit={signUp}
+                  />
                 </animated.div>
               ),
             )}
@@ -79,8 +91,8 @@ export const Entry: React.FC = () => {
                 (style, item) =>
                   item && (
                     <animated.div style={style}>
-                      <Heading>Hello, Friend!</Heading>
-                      <Description>Enter your personal details and start journey with us</Description>
+                      <Heading>{t('views.entry.text.hello')}</Heading>
+                      <Description>{t('views.entry.text.enterDetails')}</Description>
                     </animated.div>
                   ),
               )}
@@ -88,10 +100,8 @@ export const Entry: React.FC = () => {
                 (style, item) =>
                   !item && (
                     <animated.div style={style}>
-                      <Heading>Welcome Back!</Heading>
-                      <Description>
-                        To keep connected with us please login with your personal info
-                      </Description>
+                      <Heading>{t('views.entry.text.welcomeBack')}</Heading>
+                      <Description>{t('views.entry.text.keepConnected')}</Description>
                     </animated.div>
                   ),
               )}
@@ -104,7 +114,7 @@ export const Entry: React.FC = () => {
                       variant="primary"
                       onClick={handleToggleDesktopAnimation}
                     >
-                      Sign-up
+                      {t('views.entry.buttons.signUp')}
                     </StyledButton>
                   </animated.div>
                 ) : (
@@ -115,7 +125,7 @@ export const Entry: React.FC = () => {
                       variant="primary"
                       onClick={handleToggleDesktopAnimation}
                     >
-                      Login
+                      {t('views.entry.buttons.login')}
                     </StyledButton>
                   </animated.div>
                 ),
@@ -135,8 +145,8 @@ export const Entry: React.FC = () => {
           item ? (
             <animated.div style={style}>
               <AuthenticationForm
-                title="Login"
-                buttonText="Login"
+                title={t('views.entry.labels.login')}
+                buttonText={t('views.entry.buttons.login')}
                 onSubmit={login}
                 handleToggleMobileAnimation={handleToggleMobileAnimation}
               />
@@ -144,9 +154,9 @@ export const Entry: React.FC = () => {
           ) : (
             <animated.div style={style}>
               <AuthenticationForm
-                title="Sign-up"
+                title={t('views.entry.labels.signUp')}
                 isRegisterForm
-                buttonText="Sign-up"
+                buttonText={t('views.entry.buttons.signUp')}
                 onSubmit={signUp}
                 handleToggleMobileAnimation={handleToggleMobileAnimation}
               />

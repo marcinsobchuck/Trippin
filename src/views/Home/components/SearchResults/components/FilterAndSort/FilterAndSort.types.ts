@@ -7,7 +7,7 @@ export interface Option {
     sortBy: SortByType;
     sortType: SortTypeType;
   };
-  text: string;
+  text_key: string;
 }
 
 export interface FilterAndSortProps {

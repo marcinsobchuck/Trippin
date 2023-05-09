@@ -1,6 +1,55 @@
 {
   "views": {
-    "entry": {},
+    "forgottenPassword": {
+      "labels": {
+        "reset": "Reset password",
+        "email": "E-mail"
+      },
+      "placeholders": {
+        "email": "Type your e-mail here"
+      },
+      "buttons": {
+        "reset": "Reset password",
+        "goBack": "Go back"
+      }
+    },
+    "entry": {
+      "errors": {
+        "emailValid": "E-mail must be valid",
+        "emptyField": "This field can't be empty",
+        "identicalPassword": "Passwords must be indentical",
+        "atLeast6Char": "Password must be at least 6 characters long",
+        "userNotFound": "User not found"
+      },
+      "labels": {
+        "login": "Login",
+        "signUp": "Sign-up",
+        "email": "E-mail",
+        "password": "Password",
+        "passwordConfirmation": "Password confirmation"
+      },
+      "placeholders": {
+        "email": "Type your e-mail here",
+        "password": "Type your password here",
+        "passwordConfirmation": "Password confirmation"
+      },
+      "buttons": {
+        "login": "Login",
+        "signUp": "Sign-up",
+        "guest": "Continue as guest",
+        "createAcc": "Create an account",
+        "forgot": "Forgot password?"
+      },
+      "text": {
+        "notRegistered": "Not registered yet?",
+        "alreadyRegistered": "Already registered?",
+        "hello": "Hello friend!",
+        "enterDetails": "Enter your personal details and start journey with us",
+        "welcomeBack": "Welcome Back!",
+        "keepConnected": "To keep connected with us please login with your personal info",
+        "or": "or"
+      }
+    },
     "home": {
       "languages": {
         "english": "English",
@@ -20,7 +69,10 @@
         "languageChoice": "Language choice",
         "currencyChoice": "Currency choice",
         "flightType": "Flight type",
-        "popular": "Popular from"
+        "popular": "Popular from",
+        "priceRange": "Price range",
+        "directOnly": "Direct only",
+        "sort": "Sort by"
       },
       "placeholders": {
         "start": "Start",
@@ -32,7 +84,9 @@
         "search": "Search flights",
         "copy": "Copied",
         "copied": "Copy to clipboard",
-        "save": "Save"
+        "save": "Save",
+        "delete": "Delete",
+        "kiwi": "See on kiwi.com"
       },
       "recommended": {
         "barcelona": "Barcelona",
@@ -65,7 +119,8 @@
       },
       "modals": {
         "regionalSettings": "Regional settings",
-        "flightSettings": "Flight settings"
+        "flightSettings": "Flight settings",
+        "itineraryDetails": "Itinerary details"
       },
       "menu": {
         "myTrips": "My trips",
@@ -79,6 +134,40 @@
         "notDecided": "Not decided where?",
         "choose": "Choose to fly",
         "anywhere": "anywhere"
+      },
+      "flightRoute": {
+        "showDetails": "Show details",
+        "direction": "direction",
+        "stops": "stops",
+        "departure": "Departure",
+        "return": "Return",
+        "nightsIn": "nights in",
+        "to": "To",
+        "totalDuration": "Total duration",
+        "duration": "duration",
+        "flightNo": "Flight no",
+        "layover": "layover"
+      },
+      "sort": {
+        "fromLowestPrice": "Price: from lowest",
+        "fromHighestPrice": "Price: from highest",
+        "fromShortestDuration": "Duration: from shortest",
+        "fromLongestDuration": "Duration: from longest",
+        "fromLowestQuality": "Quality: from lowest",
+        "fromHighestQuality": "Quality: from highest"
+      }
+    },
+    "favourites": {
+      "buttons": {
+        "goBack": "Go back",
+        "kiwi": "See on kiwi.com"
+      },
+      "labels": {
+        "yourTrips": "Your trips"
+      },
+      "errors": {
+        "noUpcomingTrips": "You don't have any upcoming trips.",
+        "addNextTrip": "Add your next trip to favourites and it will appear here."
       }
     }
   }

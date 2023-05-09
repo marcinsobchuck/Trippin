@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Button } from 'src/styles/Button.styled';
 import { formatDate, formatTime } from 'src/views/Home/components/SearchResults/utils';
 
@@ -30,6 +32,8 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
     currency,
     id,
   } = flight;
+
+  const { t } = useTranslation();
 
   const formatedTimeArrival = formatTime(aTime);
   const formatedDateArrival = formatDate(aTime);
@@ -92,7 +96,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
           {price} {currency}
         </PriceText>
         <a href={deepLink} target="_blank" rel="noopener noreferrer">
-          <Button variant="quaternary">See on kiwi.com</Button>
+          <Button variant="quaternary">{t('views.favourites.buttons.kiwi')}</Button>
         </a>
       </Summary>
       <ActionsMenu onClick={() => onDelete(id)}>

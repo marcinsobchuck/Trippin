@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Checkbox } from 'src/components/Checkbox/Checkbox';
 import { Colors } from 'src/enums/colors.enum';
@@ -31,13 +33,15 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
     setDirectOnly(dispatch, e.currentTarget.checked ? 0 : undefined);
   };
 
+  const { t } = useTranslation();
+
   return (
     <Wrapper isOpen={showSortSortAndFilter}>
       <FilterWrapper>
         <PriceRangeSlider parameters={parameters} />
 
         <Checkbox
-          label="Direct only"
+          label={t('views.home.labels.directOnly')}
           onChange={handleCheckboxChange}
           checked={checked}
           disabled={isLoading}

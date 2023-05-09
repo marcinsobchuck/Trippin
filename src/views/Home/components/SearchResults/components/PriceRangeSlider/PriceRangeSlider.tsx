@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Slider from '@mui/material/Slider';
+import { useTranslation } from 'react-i18next';
 import { Oval } from 'react-loader-spinner';
 
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
@@ -22,6 +23,8 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({ parameters }
       currency: { currencyCode },
     },
   } = useAuth();
+
+  const { t } = useTranslation();
 
   const [{ isParamsEqual }, dispatch] = useSearchContext();
   const { isLoading, isError, data } = useSearchResults(parameters);
@@ -68,7 +71,7 @@ export const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({ parameters }
   return (
     <Wrapper>
       <Label>
-        <LabelText>Price range</LabelText>
+        <LabelText>{t('views.home.labels.priceRange')}</LabelText>
 
         {isLoading ? (
           <Oval color={Colors.DeepDarkBlue} secondaryColor={Colors.LightBlue} width={22} height={22} />

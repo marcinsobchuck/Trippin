@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
 import { Icon } from 'src/components/Icon/Icon';
@@ -27,13 +28,15 @@ export const Favourites: React.FC = () => {
 
   const { currentUser } = useAuth();
 
+  const { t } = useTranslation();
+
   const handleButtonClick = () => history.goBack();
   return (
     <Wrapper>
       <Header>
         <ButtonWrapper onClick={handleButtonClick}>
           <Arrow name="arrowIcon" width={32} height={32} color={Colors.DeepDarkBlue} />
-          <ButtonText>Go back</ButtonText>
+          <ButtonText>{t('views.favourites.buttons.goBack')}</ButtonText>
         </ButtonWrapper>
         <Logo color={Colors.DeepDarkBlue} />
       </Header>
@@ -42,7 +45,7 @@ export const Favourites: React.FC = () => {
           <Icon name="userIcon" width={36} height={36} fill={Colors.Silver} />
           <Email>{currentUser?.email}</Email>
         </UserInfoWrapper>
-        <Heading>Your trips</Heading>
+        <Heading>{t('views.favourites.labels.yourTrips')}</Heading>
         <FavouritesList />
       </MainContentWrapper>
       <Footer />
