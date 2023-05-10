@@ -50,7 +50,7 @@ export const useFavourites = (user: User) => {
   const deleteFavouriteTrip = (id: string) => {
     const newData = data.filter((item) => item.id !== id);
     setData(newData);
-    deleteFavourites(user, id);
+    return deleteFavourites(user, id);
   };
 
   useEffect(() => {

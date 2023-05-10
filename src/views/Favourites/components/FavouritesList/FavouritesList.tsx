@@ -4,6 +4,7 @@ import { User } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { Oval } from 'react-loader-spinner';
 import { useMediaQuery } from 'react-responsive';
+import { toast } from 'react-toastify';
 
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
@@ -23,7 +24,11 @@ export const FavouritesList: React.FC = () => {
   const { data, isLoading, deleteFavouriteTrip } = useFavourites(currentUser as User);
 
   const handleDeleteFavouriteTrip = (id: string) => {
-    deleteFavouriteTrip(id);
+    toast.promise(deleteFavouriteTrip(id), {
+      error: 'Error deleting from favourites',
+      pending: 'Deleting from favourites',
+      success: 'Deleted from favourites!',
+    });
   };
 
   const isDesktop = useMediaQuery({

@@ -7,6 +7,10 @@ import { Colors } from 'src/enums/colors.enum';
 import { FontSize } from 'src/enums/fontSize.enum';
 import { FontWeight } from 'src/enums/fontWeight.enum';
 
+interface FavouriteWrapperProps {
+  isAlreadyLiked: boolean;
+}
+
 export const DetailsButton = styled.div`
   margin-bottom: 9px;
   padding: 6px 12px;
@@ -123,16 +127,20 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
-export const FavouriteWrapper = styled.div`
+export const FavouriteWrapper = styled.div<FavouriteWrapperProps>`
   display: flex;
+  background-color: ${({ isAlreadyLiked }) => (isAlreadyLiked ? Colors.Red : Colors.LightGreen)};
+  color: ${Colors.White};
+  font-weight: ${FontWeight.SemiBold};
   justify-content: center;
   align-items: center;
   padding: 6px 12px;
   border-radius: 9px;
   margin-top: 14px;
   transition: 0.3s;
+
   :hover {
-    background-color: ${Colors.DeepDarkBlue};
+    background-color: ${Colors.Blue};
     color: ${Colors.White};
 
     svg {

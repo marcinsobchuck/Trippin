@@ -7,6 +7,7 @@ import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Flight, SearchParameters } from 'src/apiServices/types/kiwiApi.types';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { useAuth } from 'src/hooks/useAuth';
+import { PromiseToastContainer } from 'src/styles/Toast.styled';
 
 import { useSearchContext } from '../../hooks/useSearchContext';
 
@@ -88,6 +89,7 @@ export const SearchResults: React.FC = () => {
   if (startId) {
     return (
       <Wrapper id="search-results">
+        <PromiseToastContainer autoClose={3000} />
         <TopDestinationsWrapper>
           <Heading>
             <HeadingText>{t('views.home.labels.popular')}</HeadingText>

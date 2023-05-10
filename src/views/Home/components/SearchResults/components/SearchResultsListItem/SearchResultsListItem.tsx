@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
@@ -32,7 +33,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   setActiveFlight,
   favourites,
 }) => {
-  const [alreadyLiked, setAlreadyLiked] = useState<boolean>(() => favourites.some((el) => el.id === data.id));
+  const [alreadyLiked, setAlreadyLiked] = useState<boolean>(false);
 
   const [
     {
@@ -53,15 +54,30 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
 
   const handleAddToFavourites = (e: React.MouseEvent) => {
     e.stopPropagation();
-    addFavourites(currentUser, data, regionalSettings.currency.currencyCode);
+    toast.promise(addFavourites(currentUser, data, regionalSettings.currency.currencyCode), {
+      error: 'Error adding to favourites',
+      pending: 'Adding to favourites',
+      success: 'Added to favourites!',
+    });
+
     setAlreadyLiked(true);
   };
 
   const handleDeleteFromFavourites = (e: React.MouseEvent) => {
     e.stopPropagation();
-    deleteFavourites(currentUser, data.id);
+    toast.promise(deleteFavourites(currentUser, data.id), {
+      error: 'Error deleting from favourites',
+      pending: 'Deleting from favourites',
+      success: 'Deleted from favourites!',
+    });
     setAlreadyLiked(false);
   };
+
+  useEffect(() => {
+    if (favourites.some((el) => el.id === data.id)) {
+      setAlreadyLiked(true);
+    }
+  }, [data.id, favourites]);
 
   return (
     <ItemWrapper key={data.id} onClick={handleItemClick}>
@@ -125,12 +141,13 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
           </Button>
         </a>
         <FavouriteWrapper
+          isAlreadyLiked={alreadyLiked}
           onClick={(e) => (alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e))}
         >
           {currentUser && (
             <>
               <p>{alreadyLiked ? t('views.home.buttons.delete') : t('views.home.buttons.save')}</p>
-              <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} fill={Colors.DeepDarkBlue} />
+              <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} fill={Colors.White} />
             </>
           )}
         </FavouriteWrapper>

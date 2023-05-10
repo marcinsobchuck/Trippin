@@ -7,6 +7,7 @@ import { Icon } from 'src/components/Icon/Icon';
 import { Logo } from 'src/components/Logo/Logo';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
+import { PromiseToastContainer } from 'src/styles/Toast.styled';
 import { FavouritesList } from 'src/views/Favourites/components/FavouritesList/FavouritesList';
 
 import { Footer } from '../../components/Footer/Footer';
@@ -33,6 +34,7 @@ export const Favourites: React.FC = () => {
   const handleButtonClick = () => history.goBack();
   return (
     <Wrapper>
+      <PromiseToastContainer autoClose={3000} />
       <Header>
         <ButtonWrapper onClick={handleButtonClick}>
           <Arrow name="arrowIcon" width={32} height={32} color={Colors.DeepDarkBlue} />
