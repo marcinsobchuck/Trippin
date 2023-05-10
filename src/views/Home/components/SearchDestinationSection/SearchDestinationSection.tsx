@@ -85,7 +85,7 @@ export const SearchDestinationSection: React.FC = () => {
   });
 
   return (
-    <Wrapper>
+    <Wrapper id="search">
       {backgroundTransition((style, item) => (
         <AnimatedBackground $backgroundImage={item} style={style} />
       ))}

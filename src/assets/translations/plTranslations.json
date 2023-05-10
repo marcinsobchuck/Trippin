@@ -51,6 +51,10 @@
       }
     },
     "home": {
+      "errors": {
+        "noFlightsTitle": "Przepraszamy, nie mogliśmy znaleźć żadnych wyników.",
+        "noFlightsSuggestion": "Spróbuj wybrać inne daty lub zmienić ustawienia filtrowania."
+      },
       "languages": {
         "english": "Angielski",
         "polish": "Polski"

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 import { User } from 'firebase/auth';
+import { useTranslation } from 'react-i18next';
 import { Oval } from 'react-loader-spinner';
 import { useMediaQuery } from 'react-responsive';
+import { Link } from 'react-scroll';
 
 import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Flight } from 'src/apiServices/types/kiwiApi.types';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
+import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
 import { useFavourites } from '../../hooks/useFavourites';
@@ -16,7 +19,14 @@ import { FlightDetailsModal } from '../FlightDetailsModal/FlightDetailsModal';
 import { PageSetter } from '../PageSetter/PageSetter';
 import { SearchResultsListItem } from '../SearchResultsListItem/SearchResultsListItem';
 
-import { ListWrapper, StickyWrapper, Wrapper } from './SearchResultsList.styled';
+import {
+  ListWrapper,
+  NoFlightsText,
+  NoFlightsTitle,
+  NoFlightsWrapper,
+  StickyWrapper,
+  Wrapper,
+} from './SearchResultsList.styled';
 import { SearchResultsListProps } from './SearchResultsList.types';
 
 export const SearchResultsList: React.FC<SearchResultsListProps> = ({
@@ -32,6 +42,8 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
 
   const { currentUser } = useAuth();
   const { data: favourites } = useFavourites(currentUser as User);
+
+  const { t } = useTranslation();
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
@@ -73,9 +85,18 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
 
   if (noFlights) {
     return (
-      <Wrapper>
-        <p>Sry no flights</p>
-      </Wrapper>
+      <StickyWrapper>
+        <NoFlightsWrapper>
+          <NoFlightsTitle>{t('views.home.errors.noFlightsTitle')}</NoFlightsTitle>
+          <NoFlightsText>{t('views.home.errors.noFlightsSuggestion')}</NoFlightsText>
+
+          <Link to="search" smooth>
+            <Button width={160} variant="quaternary">
+              {t('views.home.buttons.search')}
+            </Button>
+          </Link>
+        </NoFlightsWrapper>
+      </StickyWrapper>
     );
   }
 
