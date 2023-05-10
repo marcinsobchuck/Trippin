@@ -36,7 +36,7 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Wrapper isOpen={showSortSortAndFilter}>
+    <Wrapper $isOpen={showSortSortAndFilter}>
       <FilterWrapper>
         <PriceRangeSlider parameters={parameters} />
 
@@ -52,7 +52,7 @@ export const FilterAndSort: React.FC<FilterAndSortProps> = ({
 
       <ButtonWrapper onClick={handleShowSortAndFilter}>
         <StyledIcon
-          isOpen={showSortSortAndFilter}
+          $isOpen={showSortSortAndFilter}
           name={showSortSortAndFilter ? 'arrowIcon' : 'sortFilterIcon'}
           width={18}
           height={18}

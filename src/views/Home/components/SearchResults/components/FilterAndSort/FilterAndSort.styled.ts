@@ -7,14 +7,14 @@ import { FontSize } from 'src/enums/fontSize.enum';
 import { FontWeight } from 'src/enums/fontWeight.enum';
 
 interface SharedProps {
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
 export const Wrapper = styled.div<SharedProps>`
   font-size: ${FontSize.Small};
   font-weight: ${FontWeight.Medium};
   color: ${Colors.DarkerBlue};
-  transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-101%)')};
+  transform: ${({ $isOpen }) => ($isOpen ? 'translateY(0)' : 'translateY(-101%)')};
   transition: transform 0.3s ease-in-out;
   position: sticky;
   z-index: 10;
@@ -64,6 +64,6 @@ export const FilterWrapper = styled.div`
 `;
 
 export const StyledIcon = styled(Icon)<SharedProps>`
-  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0)')};
-  fill: ${({ isOpen }) => !isOpen && Colors.White};
+  transform: ${({ $isOpen }) => ($isOpen ? 'rotate(180deg)' : 'rotate(0)')};
+  fill: ${({ $isOpen }) => !$isOpen && Colors.White};
 `;

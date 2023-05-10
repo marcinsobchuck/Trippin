@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { Grid } from 'react-loader-spinner';
 
-import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { useTopDestinations } from 'src/apiServices/hooks/useTopDestinations';
-import { getPhotos } from 'src/apiServices/unsplashApi';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
@@ -18,10 +15,7 @@ import { TopDestinationsSideBarItem } from '../TopDestinationSidebarItem/TopDest
 import { Wrapper } from './TopDestinationsSidebar.styled';
 import { TopDestinationsSideBarProps } from './TopDestinationsSidebar.types';
 
-export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({
-  visibleItems,
-  parameters,
-}) => {
+export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({ visibleItems }) => {
   const [{ searchFormData }] = useSearchContext();
 
   const {
@@ -30,12 +24,9 @@ export const TopDestinationsSideBar: React.FC<TopDestinationsSideBarProps> = ({
     },
   } = useAuth();
 
-  const { data: flightsData } = useSearchResults(parameters);
-  const noFlights = flightsData?.data.data.length === 0;
-
   const { data, refetch, isError, isLoading } = useTopDestinations({
     term: searchFormData.start.id,
-    limit: noFlights ? 10 : Math.ceil(visibleItems.length * 2.5),
+    limit: visibleItems.length > 0 ? Math.ceil(visibleItems.length * 2.5) : 20,
     locale: convertLanguageCodes(languageCode),
   });
 
