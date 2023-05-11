@@ -59,7 +59,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommen
         innerRef={formRef}
         onSubmit={handleSubmit}
       >
-        {({ values, isSubmitting }: FormikProps<SearchFormTypes>) => (
+        {({ values, isSubmitting, errors }: FormikProps<SearchFormTypes>) => (
           <StyledForm>
             <SettingsWrapper>
               <SearchFormRadio name="flightType" />
@@ -93,6 +93,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommen
                 name="start"
                 placeholder={t('views.home.placeholders.start')}
                 type="text"
+                error={errors.start?.id}
               />
               <SearchFormInput
                 label={t('views.home.labels.destination')}
@@ -102,7 +103,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommen
                 currentRecommendedPlace={currentRecommendedPlace}
                 isDestination
               />
-              <SearchFormDatePicker name="date" />
+              <SearchFormDatePicker name="date" error={errors.date} />
             </InputsWrapper>
 
             <Button variant="quaternary" type="submit" disabled={isSubmitting}>

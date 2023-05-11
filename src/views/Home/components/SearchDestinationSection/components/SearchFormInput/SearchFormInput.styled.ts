@@ -60,6 +60,19 @@ export const StyledLabel = styled.label<SharedProps>`
     `}
 `;
 
+export const ErrorStyled = styled.span`
+  color: ${Colors.Red};
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.SemiBold};
+  margin-left: 3px;
+`;
+
+export const ErrorSpace = styled.div`
+  visibility: hidden;
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.SemiBold};
+`;
+
 export const StyledInput = styled.input<SharedProps>`
   border: none;
   border-radius: 3px;

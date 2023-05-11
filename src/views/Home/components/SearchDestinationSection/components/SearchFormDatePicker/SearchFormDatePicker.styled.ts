@@ -35,6 +35,19 @@ export const StyledLabel = styled.label`
   }
 `;
 
+export const ErrorSpace = styled.span`
+  visibility: hidden;
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.SemiBold};
+`;
+
+export const ErrorStyled = styled.span`
+  color: ${Colors.Red};
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.SemiBold};
+  margin-left: 3px;
+`;
+
 export const FullScreenDatePicker = styled.div<{ isOpen: boolean }>`
   width: 100%;
 

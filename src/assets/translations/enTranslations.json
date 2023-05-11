@@ -53,7 +53,8 @@
     "home": {
       "errors": {
         "noFlightsTitle": "Sorry, we couldn't find any results.",
-        "noFlightsSuggestion": "Try selecting different dates or change filtering settings"
+        "noFlightsSuggestion": "Try selecting different dates or change filtering settings",
+        "required": "Required"
       },
       "languages": {
         "english": "English",

@@ -14,6 +14,8 @@ import { Button } from 'src/styles/Button.styled';
 
 import {
   CompactDatePicker,
+  ErrorSpace,
+  ErrorStyled,
   FullScreenDatePicker,
   InfoText,
   InfoWrapper,
@@ -24,12 +26,12 @@ import {
 import { SearchFormDatePickerProps } from './SearchFormDatePicker.types';
 import 'moment/locale/pl';
 
-export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ ...props }) => {
+export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ error, ...props }) => {
   const [startDate, setStartDate] = useState<Moment | null>(null);
   const [endDate, setEndDate] = useState<Moment | null>(null);
   const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate' | null>(null);
 
-  const [, , helpers] = useField(props);
+  const [, meta, helpers] = useField(props);
   const { setValue } = helpers;
 
   const {
@@ -73,8 +75,23 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ ...p
   return (
     <Wrapper>
       <StyledLabelsWrapper>
-        <StyledLabel htmlFor="depart-date">{t('views.home.labels.depart')}</StyledLabel>
-        <StyledLabel htmlFor="return-date">{t('views.home.labels.return')}</StyledLabel>
+        <StyledLabel htmlFor="depart-date">
+          {t('views.home.labels.depart')}
+          {meta.error && meta.touched && error?.inbound ? (
+            <ErrorStyled>{t(error.inbound)}</ErrorStyled>
+          ) : (
+            <ErrorSpace>error</ErrorSpace>
+          )}
+        </StyledLabel>
+
+        <StyledLabel htmlFor="return-date">
+          {t('views.home.labels.return')}
+          {meta.error && meta.touched && error?.outbound ? (
+            <ErrorStyled>{t(error.outbound)}</ErrorStyled>
+          ) : (
+            <ErrorSpace>Error</ErrorSpace>
+          )}
+        </StyledLabel>
       </StyledLabelsWrapper>
 
       {isTabletS ? (

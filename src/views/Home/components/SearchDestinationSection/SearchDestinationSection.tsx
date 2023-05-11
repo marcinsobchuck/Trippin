@@ -39,7 +39,7 @@ export const SearchDestinationSection: React.FC = () => {
     query: `${Breakpoint.TabletS}`,
   });
   const [currentRecommendedPlace, setCurrentRecommendedPlace] = useState<RecommendedPlace>(
-    () => recommendedPlacesArray[0],
+    () => recommendedPlacesArray[4],
   );
   const [showRegionalSettingsModal, setShowRegionalSettingsModal] = useState<boolean>(false);
   const [showAccountInfoPopover, setShowAccountInfoPopover] = useState<boolean>(false);

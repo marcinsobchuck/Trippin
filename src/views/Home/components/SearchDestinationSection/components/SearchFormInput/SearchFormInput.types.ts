@@ -9,6 +9,7 @@ export interface Props {
   className?: string;
   isDestination?: boolean;
   currentRecommendedPlace?: RecommendedPlace;
+  error?: string;
 }
 
 export type SearchFormInputProps = Props & FieldHookConfig<InputPlaceType>;

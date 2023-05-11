@@ -1,5 +1,9 @@
-import { FieldHookConfig } from 'formik';
+import { FieldHookConfig, FormikErrors } from 'formik';
 
 import { Date } from 'src/shared/types';
 
-export type SearchFormDatePickerProps = FieldHookConfig<Date>;
+interface Props {
+  error?: FormikErrors<Date>;
+}
+
+export type SearchFormDatePickerProps = Props & FieldHookConfig<Date>;

@@ -3,18 +3,22 @@ import styled from 'styled-components';
 import { Form } from 'formik';
 import svg from 'react-inlinesvg';
 
+import { Boxshadow } from 'src/enums/boxShadow.enum';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { FontSize } from 'src/enums/fontSize.enum';
 
 export const Wrapper = styled.div`
   background-color: ${Colors.BlackOpacity};
+  border: 1px solid ${Colors.WhiteOpacity};
+  box-shadow: ${Boxshadow.Boxshadow};
   border-radius: 6px;
   width: 100%;
 
   @media ${Breakpoint.TabletS} {
     margin: 0 30px;
     width: auto;
+    backdrop-filter: blur(3px);
   }
 
   @media ${Breakpoint.Tablet} {

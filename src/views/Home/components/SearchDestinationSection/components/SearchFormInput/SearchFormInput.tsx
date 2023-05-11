@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { useCombobox } from 'downshift';
@@ -21,6 +22,8 @@ import { Button } from 'src/styles/Button.styled';
 
 import {
   AnywhereItem,
+  ErrorSpace,
+  ErrorStyled,
   InputWrapper,
   PlaceInfoWrapper,
   StyledCountryName,
@@ -43,6 +46,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   type,
   isDestination,
   currentRecommendedPlace,
+  error,
   ...props
 }) => {
   const [currentCodes, setCurrentCodes] = useState<string[]>([]);
@@ -53,7 +57,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
       language: { languageCode },
     },
   } = useAuth();
-  const [field, , helpers] = useField(props);
+  const [field, meta, helpers] = useField(props);
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
@@ -170,6 +174,11 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
                 marginLeft: '6px',
               }}
             />
+          )}
+          {meta.error && meta.touched && error && !isOpen ? (
+            <ErrorStyled>{t(error)}</ErrorStyled>
+          ) : (
+            <ErrorSpace>Error</ErrorSpace>
           )}
         </StyledLabel>
         {!isTabletS && isOpen && (
