@@ -27,6 +27,7 @@ export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProp
   continent,
   tags,
   id,
+  slug,
 }) => {
   const [isLoaded, setLoaded] = useState(false);
   const [isLoadStarted, setLoadStarted] = useState(false);
@@ -39,7 +40,7 @@ export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProp
     setLoadStarted(true);
   };
 
-  const [queryTerm, setQueryTerm] = useState(destinationName);
+  const [queryTerm, setQueryTerm] = useState(slug);
 
   const { data, refetch, isLoading } = usePhotos({
     orientation: 'landscape',

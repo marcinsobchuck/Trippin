@@ -145,6 +145,7 @@ export interface Tag {
 export interface TopDestination {
   id: string;
   name: string;
+  slug_en: string;
   code: string;
   tags: Tag[];
   continent: {
