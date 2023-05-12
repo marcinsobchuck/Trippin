@@ -5,7 +5,6 @@ import { PhotosParameters, PhotosResponse } from './types/unsplashApi.types';
 export const unsplashApi = axios.create({
   baseURL: 'https://api.unsplash.com/',
   headers: {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_API_KEY}`,
     'Accept-Version': 'v1',
   },

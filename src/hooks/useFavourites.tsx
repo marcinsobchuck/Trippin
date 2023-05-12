@@ -5,9 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import moment from 'moment';
 
 import { Flight } from 'src/apiServices/types/kiwiApi.types';
-import { db } from 'src/firebase';
-
-import { deleteFavourites } from '../utils';
+import { db, deleteFavourites } from 'src/firebase';
 
 export interface FavouriteFlight extends Flight {
   currency: string;

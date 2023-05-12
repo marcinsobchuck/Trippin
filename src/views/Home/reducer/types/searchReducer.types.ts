@@ -1,17 +1,12 @@
-import { SearchFormTypes } from 'src/shared/types';
+import { SortByType, SortTypeType } from 'src/apiServices/types/kiwiApi.types';
+
+import { SearchFormTypes } from '../../types/types';
 
 export interface Passengers {
   adults: number;
   children: number;
   infants: number;
 }
-export type CodeType = 'M' | 'W' | 'C' | 'F';
-
-export type CabinClass = 'Economy' | 'Economy premium' | 'Business' | 'First class';
-
-export type SortByType = 'price' | 'duration' | 'quality';
-
-export type SortTypeType = 1 | 0;
 
 export interface Sort {
   sortBy: SortByType;

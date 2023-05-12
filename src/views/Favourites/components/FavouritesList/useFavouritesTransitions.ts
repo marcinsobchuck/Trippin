@@ -1,6 +1,6 @@
 import { useTransition } from 'react-spring';
 
-import { FavouriteFlight } from 'src/views/Home/components/SearchResults/hooks/useFavourites';
+import { FavouriteFlight } from 'src/hooks/useFavourites';
 
 export const useFavouritesTransitions = (data: FavouriteFlight[]) => {
   const transitionsDesktop = useTransition(data, {

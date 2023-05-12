@@ -1,6 +1,6 @@
 import { FieldHookConfig, FormikErrors } from 'formik';
 
-import { Date } from 'src/shared/types';
+import { Date } from 'src/views/Home/types/types';
 
 interface Props {
   error?: FormikErrors<Date>;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { useCombobox } from 'downshift';

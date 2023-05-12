@@ -1,8 +1,8 @@
 import { Dispatch } from 'react';
 
 import { Flight } from 'src/apiServices/types/kiwiApi.types';
-import { SearchFormTypes } from 'src/shared/types';
 
+import { SearchFormTypes } from '../../types/types';
 import { SearchActions } from '../enums/searchActions.enum';
 import {
   SetDirectOnly,
@@ -15,10 +15,7 @@ import {
 } from '../types/search.actions.types';
 import { Sort } from '../types/searchReducer.types';
 
-export const setSearchFormData = (
-  dispatch: Dispatch<SetSearchFormData>,
-  searchFormData: SearchFormTypes,
-) => {
+export const setSearchFormData = (dispatch: Dispatch<SetSearchFormData>, searchFormData: SearchFormTypes) => {
   dispatch({
     type: SearchActions.SET_SEARCH_FORM_DATA,
     payload: searchFormData,
@@ -38,10 +35,7 @@ export const setPage = (dispatch: Dispatch<SetPage>, page: number) => {
   });
 };
 
-export const setRangeSliderValue = (
-  dispatch: Dispatch<SetRangeSliderValue>,
-  rangeSliderValue: number[],
-) => {
+export const setRangeSliderValue = (dispatch: Dispatch<SetRangeSliderValue>, rangeSliderValue: number[]) => {
   dispatch({
     type: SearchActions.SET_RANGE_SLIDER_VALUE,
     payload: rangeSliderValue,
@@ -55,10 +49,7 @@ export const setSort = (dispatch: Dispatch<SetSort>, sort: Sort) => {
   });
 };
 
-export const setDirectOnly = (
-  dispatch: Dispatch<SetDirectOnly>,
-  directOnly: number | undefined,
-) => {
+export const setDirectOnly = (dispatch: Dispatch<SetDirectOnly>, directOnly: number | undefined) => {
   dispatch({
     type: SearchActions.SET_DIRECT_ONLY,
     payload: directOnly,

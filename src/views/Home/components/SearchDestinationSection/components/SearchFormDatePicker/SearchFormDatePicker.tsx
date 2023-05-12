@@ -9,8 +9,8 @@ import { useMediaQuery } from 'react-responsive';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
 import i18n from 'src/i18n';
-import { SearchFormTypes } from 'src/shared/types';
 import { Button } from 'src/styles/Button.styled';
+import { SearchFormTypes } from 'src/views/Home/types/types';
 
 import {
   CompactDatePicker,
@@ -24,6 +24,7 @@ import {
   Wrapper,
 } from './SearchFormDatePicker.styled';
 import { SearchFormDatePickerProps } from './SearchFormDatePicker.types';
+
 import 'moment/locale/pl';
 
 export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ error, ...props }) => {

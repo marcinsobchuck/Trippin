@@ -1,6 +1,14 @@
-import { CodeType, SortByType, SortTypeType } from 'src/views/Home/reducer/types/searchReducer.types';
-
 export type LocationType = 'airport' | 'country' | 'city';
+
+export type LanguageCode = 'en' | 'pl';
+
+export type CurrencyCode = 'USD' | 'GBP' | 'EUR' | 'PLN';
+
+export type CabinCode = 'M' | 'W' | 'C' | 'F';
+
+export type SortByType = 'price' | 'duration' | 'quality';
+
+export type SortTypeType = 1 | 0;
 
 export interface LocationsParameters {
   term: string;
@@ -50,9 +58,9 @@ export interface SearchParameters {
   adults: number;
   children?: number;
   infants?: number;
-  selected_cabins: CodeType;
-  curr: 'USD' | 'GBP' | 'EUR' | 'PLN';
-  locale: 'pl' | 'en';
+  selected_cabins: CabinCode;
+  curr: CurrencyCode;
+  locale: LanguageCode;
   limit: number;
   price_from?: number;
   price_to?: number;

@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
-import { SearchFormTypes } from 'src/shared/types';
 import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
+import { SearchFormTypes } from 'src/views/Home/types/types';
 
 import {
   setIsParamsEqual,

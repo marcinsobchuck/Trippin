@@ -7,15 +7,17 @@ import pound from 'src/assets/images/pound.png';
 import usaFlag from 'src/assets/images/usaFlag.png';
 import zloty from 'src/assets/images/zloty.png';
 
+import { CurrencyCode, LanguageCode } from 'src/apiServices/types/kiwiApi.types';
+
 export interface Language {
-  languageCode: 'en' | 'pl';
+  languageCode: LanguageCode;
   flag: typeof usaFlag | typeof polishFlag;
   language_key: string;
 }
 
 export interface Currency {
   currency_key: string;
-  currencyCode: 'USD' | 'GBP' | 'EUR' | 'PLN';
+  currencyCode: CurrencyCode;
   currencyIcon: typeof dollar | typeof euro | typeof zloty | typeof pound;
 }
 export interface RegionalSettingsTypes {

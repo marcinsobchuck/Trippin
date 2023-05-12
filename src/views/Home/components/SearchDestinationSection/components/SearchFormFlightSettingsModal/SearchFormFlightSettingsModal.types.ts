@@ -1,6 +1,6 @@
 import { FieldHookConfig } from 'formik';
 
-import { FlightSettings } from 'src/shared/types';
+import { FlightSettings } from 'src/views/Home/types/types';
 
 export interface Props {
   showFlightSettingsModal: boolean;

@@ -11,10 +11,10 @@ import { Flight } from 'src/apiServices/types/kiwiApi.types';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
+import { useFavourites } from 'src/hooks/useFavourites';
 import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
-import { useFavourites } from '../../hooks/useFavourites';
 import { FlightDetailsModal } from '../FlightDetailsModal/FlightDetailsModal';
 import { PageSetter } from '../PageSetter/PageSetter';
 import { SearchResultsListItem } from '../SearchResultsListItem/SearchResultsListItem';

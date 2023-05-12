@@ -8,8 +8,7 @@ import { Colors } from 'src/enums/colors.enum';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 import { setSort } from 'src/views/Home/reducer/actions/search.actions';
 
-import { options } from '../FilterAndSort/config';
-
+import { options } from './config';
 import { StyledButton, StyledItem, StyledLabel, StyledList, StyledText, Wrapper } from './SortSelect.styled';
 
 export const SortSelect: React.FC = () => {

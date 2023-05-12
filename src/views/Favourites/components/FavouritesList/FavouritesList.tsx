@@ -10,8 +10,8 @@ import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { Routes } from 'src/enums/routes.enum';
 import { useAuth } from 'src/hooks/useAuth';
+import { useFavourites } from 'src/hooks/useFavourites';
 import { RedirectButton } from 'src/styles/Button.styled';
-import { useFavourites } from 'src/views/Home/components/SearchResults/hooks/useFavourites';
 
 import { FavouriteTrip } from '../FavouriteTrip/FavouriteTrip';
 
@@ -20,22 +20,21 @@ import { useFavouritesTransitions } from './useFavouritesTransitions';
 
 export const FavouritesList: React.FC = () => {
   const { currentUser } = useAuth();
+  const { t } = useTranslation();
 
   const { data, isLoading, deleteFavouriteTrip } = useFavourites(currentUser as User);
 
   const handleDeleteFavouriteTrip = (id: string) => {
     toast.promise(deleteFavouriteTrip(id), {
-      error: 'Error deleting from favourites',
-      pending: 'Deleting from favourites',
-      success: 'Deleted from favourites!',
+      error: t('views.favourites.errors.failedToDelete'),
+      pending: t('views.favourites.pending.pendingDeletion'),
+      success: t('views.favourites.success.successfulDeletion'),
     });
   };
 
   const isDesktop = useMediaQuery({
     query: `${Breakpoint.Desktop}`,
   });
-
-  const { t } = useTranslation();
 
   const { transitionsDesktop, transitionsMobile } = useFavouritesTransitions(data);
 

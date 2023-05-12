@@ -10,6 +10,13 @@ import veniceImage from 'src/assets/images/veniceImage.jpg';
 import viennaImage from 'src/assets/images/viennaImage.jpg';
 
 import { RecommendedPlaces } from 'src/enums/recommendedPlaces.enum';
+import { Routes } from 'src/enums/routes.enum';
+
+export const menuItems = [
+  { route: Routes.Favourites, menu_key: 'views.home.menu.myTrips' },
+  { route: Routes.Favourites, menu_key: 'views.home.menu.preferences' },
+  { route: Routes.Favourites, menu_key: 'views.home.menu.account' },
+];
 
 export const recommendedPlacesArray = [
   {

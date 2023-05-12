@@ -1,6 +1,17 @@
 {
   "views": {
     "forgottenPassword": {
+      "pending": {
+        "pending": "E-mail jest wysyłany"
+      },
+      "success": {
+        "success": "E-mail z linkiem resetującym wysłany na"
+      },
+      "errors": {
+        "emailValid": "E-mail musi być w poprawnym formacie",
+        "emptyField": "To pole nie może byc puste",
+        "failedToReset": "Nie ma konta przypisanego do"
+      },
       "labels": {
         "reset": "Resetowanie hasła",
         "email": "E-mail"
@@ -54,7 +65,17 @@
       "errors": {
         "noFlightsTitle": "Przepraszamy, nie mogliśmy znaleźć żadnych wyników.",
         "noFlightsSuggestion": "Spróbuj wybrać inne daty lub zmienić ustawienia filtrowania.",
-        "required": "Wymagane"
+        "required": "Wymagane",
+        "failedToDelete": "Błąd podczas usuwania lotu",
+        "failedToAdd": "Błąd podczas dodawania lotu"
+      },
+      "pending": {
+        "pendingDeletion": "Usuwanie z ulubionych",
+        "pendingAddition": "Dodawanie do ulubionych"
+      },
+      "success": {
+        "successfulDeletion": "Usunięto z ulubionych",
+        "successfulAddition": "Dodano do ulubionych"
       },
       "languages": {
         "english": "Angielski",
@@ -173,7 +194,14 @@
       },
       "errors": {
         "noUpcomingTrips": "Na razie nie masz nadchodzących lotów",
-        "addNextTrip": "Dodaj kolejną wycieczkę do ulubionych a pojawi się tutaj."
+        "addNextTrip": "Dodaj kolejną wycieczkę do ulubionych a pojawi się tutaj.",
+        "failedToDelete": "Błąd podczas usuwania lotu"
+      },
+      "pending": {
+        "pendingDeletion": "Usuwanie z ulubionych"
+      },
+      "success": {
+        "successfulDeletion": "Usunięto z ulubionych"
       }
     }
   }

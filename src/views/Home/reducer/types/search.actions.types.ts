@@ -1,6 +1,6 @@
 import { Flight } from 'src/apiServices/types/kiwiApi.types';
-import { SearchFormTypes } from 'src/shared/types';
 
+import { SearchFormTypes } from '../../types/types';
 import { SearchActions } from '../enums/searchActions.enum';
 
 import { Sort } from './searchReducer.types';

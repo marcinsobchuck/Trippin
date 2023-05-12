@@ -1,4 +1,4 @@
-import { Option } from './FilterAndSort.types';
+import { Option } from '../FilterAndSort/FilterAndSort.types';
 
 export const options: Option[] = [
   {

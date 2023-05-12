@@ -1,6 +1,4 @@
-import { SearchParameters } from 'src/apiServices/types/kiwiApi.types';
-
-import { SortByType, SortTypeType } from '../../../../reducer/types/searchReducer.types';
+import { SearchParameters, SortByType, SortTypeType } from 'src/apiServices/types/kiwiApi.types';
 
 export interface Option {
   value: {

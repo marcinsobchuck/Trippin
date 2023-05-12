@@ -2,7 +2,7 @@ import adult from 'src/assets/images/adult.svg';
 import child from 'src/assets/images/child.svg';
 import infant from 'src/assets/images/infant.svg';
 
-import { CabinCode } from 'src/shared/types';
+import { CabinCode } from 'src/apiServices/types/kiwiApi.types';
 import { Passengers } from 'src/views/Home/reducer/types/searchReducer.types';
 
 interface Cabin {

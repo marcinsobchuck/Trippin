@@ -1,3 +1,5 @@
+import { CabinCode } from 'src/apiServices/types/kiwiApi.types';
+
 export interface RecommendedPlace {
   id: string;
   place_key?: string;
@@ -6,21 +8,12 @@ export interface RecommendedPlace {
   image: string;
 }
 
-export type CabinCode = 'M' | 'W' | 'C' | 'F';
-
-export type CabinClass = string;
-
-export type FlightType = 'round' | 'oneway';
-
 export type InputPlaceType = {
   id: string;
   text: string;
 };
 
-export type Date = {
-  inbound: string;
-  outbound?: string;
-};
+type CabinClass = 'Economy' | 'Economy premium' | 'Business' | 'First class';
 
 export type FlightSettings = {
   adults: number;
@@ -29,6 +22,13 @@ export type FlightSettings = {
   cabinCode: CabinCode;
   cabinClass: CabinClass;
   cabin_key: string;
+};
+
+export type FlightType = 'round' | 'oneway';
+
+export type Date = {
+  inbound: string;
+  outbound?: string;
 };
 
 export interface SearchFormTypes {

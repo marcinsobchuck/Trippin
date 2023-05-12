@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 import { animated } from 'react-spring';
 
+import { CabinCode } from 'src/apiServices/types/kiwiApi.types';
 import { Icon } from 'src/components/Icon/Icon';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
 import { useModalAnimation } from 'src/hooks/useModalAnimation';
-import { CabinCode } from 'src/shared/types';
 import { CustomRadioInput, StyledRadioInput } from 'src/styles/RadioInput.styled';
 import { Passengers } from 'src/views/Home/reducer/types/searchReducer.types';
 

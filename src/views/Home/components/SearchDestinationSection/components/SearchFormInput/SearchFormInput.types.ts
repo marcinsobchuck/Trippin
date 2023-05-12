@@ -1,6 +1,6 @@
 import { FieldHookConfig } from 'formik';
 
-import { InputPlaceType, RecommendedPlace } from 'src/shared/types';
+import { InputPlaceType, RecommendedPlace } from 'src/views/Home/types/types';
 
 export interface Props {
   label: string;

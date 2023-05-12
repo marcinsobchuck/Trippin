@@ -7,7 +7,8 @@ import { animated } from 'react-spring';
 import { Routes } from 'src/enums/routes.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useModalAnimation } from 'src/hooks/useModalAnimation';
-import { menuItems } from 'src/shared/config';
+
+import { menuItems } from '../../config';
 
 import { StyledText, Wrapper } from './AccountInformationPopover.styled';
 import { AccountInformationPopoverProps } from './AccountInformationPopover.types';

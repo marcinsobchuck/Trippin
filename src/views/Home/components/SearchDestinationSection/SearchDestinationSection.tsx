@@ -10,7 +10,8 @@ import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
-import { RecommendedPlace, SearchFormTypes } from 'src/shared/types';
+
+import { RecommendedPlace, SearchFormTypes } from '../../types/types';
 
 import { AccountInformationPopover } from './components/AccountInformationPopover/AccountInformationPopover';
 import { DrawerMenu } from './components/DrawerMenu/DrawerMenu';

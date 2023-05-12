@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import adultIcon from 'src/assets/images/adult.svg';
 import airplaneIcon from 'src/assets/images/airplane.svg';
 import arrowIcon from 'src/assets/images/arrow.svg';

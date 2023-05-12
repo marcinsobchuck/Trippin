@@ -9,7 +9,8 @@ import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
-import { menuItems } from 'src/shared/config';
+
+import { menuItems } from '../../config';
 
 import {
   CurrentSettings,

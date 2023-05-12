@@ -1,6 +1,17 @@
 {
   "views": {
     "forgottenPassword": {
+      "pending": {
+        "pending": "E-mail is being sent"
+      },
+      "success": {
+        "success": "E-mail with a reset link has been sent to"
+      },
+      "errors": {
+        "emailValid": "E-mail must be valid",
+        "emptyField": "This field can't be empty",
+        "failedToReset": "There is no account connected to"
+      },
       "labels": {
         "reset": "Reset password",
         "email": "E-mail"
@@ -54,7 +65,17 @@
       "errors": {
         "noFlightsTitle": "Sorry, we couldn't find any results.",
         "noFlightsSuggestion": "Try selecting different dates or change filtering settings",
-        "required": "Required"
+        "required": "Required",
+        "failedToDelete": "Error deleting from favourites",
+        "failedToAdd": "Error adding to favourites"
+      },
+      "pending": {
+        "pendingDeletion": "Deleting from favourites",
+        "pendingAddition": "Adding to favourites"
+      },
+      "success": {
+        "successfulDeletion": "Deleted from favourites!",
+        "successfulAddition": "Added to favourites!"
       },
       "languages": {
         "english": "English",
@@ -165,14 +186,22 @@
     "favourites": {
       "buttons": {
         "goBack": "Go back",
-        "kiwi": "See on kiwi.com"
+        "kiwi": "See on kiwi.com",
+        "search": "Search flights"
       },
       "labels": {
         "yourTrips": "Your trips"
       },
       "errors": {
         "noUpcomingTrips": "You don't have any upcoming trips.",
-        "addNextTrip": "Add your next trip to favourites and it will appear here."
+        "addNextTrip": "Add your next trip to favourites and it will appear here.",
+        "failedToDelete": "Error deleting from favourites"
+      },
+      "pending": {
+        "pendingDeletion": "Deleting from favourites"
+      },
+      "success": {
+        "successfulDeletion": "Deleted from favourites"
       }
     }
   }

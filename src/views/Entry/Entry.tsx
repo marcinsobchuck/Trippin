@@ -6,7 +6,6 @@ import { FormHero } from '../../components/FormHero/FormHero';
 import { Logo } from '../../components/Logo/Logo';
 import { Breakpoint } from '../../enums/breakpoint.enum';
 import { Colors } from '../../enums/colors.enum';
-import { useAnimations } from '../../hooks/useAnimations';
 import { useAuth } from '../../hooks/useAuth';
 
 import { AuthenticationForm } from './components/AuthenticationForm/AuthenticationForm';
@@ -21,6 +20,7 @@ import {
   SideBox,
   StyledButton,
 } from './Entry.styled';
+import { useAnimations } from './hooks/useAnimations';
 
 export const Entry: React.FC = () => {
   const { signUp, login } = useAuth();

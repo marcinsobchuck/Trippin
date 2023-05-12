@@ -5,12 +5,13 @@ import { toast } from 'react-toastify';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
+import { addFavourites, deleteFavourites } from 'src/firebase';
 import { useAuth } from 'src/hooks/useAuth';
 import { Button } from 'src/styles/Button.styled';
 import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 
 import { useRoutes } from '../../hooks/useRoutes';
-import { addFavourites, deleteFavourites, formatDate, formatTime } from '../../utils';
+import { formatDate, formatTime } from '../../utils';
 import { FlightRoute } from '../FlightRoute/FlightRoute';
 
 import {
@@ -55,9 +56,9 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   const handleAddToFavourites = (e: React.MouseEvent) => {
     e.stopPropagation();
     toast.promise(addFavourites(currentUser, data, regionalSettings.currency.currencyCode), {
-      error: 'Error adding to favourites',
-      pending: 'Adding to favourites',
-      success: 'Added to favourites!',
+      error: t('views.home.errors.failedToAdd'),
+      pending: t('views.home.pending.pendingAddition'),
+      success: t('views.home.success.successfulAddition'),
     });
 
     setAlreadyLiked(true);
@@ -66,9 +67,9 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   const handleDeleteFromFavourites = (e: React.MouseEvent) => {
     e.stopPropagation();
     toast.promise(deleteFavourites(currentUser, data.id), {
-      error: 'Error deleting from favourites',
-      pending: 'Deleting from favourites',
-      success: 'Deleted from favourites!',
+      error: t('views.home.errors.failedToDelete'),
+      pending: t('views.home.pending.pendingDeletion'),
+      success: t('views.home.success.successfulDeletion'),
     });
     setAlreadyLiked(false);
   };

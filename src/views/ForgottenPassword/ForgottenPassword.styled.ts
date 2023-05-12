@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import { FontSize } from 'src/enums/fontSize.enum';
+import { FontWeight } from 'src/enums/fontWeight.enum';
+
 import { AuthFormInput } from '../../components/AuthenticationFormInput/AuthFormInput';
 import { Breakpoint } from '../../enums/breakpoint.enum';
 import { Colors } from '../../enums/colors.enum';
@@ -27,17 +30,18 @@ export const StyledAuthFormInput = styled(AuthFormInput)`
   }
 `;
 
-export const Information = styled.p`
-  text-align: center;
-  margin-top: 20px;
-  color: ${Colors.DarkBlue};
-`;
-export const ErrorMesage = styled.p`
-  text-align: center;
-  margin-top: 20px;
-  color: ${Colors.Red};
-`;
-
 export const StyledButton = styled(Button)`
   margin-top: 40px;
+`;
+
+export const ErrorStyled = styled.span`
+  color: ${Colors.Red};
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.Light};
+`;
+
+export const ErrorSpace = styled.div`
+  visibility: hidden;
+  font-size: ${FontSize.Small};
+  font-weight: ${FontWeight.Light};
 `;

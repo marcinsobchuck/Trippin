@@ -1,4 +1,4 @@
-import { SearchFormTypes } from 'src/shared/types';
+import { SearchFormTypes } from 'src/views/Home/types/types';
 
 export const initialValues: SearchFormTypes = {
   start: {
