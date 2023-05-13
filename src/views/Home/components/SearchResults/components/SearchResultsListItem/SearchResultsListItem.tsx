@@ -141,17 +141,15 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
             {t('views.home.buttons.kiwi')}
           </Button>
         </a>
-        <FavouriteWrapper
-          isAlreadyLiked={alreadyLiked}
-          onClick={(e) => (alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e))}
-        >
-          {currentUser && (
-            <>
-              <p>{alreadyLiked ? t('views.home.buttons.delete') : t('views.home.buttons.save')}</p>
-              <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} fill={Colors.White} />
-            </>
-          )}
-        </FavouriteWrapper>
+        {currentUser && (
+          <FavouriteWrapper
+            isAlreadyLiked={alreadyLiked}
+            onClick={(e) => (alreadyLiked ? handleDeleteFromFavourites(e) : handleAddToFavourites(e))}
+          >
+            <p>{alreadyLiked ? t('views.home.buttons.delete') : t('views.home.buttons.save')}</p>
+            <Icon name={alreadyLiked ? 'minusIcon' : 'plusIcon'} fill={Colors.White} />
+          </FavouriteWrapper>
+        )}
       </ButtonsWrapper>
     </ItemWrapper>
   );

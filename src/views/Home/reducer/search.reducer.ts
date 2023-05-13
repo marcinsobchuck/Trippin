@@ -79,6 +79,7 @@ export const reducer = (state: SearchState, action: SearchAction) => {
         directOnly: action.payload,
         rangeSliderValue: [0, 0],
         isParamsEqual: false,
+        page: 1,
       };
     }
 

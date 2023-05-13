@@ -95,7 +95,7 @@ export const SearchResults: React.FC = () => {
             <HeadingText>{t('views.home.labels.popular')}</HeadingText>
             <span>{text}</span>
           </Heading>
-          {isDesktop && <TopDestinationsSideBar parameters={parameters} />}
+          {isDesktop && <TopDestinationsSideBar visibleItems={visibleItems} />}
         </TopDestinationsWrapper>
 
         <ResultsWrapper>
