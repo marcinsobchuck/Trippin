@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -40,7 +41,7 @@ export const SearchResults: React.FC = () => {
   const [
     {
       searchFormData: {
-        start: { id: startId, text },
+        start: { id: startId, text: startText },
         destination: { id: destinationId },
         date: { inbound, outbound },
         flightType,
@@ -76,43 +77,39 @@ export const SearchResults: React.FC = () => {
 
   const { isLoading, isFetching, isSuccess } = useSearchResults(parameters, !!startId);
 
-  const element = document.getElementById('search-results');
-
   useEffect(() => {
+    const element = document.getElementById('search-results');
     if (isLoading || isFetching || isSuccess) {
       element?.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [element, isFetching, isLoading, isSuccess]);
+  }, [isFetching, isLoading, isSuccess]);
 
   const { t } = useTranslation();
 
-  if (startId) {
-    return (
-      <Wrapper id="search-results">
-        <PromiseToastContainer autoClose={3000} />
-        <TopDestinationsWrapper>
-          <Heading>
-            <HeadingText>{t('views.home.labels.popular')}</HeadingText>
-            <span>{text}</span>
-          </Heading>
-          {isDesktop && <TopDestinationsSideBar visibleItems={visibleItems} />}
-        </TopDestinationsWrapper>
+  return (
+    <Wrapper id="search-results">
+      <PromiseToastContainer autoClose={3000} />
+      <TopDestinationsWrapper>
+        <Heading>
+          <HeadingText>{t('views.home.labels.popular')}</HeadingText>
+          <span>{startText}</span>
+        </Heading>
+        {isDesktop && <TopDestinationsSideBar visibleItems={visibleItems} />}
+      </TopDestinationsWrapper>
 
-        <ResultsWrapper>
-          <FilterAndSort
-            showSortSortAndFilter={showSortAndFilter}
-            setShowSortAndFilter={setShowSortAndFilter}
-            parameters={parameters}
-          />
+      <ResultsWrapper>
+        <FilterAndSort
+          showSortSortAndFilter={showSortAndFilter}
+          setShowSortAndFilter={setShowSortAndFilter}
+          parameters={parameters}
+        />
 
-          <SearchResultsList
-            visibleItems={visibleItems}
-            setVisibleItems={setVisibleItems}
-            parameters={parameters}
-          />
-        </ResultsWrapper>
-      </Wrapper>
-    );
-  }
-  return null;
+        <SearchResultsList
+          visibleItems={visibleItems}
+          setVisibleItems={setVisibleItems}
+          parameters={parameters}
+        />
+      </ResultsWrapper>
+    </Wrapper>
+  );
 };

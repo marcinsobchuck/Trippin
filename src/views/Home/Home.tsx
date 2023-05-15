@@ -9,7 +9,7 @@ import { useAuth } from '../../hooks/useAuth';
 
 import { SearchDestinationSection } from './components/SearchDestinationSection/SearchDestinationSection';
 import { SearchResults } from './components/SearchResults/SearchResults';
-import { SearchProvider } from './context/search.context';
+import { SearchContext, SearchProvider } from './context/search.context';
 
 export const Home: React.FC = () => {
   const { isFirstEntry, currentUser } = useAuth();
@@ -18,7 +18,9 @@ export const Home: React.FC = () => {
     <>
       <SearchProvider>
         <SearchDestinationSection />
-        <SearchResults />
+        <SearchContext.Consumer>
+          {(context) => context[0].searchFormData.start.id && <SearchResults />}
+        </SearchContext.Consumer>
       </SearchProvider>
 
       <Footer />

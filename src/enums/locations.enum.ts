@@ -1,4 +1,4 @@
-export enum LocationsType {
+export enum Locations {
   Airport = 'airport',
   Country = 'country',
   City = 'city',

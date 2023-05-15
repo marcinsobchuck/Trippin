@@ -1,9 +1,10 @@
-import { SearchParameters, SortByType, SortTypeType } from 'src/apiServices/types/kiwiApi.types';
+import { SearchParameters } from 'src/apiServices/types/kiwiApi.types';
+import { SortBy, SortType } from 'src/enums/sort.enum';
 
 export interface Option {
   value: {
-    sortBy: SortByType;
-    sortType: SortTypeType;
+    sortBy: SortBy;
+    sortType: SortType;
   };
   text_key: string;
 }

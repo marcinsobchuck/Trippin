@@ -4,10 +4,14 @@ import { getLocations } from '../kiwiApi';
 import { LocationsParameters } from '../types/kiwiApi.types';
 
 export const useLocations = (parameters: LocationsParameters) => {
-  const fetchLocations = useQuery(['location', parameters.term], () => getLocations(parameters), {
-    refetchOnWindowFocus: false,
-    enabled: parameters.term.trim() !== '',
-  });
+  const fetchLocations = useQuery(
+    ['location', parameters.term, parameters.locale],
+    () => getLocations(parameters),
+    {
+      refetchOnWindowFocus: false,
+      enabled: parameters.term.trim() !== '',
+    },
+  );
 
   return fetchLocations;
 };

@@ -2,6 +2,7 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { useCombobox } from 'downshift';
 import { useField } from 'formik';
+import debounce from 'lodash.debounce';
 import { useTranslation } from 'react-i18next';
 import { ThreeDots } from 'react-loader-spinner';
 import { useMediaQuery } from 'react-responsive';
@@ -14,7 +15,7 @@ import { useLocations } from 'src/apiServices/hooks/useLocations';
 import { Location } from 'src/apiServices/types/kiwiApi.types';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
-import { LocationsType } from 'src/enums/locationsType.enum';
+import { Locations } from 'src/enums/locations.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useLockBodyScroll } from 'src/hooks/useLockBodyScroll';
 import { Button } from 'src/styles/Button.styled';
@@ -36,7 +37,7 @@ import {
   StyledList,
 } from './SearchFormInput.styled';
 import { SearchFormInputProps } from './SearchFormInput.types';
-import { convertLanguageCodes, getLocationParameters } from './utils';
+import { convertLanguageCodes, getCurrentCodes, getLocationParameters } from './utils';
 
 export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   label,
@@ -48,15 +49,8 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   error,
   ...props
 }) => {
-  const [currentCodes, setCurrentCodes] = useState<string[]>([]);
+  const [currentCodes, setCurrentCodes] = useState<(string | undefined)[]>([]);
   const [place, setPlace] = useState<string>('');
-
-  const {
-    regionalSettings: {
-      language: { languageCode },
-    },
-  } = useAuth();
-  const [field, meta, helpers] = useField(props);
 
   const isTabletS = useMediaQuery({
     query: `${Breakpoint.TabletS}`,
@@ -64,14 +58,25 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
 
   const { t } = useTranslation();
 
-  const { data: codes } = useCodes(languageCode);
-  const { data, isLoading } = useLocations({
+  const {
+    regionalSettings: {
+      language: { languageCode },
+    },
+  } = useAuth();
+
+  const [field, meta, helpers] = useField(props);
+
+  const { data: codesData } = useCodes(languageCode);
+  const { data: locationsData, isLoading } = useLocations({
     term: place,
     limit: isTabletS ? 6 : 10,
-    location_types: ['airport', 'city', 'country'],
+    location_types: [Locations.Airport, Locations.City, Locations.Country],
     sort: 'name',
     locale: convertLanguageCodes(languageCode),
   });
+
+  const codes = codesData?.data;
+  const locations = locationsData?.data.locations;
 
   const loadOptions = (inputValue: string | undefined, selectedItem: Location | null | undefined) => {
     if (selectedItem && selectedItem.name === inputValue) {
@@ -82,6 +87,9 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
       setPlace(inputValue);
     }
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedLoadOptions = useCallback(debounce(loadOptions, 300), []);
 
   const { setValue } = helpers; // set Formik value
 
@@ -101,39 +109,17 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     inputValue,
     setInputValue,
   } = useCombobox({
-    items: data?.data.locations ? data?.data.locations : [],
+    items: locations || [],
     onInputValueChange: ({ inputValue, selectedItem }) => {
-      loadOptions(inputValue, selectedItem);
+      debouncedLoadOptions(inputValue, selectedItem);
     },
     onSelectedItemChange: ({ selectedItem }) => (selectedItem ? handleOnSelect(selectedItem) : null),
 
     itemToString: (item) => (item ? item.name : ''),
   });
 
-  const getCurrentCountryCodes = useCallback(() => {
-    if (codes?.data && data?.data.locations) {
-      const currentCountriesArray = data?.data.locations.map(
-        (location) => getLocationParameters(location).name,
-      );
-      const countriesData = Object.entries(codes.data);
-      const countries = Object.values(codes.data);
-      const currentCodes: string[] = [];
-      currentCountriesArray.forEach((el, index) => {
-        if (!countries.includes(el)) {
-          currentCodes[index] = 'unindentified';
-        }
-        countriesData.forEach((item) => {
-          if (item[1] === el) {
-            currentCodes.push(item[0]);
-          }
-        });
-      });
-      setCurrentCodes(currentCodes);
-    }
-  }, [codes?.data, data?.data.locations]);
-
   const getCountryFlag = (index: number) =>
-    currentCodes[index] !== 'unindentified'
+    currentCodes[index] !== undefined
       ? `https://flagcdn.com/24x18/${currentCodes[index]}.png`
       : planetEarthIcon;
 
@@ -144,10 +130,27 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
   };
 
   useEffect(() => {
-    if (data?.data.locations) {
-      getCurrentCountryCodes();
+    if (!isDestination) {
+      const getCurrentCity = () => {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (!timezone) {
+          return null;
+        }
+        const state = timezone.split('/')[1].replace('_', ' ');
+
+        setPlace(state);
+        return state;
+      };
+
+      getCurrentCity();
     }
-  }, [data?.data.locations, getCurrentCountryCodes]);
+  }, [isDestination, setInputValue]);
+
+  useEffect(() => {
+    if (codes && locations) {
+      setCurrentCodes(getCurrentCodes(locations, codes));
+    }
+  }, [codes, locations]);
 
   useEffect(() => {
     if (currentRecommendedPlace) {
@@ -194,16 +197,15 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
               setValue({ id: '', text: '' });
             }
           },
+          onClick: () => toggleMenu(),
         })}
         isFullscreen={!isTabletS && isOpen}
         placeholder={placeholder}
       />
-
       <StyledList isFullscreen={!isTabletS && isOpen} {...getMenuProps()}>
         {isOpen &&
           !isLoading &&
-          inputValue !== '' &&
-          data?.data.locations.map((location, index) => (
+          locations?.map((location, index) => (
             <StyledItem
               isFullscreen={!isTabletS && isOpen}
               {...getItemProps({
@@ -218,7 +220,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
               <StyledIcon src={getLocationParameters(location).icon} />
               <PlaceInfoWrapper>
                 <p>{location.name}</p>
-                {location.type !== LocationsType.Country && (
+                {location.type !== Locations.Country && (
                   <StyledCountryName>{getLocationParameters(location).name}</StyledCountryName>
                 )}
               </PlaceInfoWrapper>

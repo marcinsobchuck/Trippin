@@ -1,4 +1,5 @@
-export type LocationType = 'airport' | 'country' | 'city';
+import { Locations } from 'src/enums/locations.enum';
+import { SortBy, SortType } from 'src/enums/sort.enum';
 
 export type LanguageCode = 'en' | 'pl';
 
@@ -6,19 +7,17 @@ export type CurrencyCode = 'USD' | 'GBP' | 'EUR' | 'PLN';
 
 export type CabinCode = 'M' | 'W' | 'C' | 'F';
 
-export type SortByType = 'price' | 'duration' | 'quality';
-
-export type SortTypeType = 1 | 0;
-
 export interface LocationsParameters {
   term: string;
-  location_types: LocationType[];
+  location_types: Locations[];
   limit: number;
   sort: 'name' | '-name';
   locale: string;
 }
 
-export interface Location {
+export type Location = Airport | City | Country;
+
+export interface Airport {
   id: string;
   city: {
     id: string;
@@ -35,16 +34,25 @@ export interface Location {
     timezone: string;
   };
   name: string;
+  type: Locations.Airport;
+}
+export interface Country {
+  id: string;
+  name: string;
+  type: Locations.Country;
+}
+export interface City {
+  id: string;
+  name: string;
   country: {
     id: string;
     name: string;
   };
-  type: LocationType;
+  type: Locations.City;
 }
 
 export interface LocationsResponse {
   locations: Location[];
-  results_retrieved: number;
 }
 
 export interface SearchParameters {
@@ -64,8 +72,8 @@ export interface SearchParameters {
   limit: number;
   price_from?: number;
   price_to?: number;
-  sort: SortByType;
-  asc: SortTypeType;
+  sort: SortBy;
+  asc: SortType;
   max_stopovers?: number;
 }
 
@@ -116,6 +124,7 @@ export interface Flight {
   route: Route[];
   nightsInDest: number | null;
   has_airport_change: boolean;
+  quality: number;
   duration: {
     departure: number;
     return: number;

@@ -2,36 +2,27 @@ import airplaneIcon from 'src/assets/images/airplane.svg';
 import cityIcon from 'src/assets/images/city.svg';
 import countryIcon from 'src/assets/images/country.svg';
 
+import { FlagsResponse } from 'src/apiServices/types/flagsApi.types';
 import { Location } from 'src/apiServices/types/kiwiApi.types';
-import { LocationsType } from 'src/enums/locationsType.enum';
+import { Locations } from 'src/enums/locations.enum';
 
 export const convertLanguageCodes = (code: 'pl' | 'en') => {
-  switch (code) {
-    case 'en':
-      return 'en-EN';
-    case 'pl':
-      return 'pl-PL';
-    default:
-      return 'en-EN';
+  if (code === 'pl') {
+    return 'pl-PL';
   }
+  return 'en-EN';
 };
 
 export const getLocationParameters = (location: Location) => {
   switch (location.type) {
-    case LocationsType.Airport:
-      if (location.hasOwnProperty('country') && location.hasOwnProperty('city')) {
-        return {
-          name: location.country?.name,
-          icon: airplaneIcon,
-        };
-      }
-      return { name: location.city?.country.name, icon: airplaneIcon };
-    case LocationsType.City:
+    case Locations.Airport:
+      return { name: location.city.country.name, icon: airplaneIcon };
+    case Locations.City:
       return {
-        name: location.country?.name,
+        name: location.country.name,
         icon: cityIcon,
       };
-    case LocationsType.Country:
+    case Locations.Country:
       return {
         name: location.name,
         icon: countryIcon,
@@ -42,4 +33,24 @@ export const getLocationParameters = (location: Location) => {
         icon: '',
       };
   }
+};
+
+export const getCurrentCodes = (locations: Location[], codes: FlagsResponse) => {
+  const currentCountriesArray = locations.map((location) => getLocationParameters(location).name);
+  const countriesData = Object.entries(codes);
+  const countries = Object.values(codes);
+
+  const currentCodes: (string | undefined)[] = [];
+  currentCountriesArray.forEach((el, index) => {
+    if (!countries.includes(el)) {
+      currentCodes[index] = undefined;
+    }
+    countriesData.forEach((item) => {
+      if (item[1] === el) {
+        currentCodes.push(item[0]);
+      }
+    });
+  });
+
+  return currentCodes;
 };

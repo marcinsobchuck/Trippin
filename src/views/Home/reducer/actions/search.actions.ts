@@ -1,7 +1,5 @@
 import { Dispatch } from 'react';
 
-import { Flight } from 'src/apiServices/types/kiwiApi.types';
-
 import { SearchFormTypes } from '../../types/types';
 import { SearchActions } from '../enums/searchActions.enum';
 import {
@@ -11,7 +9,6 @@ import {
   SetRangeSliderValue,
   SetSearchFormData,
   SetSort,
-  SetVisibleItems,
 } from '../types/search.actions.types';
 import { Sort } from '../types/searchReducer.types';
 
@@ -22,12 +19,6 @@ export const setSearchFormData = (dispatch: Dispatch<SetSearchFormData>, searchF
   });
 };
 
-export const setVisibleItems = (dispatch: Dispatch<SetVisibleItems>, visibleItems: Flight[]) => {
-  dispatch({
-    type: SearchActions.SET_VISIBLE_ITEMS,
-    payload: visibleItems,
-  });
-};
 export const setPage = (dispatch: Dispatch<SetPage>, page: number) => {
   dispatch({
     type: SearchActions.SET_PAGE,

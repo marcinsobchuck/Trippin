@@ -10,6 +10,7 @@ import { useSearchResults } from 'src/apiServices/hooks/useSearchResults';
 import { Flight } from 'src/apiServices/types/kiwiApi.types';
 import { Breakpoint } from 'src/enums/breakpoint.enum';
 import { Colors } from 'src/enums/colors.enum';
+import { SortBy, SortType } from 'src/enums/sort.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useFavourites } from 'src/hooks/useFavourites';
 import { Button } from 'src/styles/Button.styled';
@@ -36,7 +37,7 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
 }) => {
   const [activeFlight, setActiveFlight] = useState<Flight>();
   const [showFlightDetailsModal, setShowFlightDetailsModal] = useState<boolean>(false);
-  const [{ page }, dispatch] = useSearchContext();
+  const [{ page, sort }] = useSearchContext();
 
   const { isError, data, isLoading } = useSearchResults(parameters);
 
@@ -52,15 +53,31 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
   const flightsData = data?.data.data;
   const noFlights = flightsData?.length === 0;
 
+  const sortFlightsData = (key: SortBy, sortType: SortType) =>
+    flightsData?.sort((a, b) => {
+      if (key === SortBy.Duration) {
+        if (sortType) {
+          return a.duration.total - b.duration.total;
+        }
+        return b.duration.total - a.duration.total;
+      }
+      if (sortType) {
+        return a[key] - b[key];
+      }
+      return b[key] - a[key];
+    });
+
+  const sortedFlightsData = sortFlightsData(sort.sortBy, sort.sortType);
+
   const limit = 8;
-  const maxPages = data ? Math.ceil(data.data.data.length / limit) : 0;
+  const maxPages = flightsData ? Math.ceil(flightsData.length / limit) : 0;
   const offset = page === 1 ? 0 : (page - 1) * limit;
 
   useEffect(() => {
-    if (flightsData) {
-      setVisibleItems(flightsData.slice(offset, page * limit));
+    if (sortedFlightsData) {
+      setVisibleItems(sortedFlightsData.slice(offset, page * limit));
     }
-  }, [dispatch, flightsData, offset, page, setVisibleItems]);
+  }, [sortedFlightsData, offset, page, setVisibleItems]);
 
   if (isError) return <Wrapper>Error retrieving data from the server!</Wrapper>;
 

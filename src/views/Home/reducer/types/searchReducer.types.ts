@@ -1,4 +1,4 @@
-import { SortByType, SortTypeType } from 'src/apiServices/types/kiwiApi.types';
+import { SortBy, SortType } from 'src/enums/sort.enum';
 
 import { SearchFormTypes } from '../../types/types';
 
@@ -9,8 +9,8 @@ export interface Passengers {
 }
 
 export interface Sort {
-  sortBy: SortByType;
-  sortType: SortTypeType;
+  sortBy: SortBy;
+  sortType: SortType;
 }
 
 export type SearchState = {
