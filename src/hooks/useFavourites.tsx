@@ -24,8 +24,8 @@ const filterAndSortData = (data: FavouriteFlight[], user: User) => {
   return sortedData;
 };
 
-export const useFavourites = (user: User) => {
-  const [data, setData] = useState<FavouriteFlight[]>([]);
+export const useFavourites = (user: User, initialData: FavouriteFlight[] = []) => {
+  const [data, setData] = useState<FavouriteFlight[]>(initialData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getData = useCallback(async () => {

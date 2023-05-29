@@ -21,7 +21,6 @@ import { useFavouritesTransitions } from './useFavouritesTransitions';
 export const FavouritesList: React.FC = () => {
   const { currentUser } = useAuth();
   const { t } = useTranslation();
-
   const { data, isLoading, deleteFavouriteTrip } = useFavourites(currentUser as User);
 
   const handleDeleteFavouriteTrip = (id: string) => {
@@ -56,7 +55,7 @@ export const FavouritesList: React.FC = () => {
 
   if (data.length === 0) {
     return (
-      <FavouriteTripsContainer>
+      <FavouriteTripsContainer data-testid="test-favourites-no-results">
         <NoResults>
           <NoResultsText>{t('views.favourites.errors.noUpcomingTrips')}</NoResultsText>
           <NoResultsLink>{t('views.favourites.errors.addNextTrip')}</NoResultsLink>

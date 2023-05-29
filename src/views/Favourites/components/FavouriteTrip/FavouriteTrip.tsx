@@ -44,7 +44,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
   const returnRoutes = flight.route.filter((route) => route.return === 1);
 
   return (
-    <TripContainer style={style}>
+    <TripContainer data-testid="test-favourite-trip" style={style}>
       <RouteContainer>
         <InfoContainer>
           <TextPrimary>
@@ -99,7 +99,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
           <Button variant="quaternary">{t('views.favourites.buttons.kiwi')}</Button>
         </a>
       </Summary>
-      <ActionsMenu onClick={() => onDelete(id)}>
+      <ActionsMenu data-testid="test-delete-menu" onClick={() => onDelete(id)}>
         <i className="fa-solid fa-trash" />
       </ActionsMenu>
     </TripContainer>
