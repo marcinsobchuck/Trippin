@@ -20,7 +20,7 @@ import {
   StyledRedirectButton,
   Title,
 } from './AuthenticationForm.styled';
-import { AuthenticationFormProps } from './AuthenticationForm.types';
+import { AuthValues, AuthenticationFormProps } from './AuthenticationForm.types';
 import { initialValues } from './config';
 import { loginValidationSchema, registerValidationSchema } from './validationSchema';
 
@@ -43,16 +43,17 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
 
   const { t } = useTranslation();
 
+  const handleSubmit = async ({ email, password }: AuthValues) => {
+    try {
+      await onSubmit(email, password);
+      history.push('/');
+    } catch (error) {
+      setError(t('views.entry.errors.userNotFound'));
+    }
+  };
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={async ({ email, password }) => {
-        await onSubmit(email, password)
-          .then(() => history.push('/'))
-          .catch(() => setError(t('views.entry.errors.userNotFound')));
-      }}
-      validationSchema={validationSchema}
-    >
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
       {({ isSubmitting }) => (
         <StyledForm>
           <Title>{title}</Title>
@@ -61,24 +62,27 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
             name="email"
             label={t('views.entry.labels.email')}
             placeholder={t('views.entry.placeholders.email')}
+            testId="test-email"
           />
           <AuthFormInput
             name="password"
             label={t('views.entry.labels.password')}
             placeholder={t('views.entry.placeholders.password')}
             type="password"
+            testId="test-password"
           />
-          {error && <Error>{error}</Error>}
+          {error && <Error data-testid="test-error">{error}</Error>}
           {isRegisterForm && (
             <AuthFormInput
               name="passwordConfirmation"
               label={t('views.entry.labels.passwordConfirmation')}
               placeholder={t('views.entry.placeholders.passwordConfirmation')}
               type="password"
+              testId="test-passwordConfirmation"
             />
           )}
           <ButtonsWrapper>
-            <Button width={200} variant="primary" type="submit">
+            <Button width={200} variant="primary" type="submit" data-testid="test-submitButton">
               {isSubmitting ? (
                 <TailSpin
                   color={Colors.Gray}

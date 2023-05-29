@@ -5,6 +5,7 @@ export interface Props {
   placeholder: string;
   className?: string;
   type: 'text' | 'password' | 'email';
+  testId?: string;
 }
 
 export type AuthFormInputProps = Props & FieldHookConfig<string>;
