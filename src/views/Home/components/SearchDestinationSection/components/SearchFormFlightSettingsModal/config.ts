@@ -18,6 +18,7 @@ interface SteppersDataType {
   type: keyof Passengers;
   minValue: number;
   maxValue: number;
+  testIncrementId: string;
 }
 
 export const cabinClassArray: Cabin[] = [
@@ -48,6 +49,7 @@ export const steppersData: SteppersDataType[] = [
     type: 'adults',
     minValue: 1,
     maxValue: 9,
+    testIncrementId: 'add-adult',
   },
   {
     icon: child,
@@ -57,6 +59,7 @@ export const steppersData: SteppersDataType[] = [
     type: 'children',
     minValue: 0,
     maxValue: 8,
+    testIncrementId: 'add-child',
   },
   {
     icon: infant,
@@ -66,5 +69,6 @@ export const steppersData: SteppersDataType[] = [
     type: 'infants',
     minValue: 0,
     maxValue: 1,
+    testIncrementId: 'add-infant',
   },
 ];

@@ -13,6 +13,7 @@ export const Stepper: React.FC<StepperProps> = ({
   minValue,
   maxValue,
   passengers: { adults, children, infants },
+  testIncrementId,
 }) => {
   const detectDisabled = () => {
     if (adults + children + infants >= 9) {
@@ -27,7 +28,12 @@ export const Stepper: React.FC<StepperProps> = ({
         <Icon name="minusIcon" width={18} height={18} fill={Colors.DarkerBlue} />
       </StepperIconWrapper>
       <StyledStepperInput type="text" value={value} readOnly />
-      <StepperIconWrapper type="button" disabled={detectDisabled()} onClick={increment}>
+      <StepperIconWrapper
+        data-testid={testIncrementId}
+        type="button"
+        disabled={detectDisabled()}
+        onClick={increment}
+      >
         <Icon name="plusIcon" width={18} height={18} fill={Colors.DarkerBlue} />
       </StepperIconWrapper>
     </StepperWrapper>

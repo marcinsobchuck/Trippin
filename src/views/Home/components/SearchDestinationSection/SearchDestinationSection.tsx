@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 
-import { FormikProps } from 'formik';
+import { FormikHelpers, FormikProps } from 'formik';
+import isEqual from 'lodash.isequal';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 import { useTransition } from 'react-spring';
@@ -11,6 +12,12 @@ import { Colors } from 'src/enums/colors.enum';
 import { useAuth } from 'src/hooks/useAuth';
 import { useOnClickOutside } from 'src/hooks/useClickOutside';
 
+import { useSearchContext } from '../../hooks/useSearchContext';
+import {
+  setIsParamsEqual,
+  setRangeSliderValue,
+  setSearchFormData,
+} from '../../reducer/actions/search.actions';
 import { RecommendedPlace, SearchFormTypes } from '../../types/types';
 
 import { AccountInformationPopover } from './components/AccountInformationPopover/AccountInformationPopover';
@@ -52,7 +59,19 @@ export const SearchDestinationSection: React.FC = () => {
 
   const { regionalSettings } = useAuth();
 
+  const [{ searchFormData }, dispatch] = useSearchContext();
+
   const { t } = useTranslation();
+
+  const handleSubmit = (submitData: SearchFormTypes, { setSubmitting }: FormikHelpers<SearchFormTypes>) => {
+    const paramsCheck = isEqual(submitData, searchFormData);
+
+    setIsParamsEqual(dispatch, paramsCheck);
+    setRangeSliderValue(dispatch, [0, 0]);
+    setSearchFormData(dispatch, submitData);
+
+    setTimeout(() => setSubmitting(false), 1500);
+  };
 
   const handleRegionalSettingsClick = () => {
     setShowRegionalSettingsModal((prevState) => !prevState);
@@ -137,7 +156,11 @@ export const SearchDestinationSection: React.FC = () => {
           ))}
         </ListWrapper>
       </SidebarWrapper>
-      <SearchForm formRef={formRef} currentRecommendedPlace={currentRecommendedPlace} />
+      <SearchForm
+        onSubmit={handleSubmit}
+        formRef={formRef}
+        currentRecommendedPlace={currentRecommendedPlace}
+      />
       <RegionalSettingsModal
         setShowRegionalSettingsModal={setShowRegionalSettingsModal}
         showRegionalSettingsModal={showRegionalSettingsModal}

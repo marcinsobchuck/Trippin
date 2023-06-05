@@ -7,4 +7,5 @@ export interface StepperProps {
   minValue: number;
   maxValue: number;
   passengers: Passengers;
+  testIncrementId: string;
 }

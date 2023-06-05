@@ -79,7 +79,7 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
             zIndex: 10,
           }}
         >
-          <Wrapper ref={ref}>
+          <Wrapper ref={ref} role="dialog">
             <IconWrapper onClick={handleCloseModal}>
               <Icon name="closeIcon" height={16} width={16} fill={Colors.DarkerBlue} />
             </IconWrapper>
@@ -108,6 +108,7 @@ export const SearchFormFlightSettingsModal: React.FC<SearchFormFlightSettingsPro
                   value={field.value[stepper.type]}
                   minValue={stepper.minValue}
                   maxValue={stepper.maxValue}
+                  testIncrementId={stepper.testIncrementId}
                 />
               </Row>
             ))}

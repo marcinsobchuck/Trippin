@@ -113,7 +113,6 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ erro
             numberOfMonths={isDesktop ? 2 : 1}
             hideKeyboardShortcutsPanel
             firstDayOfWeek={1}
-            readOnly
             disabled={flightType === 'oneway' && 'endDate'}
             displayFormat="DD/MM/YYYY"
           />
@@ -139,7 +138,6 @@ export const SearchFormDatePicker: React.FC<SearchFormDatePickerProps> = ({ erro
             renderCalendarInfo={renderCalendarInfo}
             firstDayOfWeek={1}
             initialVisibleMonth={() => moment()}
-            readOnly
             disabled={flightType === 'oneway' && 'endDate'}
             displayFormat="DD/MM/YYYY"
           />

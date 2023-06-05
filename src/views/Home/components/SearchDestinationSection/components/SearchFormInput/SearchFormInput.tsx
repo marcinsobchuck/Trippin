@@ -106,7 +106,6 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
     isOpen,
     toggleMenu,
     highlightedIndex,
-    inputValue,
     setInputValue,
   } = useCombobox({
     items: locations || [],
@@ -228,7 +227,7 @@ export const SearchFormInput: React.FC<SearchFormInputProps> = ({
               <StyledFlag src={getCountryFlag(index)} alt="country flag" />
             </StyledItem>
           ))}
-        {isOpen && inputValue !== '' && isDestination && (
+        {isOpen && isDestination && (
           <AnywhereItem onClick={handleClickAnywhere}>
             <StyledGlobe src={globeIcon} />
             <div>

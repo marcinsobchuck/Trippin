@@ -53,11 +53,12 @@ export const SettingsWrapper = styled.div`
   display: flex;
 `;
 
-export const FlightSettings = styled.div`
+export const FlightSettings = styled.button`
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  background-color: transparent;
   align-items: center;
   cursor: pointer;
   padding: 9px;

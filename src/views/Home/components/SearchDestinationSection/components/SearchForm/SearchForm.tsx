@@ -1,20 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 
-import { Formik, FormikHelpers, FormikProps } from 'formik';
-import isEqual from 'lodash.isequal';
+import { Formik, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from 'src/components/Icon/Icon';
 import { Colors } from 'src/enums/colors.enum';
 import { Button } from 'src/styles/Button.styled';
-import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 import { SearchFormTypes } from 'src/views/Home/types/types';
 
-import {
-  setIsParamsEqual,
-  setRangeSliderValue,
-  setSearchFormData,
-} from '../../../../reducer/actions/search.actions';
 import { SearchFormDatePicker } from '../SearchFormDatePicker/SearchFormDatePicker';
 import { SearchFormFlightSettingsModal } from '../SearchFormFlightSettingsModal/SearchFormFlightSettingsModal';
 import { SearchFormInput } from '../SearchFormInput/SearchFormInput';
@@ -34,22 +28,10 @@ import {
 import { SearchFormProps } from './SearchForm.types';
 import { searchSchema } from './validationSchema';
 
-export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommendedPlace }) => {
+export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommendedPlace, onSubmit }) => {
   const [showFlightSettingsModal, setShowFlightSettingsModal] = useState<boolean>(false);
 
-  const [{ searchFormData }, dispatch] = useSearchContext();
-
   const { t } = useTranslation();
-
-  const handleSubmit = (submitData: SearchFormTypes, { setSubmitting }: FormikHelpers<SearchFormTypes>) => {
-    const paramsCheck = isEqual(submitData, searchFormData);
-
-    setIsParamsEqual(dispatch, paramsCheck);
-    setRangeSliderValue(dispatch, [0, 0]);
-    setSearchFormData(dispatch, submitData);
-
-    setTimeout(() => setSubmitting(false), 1500);
-  };
 
   return (
     <Wrapper>
@@ -57,13 +39,16 @@ export const SearchForm: React.FC<SearchFormProps> = ({ formRef, currentRecommen
         validationSchema={searchSchema}
         initialValues={initialValues}
         innerRef={formRef}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
       >
         {({ values, isSubmitting, errors }: FormikProps<SearchFormTypes>) => (
           <StyledForm>
             <SettingsWrapper>
               <SearchFormRadio name="flightType" />
-              <FlightSettings onClick={() => setShowFlightSettingsModal((prevState) => !prevState)}>
+              <FlightSettings
+                type="button"
+                onClick={() => setShowFlightSettingsModal((prevState) => !prevState)}
+              >
                 <PassengersWrapper>
                   <ItemWrapper>
                     <Icon name="adultIcon" width={16} height={16} fill={Colors.White} />
