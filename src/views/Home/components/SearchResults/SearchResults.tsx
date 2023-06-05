@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -14,6 +13,7 @@ import { useSearchContext } from '../../hooks/useSearchContext';
 
 import { FilterAndSort } from './components/FilterAndSort/FilterAndSort';
 import { SearchResultsList } from './components/SearchResultsList/SearchResultsList';
+import { sortFlightsData } from './components/SearchResultsList/utils';
 import { TopDestinationsSideBar } from './components/TopDestinationsSidebar/TopDestinationsSidebar';
 import {
   Heading,
@@ -50,6 +50,7 @@ export const SearchResults: React.FC = () => {
       rangeSliderValue,
       sort: { sortBy, sortType },
       directOnly,
+      page,
     },
   ] = useSearchContext();
 
@@ -75,7 +76,20 @@ export const SearchResults: React.FC = () => {
     max_stopovers: directOnly,
   };
 
-  const { isLoading, isFetching, isSuccess } = useSearchResults(parameters, !!startId);
+  const { data, isLoading, isFetching, isSuccess } = useSearchResults(parameters, !!startId);
+
+  const flightsData = data?.data.data;
+
+  const sortedFlightsData = sortFlightsData(flightsData, sortBy, sortType);
+
+  const limit = 8;
+  const offset = page === 1 ? 0 : (page - 1) * limit;
+
+  useEffect(() => {
+    if (sortedFlightsData) {
+      setVisibleItems(sortedFlightsData.slice(offset, page * limit));
+    }
+  }, [sortedFlightsData, offset, page, setVisibleItems]);
 
   useEffect(() => {
     const element = document.getElementById('search-results');
@@ -104,11 +118,7 @@ export const SearchResults: React.FC = () => {
           parameters={parameters}
         />
 
-        <SearchResultsList
-          visibleItems={visibleItems}
-          setVisibleItems={setVisibleItems}
-          parameters={parameters}
-        />
+        <SearchResultsList visibleItems={visibleItems} parameters={parameters} />
       </ResultsWrapper>
     </Wrapper>
   );

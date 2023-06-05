@@ -81,7 +81,7 @@ export const SearchResultsListItem: React.FC<SearchResultsListItemProps> = ({
   }, [data.id, favourites]);
 
   return (
-    <ItemWrapper key={data.id} onClick={handleItemClick}>
+    <ItemWrapper role="listitem" key={data.id} onClick={handleItemClick}>
       <FlightWrapper>
         <FlightDirections>
           <FlightDirectionsWrapper>

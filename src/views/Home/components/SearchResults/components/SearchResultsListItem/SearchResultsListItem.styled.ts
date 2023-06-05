@@ -22,7 +22,7 @@ export const DetailsButton = styled.div`
   }
 `;
 
-export const ItemWrapper = styled.div`
+export const ItemWrapper = styled.li`
   border-radius: 9px;
   border: 1px solid transparent;
   padding: 18px;

@@ -19,7 +19,7 @@ export const StickyWrapper = styled.div`
   top: 92px;
 `;
 
-export const ListWrapper = styled.div`
+export const ListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
