@@ -13,14 +13,11 @@ export type InputPlaceType = {
   text: string;
 };
 
-type CabinClass = 'Economy' | 'Economy premium' | 'Business' | 'First class';
-
 export type FlightSettings = {
   adults: number;
   children: number;
   infants: number;
   cabinCode: CabinCode;
-  cabinClass: CabinClass;
   cabin_key: string;
 };
 
