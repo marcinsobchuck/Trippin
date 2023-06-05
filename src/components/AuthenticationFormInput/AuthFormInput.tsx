@@ -10,7 +10,6 @@ export const AuthFormInput: React.FC<AuthFormInputProps> = ({
   placeholder,
   type,
   className,
-  testId,
   ...props
 }) => {
   const [field, meta] = useField(props);
@@ -18,7 +17,7 @@ export const AuthFormInput: React.FC<AuthFormInputProps> = ({
   return (
     <Wrapper className={className}>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput {...field} type={type} id={label} placeholder={placeholder} data-testid={testId} />
+      <StyledInput {...field} type={type} id={label} placeholder={placeholder} />
       {meta.touched && meta.error ? <ErrorStyled>{meta.error}</ErrorStyled> : <ErrorSpace>error</ErrorSpace>}
     </Wrapper>
   );

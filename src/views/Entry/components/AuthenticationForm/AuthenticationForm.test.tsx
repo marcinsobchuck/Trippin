@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -16,11 +15,11 @@ describe('AuthenticationForm', () => {
   it('should store input value on change', async () => {
     const mockSubmit = jest.fn();
     const testPassword = 'password';
-    const { getByTestId } = render(
+    const { getByLabelText } = render(
       <AuthenticationForm onSubmit={mockSubmit} buttonText="Login" title="Login" />,
       { wrapper: Wrapper },
     );
-    const passwordInput = getByTestId('test-password') as HTMLInputElement;
+    const passwordInput = getByLabelText(/password/i) as HTMLInputElement;
 
     await userEvent.type(passwordInput, testPassword);
 
@@ -32,13 +31,15 @@ describe('AuthenticationForm', () => {
     const testPassword = 'password';
     const testEmail = 'email@gmail.com';
 
-    const { getByTestId } = render(
+    const { getByLabelText, getByRole } = render(
       <AuthenticationForm onSubmit={mockSubmit} buttonText="Login" title="Login" />,
       { wrapper: Wrapper },
     );
-    const emailInput = getByTestId('test-email');
-    const passwordInput = getByTestId('test-password');
-    const submitButton = getByTestId('test-submitButton');
+    const emailInput = getByLabelText(/e-mail/i);
+    const passwordInput = getByLabelText(/password/i);
+    const submitButton = getByRole('button', {
+      name: /login/i,
+    });
 
     await userEvent.type(emailInput, testEmail);
     await userEvent.type(passwordInput, testPassword);
@@ -50,11 +51,11 @@ describe('AuthenticationForm', () => {
 
   it('should render password confirmation input for register form', () => {
     const mockSubmit = jest.fn();
-    const { getByTestId } = render(
+    const { getByLabelText } = render(
       <AuthenticationForm onSubmit={mockSubmit} buttonText="Register" title="Register" isRegisterForm />,
       { wrapper: Wrapper },
     );
-    const passwordConfirmationInput = getByTestId('test-passwordConfirmation');
+    const passwordConfirmationInput = getByLabelText(/password confirmation/i);
 
     expect(passwordConfirmationInput).toBeInTheDocument();
   });
@@ -65,20 +66,22 @@ describe('AuthenticationForm', () => {
 
     const mockSubmit = jest.fn().mockRejectedValueOnce(new Error('Async error message'));
 
-    const { getByTestId } = render(
+    const { getByText, getByLabelText, getByRole } = render(
       <AuthenticationForm onSubmit={mockSubmit} buttonText="Login" title="Login" />,
       { wrapper: Wrapper },
     );
-    const emailInput = getByTestId('test-email');
-    const passwordInput = getByTestId('test-password');
-    const submitButton = getByTestId('test-submitButton');
+    const emailInput = getByLabelText(/e-mail/i);
+    const passwordInput = getByLabelText(/password/i);
+    const submitButton = getByRole('button', {
+      name: /login/i,
+    });
 
     await userEvent.type(emailInput, testEmail);
     await userEvent.type(passwordInput, testPassword);
 
     await userEvent.click(submitButton);
 
-    const error = getByTestId('test-error');
+    const error = getByText(/user not found/i);
 
     await waitFor(() => expect(error).toBeInTheDocument());
   });

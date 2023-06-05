@@ -99,7 +99,7 @@ export const FavouriteTrip: React.FC<FavouriteTripProps> = ({ flight, onDelete, 
           <Button variant="quaternary">{t('views.favourites.buttons.kiwi')}</Button>
         </a>
       </Summary>
-      <ActionsMenu data-testid="test-delete-menu" onClick={() => onDelete(id)}>
+      <ActionsMenu onClick={() => onDelete(id)}>
         <i className="fa-solid fa-trash" />
       </ActionsMenu>
     </TripContainer>

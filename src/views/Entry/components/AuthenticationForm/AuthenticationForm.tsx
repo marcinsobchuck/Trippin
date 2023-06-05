@@ -62,27 +62,24 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
             name="email"
             label={t('views.entry.labels.email')}
             placeholder={t('views.entry.placeholders.email')}
-            testId="test-email"
           />
           <AuthFormInput
             name="password"
             label={t('views.entry.labels.password')}
             placeholder={t('views.entry.placeholders.password')}
             type="password"
-            testId="test-password"
           />
-          {error && <Error data-testid="test-error">{error}</Error>}
+          {error && <Error>{error}</Error>}
           {isRegisterForm && (
             <AuthFormInput
               name="passwordConfirmation"
               label={t('views.entry.labels.passwordConfirmation')}
               placeholder={t('views.entry.placeholders.passwordConfirmation')}
               type="password"
-              testId="test-passwordConfirmation"
             />
           )}
           <ButtonsWrapper>
-            <Button width={200} variant="primary" type="submit" data-testid="test-submitButton">
+            <Button width={200} variant="primary" type="submit">
               {isSubmitting ? (
                 <TailSpin
                   color={Colors.Gray}
