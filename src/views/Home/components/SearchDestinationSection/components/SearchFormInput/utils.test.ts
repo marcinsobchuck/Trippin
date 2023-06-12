@@ -2,68 +2,15 @@ import airplaneIcon from 'src/assets/images/airplane.svg';
 import cityIcon from 'src/assets/images/city.svg';
 import countryIcon from 'src/assets/images/country.svg';
 
-import { Airport, City, Country, Location } from 'src/apiServices/types/kiwiApi.types';
-import { Locations } from 'src/enums/locations.enum';
-
-import { convertLanguageCodes, getCurrentCodes, getLocationParameters } from './utils';
-
-const testLocationAirport: Airport = {
-  id: '1',
-  city: {
-    id: '1',
-    code: 'waw',
-    continent: {
-      id: '1',
-      name: 'Europe',
-    },
-    name: 'Warsaw',
-    country: {
-      id: '1',
-      name: 'Poland',
-    },
-    timezone: 'utc +1',
-  },
-  name: 'Chopin',
-  type: Locations.Airport,
-};
-
-const testLocationCity: City = {
-  id: '1',
-  name: 'Warsaw',
-  country: {
-    id: '1',
-    name: 'Peru',
-  },
-  type: Locations.City,
-};
-
-const testLocationCountry: Country = {
-  id: '1',
-  name: 'United States',
-  type: Locations.Country,
-};
-
-const testUnpopularLocationCountry: Country = {
-  id: '1',
-  name: 'Swaziland',
-  type: Locations.Country,
-};
-
-const testCodes = {
-  pl: 'Poland',
-  pe: 'Peru',
-  us: 'United States',
-  sz: 'Eswatini',
-};
-
-const testLocationsOne: Location[] = [testLocationAirport, testLocationCity, testLocationCountry];
-
-const testLocationsTwo: Location[] = [
-  testUnpopularLocationCountry,
+import {
+  testCodes,
   testLocationAirport,
   testLocationCity,
   testLocationCountry,
-];
+} from 'src/fixtures/common/common';
+import { testLocationsOne, testLocationsTwo } from 'src/fixtures/tests/convertLanguageCodes';
+
+import { convertLanguageCodes, getCurrentCodes, getLocationParameters } from './utils';
 
 describe('convertLanguageCodes', () => {
   it('should properly convert langauge code', () => {

@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import 'react-dates/initialize';
 import React from 'react';
 
@@ -10,99 +9,21 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Airport, City, Country } from 'src/apiServices/types/kiwiApi.types';
 import { AuthContext } from 'src/context/AuthContext';
-import { RegionalSettingsTypes } from 'src/context/AuthContext.types';
-import { Locations } from 'src/enums/locations.enum';
+import {
+  testCodes,
+  testLocationAirport,
+  testLocationCity,
+  testLocationCountry,
+} from 'src/fixtures/common/common';
+import { testContextValue, testRecommendedPlace } from 'src/fixtures/tests/SearchDestinationSection';
 import { ReactQueryProvider } from 'src/ReactQueryProvider';
 import { SearchProvider } from 'src/views/Home/context/search.context';
 import { SearchFormTypes } from 'src/views/Home/types/types';
 
 import { SearchForm } from './SearchForm';
 
-const testLocationAirport: Airport = {
-  id: '1',
-  city: {
-    id: '1',
-    code: 'waw',
-    continent: {
-      id: '1',
-      name: 'Europe',
-    },
-    name: 'Warsaw',
-    country: {
-      id: '1',
-      name: 'Poland',
-    },
-    timezone: 'utc +1',
-  },
-  name: 'Chopin',
-  type: Locations.Airport,
-};
-
-const testLocationCity: City = {
-  id: '1',
-  name: 'Warsaw',
-  country: {
-    id: '1',
-    name: 'Peru',
-  },
-  type: Locations.City,
-};
-
-const testLocationCountry: Country = {
-  id: '1',
-  name: 'United States',
-  type: Locations.Country,
-};
-
-const testCodes = {
-  pl: 'Poland',
-  pe: 'Peru',
-  us: 'United States',
-  sz: 'Eswatini',
-};
-
-const fakeRecommendedPlace = {
-  id: '1',
-  place_key: 'test',
-  inputText: 'test',
-  place: 'test',
-  image: 'test',
-};
-
-jest.mock('src/firebase', () => ({
-  getAuth: jest.fn(),
-}));
-
-jest.mock('firebase/auth');
-
 jest.mock('react-inlinesvg');
-
-const mockedRegionalSettings: RegionalSettingsTypes = {
-  language: {
-    languageCode: 'en',
-    flag: 'test',
-    language_key: 'views.home.languages.english',
-  },
-  currency: {
-    currency_key: 'views.home.currencies.dollar',
-    currencyCode: 'USD',
-    currencyIcon: 'test',
-  },
-};
-
-const mockedContextValue = {
-  currentUser: null,
-  isFirstEntry: false,
-  login: jest.fn(),
-  signUp: jest.fn(),
-  logout: jest.fn(),
-  resetPassword: jest.fn(),
-  setIsFirstEntry: jest.fn(),
-  regionalSettings: mockedRegionalSettings,
-  setRegionalSettings: jest.fn(),
-};
 
 const server = setupServer(
   rest.get('https://tequila-api.kiwi.com/locations/query', (req, res, ctx) =>
@@ -112,7 +33,7 @@ const server = setupServer(
 );
 
 const Wrapper: React.FC = ({ children }) => (
-  <AuthContext.Provider value={mockedContextValue}>
+  <AuthContext.Provider value={testContextValue}>
     <SearchProvider>
       <ReactQueryProvider>
         <BrowserRouter>{children}</BrowserRouter>
@@ -134,7 +55,7 @@ describe('SearchDestinationSection', () => {
     const ref = React.createRef<FormikProps<SearchFormTypes>>();
 
     const { getByTestId, getAllByRole, getByRole } = render(
-      <SearchForm currentRecommendedPlace={fakeRecommendedPlace} formRef={ref} onSubmit={mockSubmit} />,
+      <SearchForm currentRecommendedPlace={testRecommendedPlace} formRef={ref} onSubmit={mockSubmit} />,
       { wrapper: Wrapper },
     );
 
@@ -238,7 +159,7 @@ describe('SearchDestinationSection', () => {
     const ref = React.createRef<FormikProps<SearchFormTypes>>();
 
     const { getByRole, getByText } = render(
-      <SearchForm currentRecommendedPlace={fakeRecommendedPlace} formRef={ref} onSubmit={mockSubmit} />,
+      <SearchForm currentRecommendedPlace={testRecommendedPlace} formRef={ref} onSubmit={mockSubmit} />,
       { wrapper: Wrapper },
     );
 

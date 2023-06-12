@@ -1,13 +1,8 @@
-import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
 import { AuthenticationForm } from './AuthenticationForm';
-
-jest.mock('src/firebase', () => ({
-  getAuth: () => jest.fn(),
-}));
 
 const Wrapper: React.FC = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
 

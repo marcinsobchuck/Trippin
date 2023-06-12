@@ -5,11 +5,7 @@ import { SearchAction } from './types/search.actions.types';
 import { SearchState } from './types/searchReducer.types';
 
 export const initialState: SearchState = {
-  // Pagination
-
   page: 1,
-
-  // Form data
 
   searchFormData: {
     start: {
@@ -33,8 +29,6 @@ export const initialState: SearchState = {
       cabin_key: 'views.home.flightSettings.economy',
     },
   },
-
-  // Sort and filter
 
   rangeSliderValue: [0, 0],
   sort: {
