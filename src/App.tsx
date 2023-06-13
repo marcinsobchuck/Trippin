@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 
-import { Routing } from './routing/Routing';
+import { Routing } from './Routing/Routing';
 import GlobalStyle from './styles/GlobalStyle';
 
 import 'react-dates/lib/css/_datepicker.css';
