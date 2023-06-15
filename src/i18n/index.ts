@@ -17,9 +17,16 @@ const settings = window.localStorage.getItem('regionalSettings');
 
 const storedLanguage = settings && JSON.parse(settings).language.languageCode;
 
+const getLanguage = () => {
+  if (!settings) {
+    return window.navigator.language === 'pl' ? 'pl' : 'en';
+  }
+  return storedLanguage;
+};
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: window.navigator.language === 'pl' && storedLanguage === 'pl' ? 'pl' : 'en',
+  lng: getLanguage(),
 });
 
 export default i18n;
