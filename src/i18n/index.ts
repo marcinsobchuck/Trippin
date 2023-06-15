@@ -13,9 +13,13 @@ const resources = {
   },
 };
 
+const settings = window.localStorage.getItem('regionalSettings');
+
+const storedLanguage = settings && JSON.parse(settings).language.languageCode;
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: window.navigator.language === 'pl' ? 'pl' : 'en',
+  lng: window.navigator.language === 'pl' && storedLanguage === 'pl' ? 'pl' : 'en',
 });
 
 export default i18n;
