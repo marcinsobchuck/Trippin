@@ -9,6 +9,7 @@ Trippin is a web application that lets you search for flights all around the wor
 - It suggests user trending destinations based on current starting location.
 - If a user is logged in it allows him to save individual flights to the favourites list which he can find in menu. All the data is stored in firestore database.
 - The app gives a user an option to choose language and currency.
+- It supports guest mode
 - Responsive
 
 ## APIs used
@@ -20,16 +21,16 @@ Trippin is a web application that lets you search for flights all around the wor
 
 # Main frameworks/libraries used
 
-- React with TypeScript
-- CSS (styled-components)
-- React Context API + useReducer (state management)
-- React Hooks
+- React v17 + TypeScript
+- styled-components
+- React Context API + useReducer
 - React Router
 - React Query
 - Formik
 - Firebase
 - Downshift
 - i18next
+- react-toastify
 
 ## Testing
 
@@ -64,3 +65,13 @@ Trippin is a web application that lets you search for flights all around the wor
 |                   Menu                   |                   Settings                    |
 | :--------------------------------------: | :-------------------------------------------: |
 | ![](src/assets/screenshots/menuView.PNG) | ![](src/assets/screenshots/settingsModal.PNG) |
+
+# 7. Installation
+
+In order to install use `npm install` in terminal.  
+Afterwards use `npm start` to run the app locally.
+
+#### Notes:
+
+- if encountered problems with `npm install` try using `npm install --force` since react-dates might be causing problems with react v17+
+- you would need api keys to fully setup application
