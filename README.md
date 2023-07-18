@@ -2,6 +2,10 @@
 
 Trippin is a web application that lets you search for flights all around the world using kiwi.com API.
 
+## Test credentials: 
+- email: test@test.pl
+- password: test123
+
 # General information
 
 - It will always try to search for the cheapest routes available.
