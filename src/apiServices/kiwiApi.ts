@@ -11,7 +11,7 @@ import {
 } from './types/kiwiApi.types';
 
 export const kiwiApi = axios.create({
-  baseURL: 'https://tequila-api.kiwi.com',
+  baseURL: 'https://api.tequila.kiwi.com/v2',
   headers: {
     accept: 'application/json',
     apikey: `${process.env.REACT_APP_KIWI_API_KEY}`,
