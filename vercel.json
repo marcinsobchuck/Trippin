@@ -1,0 +1,4 @@
+{
+  "installCommand": "npm install --force",
+  "buildCommand": "CI=false react-scripts build"
+}
