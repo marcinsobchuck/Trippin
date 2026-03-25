@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Rings } from "react-loader-spinner";
+import { Rings } from 'react-loader-spinner';
 
-import { usePhotos } from "src/apiServices/hooks/usePhotos";
-import { Colors } from "src/enums/colors.enum";
-import { useSearchContext } from "src/views/Home/hooks/useSearchContext";
+import { usePhotos } from 'src/apiServices/hooks/usePhotos';
+import { Colors } from 'src/enums/colors.enum';
+import { useSearchContext } from 'src/views/Home/hooks/useSearchContext';
 import {
   setIsParamsEqual,
   setRangeSliderValue,
   setSearchFormData,
-} from "src/views/Home/reducer/actions/search.actions";
+} from 'src/views/Home/reducer/actions/search.actions';
 
 import {
   ImageWrapper,
@@ -19,12 +19,16 @@ import {
   StyledImage,
   StyledTag,
   TagsWrapper,
-} from "./TopDestinationsSidebarItem.styled";
-import { TopDestinationsSideBarItemProps } from "./TopDestinationsSidebarItem.types";
+} from './TopDestinationsSidebarItem.styled';
+import { TopDestinationsSideBarItemProps } from './TopDestinationsSidebarItem.types';
 
-export const TopDestinationsSideBarItem: React.FC<
-  TopDestinationsSideBarItemProps
-> = ({ destinationName, continent, tags, id, slug }) => {
+export const TopDestinationsSideBarItem: React.FC<TopDestinationsSideBarItemProps> = ({
+  destinationName,
+  continent,
+  tags,
+  id,
+  slug,
+}) => {
   const [isLoaded, setLoaded] = useState(false);
   const [isLoadStarted, setLoadStarted] = useState(false);
 
@@ -39,7 +43,7 @@ export const TopDestinationsSideBarItem: React.FC<
   const [queryTerm, setQueryTerm] = useState(slug);
 
   const { data, refetch, isLoading } = usePhotos({
-    orientation: "landscape",
+    orientation: 'landscape',
     per_page: 1,
     query: queryTerm,
   });
