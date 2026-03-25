@@ -1,12 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Blurhash } from 'react-blurhash';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { Link } from 'react-scroll';
+import { Blurhash } from "react-blurhash";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-scroll";
 
-import { Colors } from 'src/enums/colors.enum';
-import { FontSize } from 'src/enums/fontSize.enum';
-import { FontWeight } from 'src/enums/fontWeight.enum';
+import { Colors } from "src/enums/colors.enum";
+import { FontSize } from "src/enums/fontSize.enum";
+import { FontWeight } from "src/enums/fontWeight.enum";
 
 export const ItemName = styled.div`
   display: flex;
@@ -77,7 +77,7 @@ export const ImageWrapper = styled(Link)`
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
