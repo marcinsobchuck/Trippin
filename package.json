@@ -17,7 +17,9 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-lazy-load-image-component": "^1.5.2",
+    "@vercel/node": "^5.6.20",
     "axios": "^0.21.4",
+    "blurhash": "^2.0.5",
     "downshift": "^6.1.7",
     "eslint-config-airbnb": "^19.0.4",
     "firebase": "^9.8.2",
@@ -50,7 +52,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider &&  react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

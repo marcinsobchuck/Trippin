@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import qs from 'qs';
+import axios, { AxiosResponse } from "axios";
+import qs from "qs";
 
 import {
   LocationsParameters,
@@ -8,30 +8,35 @@ import {
   SearchResponse,
   TopDestinationsParameters,
   TopDestinationsResponse,
-} from './types/kiwiApi.types';
+} from "./types/kiwiApi.types";
+
+const baseURL = process.env.VERCEL_URL || "";
 
 export const kiwiApi = axios.create({
-  baseURL: 'https://api.tequila.kiwi.com',
+  baseURL,
   headers: {
-    accept: 'application/json',
-    apikey: `${process.env.REACT_APP_KIWI_API_KEY}`,
+    accept: "application/json",
   },
-  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
 });
 
-export const getLocations = (parameters: LocationsParameters): Promise<AxiosResponse<LocationsResponse>> =>
-  kiwiApi.get('/locations/query', {
+export const getLocations = (
+  parameters: LocationsParameters,
+): Promise<AxiosResponse<LocationsResponse>> =>
+  kiwiApi.get("/api/locations", {
     params: parameters,
   });
 
-export const getSearchResults = (parameters: SearchParameters): Promise<AxiosResponse<SearchResponse>> =>
-  kiwiApi.get('/search/', {
+export const getSearchResults = (
+  parameters: SearchParameters,
+): Promise<AxiosResponse<SearchResponse>> =>
+  kiwiApi.get("/api/search", {
     params: parameters,
   });
 
 export const getTopDestinations = (
   parameters: TopDestinationsParameters,
 ): Promise<AxiosResponse<TopDestinationsResponse>> =>
-  kiwiApi.get('/locations/topdestinations', {
+  kiwiApi.get("/api/topdestinations", {
     params: parameters,
   });
